@@ -1,0 +1,43 @@
+2025-05-16 02:02:14,675 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-16 02:02:14,711 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.4:5000
+2025-05-16 02:02:14,714 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 02:03:38,896 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-16 02:03:39,181 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.4:5000
+2025-05-16 02:03:39,245 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 02:08:37,403 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-16 02:08:37,430 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.4:5000
+2025-05-16 02:08:37,430 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 02:09:45,723 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-16 02:09:45,788 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.4:5000
+2025-05-16 02:09:45,788 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 02:09:45,804 - werkzeug - INFO -  * Restarting with stat
+2025-05-16 02:09:46,783 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-16 02:09:46,807 - werkzeug - WARNING -  * Debugger is active!
+2025-05-16 02:09:46,831 - werkzeug - INFO -  * Debugger PIN: 387-036-016
+2025-05-16 02:11:43,760 - werkzeug - INFO -  * Detected change in 'C:\\Users\\user\\OneDrive\\Documents\\GitHub\\investigation\\Agents\\Agent\\unified_server.py', reloading
+2025-05-16 02:11:43,926 - werkzeug - INFO -  * Restarting with stat
+2025-05-16 02:11:45,879 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-16 02:11:45,901 - werkzeug - WARNING -  * Debugger is active!
+2025-05-16 02:11:45,918 - werkzeug - INFO -  * Debugger PIN: 387-036-016
+2025-05-16 02:11:58,849 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-16 02:11:58,896 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.4:5000
+2025-05-16 02:11:58,897 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 02:11:58,913 - werkzeug - INFO -  * Restarting with stat
+2025-05-16 02:11:59,913 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-16 02:11:59,950 - werkzeug - WARNING -  * Debugger is active!
+2025-05-16 02:11:59,968 - werkzeug - INFO -  * Debugger PIN: 387-036-016

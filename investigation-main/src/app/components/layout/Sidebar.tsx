@@ -70,7 +70,7 @@ const Sidebar = () => {
         </button>
       </div>
 
-      {!collapsed && user && (
+      {/* {!collapsed && user && (
         <div className="border-b border-gray-200 p-4">
           <div className="flex items-center">
             <div className="h-10 w-10 rounded-full bg-gray-200">
@@ -97,7 +97,7 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       <nav className="flex-1 overflow-y-auto p-2">
         <ul className="space-y-1">

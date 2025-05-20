@@ -26,6 +26,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(auth)/login/page.js"
     ],
+    "/api/auth/validate/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/auth/validate/route.js"
+    ],
     "/(dashboard)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -61,16 +66,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/murder-agent/check/route.js"
     ],
-    "/(dashboard)/settings/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(dashboard)/settings/page.js"
-    ],
-    "/api/crime-types/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/crime-types/route.js"
-    ],
     "/degree-guru/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -91,11 +86,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/murder-agent/direct/route.js"
     ],
-    "/api/auth/validate/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/validate/route.js"
-    ],
     "/api/augment/suggested-questions/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -106,10 +96,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/augment-ai/route.js"
     ],
-    "/(dashboard)/assignments/page": [
+    "/(dashboard)/settings/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(dashboard)/assignments/page.js"
+      "static/chunks/app/(dashboard)/settings/page.js"
     ],
     "/(dashboard)/reports/page": [
       "static/chunks/webpack.js",
@@ -120,6 +110,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/api-reports/route.js"
+    ],
+    "/api/crime-types/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/crime-types/route.js"
     ]
   }
 }

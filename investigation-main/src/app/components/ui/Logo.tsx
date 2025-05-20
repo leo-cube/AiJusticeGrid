@@ -16,10 +16,10 @@ const Logo: React.FC<LogoProps> = ({ size = 'md', className = '' }) => {
 
   return (
     <div className={`flex items-center ${className}`}>
-      <div className={`${sizeClasses[size]} rounded-full bg-blue-600 flex items-center justify-center`}>
-        <span className="text-white font-bold">PI</span>
-      </div>
-      <span className="ml-2 text-lg font-semibold">Police Investigation</span>
+      {/* <div className={`${sizeClasses[size]} rounded-full bg-blue-600 flex items-center justify-center`}>
+        <span className="text-white font-bold">AJG</span>
+      </div> */}
+      <span className="ml-2 text-lg font-semibold">AI JUSTICE GRID</span>
     </div>
   );
 };

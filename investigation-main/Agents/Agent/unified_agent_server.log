@@ -6326,3 +6326,117 @@
 2025-05-20 11:04:31,648 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 11:04:31] "POST /api/augment/murder HTTP/1.1" 200 -
 2025-05-20 11:04:31,648 - __main__ - INFO - Received request for Murder Agent
 2025-05-20 11:04:31,651 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 11:04:31] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 11:35:37,747 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-20 11:35:37,747 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-20 11:35:37,754 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-20 11:35:37,763 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.5.151:5000
+2025-05-20 11:35:37,763 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-20 11:35:37,764 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 11:35:38,768 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-20 11:35:38,768 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-20 11:35:38,775 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-20 11:35:38,783 - werkzeug - WARNING -  * Debugger is active!
+2025-05-20 11:35:38,783 - werkzeug - INFO -  * Debugger PIN: 507-202-439
+2025-05-20 14:35:44,510 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:35:44,511 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:35:44,512 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:35:44] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:35:44,513 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:35:44] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:35:50,655 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:35:50,655 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-20 14:35:50,656 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-20 14:35:50,656 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-20 14:35:50,656 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-20 14:35:50,656 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-20 14:35:50,656 - __main__ - INFO - Forcing creation of a new session
+2025-05-20 14:35:50,656 - __main__ - INFO - Created new conversation state with session ID: 5c79bb1a-8c00-4a1e-b106-26a3f78f75c7
+2025-05-20 14:35:50,656 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-20T14:35:50.656335'}
+2025-05-20 14:35:50,656 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:35:50] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:35:52,620 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:35:52,621 - __main__ - INFO - Received request with session_id: 5c79bb1a-8c00-4a1e-b106-26a3f78f75c7, user_input: ok
+2025-05-20 14:35:52,621 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-20 14:35:52,621 - __main__ - INFO - Processing message: ok with session_id: 5c79bb1a-8c00-4a1e-b106-26a3f78f75c7
+2025-05-20 14:35:52,621 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-20 14:35:52,621 - __main__ - INFO - Current step: greeting
+2025-05-20 14:35:52,621 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-20T14:35:50.656335'}
+2025-05-20 14:35:52,621 - __main__ - INFO - Processing user input for session 5c79bb1a-8c00-4a1e-b106-26a3f78f75c7, step greeting: ok
+2025-05-20 14:35:52,621 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-20T14:35:50.656335'}
+2025-05-20 14:35:52,621 - __main__ - INFO - Stored user input in field case_id: ok
+2025-05-20 14:35:52,621 - __main__ - INFO - Advanced to next step: date_of_crime
+2025-05-20 14:35:52,622 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:35:52] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:36:00,684 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:36:00,684 - __main__ - INFO - Received request with session_id: 5c79bb1a-8c00-4a1e-b106-26a3f78f75c7, user_input: ok
+2025-05-20 14:36:00,684 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-20 14:36:00,684 - __main__ - INFO - Processing message: ok with session_id: 5c79bb1a-8c00-4a1e-b106-26a3f78f75c7
+2025-05-20 14:36:00,684 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-20 14:36:00,684 - __main__ - INFO - Current step: date_of_crime
+2025-05-20 14:36:00,684 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': 'ok'}, 'last_updated': '2025-05-20T14:35:52.621814'}
+2025-05-20 14:36:00,684 - __main__ - INFO - Processing user input for session 5c79bb1a-8c00-4a1e-b106-26a3f78f75c7, step date_of_crime: ok
+2025-05-20 14:36:00,685 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': 'ok'}, 'last_updated': '2025-05-20T14:35:52.621814'}
+2025-05-20 14:36:00,686 - __main__ - INFO - Validation failed for input: ok with validation type: date
+2025-05-20 14:36:00,686 - __main__ - ERROR - Failed to store user input: ok, error: Please provide a valid date in YYYY-MM-DD format. Examples: 2023-05-15, 05/15/2023, May 15, 2023.
+2025-05-20 14:36:00,687 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:36:00] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:36:21,772 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:36:21,773 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:36:21] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:36:21,801 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:36:21,802 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:36:21] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:52:05,268 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:52:05,269 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:52:05] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:52:05,269 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:52:05,272 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:52:05] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:52:47,466 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:52:47,466 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:52:47] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:52:47,516 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:52:47,519 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:52:47] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:53:14,989 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:53:14,989 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:53:14] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:53:15,039 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:53:15,039 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:53:15] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:55:55,449 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:55:55,450 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:55:55,451 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:55:55] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:55:55,451 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:55:55] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:56:50,838 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:56:50,840 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:56:50] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:56:50,891 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:56:50,893 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:56:50] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:57:20,342 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:57:20,343 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:57:20] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:57:20,400 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:57:20,401 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:57:20] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:57:25,277 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:57:25,277 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-20 14:57:25,277 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-20 14:57:25,277 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-20 14:57:25,277 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-20 14:57:25,277 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-20 14:57:25,277 - __main__ - INFO - Forcing creation of a new session
+2025-05-20 14:57:25,278 - __main__ - INFO - Created new conversation state with session ID: c2fa1bd1-1d7f-453a-bda2-71b743551c76
+2025-05-20 14:57:25,278 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-20T14:57:25.278076'}
+2025-05-20 14:57:25,278 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:57:25] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:57:53,708 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:57:53,709 - __main__ - INFO - Received request with session_id: c2fa1bd1-1d7f-453a-bda2-71b743551c76, user_input: How is forensic evidence collected at a murder scene?
+2025-05-20 14:57:53,709 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-20 14:57:53,709 - __main__ - INFO - Processing message: How is forensic evidence collected at a murder scene? with session_id: c2fa1bd1-1d7f-453a-bda2-71b743551c76
+2025-05-20 14:57:53,709 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-20 14:57:53,709 - __main__ - INFO - Current step: greeting
+2025-05-20 14:57:53,709 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-20T14:57:25.278076'}
+2025-05-20 14:57:53,709 - __main__ - INFO - Processing user input for session c2fa1bd1-1d7f-453a-bda2-71b743551c76, step greeting: How is forensic evidence collected at a murder scene?
+2025-05-20 14:57:53,709 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-20T14:57:25.278076'}
+2025-05-20 14:57:53,709 - __main__ - INFO - Stored user input in field case_id: How is forensic evidence collected at a murder scene?
+2025-05-20 14:57:53,709 - __main__ - INFO - Advanced to next step: date_of_crime
+2025-05-20 14:57:53,710 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:57:53] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:58:00,690 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:58:00,690 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:58:00] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:58:00,720 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:58:00,720 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:58:00] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:58:33,085 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:58:33,086 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:58:33] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:58:33,111 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:58:33,112 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:58:33] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:58:40,228 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:58:40,230 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:58:40] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-20 14:58:40,278 - __main__ - INFO - Received request for Murder Agent
+2025-05-20 14:58:40,282 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 14:58:40] "POST /api/augment/murder HTTP/1.1" 200 -

@@ -1,4 +1,4 @@
-// File: /home/leojamescharles/Desktop/aijusticegrid/investigation-main_updated/investigation-main/src/app/(dashboard)/dashboard/page.tsx
+// File: /home/leojamescharles/Desktop/aijusticegrid/investigation-main_updated/AiJusticeGrid/investigation-main/src/app/(dashboard)/dashboard/page.tsx
 import * as entry from '../../../../../src/app/(dashboard)/dashboard/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -1,12 +1,9 @@
 {
   "/api/agents/route": "app/api/agents/route.js",
   "/api/dashboard/route": "app/api/dashboard/route.js",
-  "/api/agents/status/route": "app/api/agents/status/route.js",
-  "/api/murder-agent/check/route": "app/api/murder-agent/check/route.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
   "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
-  "/(dashboard)/crime/page": "app/(dashboard)/crime/page.js",
-  "/(dashboard)/settings/page": "app/(dashboard)/settings/page.js",
   "/degree-guru/page": "app/degree-guru/page.js",
-  "/(dashboard)/assignments/page": "app/(dashboard)/assignments/page.js",
-  "/(dashboard)/reports/page": "app/(dashboard)/reports/page.js"
+  "/(dashboard)/settings/page": "app/(dashboard)/settings/page.js",
+  "/(dashboard)/crime/page": "app/(dashboard)/crime/page.js"
 }

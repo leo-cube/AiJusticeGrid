@@ -236,13 +236,13 @@ export default function CrimePage() {
                   </div>
 
                   {/* Backend status for murder agent */}
-                  {agent.id === 'murder' && (
+                  {/* {agent.id === 'murder' && (
                     <div className="px-4 py-2 bg-gray-50 border-t border-gray-200 text-xs text-gray-500">
                       {murderAgentBackendAvailable
                         ? 'Using Python backend at localhost:5000'
                         : 'Check terminal for backend status'}
                     </div>
-                  )}
+                  )} */}
                 </div>
               ))}
             </div>

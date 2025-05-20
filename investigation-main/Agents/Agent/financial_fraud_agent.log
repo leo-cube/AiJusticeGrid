@@ -1,0 +1,6 @@
+2025-05-13 00:12:51,993 - __main__ - INFO - Using provided NVIDIA API key
+2025-05-13 00:12:52,592 - __main__ - INFO - Financial Fraud Agent initialized with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-05-13 00:12:52,600 - __main__ - INFO - Analyzing financial fraud case
+2025-05-13 00:12:52,600 - __main__ - INFO - Calling NVIDIA API for analysis
+2025-05-13 00:13:12,926 - httpx - INFO - HTTP Request: POST https://integrate.api.nvidia.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 00:13:12,950 - __main__ - INFO - Case analysis completed (using NVIDIA API)

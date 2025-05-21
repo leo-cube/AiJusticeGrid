@@ -1,5 +1,8 @@
 {
-  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/api-reports/route": "app/api/api-reports/route.js",
+  "/api/investigation-reports/route": "app/api/investigation-reports/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/(dashboard)/reports/page": "app/(dashboard)/reports/page.js",
-  "/degree-guru/page": "app/degree-guru/page.js"
+  "/api/auth/validate/route": "app/api/auth/validate/route.js"
 }

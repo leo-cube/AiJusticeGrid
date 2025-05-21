@@ -125,7 +125,7 @@ export default function CrimePage() {
 
           // Check if the agent is explicitly enabled in default settings
           // Only show agents that are explicitly set to true
-          const isEnabled = defaultEnabledAgents[agent.id] === true;
+          const isEnabled = defaultEnabledAgents[agent.id as keyof typeof defaultEnabledAgents] === true;
 
           return isCrimeAgent && isEnabled;
         });

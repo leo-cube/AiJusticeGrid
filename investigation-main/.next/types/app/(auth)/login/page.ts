@@ -1,4 +1,4 @@
-// File: /home/leojamescharles/Desktop/aijusticegrid/investigation-main_updated/AiJusticeGrid/investigation-main/src/app/(auth)/login/page.tsx
+// File: C:\python_programs\AIjusticegrid\AiJusticeGrid\investigation-main\src\app\(auth)\login\page.tsx
 import * as entry from '../../../../../src/app/(auth)/login/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

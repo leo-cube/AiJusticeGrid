@@ -1,4 +1,4 @@
-// File: /home/leojamescharles/Desktop/aijusticegrid/investigation-main_updated/AiJusticeGrid/investigation-main/src/app/degree-guru/page.tsx
+// File: C:\python_programs\AIjusticegrid\AiJusticeGrid\investigation-main\src\app\degree-guru\page.tsx
 import * as entry from '../../../../src/app/degree-guru/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

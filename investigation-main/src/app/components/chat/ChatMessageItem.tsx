@@ -11,6 +11,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { defaultAgents } from './AgentSelector';
 import AgentIcon from './AgentIcon';
+import DownloadReportButton from './DownloadReportButton';
 
 interface ChatMessageItemProps {
   message: ChatMessage;
@@ -164,6 +165,11 @@ const ChatMessageItem: React.FC<ChatMessageItemProps> = ({ message }) => {
               {formatTime(message.timestamp)}
             </span>
           </div>
+
+          {/* Download Report button for AI analysis messages */}
+          {!isUser && (
+            <DownloadReportButton message={message} />
+          )}
         </div>
 
         {isUser && (

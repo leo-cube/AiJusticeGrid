@@ -1,3 +1,7 @@
+# Api-key-Nvidia
+
+NVIDIA_API_KEY=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
+
 # Police Investigation System
 
 A comprehensive web application for police investigations, financial fraud detection, and exchange matching. This system provides a user-friendly interface for law enforcement officers to manage investigations, track financial fraud cases, analyze exchange mismatches, and generate reports.

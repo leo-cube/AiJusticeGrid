@@ -5,7 +5,6 @@ import json
 import logging
 import uuid
 import re
-import httpx
 from dotenv import load_dotenv
 import requests
 import time
@@ -119,70 +118,11 @@ AGENTS = {
     }
 }
 
-class BaseAgent:
+class MurderAgent:
     """
-    Base class for all agents that use the NVIDIA API.
+    Main interface for the Murder Agent that analyzes murder cases using the NVIDIA API.
     """
-    
-    def __init__(self, api_key, model_name, system_prompt):
-        """
-        Initialize the Base Agent.
 
-        Args:
-            api_key: NVIDIA API key
-            model_name: Name of the model to use
-            system_prompt: System prompt for the agent
-        """
-        self.api_key = api_key
-        self.model_name = model_name
-        self.system_prompt = system_prompt
-        # Initialize the OpenAI client with compatibility settings for NVIDIA API
-        self.client = OpenAI(
-            base_url="https://integrate.api.nvidia.com/v1",
-            api_key=api_key,
-            http_client=httpx.Client(
-                base_url="https://integrate.api.nvidia.com/v1",
-                headers={
-                    "Authorization": f"Bearer {api_key}",
-                    "Content-Type": "application/json"
-                }
-            )
-        )
-        logger.info(f"{self.__class__.__name__} initialized with model: {model_name}")
-    
-    def generate_response(self, prompt):
-        """
-        Generate a response using the NVIDIA API.
-        
-        Args:
-            prompt: The user's prompt
-            
-        Returns:
-            The generated response text
-        """
-        try:
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=[
-                    {"role": "system", "content": self.system_prompt},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.7,
-                max_tokens=1024,
-                top_p=1,
-                frequency_penalty=0,
-                presence_penalty=0
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            logger.error(f"Error generating response: {str(e)}")
-            return f"Error: {str(e)}"
-
-class MurderAgent(BaseAgent):
-    """
-    Specialized agent for murder case analysis using the NVIDIA API.
-    """
-    
     def __init__(self, api_key):
         """
         Initialize the Murder Agent.
@@ -190,11 +130,11 @@ class MurderAgent(BaseAgent):
         Args:
             api_key: NVIDIA API key
         """
-        system_prompt = AGENTS["murder"]["system_prompt"]
-        super().__init__(api_key, MURDER_MODEL_NAME, system_prompt)
-        
-        # Initialize conversation states for this agent
-        self.conversation_states = {}
+        self.api_key = api_key
+        self.client = OpenAI(
+            base_url="https://integrate.api.nvidia.com/v1",
+            api_key=api_key
+        )
         logger.info(f"Murder Agent initialized with model: {MURDER_MODEL_NAME}")
 
     def analyze_case(self, case_details):
@@ -1110,33 +1050,14 @@ def murder_agent_endpoint():
         "message": "Message processed successfully"
     })
 
-# Initialize all agents with NVIDIA API
-agents = {}
+# Create endpoints for other agents
 for agent_name, agent_config in AGENTS.items():
-    if agent_name == "murder":
-        # Use the specialized MurderAgent for the murder agent
-        agents[agent_name] = MurderAgent(NVIDIA_API_KEY)
-    else:
-        # Create a generic agent for other agent types
-        class GenericAgent(BaseAgent):
-            def __init__(self, api_key, model_name, system_prompt):
-                super().__init__(api_key, model_name, system_prompt)
-                self.conversation_states = {}
-        
-        agents[agent_name] = GenericAgent(
-            NVIDIA_API_KEY,
-            MURDER_MODEL_NAME,  # Use the same model for all agents for consistency
-            agent_config["system_prompt"]
-        )
-
-# Create endpoints for all agents
-for agent_name, agent in agents.items():
     # Skip the murder agent as we've already created a specialized endpoint for it
     if agent_name == "murder":
         continue
 
-    # Create a closure to capture the agent_name and agent variables
-    def create_endpoint(agent_name, agent):
+    # Create a closure to capture the agent_name variable
+    def create_endpoint(agent):
         def endpoint_func():
             logger.info(f"Received request for {agent} agent")
 
@@ -1149,75 +1070,44 @@ for agent_name, agent in agents.items():
             if not case_details:
                 return jsonify({"error": "No case details provided"}), 400
 
-            # Check if the agent is enabled
-            if not AGENTS[agent_name]["enabled"]:
-                return jsonify({
-                    "success": False,
-                    "error": f"{agent_name.capitalize()} Agent is not enabled",
-                    "data": {
-                        "analysis": f"{agent_name.capitalize()} Agent is not enabled. Please enable it in the settings."
-                    }
-                }), 403
+            # Format the case details into a prompt
+            prompt = format_case_details(case_details)
 
-            # Get the user's message and session ID from the request
-            data = request.get_json()
-            user_message = data.get("question", "")
-            session_id = data.get("session_id", str(uuid.uuid4()))
+            # Get the system prompt for this agent
+            system_prompt = AGENTS[agent]["system_prompt"]
 
-            # Initialize conversation state if it doesn't exist
-            if session_id not in agent.conversation_states:
-                agent.conversation_states[session_id] = {
-                    "current_step": "greeting",
-                    "collected_data": {}
-                }
+            # Call the NVIDIA API
+            response = call_nvidia_api(prompt, system_prompt)
 
-            # Get the current conversation state
-            state = agent.conversation_states[session_id]
+            # Return the response
+            return jsonify({"response": response})
 
-            try:
-                # Generate response using the agent's model
-                response = agent.generate_response(user_message)
-
-                # Return the response
-                return jsonify({
-                    "success": True,
-                    "data": {
-                        "analysis": response,
-                        "is_collecting_info": False,
-                        "current_step": state["current_step"],
-                        "collected_data": state["collected_data"],
-                        "error": None
-                    },
-                    "session_id": session_id,
-                    "message": f"{agent_name.capitalize()} Agent response"
-                })
-
-            except Exception as e:
-                logger.error(f"Error in {agent_name} agent: {str(e)}")
-                return jsonify({
-                    "success": False,
-                    "error": str(e),
-                    "data": {
-                        "analysis": f"An error occurred while processing your request: {str(e)}",
-                        "is_collecting_info": False,
-                        "current_step": state.get("current_step", ""),
-                        "collected_data": state.get("collected_data", {})
-                    },
-                    "session_id": session_id
-                }), 500
-
+        # Set the function name
+        endpoint_func.__name__ = f"{agent}_endpoint"
         return endpoint_func
-
-    # Create the endpoint function with the current agent_name and agent instance
-    endpoint_func = create_endpoint(agent_name, agent)
 
     # Register the route with a unique function for each agent
     app.add_url_rule(
         f"/api/augment/{agent_name}",
         endpoint=f"{agent_name}_endpoint",
-        view_func=endpoint_func,
+        view_func=create_endpoint(agent_name),
         methods=["POST"]
     )
+
+# Health check endpoint
+@app.route('/health')
+def health_check():
+    """Health check endpoint."""
+    logger.info("Received GET request for health endpoint")
+    return jsonify({
+        "status": "healthy",
+        "agents": list(AGENTS.keys()),
+        "enabled_agents": {name: config["enabled"] for name, config in AGENTS.items()},
+        "murder_agent": {
+            "status": "integrated",
+            "model": MURDER_MODEL_NAME
+        }
+    })
 
 # Get the full health status including enabled agents
 @app.route("/api/health/full", methods=["GET"])

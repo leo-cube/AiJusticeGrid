@@ -188,6 +188,24 @@ export interface ApiReport {
   panels: DesignatedPanel[];
 }
 
+// Investigation Report types
+export interface InvestigationReport {
+  id: string;
+  title: string;
+  investigationId: string;
+  investigationType: string;
+  createdDate: string;
+  createdBy: string;
+  questions: InvestigationQuestion[];
+  analysis: string;
+  status: 'completed' | 'in-progress';
+}
+
+export interface InvestigationQuestion {
+  question: string;
+  answer: string;
+}
+
 // Designated Panel types
 export interface DesignatedPanel {
   id: string;

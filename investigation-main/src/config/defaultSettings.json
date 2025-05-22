@@ -11,6 +11,7 @@
       "exchangeMatching": "/exchange-matching",
       "reports": "/reports",
       "apiReports": "/api-reports",
+      "investigationReports": "/investigation-reports",
       "designatedPanels": "/designated-panels",
       "chat": "/chat",
       "dashboard": "/dashboard",

@@ -6789,520 +6789,330 @@
 2025-05-21 12:28:23,936 - __main__ - INFO - Created new conversation state with session ID: f000d9b6-7bdf-433d-b429-736e8e723660
 2025-05-21 12:28:23,936 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-21T12:28:23.936742'}
 2025-05-21 12:28:23,937 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 12:28:23] "POST /api/augment/murder HTTP/1.1" 200 -
-2025-05-21 16:42:12,756 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 16:42:12,756 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 16:42:12,759 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 16:42:12,822 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2025-05-21 17:01:54,493 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-21 17:01:54,494 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-21 17:01:54,500 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-21 17:01:54,509 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:5000
- * Running on http://10.212.134.202:5000
-2025-05-21 16:42:12,822 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
-2025-05-21 16:42:12,834 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 16:42:14,206 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 16:42:14,206 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 16:42:14,208 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 16:42:14,218 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 16:42:14,226 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 17:06:05,790 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
-2025-05-21 17:06:05,795 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\users.py', reloading
-2025-05-21 17:06:05,801 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\events.py', reloading
-2025-05-21 17:06:05,807 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\webrtc.py', reloading
-2025-05-21 17:06:05,811 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\__init__.py', reloading
-2025-05-21 17:06:05,813 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\analytics.py', reloading
-2025-05-21 17:06:05,815 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_test_server.py', reloading
-2025-05-21 17:06:05,816 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\collections.py', reloading
-2025-05-21 17:06:05,818 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\camera_rules.py', reloading
-2025-05-21 17:06:05,978 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 17:06:07,718 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 17:06:07,718 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 17:06:07,720 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 17:06:07,741 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 17:06:07,749 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 17:12:53,960 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_signaling.py', reloading
-2025-05-21 17:12:54,601 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 17:12:56,500 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 17:12:56,501 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 17:12:56,504 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 17:12:56,515 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 17:12:56,523 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 17:36:05,488 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
-2025-05-21 17:36:05,492 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\start_servers.py', reloading
-2025-05-21 17:36:06,130 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 17:36:07,627 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 17:36:07,627 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 17:36:07,629 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 17:36:07,639 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 17:36:07,645 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 17:48:50,057 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
-2025-05-21 17:48:50,057 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
-2025-05-21 17:48:50,058 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
-2025-05-21 17:48:50,062 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\webrtc.py', reloading
-2025-05-21 17:48:50,063 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\webrtc.py', reloading
-2025-05-21 17:48:50,063 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\webrtc.py', reloading
-2025-05-21 17:48:50,064 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_signaling.py', reloading
-2025-05-21 17:48:50,064 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_signaling.py', reloading
-2025-05-21 17:48:50,065 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_signaling.py', reloading
-2025-05-21 17:48:50,066 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
-2025-05-21 17:48:50,067 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
-2025-05-21 17:48:50,068 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
-2025-05-21 17:48:50,197 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 17:48:51,958 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 17:48:51,958 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 17:48:51,962 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 17:48:51,972 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 17:48:51,979 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 17:48:58,972 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
-2025-05-21 17:48:58,972 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
-2025-05-21 17:48:58,973 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
-2025-05-21 17:48:58,973 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
-2025-05-21 17:48:58,975 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\webrtc.py', reloading
-2025-05-21 17:48:58,976 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\webrtc.py', reloading
-2025-05-21 17:48:58,977 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\webrtc.py', reloading
-2025-05-21 17:48:58,977 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\webrtc.py', reloading
-2025-05-21 17:48:58,977 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_signaling.py', reloading
-2025-05-21 17:48:58,978 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_signaling.py', reloading
-2025-05-21 17:48:58,978 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_signaling.py', reloading
-2025-05-21 17:48:58,978 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_signaling.py', reloading
-2025-05-21 17:48:58,979 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
-2025-05-21 17:48:58,980 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
-2025-05-21 17:48:58,980 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
-2025-05-21 17:48:59,094 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 17:49:00,584 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 17:49:00,584 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 17:49:00,586 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 17:49:00,597 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 17:49:00,605 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 17:53:22,891 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\__main__.py', reloading
-2025-05-21 17:53:22,892 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\__init__.py', reloading
-2025-05-21 17:53:22,892 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\_types.py', reloading
-2025-05-21 17:53:22,892 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\_subprocess.py', reloading
-2025-05-21 17:53:22,892 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\workers.py', reloading
-2025-05-21 17:53:22,893 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\supervisors\\__init__.py', reloading
-2025-05-21 17:53:22,894 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\supervisors\\watchgodreload.py', reloading
-2025-05-21 17:53:22,894 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\supervisors\\watchfilesreload.py', reloading
-2025-05-21 17:53:22,895 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\supervisors\\statreload.py', reloading
-2025-05-21 17:53:22,895 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\supervisors\\multiprocess.py', reloading
-2025-05-21 17:53:22,895 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\supervisors\\basereload.py', reloading
-2025-05-21 17:53:22,895 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\server.py', reloading
-2025-05-21 17:53:22,898 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\multipart\\__init__.py', reloading
-2025-05-21 17:53:22,899 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\multipart\\tests\\test_multipart.py', reloading
-2025-05-21 17:53:22,900 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\websockets\\wsproto_impl.py', reloading
-2025-05-21 17:53:22,901 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\websockets\\websockets_impl.py', reloading
-2025-05-21 17:53:22,901 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\websockets\\auto.py', reloading
-2025-05-21 17:53:22,901 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\utils.py', reloading
-2025-05-21 17:53:22,902 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\http\\httptools_impl.py', reloading
-2025-05-21 17:53:22,902 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\http\\h11_impl.py', reloading
-2025-05-21 17:53:22,904 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\http\\flow_control.py', reloading
-2025-05-21 17:53:22,904 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\http\\auto.py', reloading
-2025-05-21 17:53:22,905 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\middleware\\wsgi.py', reloading
-2025-05-21 17:53:22,905 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\middleware\\proxy_headers.py', reloading
-2025-05-21 17:53:22,905 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\middleware\\message_logger.py', reloading
-2025-05-21 17:53:22,907 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\middleware\\asgi2.py', reloading
-2025-05-21 17:53:22,908 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\main.py', reloading
-2025-05-21 17:53:22,909 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\loops\\uvloop.py', reloading
-2025-05-21 17:53:22,909 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\loops\\auto.py', reloading
-2025-05-21 17:53:22,909 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\loops\\asyncio.py', reloading
-2025-05-21 17:53:22,910 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\logging.py', reloading
-2025-05-21 17:53:22,910 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\lifespan\\on.py', reloading
-2025-05-21 17:53:22,910 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\lifespan\\off.py', reloading
-2025-05-21 17:53:22,911 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\importer.py', reloading
-2025-05-21 17:53:22,911 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\config.py', reloading
-2025-05-21 17:53:22,916 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\multipart\\tests\\compat.py', reloading
-2025-05-21 17:53:22,917 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\typing_inspection\\typing_objects.py', reloading
-2025-05-21 17:53:22,917 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\multipart\\multipart.py', reloading
-2025-05-21 17:53:22,917 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\typing_inspection\\introspection.py', reloading
-2025-05-21 17:53:22,918 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\multipart\\exceptions.py', reloading
-2025-05-21 17:53:22,918 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\multipart\\decoders.py', reloading
-2025-05-21 17:53:22,918 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\typing_extensions.py', reloading
-2025-05-21 17:53:22,922 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\idna\\__init__.py', reloading
-2025-05-21 17:53:22,922 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\idna\\uts46data.py', reloading
-2025-05-21 17:53:22,924 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\idna\\package_data.py', reloading
-2025-05-21 17:53:22,925 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\idna\\intranges.py', reloading
-2025-05-21 17:53:22,925 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\__init__.py', reloading
-2025-05-21 17:53:22,925 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\idna\\idnadata.py', reloading
-2025-05-21 17:53:22,926 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\_utils.py', reloading
-2025-05-21 17:53:22,926 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\idna\\core.py', reloading
-2025-05-21 17:53:22,926 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\_compat.py', reloading
-2025-05-21 17:53:22,926 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\idna\\compat.py', reloading
-2025-05-21 17:53:22,926 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\idna\\codec.py', reloading
-2025-05-21 17:53:22,927 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\websockets.py', reloading
-2025-05-21 17:53:22,927 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\types.py', reloading
-2025-05-21 17:53:22,927 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\testclient.py', reloading
-2025-05-21 17:53:22,929 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\__init__.py', reloading
-2025-05-21 17:53:22,929 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_writers.py', reloading
-2025-05-21 17:53:22,929 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_version.py', reloading
-2025-05-21 17:53:22,930 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_util.py', reloading
-2025-05-21 17:53:22,930 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_state.py', reloading
-2025-05-21 17:53:22,930 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_receivebuffer.py', reloading
-2025-05-21 17:53:22,930 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\templating.py', reloading
-2025-05-21 17:53:22,930 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_readers.py', reloading
-2025-05-21 17:53:22,931 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\status.py', reloading
-2025-05-21 17:53:22,931 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_headers.py', reloading
-2025-05-21 17:53:22,931 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\staticfiles.py', reloading
-2025-05-21 17:53:22,931 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_events.py', reloading
-2025-05-21 17:53:22,931 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\schemas.py', reloading
-2025-05-21 17:53:22,932 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_connection.py', reloading
-2025-05-21 17:53:22,932 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\routing.py', reloading
-2025-05-21 17:53:22,933 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\h11\\_abnf.py', reloading
-2025-05-21 17:53:22,933 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\responses.py', reloading
-2025-05-21 17:53:22,933 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\requests.py', reloading
-2025-05-21 17:53:22,934 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\__init__.py', reloading
-2025-05-21 17:53:22,934 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\wsgi.py', reloading
-2025-05-21 17:53:22,935 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\trustedhost.py', reloading
-2025-05-21 17:53:22,935 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\sessions.py', reloading
-2025-05-21 17:53:22,936 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\httpsredirect.py', reloading
-2025-05-21 17:53:22,936 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\__init__.py', reloading
-2025-05-21 17:53:22,936 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\gzip.py', reloading
-2025-05-21 17:53:22,937 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\_compat.py', reloading
-2025-05-21 17:53:22,937 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\exceptions.py', reloading
-2025-05-21 17:53:22,939 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\websockets.py', reloading
-2025-05-21 17:53:22,939 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\errors.py', reloading
-2025-05-21 17:53:22,940 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\utils.py', reloading
-2025-05-21 17:53:22,940 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\types.py', reloading
-2025-05-21 17:53:22,940 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\cors.py', reloading
-2025-05-21 17:53:22,940 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\testclient.py', reloading
-2025-05-21 17:53:22,941 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\templating.py', reloading
-2025-05-21 17:53:22,941 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\base.py', reloading
-2025-05-21 17:53:22,941 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\staticfiles.py', reloading
-2025-05-21 17:53:22,942 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\authentication.py', reloading
-2025-05-21 17:53:22,942 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\security\\__init__.py', reloading
-2025-05-21 17:53:22,942 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\formparsers.py', reloading
-2025-05-21 17:53:22,942 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\security\\utils.py', reloading
-2025-05-21 17:53:22,943 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\exceptions.py', reloading
-2025-05-21 17:53:22,943 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\security\\open_id_connect_url.py', reloading
-2025-05-21 17:53:22,943 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\security\\oauth2.py', reloading
-2025-05-21 17:53:22,943 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\security\\http.py', reloading
-2025-05-21 17:53:22,943 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\security\\base.py', reloading
-2025-05-21 17:53:22,943 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\security\\api_key.py', reloading
-2025-05-21 17:53:22,944 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\endpoints.py', reloading
-2025-05-21 17:53:22,945 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\datastructures.py', reloading
-2025-05-21 17:53:22,945 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\routing.py', reloading
-2025-05-21 17:53:22,945 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\convertors.py', reloading
-2025-05-21 17:53:22,946 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\responses.py', reloading
-2025-05-21 17:53:22,946 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\config.py', reloading
-2025-05-21 17:53:22,946 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\requests.py', reloading
-2025-05-21 17:53:22,946 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\concurrency.py', reloading
-2025-05-21 17:53:22,947 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\param_functions.py', reloading
-2025-05-21 17:53:22,947 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\background.py', reloading
-2025-05-21 17:53:22,947 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\params.py', reloading
-2025-05-21 17:53:22,947 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\authentication.py', reloading
-2025-05-21 17:53:22,948 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\applications.py', reloading
-2025-05-21 17:53:22,948 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\openapi\\utils.py', reloading
-2025-05-21 17:53:22,949 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\openapi\\models.py', reloading
-2025-05-21 17:53:22,949 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\openapi\\docs.py', reloading
-2025-05-21 17:53:22,949 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\openapi\\constants.py', reloading
-2025-05-21 17:53:22,949 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\middleware\\__init__.py', reloading
-2025-05-21 17:53:22,950 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\middleware\\wsgi.py', reloading
-2025-05-21 17:53:22,952 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\middleware\\trustedhost.py', reloading
-2025-05-21 17:53:22,952 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\middleware\\httpsredirect.py', reloading
-2025-05-21 17:53:22,952 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\middleware\\gzip.py', reloading
-2025-05-21 17:53:22,952 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\middleware\\cors.py', reloading
-2025-05-21 17:53:22,954 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\middleware\\asyncexitstack.py', reloading
-2025-05-21 17:53:22,954 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\logger.py', reloading
-2025-05-21 17:53:22,954 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\exception_handlers.py', reloading
-2025-05-21 17:53:22,955 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\sniffio\\__init__.py', reloading
-2025-05-21 17:53:22,955 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\exceptions.py', reloading
-2025-05-21 17:53:22,957 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\encoders.py', reloading
-2025-05-21 17:53:22,957 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\sniffio\\_version.py', reloading
-2025-05-21 17:53:22,958 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\sniffio\\_tests\\test_sniffio.py', reloading
-2025-05-21 17:53:22,958 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\dependencies\\utils.py', reloading
-2025-05-21 17:53:22,959 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\sniffio\\_impl.py', reloading
-2025-05-21 17:53:22,960 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\dependencies\\models.py', reloading
-2025-05-21 17:53:22,961 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\datastructures.py', reloading
-2025-05-21 17:53:22,962 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\concurrency.py', reloading
-2025-05-21 17:53:22,965 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\background.py', reloading
-2025-05-21 17:53:22,966 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\applications.py', reloading
-2025-05-21 17:53:22,972 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\__init__.py', reloading
-2025-05-21 17:53:22,972 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\winterm.py', reloading
-2025-05-21 17:53:22,974 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\win32.py', reloading
-2025-05-21 17:53:22,974 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic_core\\__init__.py', reloading
-2025-05-21 17:53:22,975 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic_core\\core_schema.py', reloading
-2025-05-21 17:53:22,976 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\tests\\__init__.py', reloading
-2025-05-21 17:53:22,977 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\tests\\winterm_test.py', reloading
-2025-05-21 17:53:22,978 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\tests\\utils.py', reloading
-2025-05-21 17:53:22,978 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\tests\\isatty_test.py', reloading
-2025-05-21 17:53:22,978 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\tests\\initialise_test.py', reloading
-2025-05-21 17:53:22,978 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\__init__.py', reloading
-2025-05-21 17:53:22,979 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\tests\\ansi_test.py', reloading
-2025-05-21 17:53:22,979 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_migration.py', reloading
-2025-05-21 17:53:22,979 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\tests\\ansitowin32_test.py', reloading
-2025-05-21 17:53:22,980 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\initialise.py', reloading
-2025-05-21 17:53:22,980 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\ansitowin32.py', reloading
-2025-05-21 17:53:22,980 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_validators.py', reloading
-2025-05-21 17:53:22,980 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\colorama\\ansi.py', reloading
-2025-05-21 17:53:22,981 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_validate_call.py', reloading
-2025-05-21 17:53:22,982 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_utils.py', reloading
-2025-05-21 17:53:22,982 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_typing_extra.py', reloading
-2025-05-21 17:53:22,983 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_signature.py', reloading
-2025-05-21 17:53:22,983 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_serializers.py', reloading
-2025-05-21 17:53:22,983 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_schema_generation_shared.py', reloading
-2025-05-21 17:53:22,984 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\__init__.py', reloading
-2025-05-21 17:53:22,984 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\_winconsole.py', reloading
-2025-05-21 17:53:22,984 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_schema_gather.py', reloading
-2025-05-21 17:53:22,984 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\_textwrap.py', reloading
-2025-05-21 17:53:22,985 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_repr.py', reloading
-2025-05-21 17:53:22,985 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\_termui_impl.py', reloading
-2025-05-21 17:53:22,985 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_namespace_utils.py', reloading
-2025-05-21 17:53:22,985 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\_compat.py', reloading
-2025-05-21 17:53:22,986 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_model_construction.py', reloading
-2025-05-21 17:53:22,986 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\utils.py', reloading
-2025-05-21 17:53:22,986 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_mock_val_ser.py', reloading
-2025-05-21 17:53:22,987 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\types.py', reloading
-2025-05-21 17:53:22,987 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_known_annotated_metadata.py', reloading
-2025-05-21 17:53:22,987 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\testing.py', reloading
-2025-05-21 17:53:22,988 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_internal_dataclass.py', reloading
-2025-05-21 17:53:22,988 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\termui.py', reloading
-2025-05-21 17:53:22,988 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_import_utils.py', reloading
-2025-05-21 17:53:22,988 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\shell_completion.py', reloading
-2025-05-21 17:53:22,989 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_git.py', reloading
-2025-05-21 17:53:22,989 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_generics.py', reloading
-2025-05-21 17:53:22,989 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_generate_schema.py', reloading
-2025-05-21 17:53:22,990 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_forward_ref.py', reloading
-2025-05-21 17:53:22,990 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_fields.py', reloading
-2025-05-21 17:53:22,990 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\parser.py', reloading
-2025-05-21 17:53:22,991 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_docs_extraction.py', reloading
-2025-05-21 17:53:22,992 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\globals.py', reloading
-2025-05-21 17:53:22,992 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_discriminated_union.py', reloading
-2025-05-21 17:53:22,993 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\formatting.py', reloading
-2025-05-21 17:53:22,993 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_decorators_v1.py', reloading
-2025-05-21 17:53:22,993 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\exceptions.py', reloading
-2025-05-21 17:53:22,993 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_decorators.py', reloading
-2025-05-21 17:53:22,994 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\decorators.py', reloading
-2025-05-21 17:53:22,994 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_dataclasses.py', reloading
-2025-05-21 17:53:22,994 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\core.py', reloading
-2025-05-21 17:53:22,994 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_core_utils.py', reloading
-2025-05-21 17:53:22,995 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_core_metadata.py', reloading
-2025-05-21 17:53:22,995 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_config.py', reloading
-2025-05-21 17:53:22,995 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\warnings.py', reloading
-2025-05-21 17:53:22,996 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\version.py', reloading
-2025-05-21 17:53:22,996 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\validators.py', reloading
-2025-05-21 17:53:22,997 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\validate_call_decorator.py', reloading
-2025-05-21 17:53:22,997 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\__init__.py', reloading
-2025-05-21 17:53:23,000 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\__init__.py', reloading
-2025-05-21 17:53:23,000 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\_hypothesis_plugin.py', reloading
-2025-05-21 17:53:23,000 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\version.py', reloading
-2025-05-21 17:53:23,001 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_typedattr.py', reloading
-2025-05-21 17:53:23,001 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\validators.py', reloading
-2025-05-21 17:53:23,001 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_testing.py', reloading
-2025-05-21 17:53:23,001 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\utils.py', reloading
-2025-05-21 17:53:23,002 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_tasks.py', reloading
-2025-05-21 17:53:23,002 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\typing.py', reloading
-2025-05-21 17:53:23,002 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_synchronization.py', reloading
-2025-05-21 17:53:23,002 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\types.py', reloading
-2025-05-21 17:53:23,003 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_subprocesses.py', reloading
-2025-05-21 17:53:23,003 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_streams.py', reloading
-2025-05-21 17:53:23,004 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\tools.py', reloading
-2025-05-21 17:53:23,004 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_sockets.py', reloading
-2025-05-21 17:53:23,004 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_signals.py', reloading
-2025-05-21 17:53:23,004 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\schema.py', reloading
-2025-05-21 17:53:23,005 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_resources.py', reloading
-2025-05-21 17:53:23,005 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_fileio.py', reloading
-2025-05-21 17:53:23,005 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\parse.py', reloading
-2025-05-21 17:53:23,005 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_exceptions.py', reloading
-2025-05-21 17:53:23,006 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\networks.py', reloading
-2025-05-21 17:53:23,006 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_eventloop.py', reloading
-2025-05-21 17:53:23,006 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\mypy.py', reloading
-2025-05-21 17:53:23,006 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_compat.py', reloading
-2025-05-21 17:53:23,007 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\main.py', reloading
-2025-05-21 17:53:23,007 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\json.py', reloading
-2025-05-21 17:53:23,007 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\generics.py', reloading
-2025-05-21 17:53:23,007 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_backends\\_trio.py', reloading
-2025-05-21 17:53:23,007 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_backends\\_asyncio.py', reloading
-2025-05-21 17:53:23,008 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\to_thread.py', reloading
-2025-05-21 17:53:23,008 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\to_process.py', reloading
-2025-05-21 17:53:23,009 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\streams\\tls.py', reloading
-2025-05-21 17:53:23,009 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\streams\\text.py', reloading
-2025-05-21 17:53:23,009 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\streams\\stapled.py', reloading
-2025-05-21 17:53:23,010 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\fields.py', reloading
-2025-05-21 17:53:23,010 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\streams\\memory.py', reloading
-2025-05-21 17:53:23,010 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\error_wrappers.py', reloading
-2025-05-21 17:53:23,010 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\streams\\file.py', reloading
-2025-05-21 17:53:23,011 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\errors.py', reloading
-2025-05-21 17:53:23,011 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\streams\\buffered.py', reloading
-2025-05-21 17:53:23,011 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\env_settings.py', reloading
-2025-05-21 17:53:23,011 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\pytest_plugin.py', reloading
-2025-05-21 17:53:23,012 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\decorator.py', reloading
-2025-05-21 17:53:23,012 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\datetime_parse.py', reloading
-2025-05-21 17:53:23,012 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\dataclasses.py', reloading
-2025-05-21 17:53:23,012 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\config.py', reloading
-2025-05-21 17:53:23,013 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\color.py', reloading
-2025-05-21 17:53:23,014 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\lowlevel.py', reloading
-2025-05-21 17:53:23,014 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\from_thread.py', reloading
-2025-05-21 17:53:23,014 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\class_validators.py', reloading
-2025-05-21 17:53:23,014 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\annotated_types.py', reloading
-2025-05-21 17:53:23,014 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\utils.py', reloading
-2025-05-21 17:53:23,015 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\typing.py', reloading
-2025-05-21 17:53:23,110 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 17:53:24,621 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 17:53:24,621 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 17:53:24,625 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 17:53:24,638 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 17:53:24,645 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 18:10:47,227 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\users.py', reloading
-2025-05-21 18:10:47,238 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\events.py', reloading
-2025-05-21 18:10:47,240 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\__init__.py', reloading
-2025-05-21 18:10:47,242 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\analytics.py', reloading
-2025-05-21 18:10:47,244 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_test_server.py', reloading
-2025-05-21 18:10:47,245 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\collections.py', reloading
-2025-05-21 18:10:47,249 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\camera_rules.py', reloading
-2025-05-21 18:10:47,569 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 18:10:49,251 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 18:10:49,253 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 18:10:49,256 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 18:10:49,274 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 18:10:49,282 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 18:36:05,792 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\start_servers.py', reloading
-2025-05-21 18:36:05,922 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 18:36:07,803 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 18:36:07,803 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 18:36:07,805 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 18:36:07,825 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 18:36:07,832 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 18:53:23,777 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_signaling.py', reloading
-2025-05-21 18:53:23,962 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
-2025-05-21 18:53:24,374 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
-2025-05-21 18:53:24,466 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\webrtc.py', reloading
-2025-05-21 18:53:24,484 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\__init__.py', reloading
-2025-05-21 18:53:24,486 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\base.py', reloading
-2025-05-21 18:53:24,498 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\os.py', reloading
-2025-05-21 18:53:24,502 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\ospath.py', reloading
-2025-05-21 18:53:24,506 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\tempfile\\__init__.py', reloading
-2025-05-21 18:53:24,523 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\tempfile\\temptypes.py', reloading
-2025-05-21 18:53:24,530 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\threadpool\\__init__.py', reloading
-2025-05-21 18:53:24,535 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\threadpool\\binary.py', reloading
-2025-05-21 18:53:24,540 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\threadpool\\text.py', reloading
-2025-05-21 18:53:24,542 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\aiofiles\\threadpool\\utils.py', reloading
-2025-05-21 18:53:24,549 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\annotated_types\\__init__.py', reloading
-2025-05-21 18:53:24,572 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\annotated_types\\test_cases.py', reloading
-2025-05-21 18:53:24,588 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\__init__.py', reloading
-2025-05-21 18:53:24,701 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 18:53:26,393 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 18:53:26,394 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 18:53:26,396 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 18:53:26,411 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 18:53:26,419 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 18:53:26,437 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\commands\\install.py', reloading
-2025-05-21 18:53:26,437 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_namespace_utils.py', reloading
-2025-05-21 18:53:26,437 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\commands\\hash.py', reloading
-2025-05-21 18:53:26,440 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\errors.py', reloading
-2025-05-21 18:53:26,441 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\commands\\show.py', reloading
-2025-05-21 18:53:26,442 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\__init__.py', reloading
-2025-05-21 18:53:26,442 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\metadata\\pkg_resources.py', reloading
-2025-05-21 18:53:26,442 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\dataclasses.py', reloading
-2025-05-21 18:53:26,443 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\__init__.py', reloading
-2025-05-21 18:53:26,443 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\staticfiles.py', reloading
-2025-05-21 18:53:26,444 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\openapi\\docs.py', reloading
-2025-05-21 18:53:26,444 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\metadata\\importlib\\_dists.py', reloading
-2025-05-21 18:53:26,445 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\base.py', reloading
-2025-05-21 18:53:26,445 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\version.py', reloading
-2025-05-21 18:53:26,445 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_schema_gather.py', reloading
-2025-05-21 18:53:26,446 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\testing.py', reloading
-2025-05-21 18:53:26,447 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\distlib\\compat.py', reloading
-2025-05-21 18:53:26,447 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\operations\\install\\wheel.py', reloading
-2025-05-21 18:53:26,448 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\platformdirs\\api.py', reloading
-2025-05-21 18:53:26,448 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\main.py', reloading
-2025-05-21 18:53:26,449 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_import_utils.py', reloading
-2025-05-21 18:53:26,449 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\models\\installation_report.py', reloading
-2025-05-21 18:53:26,450 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_docs_extraction.py', reloading
-2025-05-21 18:53:26,451 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\typing_inspection\\introspection.py', reloading
-2025-05-21 18:53:26,452 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\rich\\live.py', reloading
-2025-05-21 18:53:26,454 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\utils\\packaging.py', reloading
-2025-05-21 18:53:26,456 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\decorator.py', reloading
-2025-05-21 18:53:26,456 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\rich\\file_proxy.py', reloading
-2025-05-21 18:53:26,456 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\wrapper.py', reloading
-2025-05-21 18:53:26,457 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\models\\link.py', reloading
-2025-05-21 18:53:26,457 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\pkg_resources\\__init__.py', reloading
-2025-05-21 18:53:26,458 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\self_outdated_check.py', reloading
-2025-05-21 18:53:26,461 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\abc\\__init__.py', reloading
-2025-05-21 18:53:26,462 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\commands\\cache.py', reloading
-2025-05-21 18:53:26,462 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\provider.py', reloading
-2025-05-21 18:53:26,462 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\utils\\hashes.py', reloading
-2025-05-21 18:53:26,463 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\cors.py', reloading
-2025-05-21 18:53:26,464 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_decorators.py', reloading
-2025-05-21 18:53:26,464 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\req\\__init__.py', reloading
-2025-05-21 18:53:26,465 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\metadata\\importlib\\_compat.py', reloading
-2025-05-21 18:53:26,465 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\logging.py', reloading
-2025-05-21 18:53:26,466 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\resolver.py', reloading
-2025-05-21 18:53:26,466 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\rich\\_ratio.py', reloading
-2025-05-21 18:53:26,466 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\commands\\help.py', reloading
-2025-05-21 18:53:26,467 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\aliases.py', reloading
-2025-05-21 18:53:26,467 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\requests.py', reloading
-2025-05-21 18:53:26,471 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\templating.py', reloading
-2025-05-21 18:53:26,471 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\middleware\\wsgi.py', reloading
-2025-05-21 18:53:26,471 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\rich\\_extension.py', reloading
-2025-05-21 18:53:26,472 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\fastapi\\concurrency.py', reloading
-2025-05-21 18:53:26,473 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\config.py', reloading
-2025-05-21 18:53:26,476 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\distributions\\base.py', reloading
-2025-05-21 18:53:26,476 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\utils\\compat.py', reloading
-2025-05-21 18:53:26,477 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\tomli\\_parser.py', reloading
-2025-05-21 18:53:26,477 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\metadata\\base.py', reloading
-2025-05-21 18:53:26,478 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_eventloop.py', reloading
-2025-05-21 18:53:26,478 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\distlib\\locators.py', reloading
-2025-05-21 18:53:26,479 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\rich\\bar.py', reloading
-2025-05-21 18:53:26,479 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\click\\__init__.py', reloading
-2025-05-21 18:53:26,480 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\config.py', reloading
-2025-05-21 18:53:26,480 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\convertors.py', reloading
-2025-05-21 18:53:26,480 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\base.py', reloading
-2025-05-21 18:53:26,481 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\models\\search_scope.py', reloading
-2025-05-21 18:53:26,482 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\caches\\file_cache.py', reloading
-2025-05-21 18:53:26,482 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\metadata\\importlib\\_envs.py', reloading
-2025-05-21 18:53:26,483 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\experimental\\arguments_schema.py', reloading
-2025-05-21 18:53:26,484 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\msgpack\\fallback.py', reloading
-2025-05-21 18:53:26,484 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\requests\\models.py', reloading
-2025-05-21 18:53:26,485 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\msgpack\\__init__.py', reloading
-2025-05-21 18:53:26,485 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\exceptions.py', reloading
-2025-05-21 18:53:26,489 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\type_adapter.py', reloading
-2025-05-21 18:53:26,489 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\adapter.py', reloading
-2025-05-21 18:53:26,490 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\loops\\uvloop.py', reloading
-2025-05-21 18:53:26,490 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\background.py', reloading
-2025-05-21 18:53:26,491 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\abc\\_tasks.py', reloading
-2025-05-21 18:53:26,491 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\metadata.py', reloading
-2025-05-21 18:53:26,492 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\exceptions.py', reloading
-2025-05-21 18:53:26,492 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\deprecated\\decorator.py', reloading
-2025-05-21 18:53:26,493 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\index\\package_finder.py', reloading
-2025-05-21 18:53:26,493 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_discriminated_union.py', reloading
-2025-05-21 18:53:26,493 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_mock_val_ser.py', reloading
-2025-05-21 18:53:26,495 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\pyproject.py', reloading
-2025-05-21 18:53:26,495 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_migration.py', reloading
-2025-05-21 18:53:26,496 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\_subprocesses.py', reloading
-2025-05-21 18:53:26,496 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\idna\\package_data.py', reloading
-2025-05-21 18:53:26,496 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\main.py', reloading
-2025-05-21 18:53:26,497 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\rich\\tree.py', reloading
-2025-05-21 18:53:26,497 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\warnings.py', reloading
-2025-05-21 18:53:26,498 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\commands\\check.py', reloading
-2025-05-21 18:53:26,498 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\compat\\collections_abc.py', reloading
-2025-05-21 18:53:26,499 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\gzip.py', reloading
-2025-05-21 18:53:26,499 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\plugin\\_loader.py', reloading
-2025-05-21 18:53:26,500 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\starlette\\authentication.py', reloading
-2025-05-21 18:53:26,503 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\color.py', reloading
-2025-05-21 18:53:26,504 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\distlib\\metadata.py', reloading
-2025-05-21 18:53:26,504 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\commands\\completion.py', reloading
-2025-05-21 18:53:26,504 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\__init__.py', reloading
-2025-05-21 18:53:26,505 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\models\\candidate.py', reloading
-2025-05-21 18:53:26,505 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\plugin\\__init__.py', reloading
-2025-05-21 18:53:26,506 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\platformdirs\\__init__.py', reloading
-2025-05-21 18:53:26,509 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\locations\\base.py', reloading
-2025-05-21 18:53:26,512 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\network\\session.py', reloading
-2025-05-21 18:53:26,512 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\rich\\_log_render.py', reloading
-2025-05-21 18:53:26,513 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\network\\utils.py', reloading
-2025-05-21 18:53:26,514 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\color.py', reloading
-2025-05-21 18:53:26,514 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\vcs\\git.py', reloading
-2025-05-21 18:53:26,515 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\exceptions.py', reloading
-2025-05-21 18:53:26,515 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\importer.py', reloading
-2025-05-21 18:53:26,515 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\uvicorn\\main.py', reloading
-2025-05-21 18:53:26,516 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\utils\\logging.py', reloading
-2025-05-21 18:53:26,516 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\_config.py', reloading
-2025-05-21 18:53:26,517 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\to_process.py', reloading
-2025-05-21 18:53:27,542 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 18:53:28,891 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 18:53:28,892 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 18:53:28,895 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 18:53:28,905 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 18:53:28,912 - werkzeug - INFO -  * Debugger PIN: 729-843-253
-2025-05-21 18:53:33,494 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\venv\\Lib\\site-packages\\anyio\\_backends\\_trio.py', reloading
-2025-05-21 18:53:34,023 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
-2025-05-21 18:53:35,601 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
-2025-05-21 18:53:35,601 - __main__ - INFO - Murder Agent initialized in unified server
-2025-05-21 18:53:35,604 - __main__ - INFO - Starting unified agent server on port 5000
-2025-05-21 18:53:35,614 - werkzeug - WARNING -  * Debugger is active!
-2025-05-21 18:53:35,621 - werkzeug - INFO -  * Debugger PIN: 729-843-253
+ * Running on http://192.168.5.151:5000
+2025-05-21 17:01:54,509 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-21 17:01:54,510 - werkzeug - INFO -  * Restarting with stat
+2025-05-21 17:01:55,603 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-21 17:01:55,603 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-21 17:01:55,610 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-21 17:01:55,620 - werkzeug - WARNING -  * Debugger is active!
+2025-05-21 17:01:55,621 - werkzeug - INFO -  * Debugger PIN: 507-202-439
+2025-05-21 17:02:35,424 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:02:35,427 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:02:35] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:02:35,427 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:02:35,428 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:02:35] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:02:43,216 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:02:43,216 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-21 17:02:43,218 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:02:43,218 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-21 17:02:43,219 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:02:43,219 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-21 17:02:43,220 - __main__ - INFO - Forcing creation of a new session
+2025-05-21 17:02:43,220 - __main__ - INFO - Created new conversation state with session ID: 0b0936f6-afac-4dfa-9d3a-631de6e074bd
+2025-05-21 17:02:43,220 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-21T17:02:43.220338'}
+2025-05-21 17:02:43,221 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:02:43] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:04:01,964 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-21 17:04:01,964 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-21 17:04:01,972 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-21 17:04:01,985 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.5.151:5000
+2025-05-21 17:04:01,985 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-21 17:04:01,986 - werkzeug - INFO -  * Restarting with stat
+2025-05-21 17:04:03,370 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-21 17:04:03,370 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-21 17:04:03,377 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-21 17:04:03,386 - werkzeug - WARNING -  * Debugger is active!
+2025-05-21 17:04:03,386 - werkzeug - INFO -  * Debugger PIN: 507-202-439
+2025-05-21 17:04:30,346 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:04:30,346 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:04:30,348 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:04:30] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:04:30,349 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:04:30] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:04:34,024 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:04:34,024 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-21 17:04:34,024 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:04:34,024 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-21 17:04:34,024 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:04:34,024 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-21 17:04:34,024 - __main__ - INFO - Forcing creation of a new session
+2025-05-21 17:04:34,025 - __main__ - INFO - Created new conversation state with session ID: a6da8d00-30c4-4e5a-b652-c0d959f73926
+2025-05-21 17:04:34,025 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-21T17:04:34.025057'}
+2025-05-21 17:04:34,025 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:04:34] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:05:30,084 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:05:30,085 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:05:30] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:05:30,127 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:05:30,128 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:05:30] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:05:31,937 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:05:31,937 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-21 17:05:31,937 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:05:31,938 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-21 17:05:31,938 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:05:31,938 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-21 17:05:31,938 - __main__ - INFO - Forcing creation of a new session
+2025-05-21 17:05:31,938 - __main__ - INFO - Created new conversation state with session ID: 2dd21fc8-c5eb-4081-a34e-206a5b3dc6f3
+2025-05-21 17:05:31,938 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-21T17:05:31.938293'}
+2025-05-21 17:05:31,938 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:05:31] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:06:14,469 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:06:14,469 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:06:14] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:06:14,506 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:06:14,507 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:06:14] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:06:16,337 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:06:16,337 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:06:16] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:06:16,388 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:06:16,389 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:06:16] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:06:20,040 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:06:20,040 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-21 17:06:20,041 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:06:20,041 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-21 17:06:20,041 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:06:20,041 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-21 17:06:20,041 - __main__ - INFO - Forcing creation of a new session
+2025-05-21 17:06:20,041 - __main__ - INFO - Created new conversation state with session ID: 19e1dfe5-167d-4c07-9564-cca5da361d18
+2025-05-21 17:06:20,041 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-21T17:06:20.041362'}
+2025-05-21 17:06:20,041 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:06:20] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:06:25,378 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:06:25,379 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-21 17:06:25,379 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:06:25,379 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-21 17:06:25,379 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-21 17:06:25,379 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-21 17:06:25,379 - __main__ - INFO - Forcing creation of a new session
+2025-05-21 17:06:25,379 - __main__ - INFO - Created new conversation state with session ID: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:06:25,379 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-21T17:06:25.379378'}
+2025-05-21 17:06:25,379 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:06:25] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:06:31,334 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:06:31,334 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: 12wqa2
+2025-05-21 17:06:31,334 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:06:31,334 - __main__ - INFO - Processing message: 12wqa2 with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:06:31,334 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:06:31,334 - __main__ - INFO - Current step: greeting
+2025-05-21 17:06:31,334 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-21T17:06:25.379378'}
+2025-05-21 17:06:31,334 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step greeting: 12wqa2
+2025-05-21 17:06:31,335 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-21T17:06:25.379378'}
+2025-05-21 17:06:31,335 - __main__ - INFO - Stored user input in field case_id: 12wqa2
+2025-05-21 17:06:31,335 - __main__ - INFO - Advanced to next step: date_of_crime
+2025-05-21 17:06:31,335 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:06:31] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:06:43,301 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:06:43,301 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: February 10, 2025
+2025-05-21 17:06:43,301 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:06:43,301 - __main__ - INFO - Processing message: February 10, 2025 with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:06:43,301 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:06:43,301 - __main__ - INFO - Current step: date_of_crime
+2025-05-21 17:06:43,301 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': '12wqa2'}, 'last_updated': '2025-05-21T17:06:31.335201'}
+2025-05-21 17:06:43,302 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step date_of_crime: February 10, 2025
+2025-05-21 17:06:43,302 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': '12wqa2'}, 'last_updated': '2025-05-21T17:06:31.335201'}
+2025-05-21 17:06:43,303 - __main__ - INFO - Stored user input in field date_of_crime: 2025-02-10
+2025-05-21 17:06:43,303 - __main__ - INFO - Advanced to next step: time_of_crime
+2025-05-21 17:06:43,303 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:06:43] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:06:53,933 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:06:53,933 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: 2:30 PM
+2025-05-21 17:06:53,933 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:06:53,933 - __main__ - INFO - Processing message: 2:30 PM with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:06:53,933 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:06:53,933 - __main__ - INFO - Current step: time_of_crime
+2025-05-21 17:06:53,933 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10'}, 'last_updated': '2025-05-21T17:06:43.303392'}
+2025-05-21 17:06:53,934 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step time_of_crime: 2:30 PM
+2025-05-21 17:06:53,934 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10'}, 'last_updated': '2025-05-21T17:06:43.303392'}
+2025-05-21 17:06:53,934 - __main__ - INFO - Stored user input in field time_of_crime: 14:30
+2025-05-21 17:06:53,934 - __main__ - INFO - Advanced to next step: location
+2025-05-21 17:06:53,935 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:06:53] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:07:06,346 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:07:06,347 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: Chennai, Tamil Nadu
+2025-05-21 17:07:06,347 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:06,347 - __main__ - INFO - Processing message: Chennai, Tamil Nadu with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:07:06,347 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:06,347 - __main__ - INFO - Current step: location
+2025-05-21 17:07:06,347 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30'}, 'last_updated': '2025-05-21T17:06:53.934599'}
+2025-05-21 17:07:06,347 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step location: Chennai, Tamil Nadu
+2025-05-21 17:07:06,347 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30'}, 'last_updated': '2025-05-21T17:06:53.934599'}
+2025-05-21 17:07:06,347 - __main__ - INFO - Stored user input in field location: Chennai, Tamil Nadu
+2025-05-21 17:07:06,347 - __main__ - INFO - Advanced to next step: victim_name
+2025-05-21 17:07:06,348 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:07:06] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:07:12,591 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:07:12,592 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: Shalini
+2025-05-21 17:07:12,592 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:12,592 - __main__ - INFO - Processing message: Shalini with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:07:12,592 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:12,592 - __main__ - INFO - Current step: victim_name
+2025-05-21 17:07:12,592 - __main__ - INFO - Current conversation state: {'current_step': 'victim_name', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu'}, 'last_updated': '2025-05-21T17:07:06.348035'}
+2025-05-21 17:07:12,592 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step victim_name: Shalini
+2025-05-21 17:07:12,592 - __main__ - INFO - Current conversation state: {'current_step': 'victim_name', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu'}, 'last_updated': '2025-05-21T17:07:06.348035'}
+2025-05-21 17:07:12,592 - __main__ - INFO - Stored user input in field victim_name: Shalini
+2025-05-21 17:07:12,592 - __main__ - INFO - Advanced to next step: victim_age
+2025-05-21 17:07:12,593 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:07:12] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:07:16,715 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:07:16,716 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: 40
+2025-05-21 17:07:16,716 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:16,716 - __main__ - INFO - Processing message: 40 with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:07:16,716 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:16,716 - __main__ - INFO - Current step: victim_age
+2025-05-21 17:07:16,716 - __main__ - INFO - Current conversation state: {'current_step': 'victim_age', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini'}, 'last_updated': '2025-05-21T17:07:12.592952'}
+2025-05-21 17:07:16,716 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step victim_age: 40
+2025-05-21 17:07:16,716 - __main__ - INFO - Current conversation state: {'current_step': 'victim_age', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini'}, 'last_updated': '2025-05-21T17:07:12.592952'}
+2025-05-21 17:07:16,717 - __main__ - INFO - Stored user input in field victim_age: 40
+2025-05-21 17:07:16,717 - __main__ - INFO - Advanced to next step: victim_gender
+2025-05-21 17:07:16,718 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:07:16] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:07:22,170 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:07:22,171 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: Female
+2025-05-21 17:07:22,171 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:22,171 - __main__ - INFO - Processing message: Female with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:07:22,171 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:22,172 - __main__ - INFO - Current step: victim_gender
+2025-05-21 17:07:22,172 - __main__ - INFO - Current conversation state: {'current_step': 'victim_gender', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40'}, 'last_updated': '2025-05-21T17:07:16.718207'}
+2025-05-21 17:07:22,172 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step victim_gender: Female
+2025-05-21 17:07:22,172 - __main__ - INFO - Current conversation state: {'current_step': 'victim_gender', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40'}, 'last_updated': '2025-05-21T17:07:16.718207'}
+2025-05-21 17:07:22,172 - __main__ - INFO - Stored user input in field victim_gender: Female
+2025-05-21 17:07:22,173 - __main__ - INFO - Advanced to next step: cause_of_death
+2025-05-21 17:07:22,174 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:07:22] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:07:29,292 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:07:29,292 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: Strangulation
+2025-05-21 17:07:29,292 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:29,292 - __main__ - INFO - Processing message: Strangulation with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:07:29,292 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:29,292 - __main__ - INFO - Current step: cause_of_death
+2025-05-21 17:07:29,293 - __main__ - INFO - Current conversation state: {'current_step': 'cause_of_death', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female'}, 'last_updated': '2025-05-21T17:07:22.173106'}
+2025-05-21 17:07:29,293 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step cause_of_death: Strangulation
+2025-05-21 17:07:29,293 - __main__ - INFO - Current conversation state: {'current_step': 'cause_of_death', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female'}, 'last_updated': '2025-05-21T17:07:22.173106'}
+2025-05-21 17:07:29,293 - __main__ - INFO - Stored user input in field cause_of_death: Strangulation
+2025-05-21 17:07:29,293 - __main__ - INFO - Advanced to next step: weapon_used
+2025-05-21 17:07:29,294 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:07:29] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:07:35,539 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:07:35,539 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: Gun
+2025-05-21 17:07:35,539 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:35,540 - __main__ - INFO - Processing message: Gun with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:07:35,540 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:35,540 - __main__ - INFO - Current step: weapon_used
+2025-05-21 17:07:35,540 - __main__ - INFO - Current conversation state: {'current_step': 'weapon_used', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation'}, 'last_updated': '2025-05-21T17:07:29.293503'}
+2025-05-21 17:07:35,540 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step weapon_used: Gun
+2025-05-21 17:07:35,540 - __main__ - INFO - Current conversation state: {'current_step': 'weapon_used', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation'}, 'last_updated': '2025-05-21T17:07:29.293503'}
+2025-05-21 17:07:35,540 - __main__ - INFO - Stored user input in field weapon_used: Gun
+2025-05-21 17:07:35,540 - __main__ - INFO - Advanced to next step: crime_scene_description
+2025-05-21 17:07:35,541 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:07:35] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:07:52,394 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:07:52,394 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: It happened in her apartment
+2025-05-21 17:07:52,394 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:52,394 - __main__ - INFO - Processing message: It happened in her apartment with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:07:52,395 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:52,395 - __main__ - INFO - Current step: crime_scene_description
+2025-05-21 17:07:52,395 - __main__ - INFO - Current conversation state: {'current_step': 'crime_scene_description', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun'}, 'last_updated': '2025-05-21T17:07:35.540641'}
+2025-05-21 17:07:52,395 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step crime_scene_description: It happened in her apartment
+2025-05-21 17:07:52,395 - __main__ - INFO - Current conversation state: {'current_step': 'crime_scene_description', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun'}, 'last_updated': '2025-05-21T17:07:35.540641'}
+2025-05-21 17:07:52,395 - __main__ - INFO - Stored user input in field crime_scene_description: It happened in her apartment
+2025-05-21 17:07:52,395 - __main__ - INFO - Advanced to next step: witnesses
+2025-05-21 17:07:52,395 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:07:52] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:07:59,068 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:07:59,068 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: Neighbor
+2025-05-21 17:07:59,068 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:59,068 - __main__ - INFO - Processing message: Neighbor with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:07:59,068 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:07:59,068 - __main__ - INFO - Current step: witnesses
+2025-05-21 17:07:59,068 - __main__ - INFO - Current conversation state: {'current_step': 'witnesses', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun', 'crime_scene_description': 'It happened in her apartment'}, 'last_updated': '2025-05-21T17:07:52.395387'}
+2025-05-21 17:07:59,068 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step witnesses: Neighbor
+2025-05-21 17:07:59,068 - __main__ - INFO - Current conversation state: {'current_step': 'witnesses', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun', 'crime_scene_description': 'It happened in her apartment'}, 'last_updated': '2025-05-21T17:07:52.395387'}
+2025-05-21 17:07:59,068 - __main__ - INFO - Stored user input in field witnesses: Neighbor
+2025-05-21 17:07:59,069 - __main__ - INFO - Advanced to next step: evidence_found
+2025-05-21 17:07:59,069 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:07:59] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:08:03,681 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:08:03,682 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: Gun
+2025-05-21 17:08:03,682 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:08:03,682 - __main__ - INFO - Processing message: Gun with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:08:03,682 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:08:03,682 - __main__ - INFO - Current step: evidence_found
+2025-05-21 17:08:03,682 - __main__ - INFO - Current conversation state: {'current_step': 'evidence_found', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun', 'crime_scene_description': 'It happened in her apartment', 'witnesses': 'Neighbor'}, 'last_updated': '2025-05-21T17:07:59.069100'}
+2025-05-21 17:08:03,682 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step evidence_found: Gun
+2025-05-21 17:08:03,682 - __main__ - INFO - Current conversation state: {'current_step': 'evidence_found', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun', 'crime_scene_description': 'It happened in her apartment', 'witnesses': 'Neighbor'}, 'last_updated': '2025-05-21T17:07:59.069100'}
+2025-05-21 17:08:03,682 - __main__ - INFO - Stored user input in field evidence_found: Gun
+2025-05-21 17:08:03,682 - __main__ - INFO - Advanced to next step: suspects
+2025-05-21 17:08:03,683 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:08:03] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:08:18,377 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:08:18,377 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: Probably her ex-boyfirend
+2025-05-21 17:08:18,378 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:08:18,378 - __main__ - INFO - Processing message: Probably her ex-boyfirend with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:08:18,378 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:08:18,378 - __main__ - INFO - Current step: suspects
+2025-05-21 17:08:18,378 - __main__ - INFO - Current conversation state: {'current_step': 'suspects', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun', 'crime_scene_description': 'It happened in her apartment', 'witnesses': 'Neighbor', 'evidence_found': 'Gun'}, 'last_updated': '2025-05-21T17:08:03.682832'}
+2025-05-21 17:08:18,379 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step suspects: Probably her ex-boyfirend
+2025-05-21 17:08:18,379 - __main__ - INFO - Current conversation state: {'current_step': 'suspects', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun', 'crime_scene_description': 'It happened in her apartment', 'witnesses': 'Neighbor', 'evidence_found': 'Gun'}, 'last_updated': '2025-05-21T17:08:03.682832'}
+2025-05-21 17:08:18,380 - __main__ - INFO - Stored user input in field suspects: Probably her ex-boyfirend
+2025-05-21 17:08:18,380 - __main__ - INFO - Advanced to next step: additional_notes
+2025-05-21 17:08:18,381 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:08:18] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:08:25,671 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:08:25,671 - __main__ - INFO - Received request with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, user_input: no
+2025-05-21 17:08:25,671 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:08:25,671 - __main__ - INFO - Processing message: no with session_id: 1233fd8c-7bd1-4c7a-b625-167d6f6f586a
+2025-05-21 17:08:25,671 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-21 17:08:25,672 - __main__ - INFO - Current step: additional_notes
+2025-05-21 17:08:25,672 - __main__ - INFO - Current conversation state: {'current_step': 'additional_notes', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun', 'crime_scene_description': 'It happened in her apartment', 'witnesses': 'Neighbor', 'evidence_found': 'Gun', 'suspects': 'Probably her ex-boyfirend'}, 'last_updated': '2025-05-21T17:08:18.380958'}
+2025-05-21 17:08:25,672 - __main__ - INFO - Processing user input for session 1233fd8c-7bd1-4c7a-b625-167d6f6f586a, step additional_notes: no
+2025-05-21 17:08:25,672 - __main__ - INFO - Current conversation state: {'current_step': 'additional_notes', 'collected_data': {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun', 'crime_scene_description': 'It happened in her apartment', 'witnesses': 'Neighbor', 'evidence_found': 'Gun', 'suspects': 'Probably her ex-boyfirend'}, 'last_updated': '2025-05-21T17:08:18.380958'}
+2025-05-21 17:08:25,672 - __main__ - INFO - Stored user input in field additional_notes: no
+2025-05-21 17:08:25,672 - __main__ - INFO - Advanced to next step: analysis
+2025-05-21 17:08:25,672 - __main__ - INFO - Performing analysis with collected data: {'case_id': '12wqa2', 'date_of_crime': '2025-02-10', 'time_of_crime': '14:30', 'location': 'Chennai, Tamil Nadu', 'victim_name': 'Shalini', 'victim_age': '40', 'victim_gender': 'Female', 'cause_of_death': 'Strangulation', 'weapon_used': 'Gun', 'crime_scene_description': 'It happened in her apartment', 'witnesses': 'Neighbor', 'evidence_found': 'Gun', 'suspects': 'Probably her ex-boyfirend', 'additional_notes': 'no'}
+2025-05-21 17:08:25,672 - __main__ - INFO - Analyzing case with Murder Agent
+2025-05-21 17:08:25,673 - __main__ - INFO - Calling NVIDIA API for murder analysis
+2025-05-21 17:08:44,459 - httpx - INFO - HTTP Request: POST https://integrate.api.nvidia.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-21 17:08:44,486 - __main__ - INFO - Case analysis completed (using Murder Agent)
+2025-05-21 17:08:44,490 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:08:44] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:11:47,213 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:11:47,214 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:11:47] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-21 17:11:47,214 - __main__ - INFO - Received request for Murder Agent
+2025-05-21 17:11:47,217 - werkzeug - INFO - 127.0.0.1 - - [21/May/2025 17:11:47] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:03:09,136 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-22 10:03:09,136 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-22 10:03:09,143 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-22 10:03:09,151 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.5.151:5000
+2025-05-22 10:03:09,152 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-22 10:03:09,152 - werkzeug - INFO -  * Restarting with stat
+2025-05-22 10:03:10,137 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-22 10:03:10,137 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-22 10:03:10,144 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-22 10:03:10,153 - werkzeug - WARNING -  * Debugger is active!
+2025-05-22 10:03:10,154 - werkzeug - INFO -  * Debugger PIN: 623-507-279
+2025-05-22 10:03:59,794 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:03:59,795 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:03:59,796 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:03:59] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:03:59,797 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:03:59] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:04:11,112 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:04:11,113 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:04:11] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:04:11,166 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:04:11,167 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:04:11] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:04:14,976 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:04:14,977 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:04:14] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:04:15,043 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:04:15,043 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:04:15] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:04:18,166 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:04:18,166 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-22 10:04:18,166 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-22 10:04:18,166 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-22 10:04:18,166 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-22 10:04:18,166 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-22 10:04:18,166 - __main__ - INFO - Forcing creation of a new session
+2025-05-22 10:04:18,167 - __main__ - INFO - Created new conversation state with session ID: e75a0998-f6c2-4960-9f58-af1607f3eade
+2025-05-22 10:04:18,167 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-22T10:04:18.167033'}
+2025-05-22 10:04:18,167 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:04:18] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:55:04,468 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:55:04,468 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:55:04,469 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:55:04] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:55:04,470 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:55:04] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:57:08,277 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:57:08,277 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:57:08] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:57:08,316 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:57:08,317 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:57:08] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:57:11,921 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:57:11,921 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:57:11] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 10:57:11,963 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 10:57:11,963 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 10:57:11] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 11:01:57,042 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 11:01:57,043 - __main__ - INFO - Received request for Murder Agent
+2025-05-22 11:01:57,043 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 11:01:57] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-22 11:01:57,044 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 11:01:57] "POST /api/augment/murder HTTP/1.1" 200 -

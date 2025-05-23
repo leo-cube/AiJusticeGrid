@@ -7116,3 +7116,44 @@
 2025-05-22 11:01:57,043 - __main__ - INFO - Received request for Murder Agent
 2025-05-22 11:01:57,043 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 11:01:57] "POST /api/augment/murder HTTP/1.1" 200 -
 2025-05-22 11:01:57,044 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 11:01:57] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 10:57:05,318 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 10:57:05,319 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 10:57:05,321 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 10:57:05,356 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.11.106:5000
+2025-05-23 10:57:05,356 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 10:57:05,370 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-23 10:57:06,608 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 10:57:06,608 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 10:57:06,611 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 10:57:06,620 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 10:57:06,632 - werkzeug - INFO -  * Debugger PIN: 729-843-253
+2025-05-23 11:32:54,882 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\main.py', reloading
+2025-05-23 11:32:54,883 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
+2025-05-23 11:32:55,785 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-23 11:32:57,172 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 11:32:57,173 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 11:32:57,176 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 11:32:57,186 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 11:32:57,193 - werkzeug - INFO -  * Debugger PIN: 729-843-253
+2025-05-23 11:36:03,903 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\server.py', reloading
+2025-05-23 11:36:03,904 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\test_server.py', reloading
+2025-05-23 11:36:03,905 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\test_date_step.py', reloading
+2025-05-23 11:36:03,906 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\unified_server.py', reloading
+2025-05-23 11:36:03,914 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\test_interactive.py', reloading
+2025-05-23 11:36:03,916 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\theft_agent_main.py', reloading
+2025-05-23 11:36:03,918 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\test_murder_agent.py', reloading
+2025-05-23 11:36:03,921 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\murder_agent_main.py', reloading
+2025-05-23 11:36:03,928 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\murder_agent_backend.py', reloading
+2025-05-23 11:36:03,936 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\test_murder_agent_api.py', reloading
+2025-05-23 11:36:03,937 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\test_full_conversation.py', reloading
+2025-05-23 11:36:03,938 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\test_fixed_murder_agent.py', reloading
+2025-05-23 11:36:03,939 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\financial_fraud_agent_main.py', reloading
+2025-05-23 11:36:04,622 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-23 11:36:05,869 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 11:36:05,869 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 11:36:05,872 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 11:36:05,882 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 11:36:05,890 - werkzeug - INFO -  * Debugger PIN: 729-843-253

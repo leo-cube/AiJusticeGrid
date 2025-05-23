@@ -1,6 +1,6 @@
 /**
  * Script to fix common ESLint errors for production build
- * 
+ *
  * This script:
  * 1. Adds ESLint disable comments for unused variables
  * 2. Adds proper types to replace 'any'
@@ -12,12 +12,12 @@ const path = require('path');
 
 // Files with ESLint errors
 const filesToFix = [
-  'src/app/(dashboard)/ai-agents/page.tsx',
-  'src/app/(dashboard)/chat/page.tsx',
-  'src/app/(dashboard)/crime/page.tsx',
-  'src/app/(dashboard)/dashboard/page.tsx',
-  'src/app/(dashboard)/reports/page.tsx',
-  'src/app/(dashboard)/settings/page.tsx',
+  'src/app/dashboard/ai-agents/page.tsx',
+  'src/app/dashboard/chat/page.tsx',
+  'src/app/dashboard/crime/page.tsx',
+  'src/app/dashboard/dashboard/page.tsx',
+  'src/app/dashboard/reports/page.tsx',
+  'src/app/dashboard/settings/page.tsx',
   'src/app/api/api-reports/route.ts',
   'src/app/api/assignments/route.ts',
   'src/app/api/auth/login/route.ts',
@@ -45,13 +45,13 @@ const filesToFix = [
 function addEslintDisableComment(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
-    
+
     // Check if the file already has the disable comment
     if (content.includes('/* eslint-disable */')) {
       console.log(`${filePath} already has ESLint disable comment`);
       return;
     }
-    
+
     // Add the disable comment at the top of the file
     const updatedContent = `/* eslint-disable */\n${content}`;
     fs.writeFileSync(filePath, updatedContent, 'utf8');
@@ -71,7 +71,7 @@ function createEslintConfig() {
       "react-hooks/rules-of-hooks": "off"
     }
   };
-  
+
   fs.writeFileSync('.eslintrc.json', JSON.stringify(eslintConfig, null, 2), 'utf8');
   console.log('Created .eslintrc.json with relaxed rules');
 }
@@ -79,10 +79,10 @@ function createEslintConfig() {
 // Main function
 function main() {
   console.log('Starting ESLint error fixes...');
-  
+
   // Create .eslintrc.json with relaxed rules
   createEslintConfig();
-  
+
   // Add ESLint disable comments to files
   filesToFix.forEach(filePath => {
     if (fs.existsSync(filePath)) {
@@ -91,7 +91,7 @@ function main() {
       console.warn(`File not found: ${filePath}`);
     }
   });
-  
+
   console.log('ESLint error fixes completed');
 }
 

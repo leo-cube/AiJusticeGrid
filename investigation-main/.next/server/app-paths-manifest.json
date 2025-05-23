@@ -1,9 +1,5 @@
 {
-  "/api/dashboard/route": "app/api/dashboard/route.js",
-  "/api/agents/route": "app/api/agents/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/validate/route": "app/api/auth/validate/route.js",
-  "/page": "app/page.js",
-  "/(auth)/login/page": "app/(auth)/login/page.js",
-  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
-  "/(dashboard)/coming-soon/page": "app/(dashboard)/coming-soon/page.js"
+  "/test-pdf/page": "app/test-pdf/page.js"
 }

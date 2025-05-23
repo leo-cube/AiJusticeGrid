@@ -7116,3 +7116,29 @@
 2025-05-22 11:01:57,043 - __main__ - INFO - Received request for Murder Agent
 2025-05-22 11:01:57,043 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 11:01:57] "POST /api/augment/murder HTTP/1.1" 200 -
 2025-05-22 11:01:57,044 - werkzeug - INFO - 127.0.0.1 - - [22/May/2025 11:01:57] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 15:58:11,903 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 15:58:11,904 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 15:58:11,907 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 15:58:11,937 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.11.106:5000
+2025-05-23 15:58:11,937 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 15:58:11,947 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-23 15:58:13,244 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 15:58:13,244 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 15:58:13,248 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 15:58:13,256 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 15:58:13,270 - werkzeug - INFO -  * Debugger PIN: 729-843-253
+2025-05-23 15:58:26,528 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 15:58:26,529 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 15:58:26] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 15:58:26,557 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 15:58:26,558 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 15:58:26] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 16:09:09,482 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 16:09:09,483 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 16:09:09] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 16:09:09,518 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 16:09:09,518 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 16:09:09] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 16:09:23,890 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 16:09:23,891 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 16:09:23] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 16:09:23,917 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 16:09:23,918 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 16:09:23] "POST /api/augment/murder HTTP/1.1" 200 -

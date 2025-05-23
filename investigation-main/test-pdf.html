@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #002244;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Murder Agent Report PDF Test</h1>
+        <p>Click the button below to generate a sample PDF report:</p>
+        <button id="generatePdf">Generate PDF</button>
+    </div>
+
+    <script>
+        // Sample report data
+        const sampleReport = {
+            id: 'INV-TEST-001',
+            title: 'Murder Agent Report',
+            investigationId: '2023-10-12',
+            investigationType: 'Murder Case',
+            createdDate: '2023-10-12',
+            createdBy: 'Detective Mark Evans',
+            status: 'completed',
+            questions: [
+                {
+                    question: 'Date of Crime',
+                    answer: '2023-10-12'
+                },
+                {
+                    question: 'Time of Crime',
+                    answer: '03:15 AM'
+                },
+                {
+                    question: 'Location',
+                    answer: '789 Pine Street, Basement Apartment'
+                },
+                {
+                    question: 'Victim Name',
+                    answer: 'Sarah Johnson'
+                },
+                {
+                    question: 'Victim Age',
+                    answer: '29'
+                },
+                {
+                    question: 'Victim Gender',
+                    answer: 'Female'
+                },
+                {
+                    question: 'Cause of Death',
+                    answer: 'Strangulation'
+                },
+                {
+                    question: 'Weapon Used',
+                    answer: 'Rope'
+                },
+                {
+                    question: 'Crime Scene Description',
+                    answer: 'The victim was found on the bed with signs of struggle evident throughout the room. The room was in disarray, with a window broken from inside, indicating possible forced entry. Screams were heard by the upstairs neighbor around 3:00 AM, which aligns with the estimated time of death.'
+                },
+                {
+                    question: 'Witnesses',
+                    answer: 'Upstairs neighbor reported hearing screams around 3:00 AM'
+                },
+                {
+                    question: 'Suspects',
+                    answer: 'Ex-boyfriend with history of domestic violence, subject of recent restraining order filed by victim. Coworker recently rejected romantically by victim, known to have expressed hostility.'
+                }
+            ],
+            analysis: `
+# Crime Scene Analysis
+
+The disarrayed room and broken window suggest forced entry and a potential struggle. The evidence indicates that the victim likely knew the attacker and may have resisted. The time of death aligns with the witness report of screams at 3:00 AM, providing a crucial timeline reference for the investigation.
+
+# Weapon Analysis
+
+The rope used for strangulation appears to be the murder weapon. There is potential for DNA/fingerprint evidence on the rope. The nature of the weapon may suggest a crime of passion or opportunity, rather than a premeditated act with a conventional weapon.
+
+# Victim Background
+
+The victim was planning to move to a new city for a job opportunity. She had recently filed a restraining order, indicating fear of harm from a specific individual. This context provides important motivational factors to consider in the investigation.
+
+# Recommendations for Further Investigation
+
+1. Interview Witnesses – Especially the upstairs neighbor and any individuals in proximity during the time of crime.
+2. Interrogate Suspects – Especially the ex-boyfriend and coworker, focusing on motive, alibi, and recent behavior.
+3. Forensic Testing – Submit rope, phone, boot print, and broken glass for DNA/fingerprint analysis.
+4. Digital Forensics – Examine phone records, messages, emails, and social media interactions.
+5. Timeline Creation – Reconstruct victim's last 48 hours in detail.
+6. Background Checks – On all suspects for prior threats, violence, or stalking behavior.
+
+# Motive Assessment
+
+Ex-boyfriend: Possible revenge or emotional trigger due to restraining order and upcoming relocation.
+Coworker: Potential motive rooted in romantic rejection and unreciprocated interest.
+
+Additional motives to explore include:
+- Financial gain
+- Emotional grievance
+- Attempt to prevent victim from leaving or testifying
+
+# Conclusion
+
+The evidence suggests a personal and premeditated attack, likely by someone close to the victim. The crime scene points to a struggle and the use of a rope indicates manual planning or impulsive rage. Given the presence of digital threats, known suspects with motive, and physical evidence, this case should be prioritized for immediate forensic analysis and suspect interrogation.
+            `
+        };
+
+        // PDF generation function
+        function generateInvestigationReportPDF(report) {
+            const { jsPDF } = window.jspdf;
+            
+            // Create a new PDF document
+            const doc = new jsPDF();
+            
+            // Define colors and styles
+            const primaryColor = '#003366';
+            const secondaryColor = '#e0e0e0';
+            const highlightBgColor = '#f0f7ff';
+            
+            // Set initial position
+            let yPos = 20;
+            const margin = 20;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const contentWidth = pageWidth - (margin * 2);
+            
+            // Create cover page
+            doc.setFillColor(255, 255, 255);
+            doc.rect(0, 0, pageWidth, pageHeight, 'F');
+            
+            // Add title to cover page
+            doc.setFontSize(28);
+            doc.setTextColor(primaryColor);
+            doc.setFont('helvetica', 'bold');
+            doc.text('MURDER AGENT REPORT', pageWidth / 2, 80, { align: 'center' });
+            
+            // Add horizontal line under title
+            doc.setDrawColor(primaryColor);
+            doc.setLineWidth(1);
+            doc.line(pageWidth / 2 - 60, 85, pageWidth / 2 + 60, 85);
+            
+            // Add case information
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Case ID: ${report.investigationId}`, pageWidth / 2, 110, { align: 'center' });
+            doc.text(`Report Type: ${report.investigationType} – Initial Investigation`, pageWidth / 2, 125, { align: 'center' });
+            
+            // Add confidential box
+            doc.setDrawColor(primaryColor);
+            doc.setLineWidth(0.5);
+            doc.rect(pageWidth / 2 - 60, 150, 120, 25);
+            doc.setFontSize(16);
+            doc.setTextColor(primaryColor);
+            doc.text('CONFIDENTIAL - HOMICIDE AGENT', pageWidth / 2, 165, { align: 'center' });
+            
+            // Add date
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Filed On: ${new Date(report.createdDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })}`, pageWidth / 2, 190, { align: 'center' });
+            
+            // Add footer to cover page
+            doc.setFontSize(8);
+            doc.setTextColor(100, 100, 100);
+            doc.text(`City Police Department - Page 1 of ${doc.getNumberOfPages()}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+            
+            // Add new page for content
+            doc.addPage();
+            yPos = 20;
+            
+            // Add title
+            doc.setFontSize(18);
+            doc.setTextColor(primaryColor);
+            doc.setFont('helvetica', 'bold');
+            doc.text('🕵️‍♂️ MURDER AGENT REPORT', pageWidth / 2, yPos, { align: 'center' });
+            yPos += 15;
+            
+            // Add metadata
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Issued By: Homicide Investigation Unit`, margin, yPos);
+            yPos += 5;
+            doc.text(`Report Type: ${report.investigationType} – Initial Investigation`, margin, yPos);
+            yPos += 5;
+            doc.text(`Filed On: ${new Date(report.createdDate).toLocaleDateString()}`, margin, yPos);
+            yPos += 5;
+            doc.text(`Case ID: ${report.investigationId}`, margin, yPos);
+            yPos += 15;
+            
+            // Add section divider
+            doc.setDrawColor(secondaryColor);
+            doc.setLineWidth(0.5);
+            doc.line(margin, yPos - 5, pageWidth - margin, yPos - 5);
+            
+            // Add questions and answers section
+            doc.setFontSize(16);
+            doc.setTextColor(primaryColor);
+            doc.setFont('helvetica', 'bold');
+            doc.text('I. INCIDENT DETAILS', margin, yPos);
+            yPos += 10;
+            
+            // Create a table for incident details if questions exist
+            if (report.questions && report.questions.length > 0) {
+                // Extract questions that might be incident details
+                const incidentQuestions = report.questions.filter(q => 
+                    q.question.toLowerCase().includes('cause of death') ||
+                    q.question.toLowerCase().includes('weapon') ||
+                    q.question.toLowerCase().includes('victim') ||
+                    q.question.toLowerCase().includes('location') ||
+                    q.question.toLowerCase().includes('time') ||
+                    q.question.toLowerCase().includes('date')
+                );
+                
+                if (incidentQuestions.length > 0) {
+                    // Use autoTable plugin
+                    doc.autoTable({
+                        startY: yPos,
+                        head: [['Field', 'Information']],
+                        body: incidentQuestions.map(q => [q.question, q.answer]),
+                        theme: 'grid',
+                        headStyles: { 
+                            fillColor: [0, 51, 102], // #003366 in RGB
+                            textColor: [255, 255, 255],
+                            fontStyle: 'bold'
+                        },
+                        alternateRowStyles: {
+                            fillColor: [249, 249, 249]
+                        },
+                        styles: {
+                            cellPadding: 5,
+                            fontSize: 10
+                        },
+                        columnStyles: {
+                            0: { fontStyle: 'bold', cellWidth: 60 },
+                            1: { cellWidth: 'auto' }
+                        },
+                        margin: { left: margin, right: margin }
+                    });
+                    
+                    // Update yPos after the table
+                    yPos = doc.lastAutoTable.finalY + 10;
+                }
+            } else {
+                doc.setFontSize(11);
+                doc.setFont('helvetica', 'italic');
+                doc.text('No incident details recorded for this investigation.', margin, yPos);
+                yPos += 10;
+            }
+            
+            // Add section divider
+            doc.setDrawColor(secondaryColor);
+            doc.line(margin, yPos, pageWidth - margin, yPos);
+            yPos += 15;
+            
+            // Check if we need a new page
+            if (yPos > pageHeight - 60) {
+                doc.addPage();
+                yPos = 20;
+            }
+            
+            // Add crime scene description section
+            doc.setFontSize(16);
+            doc.setTextColor(primaryColor);
+            doc.setFont('helvetica', 'bold');
+            doc.text('II. CRIME SCENE DESCRIPTION', margin, yPos);
+            yPos += 10;
+            
+            // Find crime scene description question
+            const crimeSceneQuestion = report.questions.find(q => 
+                q.question.toLowerCase().includes('crime scene') ||
+                q.question.toLowerCase().includes('scene description')
+            );
+            
+            if (crimeSceneQuestion) {
+                // Add highlight box for crime scene description
+                doc.setFillColor(highlightBgColor);
+                doc.setDrawColor(primaryColor);
+                doc.roundedRect(margin, yPos, contentWidth, 30, 1, 1, 'F');
+                doc.setLineWidth(0.5);
+                doc.line(margin, yPos, margin + 4, yPos);
+                
+                // Add crime scene description text
+                doc.setFontSize(10);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont('helvetica', 'normal');
+                const crimeSceneLines = doc.splitTextToSize(crimeSceneQuestion.answer, contentWidth - 10);
+                doc.text(crimeSceneLines, margin + 5, yPos + 10);
+                
+                // Update yPos based on text height
+                yPos += Math.max(30, crimeSceneLines.length * 6 + 10);
+            } else {
+                doc.setFontSize(11);
+                doc.setFont('helvetica', 'italic');
+                doc.text('No crime scene description recorded.', margin, yPos);
+                yPos += 10;
+            }
+            
+            // Add section divider
+            doc.setDrawColor(secondaryColor);
+            doc.line(margin, yPos + 5, pageWidth - margin, yPos + 5);
+            yPos += 15;
+            
+            // Check if we need a new page for the analysis
+            if (yPos > pageHeight - 60) {
+                doc.addPage();
+                yPos = 20;
+            }
+            
+            // Add analysis section
+            doc.setFontSize(16);
+            doc.setTextColor(primaryColor);
+            doc.setFont('helvetica', 'bold');
+            doc.text('III. ANALYSIS & RECOMMENDATIONS', margin, yPos);
+            yPos += 10;
+            
+            // Add analysis content
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(0, 0, 0);
+            
+            // Clean up the analysis text to remove special characters
+            const cleanAnalysis = report.analysis
+                .replace(/\*\*/g, '') // Remove markdown bold
+                .replace(/\n\n/g, '\n') // Normalize double line breaks
+                .trim();
+            
+            const analysisLines = doc.splitTextToSize(cleanAnalysis, contentWidth);
+            doc.text(analysisLines, margin, yPos);
+            
+            // Update yPos based on text height
+            yPos += analysisLines.length * 5 + 10;
+            
+            // Add section divider
+            doc.setDrawColor(secondaryColor);
+            doc.line(margin, yPos, pageWidth - margin, yPos);
+            yPos += 10;
+            
+            // Add filed by section
+            doc.setFontSize(10);
+            doc.text(`Filed By:`, margin, yPos);
+            yPos += 5;
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(primaryColor);
+            doc.text(report.createdBy, margin, yPos);
+            yPos += 5;
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Homicide Agent – AIJUSTICEGRID`, margin, yPos);
+            
+            // Add footer to all pages
+            const totalPages = doc.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.setTextColor(100, 100, 100);
+                doc.text(`City Police Department - Page ${i} of ${totalPages}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+            }
+            
+            return doc;
+        }
+
+        // Download PDF function
+        function downloadPDF(doc, filename) {
+            doc.save(filename);
+        }
+
+        // Add event listener to button
+        document.getElementById('generatePdf').addEventListener('click', function() {
+            try {
+                console.log('Generating PDF...');
+                const doc = generateInvestigationReportPDF(sampleReport);
+                downloadPDF(doc, 'test-murder-report.pdf');
+                console.log('PDF generated and downloaded successfully!');
+                alert('PDF generated and downloaded successfully!');
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,5 +1,9 @@
 {
+  "/api/dashboard/route": "app/api/dashboard/route.js",
+  "/api/agents/route": "app/api/agents/route.js",
+  "/api/auth/validate/route": "app/api/auth/validate/route.js",
+  "/page": "app/page.js",
   "/(auth)/login/page": "app/(auth)/login/page.js",
-  "/(dashboard)/reports/page": "app/(dashboard)/reports/page.js",
-  "/degree-guru/page": "app/degree-guru/page.js"
+  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
+  "/(dashboard)/coming-soon/page": "app/(dashboard)/coming-soon/page.js"
 }

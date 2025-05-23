@@ -17,7 +17,8 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChatBubbleLeftRightIcon,
-  UserGroupIcon
+  UserGroupIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline';
 
 const navItems = [
@@ -41,6 +42,11 @@ const navItems = [
     title: 'Reports',
     href: '/reports',
     icon: <DocumentTextIcon className="h-5 w-5" />,
+  },
+  {
+    title: 'Coming Soon',
+    href: '/coming-soon',
+    icon: <SparklesIcon className="h-5 w-5" />,
   },
   {
     title: 'Settings',

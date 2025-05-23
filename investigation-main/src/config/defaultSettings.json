@@ -1,0 +1,194 @@
+{
+  "api": {
+    "baseUrl": "/api",
+    "endpoints": {
+      "auth": "/auth",
+      "crimes": "/crimes",
+      "crimeTypes": "/crime-types",
+      "agents": "/agents",
+      "assignments": "/assignments",
+      "financialFraud": "/financial-fraud",
+      "exchangeMatching": "/exchange-matching",
+      "reports": "/reports",
+      "apiReports": "/api-reports",
+      "investigationReports": "/investigation-reports",
+      "designatedPanels": "/designated-panels",
+      "chat": "/chat",
+      "dashboard": "/dashboard",
+      "settings": "/settings"
+    },
+    "timeout": 10000,
+    "retryAttempts": 3
+  },
+  "ui": {
+    "theme": {
+      "primary": "#3b82f6",
+      "secondary": "#10b981",
+      "accent": "#8b5cf6",
+      "error": "#ef4444",
+      "warning": "#f59e0b",
+      "info": "#3b82f6",
+      "success": "#10b981"
+    },
+    "dashboard": {
+      "refreshInterval": 60000,
+      "defaultView": "summary"
+    },
+    "chat": {
+      "maxMessages": 100,
+      "typingDelay": 1500
+    }
+  },
+  "crimeTypes": [
+    {
+      "id": "theft",
+      "name": "Theft",
+      "color": "bg-blue-100 text-blue-800",
+      "icon": "ShieldExclamationIcon"
+    },
+    {
+      "id": "chain-snatching",
+      "name": "Chain Snatching",
+      "color": "bg-purple-100 text-purple-800",
+      "icon": "LinkIcon"
+    },
+    {
+      "id": "murder",
+      "name": "Murder",
+      "color": "bg-red-100 text-red-800",
+      "icon": "ExclamationTriangleIcon"
+    },
+    {
+      "id": "accident",
+      "name": "Accident",
+      "color": "bg-yellow-100 text-yellow-800",
+      "icon": "TruckIcon"
+    },
+    {
+      "id": "abuse",
+      "name": "Abuse",
+      "color": "bg-orange-100 text-orange-800",
+      "icon": "HandRaisedIcon"
+    },
+    {
+      "id": "financial-fraud",
+      "name": "Financial Fraud",
+      "color": "bg-green-100 text-green-800",
+      "icon": "CurrencyDollarIcon"
+    },
+    {
+      "id": "exchange-matching",
+      "name": "Exchange Matching",
+      "color": "bg-purple-100 text-purple-800",
+      "icon": "ArrowsRightLeftIcon"
+    }
+  ],
+  "agentTypes": [
+    {
+      "id": "general",
+      "name": "General Assistant",
+      "description": "General investigation assistance and system guidance",
+      "avatarColor": "bg-blue-700",
+      "capabilities": ["general-assistance", "system-guidance", "basic-investigation"]
+    },
+    {
+      "id": "murder",
+      "name": "Murder Agent",
+      "description": "Specialized in homicide investigations and forensic analysis",
+      "avatarColor": "bg-red-700",
+      "capabilities": ["forensic-analysis", "motive-assessment", "suspect-profiling"],
+      "cases": [
+        {
+          "id": "murder-case-1",
+          "name": "Murder Case 1",
+          "assignedTo": "Police 1",
+          "status": "open"
+        },
+        {
+          "id": "murder-case-2",
+          "name": "Murder Case 2",
+          "assignedTo": "Police 2",
+          "status": "in-progress"
+        },
+        {
+          "id": "murder-case-3",
+          "name": "Murder Case 3",
+          "assignedTo": "Police 3",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "Finance Agent",
+      "description": "Expert in financial fraud detection and analysis",
+      "avatarColor": "bg-green-700",
+      "capabilities": ["fraud-detection", "transaction-analysis", "pattern-recognition"],
+      "cases": [
+        {
+          "id": "fraud-case-1",
+          "name": "Fraud Case",
+          "assignedTo": "Police 1",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "id": "theft",
+      "name": "Theft Agent",
+      "description": "Specialized in theft investigations and pattern analysis",
+      "avatarColor": "bg-blue-700",
+      "capabilities": ["theft-pattern-analysis", "security-assessment", "stolen-goods-tracking"],
+      "cases": []
+    },
+    {
+      "id": "smuggle",
+      "name": "Smuggle Agent",
+      "description": "Expert in smuggling operations and border security",
+      "avatarColor": "bg-purple-700",
+      "capabilities": ["border-security", "contraband-detection", "network-analysis"],
+      "cases": []
+    },
+    {
+      "id": "crime-accident",
+      "name": "Agent Accident",
+      "description": "Expert in accident reconstruction and investigation",
+      "avatarColor": "bg-yellow-700",
+      "parentType": "crime",
+      "crimeType": "accident",
+      "capabilities": ["accident-reconstruction", "cause-analysis", "negligence-assessment"]
+    },
+    {
+      "id": "crime-abuse",
+      "name": "Agent Abuse",
+      "description": "Specialized in abuse cases and victim support",
+      "avatarColor": "bg-orange-700",
+      "parentType": "crime",
+      "crimeType": "abuse",
+      "capabilities": ["victim-support", "pattern-recognition", "risk-assessment"]
+    }
+  ],
+  "agentAssignments": {
+    "murder-case-1": "murder",
+    "murder-case-2": "murder",
+    "murder-case-3": "murder",
+    "fraud-case-1": "finance",
+    "theft": "theft",
+    "smuggle": "smuggle"
+  },
+  "enabledAgents": {
+    "general": false,
+    "murder": true,
+    "finance": false,
+    "theft": false,
+    "smuggle": false,
+    "crime-accident": false,
+    "crime-abuse": false
+  },
+  "specializedAgentPrompts": {
+    "murder": "You are the Murder Agent, an expert in homicide investigations and forensic analysis. Your job is to assist police in solving murder cases with detailed forensic insights, motive assessment, and suspect profiling. You have access to all murder cases and can provide insights on specific cases when asked.",
+    "finance": "You are the Finance Agent, specialized in financial fraud detection and analysis. Your job is to assist police in investigating financial crimes, tracking transaction chains, and identifying patterns of fraud. You can provide detailed analysis of financial records and suggest investigative approaches.",
+    "theft": "You are the Theft Agent, an expert in theft and robbery investigations. Your job is to assist police in solving theft-related cases with smart, actionable advice. You can analyze patterns of theft and provide recommendations for prevention and investigation.",
+    "smuggle": "You are the Smuggle Agent, specialized in smuggling operations and border security. Your job is to assist police in detecting and investigating smuggling operations, identifying contraband, and analyzing smuggling networks."
+  }
+}

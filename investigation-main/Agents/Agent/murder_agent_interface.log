@@ -1,0 +1,10 @@
+2025-05-11 21:03:20,677 - murder_agent - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-11 21:03:20,680 - murder_agent - INFO - Analyzing case
+2025-05-11 21:03:20,682 - murder_agent - INFO - Simulating model response (no actual API call)
+2025-05-11 21:03:20,682 - murder_agent - INFO - Case analysis completed (simulated)
+2025-05-11 21:03:41,223 - __main__ - INFO - Starting Murder Agent Interface
+2025-05-11 21:03:41,675 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-11 21:06:08,444 - __main__ - INFO - Analyzing case
+2025-05-11 21:06:08,444 - __main__ - INFO - Simulating model response (no actual API call)
+2025-05-11 21:06:08,444 - __main__ - INFO - Case analysis completed (simulated)
+2025-05-11 21:10:00,931 - __main__ - INFO - Murder Agent Interface session ended

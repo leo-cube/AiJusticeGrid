@@ -1,4 +1,4 @@
-// File: C:\Users\e629\Documents\GitHub\AiJusticeGrid\investigation-main\src\app\api\auth\validate\route.ts
+// File: C:\Users\e629\Documents\GitHub\Ai-Justice-Grid-New\AiJusticeGrid\investigation-main\src\app\api\auth\validate\route.ts
 import * as entry from '../../../../../../src/app/api/auth/validate/route.js'
 import type { NextRequest } from 'next/server.js'
 

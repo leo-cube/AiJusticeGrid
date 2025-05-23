@@ -2,7 +2,33 @@ import { NextResponse } from 'next/server';
 import { ChatContext } from '@/app/types';
 
 // Murder Agent API URL
-const MURDER_AGENT_API_URL = process.env.NEXT_PUBLIC_MURDER_AGENT_API_URL || 'http://localhost:5000/api/augment/murder';
+const MURDER_AGENT_API_URL = process.env.NEXT_PUBLIC_MURDER_AGENT_API_URL || 'http://127.0.0.1:5000/api/augment/murder';
+
+/**
+ * Helper function to check if the Murder Agent backend is running
+ */
+async function checkMurderAgentBackend(): Promise<boolean> {
+  try {
+    console.log('Checking if Murder Agent backend is running at:', MURDER_AGENT_API_URL);
+    
+    const response = await fetch(MURDER_AGENT_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        question: 'ping',
+        additional_notes: 'This is a ping to check if the Murder Agent API is running.'
+      }),
+      signal: AbortSignal.timeout(3000) // 3 second timeout
+    });
+    
+    return response.ok;
+  } catch (error) {
+    console.error('Error checking Murder Agent backend:', error);
+    return false;
+  }
+}
 
 /**
  * Direct proxy to the Murder Agent backend
@@ -276,7 +302,25 @@ export async function POST(request: Request) {
       clearTimeout(timeoutId);
 
       console.error('Error calling Murder Agent API directly:', error);
-
+      console.error('Murder Agent API URL:', MURDER_AGENT_API_URL);
+      
+      // Check if the backend is running
+      const isBackendRunning = await checkMurderAgentBackend();
+      
+      if (!isBackendRunning) {
+        console.log('Murder Agent backend is not running, returning helpful message');
+        return NextResponse.json({
+          response: "I'm sorry, but the Murder Agent backend service is not running. Please start the backend service using the 'Start Murder Agent' button in the settings page, or run it manually.",
+          source: 'error',
+          sessionId: null,
+          isCollectingInfo: false,
+          backendStatus: {
+            running: false,
+            url: MURDER_AGENT_API_URL
+          }
+        }, { status: 200 });
+      }
+      
       // If the error is due to the timeout, return a specific message
       if (error.name === 'AbortError') {
         // Check if we're at the analysis step (final step)
@@ -303,9 +347,10 @@ export async function POST(request: Request) {
         }
       }
 
-      // Fall back to the original route
+      // Fall back to the original route with a proper URL
       try {
-        const fallbackResponse = await fetch('/api/murder-agent', {
+        const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+        const fallbackResponse = await fetch(`${origin}/api/murder-agent`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

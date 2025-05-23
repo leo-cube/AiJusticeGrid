@@ -1,4 +1,4 @@
-// File: C:\Users\e629\Documents\GitHub\AiJusticeGrid\investigation-main\src\app\layout.tsx
+// File: C:\Users\e629\Documents\GitHub\Ai-Justice-Grid-New\AiJusticeGrid\investigation-main\src\app\layout.tsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

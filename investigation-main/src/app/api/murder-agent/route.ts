@@ -5,7 +5,7 @@ import path from 'path';
 import fs from 'fs';
 
 // Get Augment AI API key from environment variables
-const AUGMENT_AI_API_KEY = process.env.NEXT_PUBLIC_AUGMENT_AI_API_KEY || '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';
+const AUGMENT_AI_API_KEY = process.env.NEXT_PUBLIC_AUGMENT_AI_API_KEY || 'http://127.0.0.1:5000/api/augment/murder';
 
 /**
  * Connects to the Murder Agent Python backend to get live analysis

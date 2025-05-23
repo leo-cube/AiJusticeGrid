@@ -7142,3 +7142,133 @@
 2025-05-23 16:09:23,891 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 16:09:23] "POST /api/augment/murder HTTP/1.1" 200 -
 2025-05-23 16:09:23,917 - __main__ - INFO - Received request for Murder Agent
 2025-05-23 16:09:23,918 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 16:09:23] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:43:53,317 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 17:43:53,318 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 17:43:53,321 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 17:43:53,340 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.11.106:5000
+2025-05-23 17:43:53,341 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 17:43:53,347 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-23 17:43:54,517 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 17:43:54,517 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 17:43:54,521 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 17:43:54,530 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 17:43:54,537 - werkzeug - INFO -  * Debugger PIN: 729-843-253
+2025-05-23 17:49:51,541 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\routes\\__init__.py', reloading
+2025-05-23 17:49:52,019 - werkzeug - INFO -  * Detected change in 'c:\\users\\e629\\documents\\github\\vms\\backend\\webrtc_stream.py', reloading
+2025-05-23 17:49:52,243 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-23 17:49:53,659 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 17:49:53,660 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 17:49:53,663 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 17:49:53,676 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 17:49:53,684 - werkzeug - INFO -  * Debugger PIN: 729-843-253
+2025-05-23 17:50:46,501 - werkzeug - INFO -  * Detected change in 'C:\\Users\\e629\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\fastapi\\openapi\\utils.py', reloading
+2025-05-23 17:50:46,961 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-23 17:50:48,251 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 17:50:48,252 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 17:50:48,254 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 17:50:48,264 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 17:50:48,271 - werkzeug - INFO -  * Debugger PIN: 729-843-253
+2025-05-23 17:53:32,698 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 17:53:32,699 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 17:53:32,701 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 17:53:32,728 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.11.106:5000
+2025-05-23 17:53:32,728 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-23 17:53:32,739 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-05-23 17:53:33,913 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-05-23 17:53:33,913 - __main__ - INFO - Murder Agent initialized in unified server
+2025-05-23 17:53:33,916 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-23 17:53:33,925 - werkzeug - WARNING -  * Debugger is active!
+2025-05-23 17:53:33,932 - werkzeug - INFO -  * Debugger PIN: 729-843-253
+2025-05-23 17:53:42,925 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:53:42,926 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:53:42] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:53:42,962 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:53:42,963 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:53:42] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:56:08,787 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:56:08] "[31m[1mGET /api/augment/murder HTTP/1.1[0m" 405 -
+2025-05-23 17:58:53,788 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:58:53,789 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:58:53] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:58:53,825 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:58:53,826 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:58:53] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:58:57,122 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:58:57,122 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-23 17:58:57,122 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-23 17:58:57,123 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-23 17:58:57,123 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-23 17:58:57,124 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-23 17:58:57,124 - __main__ - INFO - Forcing creation of a new session
+2025-05-23 17:58:57,124 - __main__ - INFO - Created new conversation state with session ID: d9083395-68c4-4612-958e-e729079f49d8
+2025-05-23 17:58:57,125 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-23T17:58:57.124839'}
+2025-05-23 17:58:57,125 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:58:57] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:58:58,140 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:58:58,140 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-23 17:58:58,140 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-23 17:58:58,141 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-23 17:58:58,141 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-23 17:58:58,141 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-23 17:58:58,141 - __main__ - INFO - Forcing creation of a new session
+2025-05-23 17:58:58,142 - __main__ - INFO - Created new conversation state with session ID: 9c9a1bab-f686-450e-ada3-98e5ed27d4c0
+2025-05-23 17:58:58,142 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-23T17:58:58.141199'}
+2025-05-23 17:58:58,143 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:58:58] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:59:00,525 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:59:00,525 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-23 17:59:00,526 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-23 17:59:00,526 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-23 17:59:00,526 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-23 17:59:00,527 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-23 17:59:00,527 - __main__ - INFO - Forcing creation of a new session
+2025-05-23 17:59:00,528 - __main__ - INFO - Created new conversation state with session ID: 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7
+2025-05-23 17:59:00,528 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-23T17:59:00.528036'}
+2025-05-23 17:59:00,529 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:59:00] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:59:03,087 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:59:03,088 - __main__ - INFO - Received request with session_id: 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7, user_input: Asq1
+2025-05-23 17:59:03,088 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-23 17:59:03,088 - __main__ - INFO - Processing message: Asq1 with session_id: 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7
+2025-05-23 17:59:03,088 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-23 17:59:03,089 - __main__ - INFO - Current step: greeting
+2025-05-23 17:59:03,089 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-23T17:59:00.528036'}
+2025-05-23 17:59:03,089 - __main__ - INFO - Processing user input for session 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7, step greeting: Asq1
+2025-05-23 17:59:03,089 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-23T17:59:00.528036'}
+2025-05-23 17:59:03,090 - __main__ - INFO - Stored user input in field case_id: Asq1
+2025-05-23 17:59:03,090 - __main__ - INFO - Advanced to next step: date_of_crime
+2025-05-23 17:59:03,090 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:59:03] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:59:17,269 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:59:17,269 - __main__ - INFO - Received request with session_id: 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7, user_input: February 05, 2022
+2025-05-23 17:59:17,269 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-23 17:59:17,270 - __main__ - INFO - Processing message: February 05, 2022 with session_id: 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7
+2025-05-23 17:59:17,270 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-23 17:59:17,270 - __main__ - INFO - Current step: date_of_crime
+2025-05-23 17:59:17,270 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': 'Asq1'}, 'last_updated': '2025-05-23T17:59:03.090737'}
+2025-05-23 17:59:17,271 - __main__ - INFO - Processing user input for session 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7, step date_of_crime: February 05, 2022
+2025-05-23 17:59:17,271 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': 'Asq1'}, 'last_updated': '2025-05-23T17:59:03.090737'}
+2025-05-23 17:59:17,272 - __main__ - INFO - Stored user input in field date_of_crime: 2022-02-05
+2025-05-23 17:59:17,272 - __main__ - INFO - Advanced to next step: time_of_crime
+2025-05-23 17:59:17,273 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:59:17] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 17:59:28,423 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 17:59:28,424 - __main__ - INFO - Received request with session_id: 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7, user_input: 10:00 am
+2025-05-23 17:59:28,424 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-23 17:59:28,424 - __main__ - INFO - Processing message: 10:00 am with session_id: 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7
+2025-05-23 17:59:28,425 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-23 17:59:28,425 - __main__ - INFO - Current step: time_of_crime
+2025-05-23 17:59:28,425 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'Asq1', 'date_of_crime': '2022-02-05'}, 'last_updated': '2025-05-23T17:59:17.272288'}
+2025-05-23 17:59:28,425 - __main__ - INFO - Processing user input for session 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7, step time_of_crime: 10:00 am
+2025-05-23 17:59:28,426 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'Asq1', 'date_of_crime': '2022-02-05'}, 'last_updated': '2025-05-23T17:59:17.272288'}
+2025-05-23 17:59:28,426 - __main__ - INFO - Stored user input in field time_of_crime: 10:00
+2025-05-23 17:59:28,426 - __main__ - INFO - Advanced to next step: location
+2025-05-23 17:59:28,427 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 17:59:28] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-23 18:00:00,158 - __main__ - INFO - Received request for Murder Agent
+2025-05-23 18:00:00,159 - __main__ - INFO - Received request with session_id: 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7, user_input: chennai
+2025-05-23 18:00:00,159 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-23 18:00:00,159 - __main__ - INFO - Processing message: chennai with session_id: 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7
+2025-05-23 18:00:00,159 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-23 18:00:00,159 - __main__ - INFO - Current step: location
+2025-05-23 18:00:00,160 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': 'Asq1', 'date_of_crime': '2022-02-05', 'time_of_crime': '10:00'}, 'last_updated': '2025-05-23T17:59:28.427903'}
+2025-05-23 18:00:00,160 - __main__ - INFO - Processing user input for session 4c3df09e-7f2a-4ca9-aea8-1a953f3149c7, step location: chennai
+2025-05-23 18:00:00,160 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': 'Asq1', 'date_of_crime': '2022-02-05', 'time_of_crime': '10:00'}, 'last_updated': '2025-05-23T17:59:28.427903'}
+2025-05-23 18:00:00,161 - __main__ - INFO - Stored user input in field location: chennai
+2025-05-23 18:00:00,161 - __main__ - INFO - Advanced to next step: victim_name
+2025-05-23 18:00:00,161 - werkzeug - INFO - 127.0.0.1 - - [23/May/2025 18:00:00] "POST /api/augment/murder HTTP/1.1" 200 -

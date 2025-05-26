@@ -187,7 +187,7 @@ export default function CrimePage() {
               <p className="text-sm text-gray-400 mt-2">You need to enable agents in the Settings page before they appear here.</p>
               <Button
                 className="mt-4"
-                onClick={() => router.push('/dashboard/settings')}
+                onClick={() => router.push('/settings')}
               >
                 Go to Agent Configuration
               </Button>

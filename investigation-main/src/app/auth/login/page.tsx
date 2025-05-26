@@ -19,7 +19,7 @@ export default function LoginPage() {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      router.push('/dashboard/dashboard');
+      router.push('/');
     }
   }, [isAuthenticated, router]);
 
@@ -48,7 +48,7 @@ export default function LoginPage() {
         }
 
         // Navigate to dashboard
-        router.push('/dashboard/dashboard');
+        router.push('/');
       } else {
         setError('Invalid email or password. Please try again.');
       }

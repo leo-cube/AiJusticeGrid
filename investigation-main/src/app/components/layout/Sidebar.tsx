@@ -24,28 +24,28 @@ import {
 const navItems = [
   {
     title: 'Dashboard',
-    href: '/dashboard/dashboard',
+    href: '/',
     icon: <HomeIcon className="h-5 w-5" />,
   },
   {
     title: 'Crime',
-    href: '/dashboard/crime',
+    href: '/crime',
     icon: <ChartBarIcon className="h-5 w-5" />,
   },
   {
     title: 'Assignments',
-    href: '/dashboard/assignments',
+    href: '/assignments',
     icon: <UserGroupIcon className="h-5 w-5" />,
   },
   // DegreeGuru and Chat entries removed
   {
     title: 'Reports',
-    href: '/dashboard/reports',
+    href: '/reports',
     icon: <DocumentTextIcon className="h-5 w-5" />,
   },
   {
     title: 'Settings',
-    href: '/dashboard/settings',
+    href: '/settings',
     icon: <CogIcon className="h-5 w-5" />,
   },
   {

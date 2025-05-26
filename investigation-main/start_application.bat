@@ -16,7 +16,7 @@ start "Police Investigation Frontend" cmd /c "npm run dev"
 REM Open the browser to the application
 echo Opening browser to application...
 timeout /t 10 /nobreak > nul
-start http://localhost:3000/crime
+start http://localhost:3000/dashboard/dashboard
 
 echo.
 echo Application started successfully!

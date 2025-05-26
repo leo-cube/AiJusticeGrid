@@ -1,166 +1,229 @@
-/* eslint-disable */
 'use client';
 
 import React, { useState } from 'react';
-import { useAuth } from '@/app/context/AuthContext';
 import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Card';
 import Button from '@/app/components/ui/Button';
-import Input from '@/app/components/ui/Input';
 import AugmentAIConfig from '@/app/components/settings/AugmentAIConfig';
+import { CogIcon, UserIcon, BellIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 
 export default function SettingsPage() {
-  const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState('profile');
-  const [formData, setFormData] = useState({
-    name: user?.name || '',
-    email: user?.email || '',
-    department: user?.department || '',
-    badgeNumber: user?.badgeNumber || '',
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState({ type: '', text: '' });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setMessage({ type: '', text: '' });
-
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-      // Show success message
-      setMessage({
-        type: 'success',
-        text: 'Profile updated successfully',
-      });
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      setMessage({
-        type: 'error',
-        text: 'Failed to update profile. Please try again.',
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const [activeTab, setActiveTab] = useState('agents');
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-        <p className="text-gray-500">Manage your account and application settings</p>
+        <p className="text-gray-500">Manage your system preferences and configurations</p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <div className="flex border-b">
-            <button
-              className={`px-4 py-2 font-medium ${
-                activeTab === 'profile'
-                  ? 'border-b-2 border-blue-600 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-              onClick={() => setActiveTab('profile')}
-            >
-              Profile
-            </button>
-            <button
-              className={`px-4 py-2 font-medium ${
-                activeTab === 'agents'
-                  ? 'border-b-2 border-blue-600 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-              onClick={() => setActiveTab('agents')}
-            >
-              Agent Configuration
-            </button>
-            <button
-              className={`px-4 py-2 font-medium ${
-                activeTab === 'augment'
-                  ? 'border-b-2 border-blue-600 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-              onClick={() => setActiveTab('augment')}
-            >
-              Augment AI
-            </button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {activeTab === 'profile' && (
-            <div className="space-y-6">
-              {message.text && (
-                <div
-                  className={`p-4 rounded-md ${
-                    message.type === 'success'
-                      ? 'bg-green-50 text-green-800'
-                      : 'bg-red-50 text-red-800'
-                  }`}
-                >
-                  {message.text}
-                </div>
-              )}
+      {/* Tab Navigation */}
+      <div className="border-b border-gray-200">
+        <nav className="-mb-px flex space-x-8">
+          <button
+            onClick={() => setActiveTab('agents')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'agents'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <ShieldCheckIcon className="h-5 w-5 inline mr-2" />
+            Agent Configuration
+          </button>
+          <button
+            onClick={() => setActiveTab('profile')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'profile'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <UserIcon className="h-5 w-5 inline mr-2" />
+            Profile
+          </button>
+          <button
+            onClick={() => setActiveTab('notifications')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'notifications'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <BellIcon className="h-5 w-5 inline mr-2" />
+            Notifications
+          </button>
+          <button
+            onClick={() => setActiveTab('system')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'system'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <CogIcon className="h-5 w-5 inline mr-2" />
+            System
+          </button>
+        </nav>
+      </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <Input
-                  id="name"
-                  name="name"
-                  label="Full Name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
+      {/* Agent Configuration Tab */}
+      {activeTab === 'agents' && (
+        <div>
+          <AugmentAIConfig />
+        </div>
+      )}
+
+      {/* Profile Tab */}
+      {activeTab === 'profile' && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Profile Settings</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  defaultValue="Officer John Doe"
                 />
-                <Input
-                  id="email"
-                  name="email"
-                  label="Email Address"
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Email
+                </label>
+                <input
                   type="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  defaultValue="admin@police.gov"
                 />
-                <Input
-                  id="department"
-                  name="department"
-                  label="Department"
-                  value={formData.department}
-                  onChange={handleInputChange}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Badge Number
+                </label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  defaultValue="12345"
                 />
-                <Input
-                  id="badgeNumber"
-                  name="badgeNumber"
-                  label="Badge Number"
-                  value={formData.badgeNumber}
-                  onChange={handleInputChange}
-                />
-                <Button type="submit" isLoading={isLoading}>
-                  Save Changes
-                </Button>
-              </form>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Department
+                </label>
+                <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option>Criminal Investigation Division</option>
+                  <option>Financial Crimes Unit</option>
+                  <option>Homicide Division</option>
+                  <option>Theft Division</option>
+                </select>
+              </div>
+              <Button>
+                Save Changes
+              </Button>
             </div>
-          )}
+          </CardContent>
+        </Card>
+      )}
 
-          {activeTab === 'agents' && (
-            <div className="space-y-6">
-              <p className="text-gray-500">
-                Configure agent settings and behavior
-              </p>
-              {/* Agent configuration panel would go here */}
-              <div className="bg-gray-50 p-4 rounded-md text-center">
-                <p>Agent configuration is currently under development.</p>
+      {/* Notifications Tab */}
+      {activeTab === 'notifications' && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Notification Preferences</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Case Updates</h4>
+                  <p className="text-sm text-gray-500">Get notified when cases are updated</p>
+                </div>
+                <input type="checkbox" className="h-4 w-4 text-blue-600" defaultChecked />
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Agent Responses</h4>
+                  <p className="text-sm text-gray-500">Get notified when AI agents respond</p>
+                </div>
+                <input type="checkbox" className="h-4 w-4 text-blue-600" defaultChecked />
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">System Alerts</h4>
+                  <p className="text-sm text-gray-500">Get notified about system issues</p>
+                </div>
+                <input type="checkbox" className="h-4 w-4 text-blue-600" />
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Weekly Reports</h4>
+                  <p className="text-sm text-gray-500">Receive weekly summary reports</p>
+                </div>
+                <input type="checkbox" className="h-4 w-4 text-blue-600" defaultChecked />
               </div>
             </div>
-          )}
+          </CardContent>
+        </Card>
+      )}
 
-          {activeTab === 'augment' && <AugmentAIConfig />}
-        </CardContent>
-      </Card>
+      {/* System Tab */}
+      {activeTab === 'system' && (
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>System Information</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-sm font-medium text-gray-600">Version</span>
+                  <span className="text-sm text-gray-900">1.0.0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm font-medium text-gray-600">Last Updated</span>
+                  <span className="text-sm text-gray-900">January 2024</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm font-medium text-gray-600">Database Status</span>
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    Connected
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm font-medium text-gray-600">AI Services</span>
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    Active
+                  </span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>System Actions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <Button variant="outline" className="w-full">
+                  Clear Cache
+                </Button>
+                <Button variant="outline" className="w-full">
+                  Export Data
+                </Button>
+                <Button variant="outline" className="w-full">
+                  System Diagnostics
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

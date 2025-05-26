@@ -7239,3 +7239,33 @@
 2025-05-27 00:46:14,338 - __main__ - ERROR - Failed to initialize Murder Agent: Client.__init__() got an unexpected keyword argument 'proxies'
 2025-05-27 00:46:14,338 - __main__ - ERROR - API key details - Length: 70, Type: <class 'str'>
 2025-05-27 00:46:14,338 - __main__ - ERROR - API key starts with: nvapi-lJ8G...
+2025-05-27 01:03:10,781 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 01:03:10,781 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 01:03:10,781 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 01:03:10,781 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:03:10,781 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 01:03:10,781 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:03:10,781 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:03:10,792 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:03:10,793 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 01:03:10,794 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 01:03:10,805 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 01:03:11,182 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.2:5000
+2025-05-27 01:03:11,197 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-27 01:03:11,218 - werkzeug - INFO -  * Restarting with stat
+2025-05-27 01:03:13,206 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 01:03:13,206 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 01:03:13,206 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 01:03:13,206 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:03:13,212 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 01:03:13,212 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:03:13,214 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:03:13,215 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:03:13,216 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 01:03:13,217 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 01:03:13,231 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 01:03:13,267 - werkzeug - WARNING -  * Debugger is active!
+2025-05-27 01:03:13,281 - werkzeug - INFO -  * Debugger PIN: 130-817-110

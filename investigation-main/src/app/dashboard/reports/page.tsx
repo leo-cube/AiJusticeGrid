@@ -1,131 +1,227 @@
-/* eslint-disable */
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Card';
-import ApiReportPanel from '@/app/components/reports/ApiReportPanel';
-import InvestigationReportPanel from '@/app/components/reports/InvestigationReportPanel';
-import { apiService } from '@/services/api';
-import defaultSettings from '@/config/defaultSettings.json';
+import Button from '@/app/components/ui/Button';
+import { DocumentTextIcon, ChartBarIcon, DownloadIcon } from '@heroicons/react/24/outline';
 
 export default function ReportsPage() {
-  const [activeTab, setActiveTab] = useState('api');
-  const [apiReports, setApiReports] = useState([]);
-  const [investigationReports, setInvestigationReports] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState('overview');
 
-  useEffect(() => {
-    const fetchReports = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        // Get endpoints from config
-        const apiReportsEndpoint = defaultSettings.api.endpoints.apiReports;
-        const investigationReportsEndpoint = defaultSettings.api.endpoints.investigationReports;
-        
-        // Fetch reports from API
-        const apiReportsData = await apiService.get(apiReportsEndpoint);
-        const investigationReportsData = await apiService.get(investigationReportsEndpoint);
-        
-        if (apiReportsData) {
-          setApiReports(apiReportsData);
-        }
-        
-        if (investigationReportsData) {
-          setInvestigationReports(investigationReportsData);
-        }
-      } catch (error) {
-        console.error('Error fetching reports:', error);
-        setError('Failed to load reports. Please try again later.');
-        
-        // Fall back to default settings if API fails
-        const mockData = await import('@/mocks/api').then(module => module.default);
-        setApiReports(mockData['/api-reports'] || []);
-        setInvestigationReports(mockData['/investigation-reports'] || []);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchReports();
-  }, []);
-
-  // Loading skeleton component
-  const LoadingSkeleton = () => (
-    <div className="space-y-6 animate-pulse">
-      <div>
-        <div className="h-8 w-48 bg-gray-200 rounded"></div>
-        <div className="h-4 w-64 bg-gray-200 rounded mt-2"></div>
-      </div>
-      <div className="bg-gray-100 rounded-lg p-6 h-96"></div>
-    </div>
-  );
-
-  // Error message component
-  const ErrorMessage = ({ message }) => (
-    <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-center">
-      <p className="text-red-800">{message}</p>
-      <button
-        onClick={() => window.location.reload()}
-        className="mt-2 px-4 py-2 bg-red-100 text-red-800 rounded-md hover:bg-red-200"
-      >
-        Retry
-      </button>
-    </div>
-  );
-
-  // Show loading state
-  if (isLoading) {
-    return <LoadingSkeleton />;
-  }
-
-  // Show error state
-  if (error) {
-    return <ErrorMessage message={error} />;
-  }
+  const mockReports = [
+    {
+      id: 'RPT-001',
+      title: 'Monthly Crime Statistics',
+      type: 'Statistical',
+      date: '2024-01-01',
+      status: 'Completed',
+      description: 'Comprehensive analysis of crime trends for December 2023'
+    },
+    {
+      id: 'RPT-002',
+      title: 'Bank Robbery Investigation',
+      type: 'Investigation',
+      date: '2024-01-05',
+      status: 'In Progress',
+      description: 'Detailed investigation report for the Main Street bank robbery'
+    },
+    {
+      id: 'RPT-003',
+      title: 'Financial Fraud Analysis',
+      type: 'Analysis',
+      date: '2024-01-03',
+      status: 'Completed',
+      description: 'Analysis of recent financial fraud patterns in the district'
+    }
+  ];
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Reports</h1>
-        <p className="text-gray-500">View and manage reports</p>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Reports & Analytics</h1>
+          <p className="text-gray-500">Generate and manage investigation reports</p>
+        </div>
+        <Button>
+          Generate New Report
+        </Button>
       </div>
 
-      <Card>
-        <CardHeader>
-          <div className="flex border-b">
-            <button
-              className={`px-4 py-2 font-medium ${
-                activeTab === 'api'
-                  ? 'border-b-2 border-blue-600 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-              onClick={() => setActiveTab('api')}
-            >
-              API Reports
-            </button>
-            <button
-              className={`px-4 py-2 font-medium ${
-                activeTab === 'investigation'
-                  ? 'border-b-2 border-blue-600 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-              onClick={() => setActiveTab('investigation')}
-            >
-              Investigation Reports
-            </button>
+      {/* Tab Navigation */}
+      <div className="border-b border-gray-200">
+        <nav className="-mb-px flex space-x-8">
+          <button
+            onClick={() => setActiveTab('overview')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'overview'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            Overview
+          </button>
+          <button
+            onClick={() => setActiveTab('investigation')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'investigation'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            Investigation Reports
+          </button>
+          <button
+            onClick={() => setActiveTab('analytics')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'analytics'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            Analytics
+          </button>
+        </nav>
+      </div>
+
+      {/* Overview Tab */}
+      {activeTab === 'overview' && (
+        <div className="space-y-6">
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center">
+                  <div className="p-3 bg-blue-100 rounded-lg">
+                    <DocumentTextIcon className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Total Reports</p>
+                    <p className="text-2xl font-semibold text-gray-900">24</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center">
+                  <div className="p-3 bg-green-100 rounded-lg">
+                    <ChartBarIcon className="h-6 w-6 text-green-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">This Month</p>
+                    <p className="text-2xl font-semibold text-gray-900">8</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center">
+                  <div className="p-3 bg-orange-100 rounded-lg">
+                    <DownloadIcon className="h-6 w-6 text-orange-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Downloads</p>
+                    <p className="text-2xl font-semibold text-gray-900">156</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </CardHeader>
-        <CardContent>
-          {activeTab === 'api' ? (
-            <ApiReportPanel reports={apiReports} />
-          ) : (
-            <InvestigationReportPanel reports={investigationReports} />
-          )}
-        </CardContent>
-      </Card>
+
+          {/* Recent Reports */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Reports</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {mockReports.map((report) => (
+                  <div
+                    key={report.id}
+                    className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-3 mb-2">
+                          <h3 className="text-lg font-medium text-gray-900">
+                            {report.title}
+                          </h3>
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            report.status === 'Completed' 
+                              ? 'bg-green-100 text-green-800' 
+                              : 'bg-orange-100 text-orange-800'
+                          }`}>
+                            {report.status}
+                          </span>
+                        </div>
+                        <p className="text-gray-600 mb-2">{report.description}</p>
+                        <div className="flex items-center space-x-4 text-sm text-gray-500">
+                          <span>ID: {report.id}</span>
+                          <span>Type: {report.type}</span>
+                          <span>Date: {report.date}</span>
+                        </div>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button variant="outline" size="sm">
+                          View
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <DownloadIcon className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Investigation Reports Tab */}
+      {activeTab === 'investigation' && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Investigation Reports</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-12">
+              <DocumentTextIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Investigation Reports</h3>
+              <p className="text-gray-600 mb-4">
+                Detailed investigation reports and case documentation
+              </p>
+              <Button>
+                Create Investigation Report
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Analytics Tab */}
+      {activeTab === 'analytics' && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Crime Analytics</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-12">
+              <ChartBarIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Crime Analytics</h3>
+              <p className="text-gray-600 mb-4">
+                Statistical analysis and crime trend reports
+              </p>
+              <Button>
+                Generate Analytics Report
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

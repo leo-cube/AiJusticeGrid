@@ -94,6 +94,14 @@ if not NVIDIA_API_KEY:
         logger.warning("NVIDIA_API_KEY not found in environment variables or .env file. Using default value.")
         NVIDIA_API_KEY = "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"
 
+# Clean and validate the API key
+if NVIDIA_API_KEY:
+    NVIDIA_API_KEY = NVIDIA_API_KEY.strip()
+    logger.info(f"API key loaded successfully (length: {len(NVIDIA_API_KEY)})")
+else:
+    logger.error("No API key available!")
+    sys.exit(1)
+
 # Main port for the unified server
 MAIN_PORT = int(os.getenv('MAIN_PORT', 5000))
 
@@ -137,12 +145,36 @@ class MurderAgent:
         Args:
             api_key: NVIDIA API key
         """
-        self.api_key = api_key
-        self.client = OpenAI(
-            base_url="https://integrate.api.nvidia.com/v1",
-            api_key=api_key
-        )
-        logger.info(f"Murder Agent initialized with model: {MURDER_MODEL_NAME}")
+        if not api_key:
+            raise ValueError("API key is required for Murder Agent initialization")
+
+        # Clean and validate the API key
+        self.api_key = api_key.strip() if isinstance(api_key, str) else str(api_key).strip()
+
+        # Remove any potential extra characters or formatting issues
+        self.api_key = self.api_key.replace('\n', '').replace('\r', '').replace('\t', '')
+
+        if not self.api_key:
+            raise ValueError("API key cannot be empty")
+
+        # Validate API key format (should start with nvapi-)
+        if not self.api_key.startswith('nvapi-'):
+            raise ValueError(f"Invalid API key format. Expected to start with 'nvapi-', got: {self.api_key[:10]}...")
+
+        logger.info(f"Initializing Murder Agent with API key length: {len(self.api_key)}")
+
+        try:
+            # Initialize OpenAI client with explicit parameters
+            self.client = OpenAI(
+                base_url="https://integrate.api.nvidia.com/v1",
+                api_key=self.api_key,
+                timeout=30.0
+            )
+            logger.info(f"Murder Agent initialized successfully with model: {MURDER_MODEL_NAME}")
+        except Exception as e:
+            logger.error(f"Failed to initialize OpenAI client: {str(e)}")
+            logger.error(f"API key being used: {self.api_key[:15]}...")
+            raise
 
     def analyze_case(self, case_details):
         """
@@ -1161,8 +1193,16 @@ def generate_incident_pdf(incident_data):
     return buffer
 
 # Initialize the Murder Agent
-murder_agent = MurderAgent(NVIDIA_API_KEY)
-logger.info("Murder Agent initialized in unified server")
+try:
+    logger.info(f"Attempting to initialize Murder Agent with API key length: {len(NVIDIA_API_KEY) if NVIDIA_API_KEY else 0}")
+    murder_agent = MurderAgent(NVIDIA_API_KEY)
+    logger.info("Murder Agent initialized successfully in unified server")
+except Exception as e:
+    logger.error(f"Failed to initialize Murder Agent: {str(e)}")
+    logger.error(f"API key details - Length: {len(NVIDIA_API_KEY) if NVIDIA_API_KEY else 0}, Type: {type(NVIDIA_API_KEY)}")
+    if NVIDIA_API_KEY:
+        logger.error(f"API key starts with: {NVIDIA_API_KEY[:10]}...")
+    raise
 
 # Create a specialized endpoint for the Murder Agent
 @app.route('/api/augment/murder', methods=['POST'])

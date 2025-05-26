@@ -222,9 +222,9 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
               <div className="flex justify-start">
                 <div className="bg-gray-100 rounded-lg p-3 max-w-[80%]">
                   <div className="flex space-x-2">
-                    <div className="h-2 w-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="h-2 w-2 bg-gray-400 rounded-full animate-bounce delay-75"></div>
-                    <div className="h-2 w-2 bg-gray-400 rounded-full animate-bounce delay-150"></div>
+                    <div className="h-2 w-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0ms]"></div>
+                    <div className="h-2 w-2 bg-gray-400 rounded-full animate-bounce [animation-delay:150ms]"></div>
+                    <div className="h-2 w-2 bg-gray-400 rounded-full animate-bounce [animation-delay:300ms]"></div>
                   </div>
                 </div>
               </div>

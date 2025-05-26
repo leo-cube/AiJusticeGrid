@@ -185,8 +185,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                 response = initData.response;
                 usingBackend = true;
 
-                // Add a marker to the response to indicate it's from the live backend
-                response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
+                // Add a marker to the response to indicate it's from the live backend (only if not already present)
+                if (!response.includes('[LIVE DATA ANALYSIS]')) {
+                  response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
+                }
 
                 // Create a new context with the session information
                 const newContext = { ...currentContext };
@@ -242,8 +244,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                 usingBackend = true;
                 console.log('Successfully used Murder Agent backend');
 
-                // Add a marker to the response to indicate it's from the live backend
-                response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
+                // Add a marker to the response to indicate it's from the live backend (only if not already present)
+                if (!response.includes('[LIVE DATA ANALYSIS]')) {
+                  response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
+                }
 
                 // Create a new context object to avoid reference issues
                 const newContext = { ...currentContext };

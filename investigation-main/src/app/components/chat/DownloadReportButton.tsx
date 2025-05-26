@@ -43,47 +43,63 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
     );
   };
 
-  // Handle click to create report and redirect
-  const handleCreateReport = async () => {
+  // Handle click to generate and download PDF
+  const handleDownloadPDF = async () => {
     try {
-      // Extract questions and answers from the conversation
-      const questions: { question: string; answer: string }[] = [];
-
-      // In a real implementation, you would extract the Q&A from the conversation history
-      // For now, we'll create a simple placeholder
-      questions.push({
-        question: 'What was investigated?',
-        answer: `A ${message.context?.caseType || 'crime'} case`
-      });
-
-      // Create the investigation report
-      const reportData: Partial<InvestigationReport> = {
-        title: message.context?.caseTitle || 'Investigation Report',
-        investigationId: message.context?.caseId || `case-${Date.now()}`,
-        investigationType: message.context?.caseType || 'general',
-        questions: questions,
-        analysis: message.content,
-        createdBy: 'Current User'
+      // Create incident data from the message context and content
+      const incidentData = {
+        id: message.context?.caseId || `case-${Date.now()}`,
+        date: new Date().toISOString().split('T')[0],
+        time: new Date().toTimeString().split(' ')[0].substring(0, 5),
+        location: message.context?.location || 'Unknown',
+        incident_type: message.context?.caseType || message.agentType || 'Investigation',
+        description: 'AI-generated investigation analysis',
+        reporting_officer: 'AI Agent',
+        evidence: 'Digital analysis and investigation',
+        status: 'Completed',
+        victims: message.context?.victims || [],
+        suspects: message.context?.suspects || [],
+        ai_analysis: message.content.replace(/\*\*/g, '').replace(/\[LIVE DATA ANALYSIS\]/g, '').trim()
       };
 
-      // Submit the report to the API
-      const response = await fetch('/api/investigation-reports', {
+      // Call the PDF generation API
+      const response = await fetch('/api/generate-pdf', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(reportData),
+        body: JSON.stringify(incidentData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create investigation report');
+        throw new Error('Failed to generate PDF');
       }
 
-      // Redirect to the reports page
-      router.push('/reports');
+      // Get the PDF blob and create a download link
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+
+      // Get filename from response headers or use default
+      const contentDisposition = response.headers.get('content-disposition');
+      let filename = 'investigation_report.pdf';
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
+      }
+
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
     } catch (error) {
-      console.error('Error creating investigation report:', error);
-      alert('Failed to create investigation report. Please try again later.');
+      console.error('Error generating PDF:', error);
+      alert('Failed to generate PDF report. Please try again later.');
     }
   };
 
@@ -95,12 +111,12 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
   return (
     <div className="mt-4 flex justify-end">
       <Button
-        onClick={handleCreateReport}
+        onClick={handleDownloadPDF}
         className="flex items-center"
         size="sm"
       >
         <ArrowDownIcon className="mr-1 h-4 w-4" />
-        Download Report
+        Download PDF Report
       </Button>
     </div>
   );

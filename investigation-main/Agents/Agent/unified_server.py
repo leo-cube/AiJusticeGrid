@@ -10,17 +10,31 @@ import requests
 import time
 import platform
 import sys
-from openai import OpenAI
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, Any, Tuple, Optional, List
-from reportlab.lib.pagesizes import letter, A4
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
 from io import BytesIO
+
+# Import OpenAI with fallback
+try:
+    from openai import OpenAI
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OPENAI_AVAILABLE = False
+    print("OpenAI library not available, using fallback client")
+
+# Import ReportLab with fallback
+try:
+    from reportlab.lib.pagesizes import letter, A4
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import inch
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+    from reportlab.lib import colors
+    from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
+    REPORTLAB_AVAILABLE = True
+except ImportError:
+    REPORTLAB_AVAILABLE = False
+    print("ReportLab library not available, PDF generation will be limited")
 
 # Load environment variables
 load_dotenv()
@@ -133,6 +147,76 @@ AGENTS = {
     }
 }
 
+# Fixed OpenAI Client to bypass the 'proxies' parameter issue
+class FixedOpenAIClient:
+    """
+    A fixed OpenAI client that works around the 'proxies' parameter issue.
+    This client uses direct HTTP requests instead of the problematic OpenAI library.
+    """
+
+    def __init__(self, api_key, base_url="https://integrate.api.nvidia.com/v1"):
+        self.api_key = api_key
+        self.base_url = base_url.rstrip('/')
+        self.headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+
+    def chat_completions_create(self, model, messages, **kwargs):
+        """Create a chat completion using direct HTTP request."""
+        url = f"{self.base_url}/chat/completions"
+
+        payload = {
+            "model": model,
+            "messages": messages,
+            **kwargs
+        }
+
+        try:
+            response = requests.post(url, headers=self.headers, json=payload, timeout=30)
+            response.raise_for_status()
+            result = response.json()
+
+            # Convert to match OpenAI response format
+            class Choice:
+                def __init__(self, message_content):
+                    self.message = type('Message', (), {'content': message_content})()
+
+            class Response:
+                def __init__(self, choices):
+                    self.choices = choices
+
+            return Response([Choice(result['choices'][0]['message']['content'])])
+
+        except requests.exceptions.RequestException as e:
+            raise Exception(f"API request failed: {str(e)}")
+
+    @property
+    def chat(self):
+        """Property to mimic OpenAI client structure."""
+        return ChatCompletions(self)
+
+class ChatCompletions:
+    """Helper class to mimic OpenAI client structure."""
+
+    def __init__(self, client):
+        self.client = client
+
+    @property
+    def completions(self):
+        """Completions property to match OpenAI client structure."""
+        return CompletionsCreate(self.client)
+
+class CompletionsCreate:
+    """Helper class for completions.create method."""
+
+    def __init__(self, client):
+        self.client = client
+
+    def create(self, **kwargs):
+        """Create method that delegates to the client."""
+        return self.client.chat_completions_create(**kwargs)
+
 class MurderAgent:
     """
     Main interface for the Murder Agent that analyzes murder cases using the NVIDIA API.
@@ -164,17 +248,77 @@ class MurderAgent:
         logger.info(f"Initializing Murder Agent with API key length: {len(self.api_key)}")
 
         try:
-            # Initialize OpenAI client with explicit parameters
+            # Initialize OpenAI client with minimal parameters to avoid compatibility issues
             self.client = OpenAI(
                 base_url="https://integrate.api.nvidia.com/v1",
-                api_key=self.api_key,
-                timeout=30.0
+                api_key=self.api_key
             )
             logger.info(f"Murder Agent initialized successfully with model: {MURDER_MODEL_NAME}")
         except Exception as e:
             logger.error(f"Failed to initialize OpenAI client: {str(e)}")
             logger.error(f"API key being used: {self.api_key[:15]}...")
-            raise
+
+            # Try alternative initialization methods
+            try:
+                logger.info("Attempting alternative OpenAI client initialization...")
+                import openai
+                logger.info(f"OpenAI library version: {openai.__version__}")
+
+                # Method 1: Try with explicit http_client=None
+                try:
+                    self.client = OpenAI(
+                        base_url="https://integrate.api.nvidia.com/v1",
+                        api_key=self.api_key,
+                        http_client=None
+                    )
+                    logger.info("Alternative initialization with http_client=None successful!")
+                except Exception as e3:
+                    logger.info(f"http_client=None failed: {str(e3)}")
+
+                    # Method 2: Try with older style initialization
+                    try:
+                        # For older versions of openai library
+                        openai.api_key = self.api_key
+                        openai.api_base = "https://integrate.api.nvidia.com/v1"
+
+                        # Create a simple client wrapper
+                        class SimpleOpenAIClient:
+                            def __init__(self, api_key, base_url):
+                                self.api_key = api_key
+                                self.base_url = base_url
+
+                            def chat_completions_create(self, **kwargs):
+                                # This will be implemented if needed
+                                import requests
+                                headers = {
+                                    "Authorization": f"Bearer {self.api_key}",
+                                    "Content-Type": "application/json"
+                                }
+                                response = requests.post(
+                                    f"{self.base_url}/chat/completions",
+                                    headers=headers,
+                                    json=kwargs
+                                )
+                                return response.json()
+
+                        self.client = SimpleOpenAIClient(self.api_key, "https://integrate.api.nvidia.com/v1")
+                        logger.info("Fallback client initialization successful!")
+
+                    except Exception as e4:
+                        logger.info(f"SimpleOpenAIClient failed: {str(e4)}")
+
+                        # Method 3: Use our FixedOpenAIClient
+                        try:
+                            logger.info("Attempting FixedOpenAIClient initialization...")
+                            self.client = FixedOpenAIClient(self.api_key, "https://integrate.api.nvidia.com/v1")
+                            logger.info("FixedOpenAIClient initialization successful!")
+                        except Exception as e5:
+                            logger.error(f"All initialization methods failed. Last error: {str(e5)}")
+                            raise e
+
+            except Exception as e2:
+                logger.error(f"Alternative initialization also failed: {str(e2)}")
+                raise e
 
     def analyze_case(self, case_details):
         """

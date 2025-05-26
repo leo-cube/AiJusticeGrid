@@ -7269,3 +7269,356 @@
 2025-05-27 01:03:13,231 - __main__ - INFO - Starting unified agent server on port 5000
 2025-05-27 01:03:13,267 - werkzeug - WARNING -  * Debugger is active!
 2025-05-27 01:03:13,281 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-05-27 01:50:12,676 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:50:12,706 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-05-27 01:50:12,710 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-27 01:50:12,712 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-05-27 01:50:12,712 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-05-27 01:50:12,712 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-05-27 01:50:12,712 - __main__ - INFO - Forcing creation of a new session
+2025-05-27 01:50:12,712 - __main__ - INFO - Created new conversation state with session ID: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:50:12,712 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-27T01:50:12.712752'}
+2025-05-27 01:50:12,749 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:50:12] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:50:16,693 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:50:16,693 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: 001
+2025-05-27 01:50:16,693 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:50:16,693 - __main__ - INFO - Processing message: 001 with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:50:16,693 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:50:16,693 - __main__ - INFO - Current step: greeting
+2025-05-27 01:50:16,693 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-27T01:50:12.712752'}
+2025-05-27 01:50:16,693 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step greeting: 001
+2025-05-27 01:50:16,693 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-05-27T01:50:12.712752'}
+2025-05-27 01:50:16,693 - __main__ - INFO - Stored user input in field case_id: 001
+2025-05-27 01:50:16,693 - __main__ - INFO - Advanced to next step: date_of_crime
+2025-05-27 01:50:16,792 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:50:16] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:51:02,722 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:51:02,725 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: 2023-10-15
+2025-05-27 01:51:02,726 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:51:02,727 - __main__ - INFO - Processing message: 2023-10-15 with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:51:02,728 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:51:02,729 - __main__ - INFO - Current step: date_of_crime
+2025-05-27 01:51:02,729 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': '001'}, 'last_updated': '2025-05-27T01:50:16.693555'}
+2025-05-27 01:51:02,730 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step date_of_crime: 2023-10-15
+2025-05-27 01:51:02,731 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': '001'}, 'last_updated': '2025-05-27T01:50:16.693555'}
+2025-05-27 01:51:02,735 - __main__ - INFO - Stored user input in field date_of_crime: 2023-10-15
+2025-05-27 01:51:02,736 - __main__ - INFO - Advanced to next step: time_of_crime
+2025-05-27 01:51:02,736 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:51:02] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:51:19,890 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:51:19,890 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: 23:30
+2025-05-27 01:51:19,914 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:51:19,914 - __main__ - INFO - Processing message: 23:30 with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:51:19,914 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:51:19,916 - __main__ - INFO - Current step: time_of_crime
+2025-05-27 01:51:19,917 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15'}, 'last_updated': '2025-05-27T01:51:02.736648'}
+2025-05-27 01:51:19,918 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step time_of_crime: 23:30
+2025-05-27 01:51:19,919 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15'}, 'last_updated': '2025-05-27T01:51:02.736648'}
+2025-05-27 01:51:19,924 - __main__ - INFO - Stored user input in field time_of_crime: 23:30
+2025-05-27 01:51:19,924 - __main__ - INFO - Advanced to next step: location
+2025-05-27 01:51:19,928 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:51:19] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:51:40,070 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:51:40,071 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: 789 Elm Street, Apartment 3C
+2025-05-27 01:51:40,072 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:51:40,074 - __main__ - INFO - Processing message: 789 Elm Street, Apartment 3C with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:51:40,074 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:51:40,075 - __main__ - INFO - Current step: location
+2025-05-27 01:51:40,076 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30'}, 'last_updated': '2025-05-27T01:51:19.924706'}
+2025-05-27 01:51:40,077 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step location: 789 Elm Street, Apartment 3C
+2025-05-27 01:51:40,078 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30'}, 'last_updated': '2025-05-27T01:51:19.924706'}
+2025-05-27 01:51:40,079 - __main__ - INFO - Stored user input in field location: 789 Elm Street, Apartment 3C
+2025-05-27 01:51:40,081 - __main__ - INFO - Advanced to next step: victim_name
+2025-05-27 01:51:40,084 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:51:40] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:51:52,853 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:51:52,854 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: Robert Johnson
+2025-05-27 01:51:52,857 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:51:52,858 - __main__ - INFO - Processing message: Robert Johnson with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:51:52,860 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:51:52,860 - __main__ - INFO - Current step: victim_name
+2025-05-27 01:51:52,861 - __main__ - INFO - Current conversation state: {'current_step': 'victim_name', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C'}, 'last_updated': '2025-05-27T01:51:40.082250'}
+2025-05-27 01:51:52,863 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step victim_name: Robert Johnson
+2025-05-27 01:51:52,864 - __main__ - INFO - Current conversation state: {'current_step': 'victim_name', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C'}, 'last_updated': '2025-05-27T01:51:40.082250'}
+2025-05-27 01:51:52,866 - __main__ - INFO - Stored user input in field victim_name: Robert Johnson
+2025-05-27 01:51:52,866 - __main__ - INFO - Advanced to next step: victim_age
+2025-05-27 01:51:52,869 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:51:52] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:52:04,286 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:52:04,288 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: 42
+2025-05-27 01:52:04,290 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:04,291 - __main__ - INFO - Processing message: 42 with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:52:04,294 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:04,295 - __main__ - INFO - Current step: victim_age
+2025-05-27 01:52:04,297 - __main__ - INFO - Current conversation state: {'current_step': 'victim_age', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson'}, 'last_updated': '2025-05-27T01:51:52.867026'}
+2025-05-27 01:52:04,301 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step victim_age: 42
+2025-05-27 01:52:04,301 - __main__ - INFO - Current conversation state: {'current_step': 'victim_age', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson'}, 'last_updated': '2025-05-27T01:51:52.867026'}
+2025-05-27 01:52:04,301 - __main__ - INFO - Stored user input in field victim_age: 42
+2025-05-27 01:52:04,307 - __main__ - INFO - Advanced to next step: victim_gender
+2025-05-27 01:52:04,310 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:52:04] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:52:14,097 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:52:14,098 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: male
+2025-05-27 01:52:14,099 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:14,099 - __main__ - INFO - Processing message: male with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:52:14,100 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:14,101 - __main__ - INFO - Current step: victim_gender
+2025-05-27 01:52:14,102 - __main__ - INFO - Current conversation state: {'current_step': 'victim_gender', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42'}, 'last_updated': '2025-05-27T01:52:04.309452'}
+2025-05-27 01:52:14,103 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step victim_gender: male
+2025-05-27 01:52:14,109 - __main__ - INFO - Current conversation state: {'current_step': 'victim_gender', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42'}, 'last_updated': '2025-05-27T01:52:04.309452'}
+2025-05-27 01:52:14,114 - __main__ - INFO - Stored user input in field victim_gender: male
+2025-05-27 01:52:14,114 - __main__ - INFO - Advanced to next step: cause_of_death
+2025-05-27 01:52:14,114 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:52:14] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:52:27,158 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:52:27,159 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: Multiple stab wounds to the chest
+2025-05-27 01:52:27,160 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:27,160 - __main__ - INFO - Processing message: Multiple stab wounds to the chest with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:52:27,162 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:27,163 - __main__ - INFO - Current step: cause_of_death
+2025-05-27 01:52:27,164 - __main__ - INFO - Current conversation state: {'current_step': 'cause_of_death', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male'}, 'last_updated': '2025-05-27T01:52:14.114570'}
+2025-05-27 01:52:27,166 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step cause_of_death: Multiple stab wounds to the chest
+2025-05-27 01:52:27,167 - __main__ - INFO - Current conversation state: {'current_step': 'cause_of_death', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male'}, 'last_updated': '2025-05-27T01:52:14.114570'}
+2025-05-27 01:52:27,167 - __main__ - INFO - Stored user input in field cause_of_death: Multiple stab wounds to the chest
+2025-05-27 01:52:27,168 - __main__ - INFO - Advanced to next step: weapon_used
+2025-05-27 01:52:27,170 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:52:27] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:52:32,403 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:52:32,405 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: knife
+2025-05-27 01:52:32,406 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:32,407 - __main__ - INFO - Processing message: knife with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:52:32,407 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:32,408 - __main__ - INFO - Current step: weapon_used
+2025-05-27 01:52:32,409 - __main__ - INFO - Current conversation state: {'current_step': 'weapon_used', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest'}, 'last_updated': '2025-05-27T01:52:27.169929'}
+2025-05-27 01:52:32,410 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step weapon_used: knife
+2025-05-27 01:52:32,411 - __main__ - INFO - Current conversation state: {'current_step': 'weapon_used', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest'}, 'last_updated': '2025-05-27T01:52:27.169929'}
+2025-05-27 01:52:32,413 - __main__ - INFO - Stored user input in field weapon_used: knife
+2025-05-27 01:52:32,414 - __main__ - INFO - Advanced to next step: crime_scene_description
+2025-05-27 01:52:32,416 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:52:32] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:52:55,040 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:52:55,041 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00
+2025-05-27 01:52:55,042 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:55,043 - __main__ - INFO - Processing message: Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00 with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:52:55,045 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:52:55,045 - __main__ - INFO - Current step: crime_scene_description
+2025-05-27 01:52:55,046 - __main__ - INFO - Current conversation state: {'current_step': 'crime_scene_description', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife'}, 'last_updated': '2025-05-27T01:52:32.415415'}
+2025-05-27 01:52:55,048 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step crime_scene_description: Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00
+2025-05-27 01:52:55,049 - __main__ - INFO - Current conversation state: {'current_step': 'crime_scene_description', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife'}, 'last_updated': '2025-05-27T01:52:32.415415'}
+2025-05-27 01:52:55,051 - __main__ - INFO - Stored user input in field crime_scene_description: Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00
+2025-05-27 01:52:55,052 - __main__ - INFO - Advanced to next step: witnesses
+2025-05-27 01:52:55,056 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:52:55] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:53:16,478 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:53:16,479 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input:  Neighbor heard argument around 23:00
+2025-05-27 01:53:16,480 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:53:16,481 - __main__ - INFO - Processing message:  Neighbor heard argument around 23:00 with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:53:16,481 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:53:16,482 - __main__ - INFO - Current step: witnesses
+2025-05-27 01:53:16,483 - __main__ - INFO - Current conversation state: {'current_step': 'witnesses', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife', 'crime_scene_description': 'Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00'}, 'last_updated': '2025-05-27T01:52:55.053838'}
+2025-05-27 01:53:16,491 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step witnesses:  Neighbor heard argument around 23:00
+2025-05-27 01:53:16,492 - __main__ - INFO - Current conversation state: {'current_step': 'witnesses', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife', 'crime_scene_description': 'Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00'}, 'last_updated': '2025-05-27T01:52:55.053838'}
+2025-05-27 01:53:16,494 - __main__ - INFO - Stored user input in field witnesses:  Neighbor heard argument around 23:00
+2025-05-27 01:53:16,495 - __main__ - INFO - Advanced to next step: evidence_found
+2025-05-27 01:53:16,497 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:53:16] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:53:32,096 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:53:32,097 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: Bloody knife, fingerprints on door handle, victim's phone with text messages
+2025-05-27 01:53:32,098 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:53:32,099 - __main__ - INFO - Processing message: Bloody knife, fingerprints on door handle, victim's phone with text messages with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:53:32,100 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:53:32,101 - __main__ - INFO - Current step: evidence_found
+2025-05-27 01:53:32,102 - __main__ - INFO - Current conversation state: {'current_step': 'evidence_found', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife', 'crime_scene_description': 'Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00', 'witnesses': ' Neighbor heard argument around 23:00'}, 'last_updated': '2025-05-27T01:53:16.496865'}
+2025-05-27 01:53:32,106 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step evidence_found: Bloody knife, fingerprints on door handle, victim's phone with text messages
+2025-05-27 01:53:32,107 - __main__ - INFO - Current conversation state: {'current_step': 'evidence_found', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife', 'crime_scene_description': 'Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00', 'witnesses': ' Neighbor heard argument around 23:00'}, 'last_updated': '2025-05-27T01:53:16.496865'}
+2025-05-27 01:53:32,110 - __main__ - INFO - Stored user input in field evidence_found: Bloody knife, fingerprints on door handle, victim's phone with text messages
+2025-05-27 01:53:32,111 - __main__ - INFO - Advanced to next step: suspects
+2025-05-27 01:53:32,112 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:53:32] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:53:47,564 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:53:47,565 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: Ex-wife with history of threats, business partner with financial dispute
+2025-05-27 01:53:47,566 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:53:47,567 - __main__ - INFO - Processing message: Ex-wife with history of threats, business partner with financial dispute with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:53:47,568 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:53:47,569 - __main__ - INFO - Current step: suspects
+2025-05-27 01:53:47,569 - __main__ - INFO - Current conversation state: {'current_step': 'suspects', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife', 'crime_scene_description': 'Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00', 'witnesses': ' Neighbor heard argument around 23:00', 'evidence_found': "Bloody knife, fingerprints on door handle, victim's phone with text messages"}, 'last_updated': '2025-05-27T01:53:32.111220'}
+2025-05-27 01:53:47,572 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step suspects: Ex-wife with history of threats, business partner with financial dispute
+2025-05-27 01:53:47,574 - __main__ - INFO - Current conversation state: {'current_step': 'suspects', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife', 'crime_scene_description': 'Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00', 'witnesses': ' Neighbor heard argument around 23:00', 'evidence_found': "Bloody knife, fingerprints on door handle, victim's phone with text messages"}, 'last_updated': '2025-05-27T01:53:32.111220'}
+2025-05-27 01:53:47,579 - __main__ - INFO - Stored user input in field suspects: Ex-wife with history of threats, business partner with financial dispute
+2025-05-27 01:53:47,579 - __main__ - INFO - Advanced to next step: additional_notes
+2025-05-27 01:53:47,580 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:53:47] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:54:01,902 - __main__ - INFO - Received request for Murder Agent
+2025-05-27 01:54:01,904 - __main__ - INFO - Received request with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, user_input: ictim recently changed his will, removing ex-wife as beneficiary
+2025-05-27 01:54:01,905 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:54:01,906 - __main__ - INFO - Processing message: ictim recently changed his will, removing ex-wife as beneficiary with session_id: 2f7b37bf-cd68-49b2-a2bc-7f68554872bc
+2025-05-27 01:54:01,907 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-05-27 01:54:01,908 - __main__ - INFO - Current step: additional_notes
+2025-05-27 01:54:01,909 - __main__ - INFO - Current conversation state: {'current_step': 'additional_notes', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife', 'crime_scene_description': 'Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00', 'witnesses': ' Neighbor heard argument around 23:00', 'evidence_found': "Bloody knife, fingerprints on door handle, victim's phone with text messages", 'suspects': 'Ex-wife with history of threats, business partner with financial dispute'}, 'last_updated': '2025-05-27T01:53:47.580672'}
+2025-05-27 01:54:01,912 - __main__ - INFO - Processing user input for session 2f7b37bf-cd68-49b2-a2bc-7f68554872bc, step additional_notes: ictim recently changed his will, removing ex-wife as beneficiary
+2025-05-27 01:54:01,912 - __main__ - INFO - Current conversation state: {'current_step': 'additional_notes', 'collected_data': {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife', 'crime_scene_description': 'Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00', 'witnesses': ' Neighbor heard argument around 23:00', 'evidence_found': "Bloody knife, fingerprints on door handle, victim's phone with text messages", 'suspects': 'Ex-wife with history of threats, business partner with financial dispute'}, 'last_updated': '2025-05-27T01:53:47.580672'}
+2025-05-27 01:54:01,915 - __main__ - INFO - Stored user input in field additional_notes: ictim recently changed his will, removing ex-wife as beneficiary
+2025-05-27 01:54:01,916 - __main__ - INFO - Advanced to next step: analysis
+2025-05-27 01:54:01,916 - __main__ - INFO - Performing analysis with collected data: {'case_id': '001', 'date_of_crime': '2023-10-15', 'time_of_crime': '23:30', 'location': '789 Elm Street, Apartment 3C', 'victim_name': 'Robert Johnson', 'victim_age': '42', 'victim_gender': 'male', 'cause_of_death': 'Multiple stab wounds to the chest', 'weapon_used': 'knife', 'crime_scene_description': 'Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry. Witnesses: Neighbor heard argument around 23:00', 'witnesses': ' Neighbor heard argument around 23:00', 'evidence_found': "Bloody knife, fingerprints on door handle, victim's phone with text messages", 'suspects': 'Ex-wife with history of threats, business partner with financial dispute', 'additional_notes': 'ictim recently changed his will, removing ex-wife as beneficiary'}
+2025-05-27 01:54:01,919 - __main__ - INFO - Analyzing case with Murder Agent
+2025-05-27 01:54:01,922 - __main__ - INFO - Calling NVIDIA API for murder analysis
+2025-05-27 01:54:01,923 - __main__ - ERROR - Error analyzing case with Murder Agent: 'SimpleOpenAIClient' object has no attribute 'chat'
+2025-05-27 01:54:01,925 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:54:01] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-05-27 01:54:10,259 - __main__ - INFO - Received request for PDF generation
+2025-05-27 01:54:10,443 - werkzeug - INFO - 127.0.0.1 - - [27/May/2025 01:54:10] "POST /api/generate-pdf HTTP/1.1" 200 -
+2025-05-27 01:55:23,198 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\unified_server.py', reloading
+2025-05-27 01:55:23,886 - werkzeug - INFO -  * Restarting with stat
+2025-05-27 01:55:27,899 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 01:55:27,899 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 01:55:27,899 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 01:55:27,899 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:55:27,899 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 01:55:27,899 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:55:27,899 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:55:27,908 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:55:27,908 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 01:55:27,908 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 01:55:27,915 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 01:55:27,978 - werkzeug - WARNING -  * Debugger is active!
+2025-05-27 01:55:27,993 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-05-27 01:56:00,081 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\unified_server.py', reloading
+2025-05-27 01:56:00,388 - werkzeug - INFO -  * Restarting with stat
+2025-05-27 01:56:03,139 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 01:56:03,139 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 01:56:03,139 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 01:56:03,139 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:56:03,139 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 01:56:03,154 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:56:03,154 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:56:03,154 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:56:03,159 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 01:56:03,159 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 01:56:03,172 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 01:56:03,207 - werkzeug - WARNING -  * Debugger is active!
+2025-05-27 01:56:03,216 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-05-27 01:57:26,484 - unified_server - INFO - API key loaded successfully (length: 70)
+2025-05-27 01:57:26,490 - unified_server - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 01:57:26,490 - unified_server - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 01:57:26,490 - unified_server - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:57:26,490 - unified_server - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 01:57:26,490 - unified_server - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:57:26,490 - unified_server - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:57:26,495 - unified_server - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:57:26,495 - unified_server - INFO - Fallback client initialization successful!
+2025-05-27 01:57:26,497 - unified_server - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 01:57:26,515 - unified_server - INFO - Initializing Murder Agent with API key length: 20
+2025-05-27 01:57:26,515 - unified_server - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:57:26,517 - unified_server - ERROR - API key being used: nvapi-test-key-...
+2025-05-27 01:57:26,517 - unified_server - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:57:26,517 - unified_server - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:57:26,520 - unified_server - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:57:26,520 - unified_server - INFO - Fallback client initialization successful!
+2025-05-27 01:57:58,859 - unified_server - INFO - API key loaded successfully (length: 70)
+2025-05-27 01:57:58,860 - unified_server - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 01:57:58,861 - unified_server - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 01:57:58,861 - unified_server - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:57:58,861 - unified_server - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 01:57:58,861 - unified_server - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:57:58,861 - unified_server - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:57:58,866 - unified_server - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:57:58,867 - unified_server - INFO - Fallback client initialization successful!
+2025-05-27 01:57:58,867 - unified_server - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 01:57:58,882 - unified_server - INFO - Initializing Murder Agent with API key length: 20
+2025-05-27 01:57:58,882 - unified_server - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:57:58,882 - unified_server - ERROR - API key being used: nvapi-test-key-...
+2025-05-27 01:57:58,882 - unified_server - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:57:58,882 - unified_server - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:57:58,887 - unified_server - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:57:58,888 - unified_server - INFO - Fallback client initialization successful!
+2025-05-27 01:58:47,640 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 01:58:47,643 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 01:58:47,643 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 01:58:47,643 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:58:47,643 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 01:58:47,643 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:58:47,643 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:58:47,643 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:58:47,643 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 01:58:47,643 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 01:58:47,663 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 01:58:47,774 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.2:5000
+2025-05-27 01:58:47,778 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-27 01:58:47,779 - werkzeug - INFO -  * Restarting with stat
+2025-05-27 01:58:50,387 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 01:58:50,388 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 01:58:50,390 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 01:58:50,391 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:58:50,393 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 01:58:50,394 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 01:58:50,394 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 01:58:50,396 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 01:58:50,398 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 01:58:50,398 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 01:58:50,419 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 01:58:50,555 - werkzeug - WARNING -  * Debugger is active!
+2025-05-27 01:58:50,578 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-05-27 02:08:52,313 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 02:08:52,314 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 02:08:52,316 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 02:08:52,316 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:08:52,316 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 02:08:52,316 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 02:08:52,316 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 02:08:52,316 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:08:52,316 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 02:08:52,316 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 02:08:52,337 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 02:08:52,452 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.2:5000
+2025-05-27 02:08:52,454 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-27 02:08:52,459 - werkzeug - INFO -  * Restarting with stat
+2025-05-27 02:08:54,693 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 02:08:54,693 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 02:08:54,693 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 02:08:54,693 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:08:54,700 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 02:08:54,700 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 02:08:54,702 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 02:08:54,702 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:08:54,705 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 02:08:54,705 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 02:08:54,724 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 02:08:54,777 - werkzeug - WARNING -  * Debugger is active!
+2025-05-27 02:08:54,881 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-05-27 02:15:13,251 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\dynamic_pdf_generator.py', reloading
+2025-05-27 02:15:13,524 - werkzeug - INFO -  * Restarting with stat
+2025-05-27 02:15:16,319 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 02:15:16,319 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 02:15:16,324 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 02:15:16,326 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:15:16,326 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 02:15:16,327 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 02:15:16,327 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 02:15:16,330 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:15:16,331 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 02:15:16,331 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 02:15:16,345 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 02:15:16,382 - werkzeug - WARNING -  * Debugger is active!
+2025-05-27 02:15:16,391 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-05-27 02:15:28,893 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\unified_server.py', reloading
+2025-05-27 02:15:29,414 - werkzeug - INFO -  * Restarting with stat
+2025-05-27 02:15:33,138 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 02:15:33,140 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 02:15:33,141 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 02:15:33,142 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:15:33,143 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 02:15:33,143 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 02:15:33,144 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 02:15:33,146 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:15:33,147 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 02:15:33,148 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 02:15:33,172 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 02:15:33,210 - werkzeug - WARNING -  * Debugger is active!
+2025-05-27 02:15:33,223 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-05-27 02:15:54,480 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\investigation-main\\Agents\\Agent\\dynamic_pdf_generator.py', reloading
+2025-05-27 02:15:54,850 - werkzeug - INFO -  * Restarting with stat
+2025-05-27 02:15:57,557 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 02:15:57,557 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 02:15:57,560 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 02:15:57,560 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:15:57,562 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 02:15:57,562 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-05-27 02:15:57,562 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-05-27 02:15:57,565 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 02:15:57,566 - __main__ - INFO - Fallback client initialization successful!
+2025-05-27 02:15:57,566 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-05-27 02:15:57,581 - __main__ - INFO - Starting unified agent server on port 5000
+2025-05-27 02:15:57,618 - werkzeug - WARNING -  * Debugger is active!
+2025-05-27 02:15:57,630 - werkzeug - INFO -  * Debugger PIN: 130-817-110

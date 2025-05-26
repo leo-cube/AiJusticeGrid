@@ -171,7 +171,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.removeItem('token');
 
       // Redirect to login page
-      router.push('/login');
+      router.push('/auth/login');
     }
   };
 

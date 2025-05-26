@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Incident Report - MURDER-001</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            margin: 2cm;
+            line-height: 1.6;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #003366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            color: #003366;
+            font-size: 24px;
+            margin: 0;
+        }
+        h2 {
+            color: #003366;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+        }
+        .info-table th, .info-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .info-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #003366;
+        }
+        .info-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+            font-size: 14px;
+            background-color: #17a2b8;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .person-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .person-title {
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 10px;
+        }
+        .critical-info {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        @media print {
+            body { margin: 1cm; }
+            .header { page-break-after: avoid; }
+            .section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>HOMICIDE INVESTIGATION REPORT</h1>
+        <p><strong>Report ID:</strong> MURDER-001</p>
+        <p><strong>Generated:</strong> 2025-01-16 15:40:00</p>
+        <p><strong>Classification:</strong> CONFIDENTIAL - LAW ENFORCEMENT ONLY</p>
+    </div>
+
+    <div class="section">
+        <h2>Incident Details</h2>
+        <table class="info-table">
+            <tr><th>Field</th><th>Value</th></tr>
+            <tr><td>Date of Incident</td><td>2025-01-15</td></tr>
+            <tr><td>Time of Incident</td><td>23:30</td></tr>
+            <tr><td>Location</td><td>789 Elm Street, Apartment 3C</td></tr>
+            <tr><td>Incident Type</td><td>Homicide Investigation</td></tr>
+            <tr><td>Reporting Officer</td><td>Detective Sarah Johnson</td></tr>
+            <tr><td>Lead Investigator</td><td>Detective Michael Rodriguez</td></tr>
+            <tr><td>Evidence</td><td>Bloody knife, fingerprints, victim's phone, text messages</td></tr>
+            <tr><td>Status</td><td><span class="status-badge">Under Investigation</span></td></tr>
+        </table>
+    </div>
+
+    <div class="critical-info">
+        <h3>⚠️ Critical Case Information</h3>
+        <p><strong>Cause of Death:</strong> Multiple stab wounds to the chest</p>
+        <p><strong>Weapon:</strong> Kitchen knife found at scene</p>
+        <p><strong>Scene Status:</strong> Secured and processed by forensics team</p>
+    </div>
+
+    <div class="section">
+        <h2>Victim Information</h2>
+        <div class="person-card">
+            <div class="person-title">Deceased Victim</div>
+            <table class="info-table">
+                <tr><td><strong>Name</strong></td><td>Robert Johnson</td></tr>
+                <tr><td><strong>Age</strong></td><td>42</td></tr>
+                <tr><td><strong>Gender</strong></td><td>Male</td></tr>
+                <tr><td><strong>Occupation</strong></td><td>Software Engineer</td></tr>
+                <tr><td><strong>Cause of Death</strong></td><td>Multiple stab wounds to chest</td></tr>
+                <tr><td><strong>Time of Death</strong></td><td>Approximately 23:30 (preliminary)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Suspects</h2>
+        <div class="person-card">
+            <div class="person-title">Primary Suspect</div>
+            <table class="info-table">
+                <tr><td><strong>Name</strong></td><td>Lisa Johnson (Ex-wife)</td></tr>
+                <tr><td><strong>Age</strong></td><td>38</td></tr>
+                <tr><td><strong>Gender</strong></td><td>Female</td></tr>
+                <tr><td><strong>Relationship</strong></td><td>Ex-spouse</td></tr>
+                <tr><td><strong>Description</strong></td><td>5'6", brown hair, last seen wearing dark clothing</td></tr>
+                <tr><td><strong>Motive</strong></td><td>Recent will change removing her as beneficiary</td></tr>
+                <tr><td><strong>Status</strong></td><td>Person of Interest - History of threats</td></tr>
+            </table>
+        </div>
+        <div class="person-card">
+            <div class="person-title">Secondary Suspect</div>
+            <table class="info-table">
+                <tr><td><strong>Name</strong></td><td>David Chen (Business Partner)</td></tr>
+                <tr><td><strong>Age</strong></td><td>45</td></tr>
+                <tr><td><strong>Gender</strong></td><td>Male</td></tr>
+                <tr><td><strong>Relationship</strong></td><td>Business Partner</td></tr>
+                <tr><td><strong>Description</strong></td><td>5'10", black hair, glasses</td></tr>
+                <tr><td><strong>Motive</strong></td><td>Financial dispute over company assets</td></tr>
+                <tr><td><strong>Status</strong></td><td>Under Investigation</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Crime Scene Analysis</h2>
+        <p><strong>Location:</strong> Victim found in living room of apartment 3C at 789 Elm Street.</p>
+        <p><strong>Scene Description:</strong> Signs of struggle evident. Furniture overturned, lamp broken. No signs of forced entry, suggesting victim knew the perpetrator.</p>
+        <p><strong>Evidence Collected:</strong></p>
+        <ul>
+            <li>Kitchen knife with blood evidence (murder weapon)</li>
+            <li>Fingerprints on door handle and knife handle</li>
+            <li>Victim's cell phone with recent text messages</li>
+            <li>Broken glass from struggle</li>
+            <li>Blood spatter analysis completed</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Witness Statements</h2>
+        <p><strong>Neighbor (Apt 3B):</strong> Heard loud argument around 23:00, followed by sounds of struggle. Recognized one voice as the victim.</p>
+        <p><strong>Building Security:</strong> No unusual activity recorded on cameras. Last entry was victim at 22:45.</p>
+    </div>
+
+    <div class="section">
+        <h2>AI Analysis</h2>
+        <p>Based on the comprehensive evidence analysis, this homicide investigation reveals several key findings:</p>
+        
+        <p><strong>Crime Pattern Analysis:</strong> The lack of forced entry strongly suggests the victim knew their attacker and willingly allowed them access to the apartment. The kitchen knife used as the murder weapon was likely obtained from the victim's own kitchen, indicating this was not a premeditated attack but rather an escalation of a confrontation.</p>
+        
+        <p><strong>Suspect Prioritization:</strong> The ex-wife emerges as the primary suspect due to multiple factors: documented history of threats, recent financial motive (will change), and familiarity with the victim's residence. The business partner remains a secondary suspect pending further investigation into the financial dispute.</p>
+        
+        <p><strong>Timeline Reconstruction:</strong> The victim arrived home at 22:45. The argument began around 23:00 and escalated to violence by 23:30. This 45-minute window suggests a prolonged confrontation rather than a quick attack.</p>
+        
+        <p><strong>Forensic Priorities:</strong> Fingerprint analysis on the murder weapon is critical. DNA analysis of blood evidence and comparison with suspect samples should be expedited. Cell phone data analysis may reveal communication patterns leading up to the murder.</p>
+        
+        <p><strong>Investigation Recommendations:</strong> 1) Immediate questioning of ex-wife with legal counsel present, 2) Financial audit of business partnership, 3) Canvas neighborhood for additional witnesses, 4) Expedite forensic analysis of physical evidence, 5) Obtain search warrants for suspect residences and vehicles.</p>
+    </div>
+
+    <div class="footer">
+        <p><strong>Generated by AI Justice Grid Investigation System</strong></p>
+        <p><strong>Classification:</strong> CONFIDENTIAL - LAW ENFORCEMENT ONLY</p>
+        <p>2025-01-16 15:40:00</p>
+    </div>
+</body>
+</html>

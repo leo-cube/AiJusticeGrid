@@ -7231,3 +7231,11 @@
 2025-05-23 14:13:01,652 - __main__ - INFO - Starting unified agent server on port 5000
 2025-05-23 14:13:01,668 - werkzeug - WARNING -  * Debugger is active!
 2025-05-23 14:13:01,675 - werkzeug - INFO -  * Debugger PIN: 729-843-253
+2025-05-27 00:46:14,333 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-05-27 00:46:14,333 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-05-27 00:46:14,336 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-05-27 00:46:14,338 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 00:46:14,338 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-05-27 00:46:14,338 - __main__ - ERROR - Failed to initialize Murder Agent: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-05-27 00:46:14,338 - __main__ - ERROR - API key details - Length: 70, Type: <class 'str'>
+2025-05-27 00:46:14,338 - __main__ - ERROR - API key starts with: nvapi-lJ8G...

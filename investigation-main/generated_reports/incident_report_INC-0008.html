@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Incident Report - INC-0008</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            margin: 2cm;
+            line-height: 1.6;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #003366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            color: #003366;
+            font-size: 24px;
+            margin: 0;
+        }
+        h2 {
+            color: #003366;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+        }
+        .info-table th, .info-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .info-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #003366;
+        }
+        .info-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+            font-size: 14px;
+            background-color: #28a745;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .person-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .person-title {
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 10px;
+        }
+        @media print {
+            body { margin: 1cm; }
+            .header { page-break-after: avoid; }
+            .section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>INCIDENT INVESTIGATION REPORT</h1>
+        <p><strong>Report ID:</strong> INC-0008</p>
+        <p><strong>Generated:</strong> 2025-01-16 15:35:00</p>
+    </div>
+
+    <div class="section">
+        <h2>Incident Details</h2>
+        <table class="info-table">
+            <tr><th>Field</th><th>Value</th></tr>
+            <tr><td>Date of Incident</td><td>2024-09-30</td></tr>
+            <tr><td>Time of Incident</td><td>08:00</td></tr>
+            <tr><td>Location</td><td>Parking Lot</td></tr>
+            <tr><td>Incident Type</td><td>Domestic Dispute</td></tr>
+            <tr><td>Reporting Officer</td><td>Jessica Harris</td></tr>
+            <tr><td>Evidence</td><td>Physical evidence collected</td></tr>
+            <tr><td>Status</td><td><span class="status-badge">Resolved</span></td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Victims</h2>
+        <div class="person-card">
+            <div class="person-title">Victim 1</div>
+            <table class="info-table">
+                <tr><td><strong>Name</strong></td><td>Michael Thomas</td></tr>
+                <tr><td><strong>Age</strong></td><td>18</td></tr>
+                <tr><td><strong>Gender</strong></td><td>Male</td></tr>
+                <tr><td><strong>Injuries</strong></td><td>None</td></tr>
+            </table>
+        </div>
+        <div class="person-card">
+            <div class="person-title">Victim 2</div>
+            <table class="info-table">
+                <tr><td><strong>Name</strong></td><td>Jennifer Wilson</td></tr>
+                <tr><td><strong>Age</strong></td><td>63</td></tr>
+                <tr><td><strong>Gender</strong></td><td>Female</td></tr>
+                <tr><td><strong>Injuries</strong></td><td>None</td></tr>
+            </table>
+        </div>
+        <div class="person-card">
+            <div class="person-title">Victim 3</div>
+            <table class="info-table">
+                <tr><td><strong>Name</strong></td><td>Linda Martin</td></tr>
+                <tr><td><strong>Age</strong></td><td>28</td></tr>
+                <tr><td><strong>Gender</strong></td><td>Female</td></tr>
+                <tr><td><strong>Injuries</strong></td><td>None</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Suspects</h2>
+        <div class="person-card">
+            <div class="person-title">Suspect 1</div>
+            <table class="info-table">
+                <tr><td><strong>Name</strong></td><td>Jennifer Jackson</td></tr>
+                <tr><td><strong>Age</strong></td><td>28</td></tr>
+                <tr><td><strong>Gender</strong></td><td>Non-binary</td></tr>
+                <tr><td><strong>Description</strong></td><td>Hooded figure</td></tr>
+            </table>
+        </div>
+        <div class="person-card">
+            <div class="person-title">Suspect 2</div>
+            <table class="info-table">
+                <tr><td><strong>Name</strong></td><td>Karen Robinson</td></tr>
+                <tr><td><strong>Age</strong></td><td>46</td></tr>
+                <tr><td><strong>Gender</strong></td><td>Female</td></tr>
+                <tr><td><strong>Description</strong></td><td>Wearing dark clothing</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Incident Description</h2>
+        <p>Incident reported at 08:00 on 2024-09-30. Security camera footage available.</p>
+    </div>
+
+    <div class="section">
+        <h2>AI Analysis</h2>
+        <p>This domestic dispute case involved multiple parties in a parking lot setting during early morning hours. The availability of security camera footage provided crucial evidence for the investigation. Despite involving three victims and two suspects, no physical injuries were reported, suggesting the dispute was primarily verbal or involved minimal physical contact. The resolved status indicates successful mediation or legal resolution. The age range of participants (18-63 years) suggests a family dispute involving multiple generations. The physical evidence collected likely includes witness statements and video footage that supported the resolution of this case.</p>
+    </div>
+
+    <div class="footer">
+        <p><strong>Generated by AI Justice Grid Investigation System</strong></p>
+        <p>2025-01-16 15:35:00</p>
+    </div>
+</body>
+</html>

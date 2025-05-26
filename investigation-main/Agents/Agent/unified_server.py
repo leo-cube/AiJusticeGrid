@@ -294,12 +294,39 @@ class MurderAgent:
                                     "Authorization": f"Bearer {self.api_key}",
                                     "Content-Type": "application/json"
                                 }
-                                response = requests.post(
-                                    f"{self.base_url}/chat/completions",
-                                    headers=headers,
-                                    json=kwargs
-                                )
-                                return response.json()
+                                try:
+                                    response = requests.post(
+                                        f"{self.base_url}/chat/completions",
+                                        headers=headers,
+                                        json=kwargs,
+                                        timeout=30
+                                    )
+                                    response.raise_for_status()
+                                    result = response.json()
+
+                                    # Create a mock response object that mimics OpenAI's response structure
+                                    class MockResponse:
+                                        def __init__(self, data):
+                                            self.choices = [MockChoice(data['choices'][0])]
+
+                                    class MockChoice:
+                                        def __init__(self, choice_data):
+                                            self.message = MockMessage(choice_data['message'])
+
+                                    class MockMessage:
+                                        def __init__(self, message_data):
+                                            self.content = message_data['content']
+
+                                    return MockResponse(result)
+                                except requests.exceptions.RequestException as e:
+                                    raise Exception(f"API request failed: {str(e)}")
+                                except Exception as e:
+                                    raise Exception(f"Error processing response: {str(e)}")
+
+                            @property
+                            def chat(self):
+                                """Property to mimic OpenAI client structure."""
+                                return ChatCompletions(self)
 
                         self.client = SimpleOpenAIClient(self.api_key, "https://integrate.api.nvidia.com/v1")
                         logger.info("Fallback client initialization successful!")
@@ -1722,27 +1749,72 @@ def murder_agent_sample():
             }
         }), 500
 
-# PDF Generation endpoint
+# Enhanced PDF Generation endpoint with AI analysis
 @app.route('/api/generate-pdf', methods=['POST'])
 def generate_pdf():
-    """Generate a PDF report from incident data."""
-    logger.info("Received request for PDF generation")
+    """Generate a PDF report from user data with AI analysis."""
+    logger.info("Received request for enhanced PDF generation")
 
     try:
-        # Get incident data from request
-        incident_data = request.json
-        if not incident_data:
+        # Get request data
+        request_data = request.json
+        if not request_data:
             return jsonify({
                 "success": False,
-                "error": "No incident data provided"
+                "error": "No data provided"
             }), 400
 
-        # Generate the PDF
-        pdf_buffer = generate_incident_pdf(incident_data)
+        # Extract parameters
+        title = request_data.get('title', 'AI Analysis Report')
+        analysis_type = request_data.get('analysisType', 'general')
+        data = request_data.get('data', {})
+        messages = request_data.get('messages', [])
+        include_ai_analysis = request_data.get('includeAIAnalysis', True)
+        agent_type = request_data.get('agentType', 'general')
+
+        # Add metadata
+        data.update({
+            'requestId': request_data.get('userMetadata', {}).get('requestId', str(datetime.now().timestamp())),
+            'sessionId': request_data.get('userMetadata', {}).get('sessionId', 'unknown'),
+            'userId': request_data.get('userMetadata', {}).get('userId', 'unknown')
+        })
+
+        # If messages are provided, extract additional data
+        if messages:
+            extracted_data = extract_data_from_chat_messages(messages)
+            data.update(extracted_data)
+
+        # Map agent types to analysis types
+        analysis_type_mapping = {
+            'murder': 'murder',
+            'theft': 'theft',
+            'fraud': 'fraud',
+            'financial-fraud': 'fraud',
+            'general': 'general'
+        }
+
+        mapped_analysis_type = analysis_type_mapping.get(agent_type, analysis_type)
+
+        # Initialize PDF generator
+        try:
+            from dynamic_pdf_generator import DynamicPDFGenerator
+            pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
+
+            # Generate the PDF in investigation format (only case details and analysis)
+            pdf_buffer = pdf_generator.generate_investigation_pdf(
+                data=data,
+                analysis_type=mapped_analysis_type
+            )
+
+        except ImportError:
+            logger.warning("Dynamic PDF generator not available, using fallback")
+            # Fallback to existing PDF generation
+            pdf_buffer = generate_incident_pdf(data)
 
         # Create a unique filename
-        incident_id = incident_data.get('id', 'unknown')
-        filename = f"incident_report_{incident_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        safe_title = title.replace(' ', '_').replace('/', '_')[:50]
+        filename = f"{safe_title}_{timestamp}.pdf"
 
         # Return the PDF as a file download
         return send_file(
@@ -1777,6 +1849,74 @@ def list_agents():
         "agents": list(AGENTS.keys()),
         "enabled_agents": {name: config["enabled"] for name, config in AGENTS.items()}
     })
+
+def extract_data_from_chat_messages(messages):
+    """
+    Extract structured data from chat messages for PDF generation.
+
+    Args:
+        messages: List of chat messages
+
+    Returns:
+        Dictionary containing extracted data
+    """
+    extracted_data = {}
+
+    # Look for patterns in user messages that contain data
+    for index, message in enumerate(messages):
+        if message.get('sender') == 'user':
+            content = message.get('content', '').lower()
+            original_content = message.get('content', '')
+
+            # Extract case ID
+            if 'case' in content and 'id' in content:
+                match = re.search(r'case\s*id[:\s]*([^\s,]+)', original_content, re.IGNORECASE)
+                if match:
+                    extracted_data['case_id'] = match.group(1)
+
+            # Extract dates
+            if 'date' in content or re.search(r'\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4}', content):
+                date_match = re.search(r'(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})', original_content)
+                if date_match:
+                    extracted_data['date'] = date_match.group(1)
+
+            # Extract time
+            if 'time' in content or re.search(r'\d{1,2}:\d{2}', content):
+                time_match = re.search(r'(\d{1,2}:\d{2})', original_content)
+                if time_match:
+                    extracted_data['time'] = time_match.group(1)
+
+            # Extract location
+            if any(word in content for word in ['location', 'address', 'street']):
+                location_match = re.search(r'(?:location|address|street)[:\s]*(.+)', original_content, re.IGNORECASE)
+                if location_match:
+                    extracted_data['location'] = location_match.group(1).strip()
+
+            # Extract names
+            if 'name' in content and 'filename' not in content:
+                name_match = re.search(r'name[:\s]*([^,\n]+)', original_content, re.IGNORECASE)
+                if name_match:
+                    extracted_data['name'] = name_match.group(1).strip()
+
+            # Extract age
+            if 'age' in content or re.search(r'\b\d{1,3}\s*years?\s*old\b', content):
+                age_match = re.search(r'(?:age[:\s]*)?(\d{1,3})(?:\s*years?\s*old)?', original_content, re.IGNORECASE)
+                if age_match:
+                    extracted_data['age'] = age_match.group(1)
+
+            # Store raw message content with index for reference
+            extracted_data[f'message_{index + 1}'] = original_content
+
+    # Add conversation metadata
+    extracted_data['total_messages'] = len(messages)
+    extracted_data['user_messages'] = len([m for m in messages if m.get('sender') == 'user'])
+    extracted_data['assistant_messages'] = len([m for m in messages if m.get('sender') == 'assistant'])
+
+    if messages:
+        extracted_data['conversation_start'] = messages[0].get('timestamp')
+        extracted_data['conversation_end'] = messages[-1].get('timestamp')
+
+    return extracted_data
 
 if __name__ == "__main__":
     logger.info(f"Starting unified agent server on port {MAIN_PORT}")

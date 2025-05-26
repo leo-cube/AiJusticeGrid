@@ -9,6 +9,7 @@ import {
 import ChatMessageItem from './ChatMessageItem';
 import AgentIcon from './AgentIcon';
 import WelcomeScreen from './WelcomeScreen';
+import PDFGenerationButton from './PDFGenerationButton';
 import { useChat } from '@/app/context/ChatContext';
 import { AgentType, ChatContextType } from '@/app/types';
 import { defaultAgents } from './AgentSelector';
@@ -72,14 +73,26 @@ const EmbeddedChatPanel: React.FC<EmbeddedChatPanelProps> = ({ className = '' })
           <span className="text-xs font-medium">Online</span>
 
           {messages.length > 0 && (
-            <button
-              onClick={clearMessages}
-              className="rounded-md p-1 hover:bg-white hover:bg-opacity-20"
-              aria-label="Clear chat"
-              title="Clear chat history"
-            >
-              <TrashIcon className="h-5 w-5" />
-            </button>
+            <>
+              <button
+                onClick={clearMessages}
+                className="rounded-md p-1 hover:bg-white hover:bg-opacity-20"
+                aria-label="Clear chat"
+                title="Clear chat history"
+              >
+                <TrashIcon className="h-5 w-5" />
+              </button>
+
+              {/* PDF Generation Button */}
+              <div className="ml-2">
+                <PDFGenerationButton
+                  messages={messages}
+                  currentAgent={currentAgent}
+                  sessionId={`session_${Date.now()}`}
+                  className="scale-75"
+                />
+              </div>
+            </>
           )}
         </div>
       </div>

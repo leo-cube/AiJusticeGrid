@@ -23,6 +23,17 @@ except ImportError:
     OPENAI_AVAILABLE = False
     print("OpenAI library not available, using fallback client")
 
+# Import the murder investigation storage module
+try:
+    from murder_data_storage import murder_storage
+    MURDER_STORAGE_AVAILABLE = True
+    logger = logging.getLogger(__name__)
+    logger.info("Murder investigation storage module loaded successfully")
+except ImportError as e:
+    MURDER_STORAGE_AVAILABLE = False
+    logger = logging.getLogger(__name__)
+    logger.warning(f"Murder investigation storage module not available: {e}")
+
 # Import ReportLab with fallback
 try:
     from reportlab.lib.pagesizes import letter, A4
@@ -35,6 +46,32 @@ try:
 except ImportError:
     REPORTLAB_AVAILABLE = False
     print("ReportLab library not available, PDF generation will be limited")
+    # Create dummy classes to prevent NameError
+    class SimpleDocTemplate:
+        pass
+    class Paragraph:
+        pass
+    class Spacer:
+        pass
+    class Table:
+        pass
+    class TableStyle:
+        pass
+    class ParagraphStyle:
+        pass
+    class getSampleStyleSheet:
+        pass
+    class colors:
+        black = None
+        grey = None
+        HexColor = lambda x: None
+    class TA_CENTER:
+        pass
+    class TA_LEFT:
+        pass
+    class TA_JUSTIFY:
+        pass
+    inch = 1
 
 # Load environment variables
 load_dotenv()
@@ -1185,6 +1222,18 @@ def generate_incident_pdf(incident_data):
     Returns:
         BytesIO object containing the PDF data
     """
+    if not REPORTLAB_AVAILABLE:
+        # Return a simple text-based response when ReportLab is not available
+        buffer = BytesIO()
+        error_message = "PDF generation is not available. ReportLab library is not installed.\n"
+        error_message += "Please install ReportLab with: pip install reportlab\n\n"
+        error_message += "Case Data:\n"
+        for key, value in incident_data.items():
+            error_message += f"{key}: {value}\n"
+        buffer.write(error_message.encode('utf-8'))
+        buffer.seek(0)
+        return buffer
+
     buffer = BytesIO()
 
     # Create the PDF document
@@ -1441,6 +1490,56 @@ def murder_agent_endpoint():
         force_new_session=force_new_session,
         reset_conversation=reset_conversation
     )
+
+    # Check if analysis is completed and store the investigation data
+    if current_step == "analysis" and not is_collecting_info and MURDER_STORAGE_AVAILABLE:
+        try:
+            # Get the collected data from the conversation state
+            collected_data = conversation_states[session_id]["collected_data"] if session_id in conversation_states else {}
+
+            if collected_data:
+                case_id = collected_data.get('case_id', str(datetime.now().timestamp()))
+
+                # Create conversation pairs from collected data
+                conversation_pairs = []
+                for field, value in collected_data.items():
+                    if field != 'case_id' and value:
+                        # Find the corresponding step to get the question
+                        for step in CASE_INFO_STEPS:
+                            if step.get('field') == field:
+                                conversation_pairs.append({
+                                    'question': step['message'],
+                                    'answer': str(value),
+                                    'timestamp': datetime.now().isoformat()
+                                })
+                                break
+
+                # Prepare user metadata
+                user_metadata = {
+                    'session_id': session_id,
+                    'timestamp': datetime.now().isoformat(),
+                    'analysis_completed': True,
+                    'backend_source': 'unified_server',
+                    'endpoint': '/api/augment/murder'
+                }
+
+                logger.info(f"Storing Murder Agent investigation data for case {case_id} (unified server)")
+
+                # Store the investigation data with AI analysis
+                murder_storage.store_investigation_data(
+                    case_id=case_id,
+                    session_id=session_id,
+                    extracted_data=collected_data,
+                    conversation_pairs=conversation_pairs,
+                    ai_analysis=response,  # The response contains the AI analysis
+                    user_metadata=user_metadata
+                )
+
+                logger.info(f"Successfully stored investigation data for case {case_id} (unified server)")
+
+        except Exception as e:
+            logger.error(f"Error storing Murder Agent data in unified server: {e}")
+            # Continue with response even if storage fails
 
     # Return the response with the session ID and conversation state
     return jsonify({
@@ -1795,6 +1894,43 @@ def generate_pdf():
 
         mapped_analysis_type = analysis_type_mapping.get(agent_type, analysis_type)
 
+        # Store Murder Agent investigation data if this is a murder case
+        ai_analysis_content = None
+        if agent_type == 'murder' and MURDER_STORAGE_AVAILABLE and messages:
+            try:
+                # Extract case ID and session ID
+                case_id = data.get('case_id') or data.get('requestId', str(datetime.now().timestamp()))
+                session_id = data.get('sessionId', 'unknown')
+
+                # Get conversation pairs from extracted data
+                conversation_pairs = extracted_data.get('conversation_pairs', [])
+
+                # Prepare user metadata
+                user_metadata = {
+                    'request_id': data.get('requestId'),
+                    'user_id': data.get('userId'),
+                    'timestamp': datetime.now().isoformat(),
+                    'pdf_generated': True,
+                    'title': title,
+                    'analysis_type': mapped_analysis_type
+                }
+
+                logger.info(f"Storing Murder Agent investigation data for case {case_id}")
+
+                # Store the investigation data (without AI analysis for now)
+                murder_storage.store_investigation_data(
+                    case_id=case_id,
+                    session_id=session_id,
+                    extracted_data=extracted_data,
+                    conversation_pairs=conversation_pairs,
+                    ai_analysis=None,  # Will be updated after generation
+                    user_metadata=user_metadata
+                )
+
+            except Exception as e:
+                logger.error(f"Error storing Murder Agent data: {e}")
+                # Continue with PDF generation even if storage fails
+
         # Initialize PDF generator
         try:
             from dynamic_pdf_generator import DynamicPDFGenerator
@@ -1805,6 +1941,20 @@ def generate_pdf():
                 data=data,
                 analysis_type=mapped_analysis_type
             )
+
+            # If this is a murder case, capture the AI analysis that was generated
+            if agent_type == 'murder' and MURDER_STORAGE_AVAILABLE:
+                try:
+                    # Generate AI analysis separately to capture it
+                    ai_analysis_content = pdf_generator.generate_ai_analysis(data, mapped_analysis_type)
+
+                    # Update the stored case with the AI analysis
+                    case_id = data.get('case_id') or data.get('requestId', str(datetime.now().timestamp()))
+                    murder_storage.update_ai_analysis(case_id, ai_analysis_content)
+                    logger.info(f"Updated case {case_id} with AI analysis")
+
+                except Exception as e:
+                    logger.error(f"Error capturing AI analysis for storage: {e}")
 
         except ImportError:
             logger.warning("Dynamic PDF generator not available, using fallback")
@@ -1849,6 +1999,64 @@ def list_agents():
         "agents": list(AGENTS.keys()),
         "enabled_agents": {name: config["enabled"] for name, config in AGENTS.items()}
     })
+
+# Murder Investigation Data API Endpoints
+@app.route('/api/murder-investigations', methods=['GET'])
+def get_murder_investigations():
+    """Get all stored murder investigation cases."""
+    if not MURDER_STORAGE_AVAILABLE:
+        return jsonify({
+            "success": False,
+            "error": "Murder investigation storage not available"
+        }), 503
+
+    try:
+        cases = murder_storage.get_all_cases()
+        metadata = murder_storage.get_storage_metadata()
+
+        return jsonify({
+            "success": True,
+            "data": {
+                "cases": cases,
+                "metadata": metadata
+            }
+        })
+    except Exception as e:
+        logger.error(f"Error retrieving murder investigations: {e}")
+        return jsonify({
+            "success": False,
+            "error": f"Failed to retrieve investigations: {str(e)}"
+        }), 500
+
+@app.route('/api/murder-investigations/<case_id>', methods=['GET'])
+def get_murder_investigation(case_id):
+    """Get a specific murder investigation case by ID."""
+    if not MURDER_STORAGE_AVAILABLE:
+        return jsonify({
+            "success": False,
+            "error": "Murder investigation storage not available"
+        }), 503
+
+    try:
+        case_data = murder_storage.get_case_data(case_id)
+
+        if case_data:
+            return jsonify({
+                "success": True,
+                "data": case_data
+            })
+        else:
+            return jsonify({
+                "success": False,
+                "error": f"Case {case_id} not found"
+            }), 404
+
+    except Exception as e:
+        logger.error(f"Error retrieving case {case_id}: {e}")
+        return jsonify({
+            "success": False,
+            "error": f"Failed to retrieve case: {str(e)}"
+        }), 500
 
 def extract_structured_investigation_data(messages):
     """
@@ -2159,6 +2367,23 @@ def extract_data_from_chat_messages(messages):
     return extracted_data
 
 if __name__ == "__main__":
-    logger.info(f"Starting unified agent server on port {MAIN_PORT}")
-    # Enable debug mode for development
-    app.run(host="0.0.0.0", port=MAIN_PORT, debug=True)
+    try:
+        logger.info(f"Starting unified agent server on port {MAIN_PORT}")
+        logger.info(f"Murder storage available: {MURDER_STORAGE_AVAILABLE}")
+        logger.info(f"ReportLab available: {REPORTLAB_AVAILABLE}")
+        logger.info(f"OpenAI available: {OPENAI_AVAILABLE}")
+
+        # Test basic functionality
+        logger.info("Testing basic server functionality...")
+
+        # Enable debug mode for development
+        logger.info("Server starting successfully...")
+        app.run(host="0.0.0.0", port=MAIN_PORT, debug=True)
+
+    except Exception as e:
+        logger.error(f"Failed to start server: {e}")
+        import traceback
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        print(f"ERROR: Failed to start server: {e}")
+        print("Please check the logs for more details.")
+        sys.exit(1)

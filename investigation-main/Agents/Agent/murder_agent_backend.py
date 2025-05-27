@@ -26,6 +26,17 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from openai import OpenAI
 
+# Import the murder investigation storage module
+try:
+    from murder_data_storage import murder_storage
+    MURDER_STORAGE_AVAILABLE = True
+    logger = logging.getLogger(__name__)
+    logger.info("Murder investigation storage module loaded successfully")
+except ImportError as e:
+    MURDER_STORAGE_AVAILABLE = False
+    logger = logging.getLogger(__name__)
+    logger.warning(f"Murder investigation storage module not available: {e}")
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -767,6 +778,51 @@ class MurderAgent:
 
                     # Perform the analysis
                     analysis = self.analyze_case(collected_data)
+
+                    # Store the investigation data if storage is available
+                    if MURDER_STORAGE_AVAILABLE:
+                        try:
+                            case_id = collected_data.get('case_id', str(datetime.now().timestamp()))
+
+                            # Create conversation pairs from collected data
+                            conversation_pairs = []
+                            for field, value in collected_data.items():
+                                if field != 'case_id' and value:
+                                    # Find the corresponding step to get the question
+                                    for step in CASE_INFO_STEPS:
+                                        if step.get('field') == field:
+                                            conversation_pairs.append({
+                                                'question': step['message'],
+                                                'answer': str(value),
+                                                'timestamp': datetime.now().isoformat()
+                                            })
+                                            break
+
+                            # Prepare user metadata
+                            user_metadata = {
+                                'session_id': session_id,
+                                'timestamp': datetime.now().isoformat(),
+                                'analysis_completed': True,
+                                'backend_source': 'murder_agent_backend'
+                            }
+
+                            logger.info(f"Storing Murder Agent investigation data for case {case_id}")
+
+                            # Store the investigation data with AI analysis
+                            murder_storage.store_investigation_data(
+                                case_id=case_id,
+                                session_id=session_id,
+                                extracted_data=collected_data,
+                                conversation_pairs=conversation_pairs,
+                                ai_analysis=analysis,
+                                user_metadata=user_metadata
+                            )
+
+                            logger.info(f"Successfully stored investigation data for case {case_id}")
+
+                        except Exception as e:
+                            logger.error(f"Error storing Murder Agent data: {e}")
+                            # Continue with analysis even if storage fails
 
                     # Return the analysis
                     return session_id, analysis, False, "analysis", None

@@ -1,0 +1,113 @@
+{
+  "case_002": {
+    "case_metadata": {
+      "case_id": "002",
+      "session_id": "session_1748366843423",
+      "created": "2025-01-27T23:15:00.000Z",
+      "last_updated": "2025-01-27T23:18:00.000Z",
+      "status": "completed"
+    },
+    "conversation_data": {
+      "total_messages": 26,
+      "user_messages": 13,
+      "assistant_messages": 13,
+      "conversation_start": "2025-01-27T23:15:00.000Z",
+      "conversation_end": "2025-01-27T23:18:00.000Z",
+      "conversation_pairs": [
+        {
+          "question": "What is the Case ID for this investigation?",
+          "answer": "002",
+          "timestamp": "2025-01-27T23:15:00.000Z"
+        },
+        {
+          "question": "When did the crime occur? Please provide the date (YYYY-MM-DD, MM/DD/YYYY, or text format like 'January 15, 2023').",
+          "answer": "2021-02-08",
+          "timestamp": "2025-01-27T23:15:00.000Z"
+        },
+        {
+          "question": "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+          "answer": "12:30 AM",
+          "timestamp": "2025-01-27T23:16:00.000Z"
+        },
+        {
+          "question": "Where did the crime take place? Please provide the location.",
+          "answer": "jaipur",
+          "timestamp": "2025-01-27T23:16:00.000Z"
+        },
+        {
+          "question": "What is the victim's name?",
+          "answer": "jaggu",
+          "timestamp": "2025-01-27T23:16:00.000Z"
+        },
+        {
+          "question": "What is the victim's age?",
+          "answer": "39",
+          "timestamp": "2025-01-27T23:16:00.000Z"
+        },
+        {
+          "question": "What is the victim's gender?",
+          "answer": "male",
+          "timestamp": "2025-01-27T23:16:00.000Z"
+        },
+        {
+          "question": "What was the cause of death?",
+          "answer": "bleed",
+          "timestamp": "2025-01-27T23:16:00.000Z"
+        },
+        {
+          "question": "Was a weapon used? If so, what kind?",
+          "answer": "knife",
+          "timestamp": "2025-01-27T23:17:00.000Z"
+        },
+        {
+          "question": "Please describe the crime scene.",
+          "answer": "jaggu was bleeding in his apartment",
+          "timestamp": "2025-01-27T23:17:00.000Z"
+        },
+        {
+          "question": "Were there any witnesses? If so, please provide details.",
+          "answer": "no",
+          "timestamp": "2025-01-27T23:17:00.000Z"
+        },
+        {
+          "question": "What evidence was found at the scene?",
+          "answer": "blood stained knife",
+          "timestamp": "2025-01-27T23:17:00.000Z"
+        },
+        {
+          "question": "Are there any suspects at this time?",
+          "answer": "no",
+          "timestamp": "2025-01-27T23:17:00.000Z"
+        },
+        {
+          "question": "Do you have any additional notes or information about the case?",
+          "answer": "no",
+          "timestamp": "2025-01-27T23:17:00.000Z"
+        }
+      ]
+    },
+    "case_details": {
+      "victim_information": {
+        "name": "jaggu",
+        "age": "39",
+        "gender": "male"
+      },
+      "crime_information": {
+        "date": "2021-02-08",
+        "time": "12:30 AM",
+        "location": "jaipur",
+        "weapon_used": "knife",
+        "cause_of_death": "bleed"
+      },
+      "investigation_details": {
+        "witnesses": "no",
+        "evidence": "blood stained knife",
+        "suspects": "no",
+        "crime_scene_description": "jaggu was bleeding in his apartment"
+      },
+      "additional_information": {
+        "notes": "no"
+      }
+    }
+  }
+}

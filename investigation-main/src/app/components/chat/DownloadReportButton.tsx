@@ -46,8 +46,8 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
     );
   };
 
-  // Handle click to generate and download PDF using the working approach
-  const handleDownloadPDF = async () => {
+  // Handle click to generate and save PDF report
+  const handleGenerateAndSaveReport = async () => {
     if (!messages || messages.length === 0) {
       alert('No conversation data available to generate PDF');
       return;
@@ -56,8 +56,8 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
     setIsGenerating(true);
 
     try {
-      // Use the same data structure as the working PDFGenerationButton
-      const pdfData = {
+      // Prepare the conversation data for PDF generation
+      const conversationData = {
         title: `${message.agentType?.charAt(0).toUpperCase() + message.agentType?.slice(1)} Investigation Report`,
         analysisType: message.agentType || 'general',
         agentType: message.agentType || 'general',
@@ -72,14 +72,11 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
           sessionId: `session_${Date.now()}`,
           userId: 'user',
           requestId: Date.now().toString()
-        }
+        },
+        timestamp: new Date().toISOString()
       };
 
-      console.log('Generating PDF with data:', {
-        title: pdfData.title,
-        messageCount: pdfData.messages.length,
-        agentType: pdfData.agentType
-      });
+      console.log('Generating and saving PDF report...');
 
       // Call the PDF generation API
       const response = await fetch('/api/generate-pdf', {
@@ -87,7 +84,7 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(pdfData),
+        body: JSON.stringify(conversationData),
       });
 
       if (!response.ok) {
@@ -98,7 +95,7 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
       // Get the PDF blob
       const blob = await response.blob();
 
-      // Create download link
+      // Create download link for immediate download
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
@@ -122,7 +119,13 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-      console.log('PDF generated and downloaded successfully');
+      console.log('PDF generated, saved, and downloaded successfully');
+
+      // Show success message and redirect to reports page
+      alert('PDF report generated and saved successfully! You can find it in the Reports page for future downloads.');
+
+      // Redirect to reports page to show the saved report
+      router.push('/reports');
 
     } catch (error) {
       console.error('Error generating PDF:', error);
@@ -140,34 +143,20 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
   return (
     <div className="mt-4 flex justify-end">
       <Button
-        onClick={handleDownloadPDF}
+        onClick={handleGenerateAndSaveReport}
         disabled={isGenerating}
-        className={`flex items-center ${isGenerating ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className="flex items-center"
         size="sm"
       >
         {isGenerating ? (
           <>
-            <svg className="animate-spin mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24">
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
-            </svg>
-            Generating PDF...
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-1"></div>
+            Saving Report...
           </>
         ) : (
           <>
             <ArrowDownIcon className="mr-1 h-4 w-4" />
-            Download PDF Report
+            Download & Save Report
           </>
         )}
       </Button>

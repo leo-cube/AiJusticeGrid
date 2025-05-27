@@ -206,6 +206,20 @@ export interface InvestigationQuestion {
   answer: string;
 }
 
+// Saved PDF Report types for persistent storage
+export interface SavedPDFReport {
+  id: string;
+  title: string;
+  agentType: string;
+  caseId?: string;
+  filename: string;
+  createdDate: string;
+  conversationData: any; // Store the original conversation data for re-generation
+  fileSize?: number;
+  status: 'generated' | 'error';
+  description?: string;
+}
+
 // Designated Panel types
 export interface DesignatedPanel {
   id: string;

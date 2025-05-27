@@ -6,6 +6,7 @@ import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Ca
 import Button from '@/app/components/ui/Button';
 import { defaultAgents } from '@/app/components/chat/AgentSelector';
 import { AgentType } from '@/app/types';
+import agentToggleService from '@/services/agentToggleService';
 import defaultSettings from '@/config/defaultSettings.json';
 
 export default function CrimePage() {
@@ -36,9 +37,18 @@ export default function CrimePage() {
           'crime-abuse'
         ];
 
-        // Get enabled agents from default settings
-        const enabledAgentsData = defaultSettings.enabledAgents || {};
-        console.log('Enabled agents from settings:', enabledAgentsData);
+        // Get enabled agents from the toggle service (dynamic)
+        let enabledAgentsData: Record<string, boolean> = {};
+
+        try {
+          enabledAgentsData = await agentToggleService.getEnabledAgents();
+          console.log('Enabled agents from toggle service:', enabledAgentsData);
+        } catch (toggleError) {
+          console.error('Error fetching from toggle service:', toggleError);
+          // Fall back to default settings
+          enabledAgentsData = defaultSettings.enabledAgents || {};
+          console.log('Falling back to default settings:', enabledAgentsData);
+        }
 
         // Filter to only include crime-related and explicitly enabled agents
         const filteredAgents = allAgents.filter(agent => {
@@ -212,8 +222,12 @@ export default function CrimePage() {
             <Button variant="outline" className="h-12 text-center justify-center">
               Evidence Log
             </Button>
-            <Button variant="outline" className="h-12 text-center justify-center">
-              Data Panel
+            <Button
+              variant="outline"
+              className="h-12 text-center justify-center"
+              onClick={() => router.push('/reports?tab=download')}
+            >
+              Download Report
             </Button>
           </div>
         </CardContent>

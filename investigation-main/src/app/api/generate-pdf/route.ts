@@ -93,6 +93,34 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Save the report to persistent storage for future downloads
+    try {
+      const saveReportResponse = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/saved-reports`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: pdfData.title,
+          agentType: pdfData.agentType,
+          caseId: pdfData.data?.case_id || pdfData.data?.caseId,
+          conversationData: body, // Store original conversation data for re-generation
+          fileSize: pdfBuffer.byteLength,
+          description: `PDF report generated from ${pdfData.agentType} agent conversation`
+        }),
+      });
+
+      if (saveReportResponse.ok) {
+        const savedReport = await saveReportResponse.json();
+        console.log('Report saved successfully:', savedReport.id);
+      } else {
+        console.warn('Failed to save report to persistent storage');
+      }
+    } catch (saveError) {
+      console.error('Error saving report:', saveError);
+      // Continue with PDF generation even if saving fails
+    }
+
     // Return the PDF as a download
     return new NextResponse(pdfBuffer, {
       status: 200,

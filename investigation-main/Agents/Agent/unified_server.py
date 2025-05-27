@@ -1850,9 +1850,166 @@ def list_agents():
         "enabled_agents": {name: config["enabled"] for name, config in AGENTS.items()}
     })
 
+def extract_structured_investigation_data(messages):
+    """
+    Extract structured investigation data from Murder Agent's Q&A conversation.
+    This function specifically handles the Murder Agent's structured questioning format.
+    Ensures 100% dynamic data extraction with no hardcoded content.
+
+    Args:
+        messages: List of chat messages from Murder Agent conversation
+
+    Returns:
+        Dictionary containing structured investigation data
+    """
+    extracted_data = {}
+    conversation_pairs = []
+
+    logger.info(f"Extracting data from {len(messages)} messages")
+
+    # Parse the conversation into question-answer pairs
+    for i in range(len(messages)):
+        message = messages[i]
+
+        # Check for Murder Agent questions (assistant messages)
+        if (message.get('sender') == 'assistant' and
+            (message.get('agentType') == 'murder' or 'Murder Agent' in message.get('content', ''))):
+
+            # Clean up the question by removing formatting markers
+            question = message.get('content', '').strip()
+            question = question.replace('**[LIVE DATA ANALYSIS]**', '').strip()
+            question = question.replace('Murder Agent Live Data Live Data Analysis', '').strip()
+            question = question.replace('Please answer the question to continue the investigation.', '').strip()
+
+            # Look for the user's response in the next message
+            if i + 1 < len(messages) and messages[i + 1].get('sender') == 'user':
+                answer = messages[i + 1].get('content', '').strip()
+
+                if answer:  # Only store non-empty answers
+                    conversation_pairs.append({
+                        'question': question,
+                        'answer': answer,
+                        'timestamp': message.get('timestamp')
+                    })
+                    logger.info(f"Found Q&A pair: {question[:50]}... -> {answer}")
+
+    # Enhanced question mappings to handle all Murder Agent question variations
+    question_mappings = {
+        # Case ID variations
+        'case id': 'case_id',
+        'what is the case id': 'case_id',
+        'case number': 'case_id',
+
+        # Date and time variations
+        'when did the crime occur': 'crime_date',
+        'date of the crime': 'crime_date',
+        'when did this happen': 'crime_date',
+        'date of incident': 'crime_date',
+
+        'what time did the crime occur': 'crime_time',
+        'time of the crime': 'crime_time',
+        'what time': 'crime_time',
+        'time of incident': 'crime_time',
+
+        # Location variations
+        'where did the crime take place': 'location',
+        'location of the crime': 'location',
+        'where did this happen': 'location',
+        'crime location': 'location',
+
+        # Victim information variations
+        'victim\'s name': 'victim_name',
+        'name of the victim': 'victim_name',
+        'who is the victim': 'victim_name',
+        'victim name': 'victim_name',
+
+        'victim\'s age': 'victim_age',
+        'age of the victim': 'victim_age',
+        'how old was the victim': 'victim_age',
+        'victim age': 'victim_age',
+
+        'victim\'s gender': 'victim_gender',
+        'gender of the victim': 'victim_gender',
+        'victim gender': 'victim_gender',
+
+        # Crime details variations
+        'cause of death': 'cause_of_death',
+        'how did the victim die': 'cause_of_death',
+        'what was the cause of death': 'cause_of_death',
+
+        'weapon used': 'weapon_used',
+        'what weapon was used': 'weapon_used',
+        'murder weapon': 'weapon_used',
+
+        # Crime scene variations
+        'describe the crime scene': 'crime_scene_description',
+        'crime scene description': 'crime_scene_description',
+        'what did the crime scene look like': 'crime_scene_description',
+        'crime scene': 'crime_scene_description',
+
+        # Evidence and witnesses
+        'witnesses': 'witnesses',
+        'were there any witnesses': 'witnesses',
+        'any witnesses': 'witnesses',
+
+        'evidence': 'evidence_found',
+        'what evidence was found': 'evidence_found',
+        'evidence found': 'evidence_found',
+        'any evidence': 'evidence_found',
+
+        # Suspects
+        'suspects': 'suspects',
+        'any suspects': 'suspects',
+        'who are the suspects': 'suspects',
+        'potential suspects': 'suspects',
+
+        # Additional information
+        'additional notes': 'additional_notes',
+        'anything else': 'additional_notes',
+        'other information': 'additional_notes',
+        'notes': 'additional_notes'
+    }
+
+    # Map answers to structured fields with improved matching
+    for pair in conversation_pairs:
+        question_lower = pair['question'].lower()
+        answer = pair['answer'].strip()
+
+        # Skip empty answers
+        if not answer:
+            continue
+
+        matched = False
+        for key_phrase, field_name in question_mappings.items():
+            if key_phrase in question_lower:
+                # Only store if we don't already have this field or if this is a better match
+                if field_name not in extracted_data:
+                    extracted_data[field_name] = answer
+                    logger.info(f"Mapped '{key_phrase}' -> {field_name}: {answer}")
+                    matched = True
+                    break
+
+        # If no specific mapping found, try to infer from question content
+        if not matched:
+            logger.warning(f"No mapping found for question: {question_lower[:100]}")
+
+    # Store the full conversation for reference
+    extracted_data['conversation_pairs'] = conversation_pairs
+    extracted_data['total_messages'] = len(messages)
+    extracted_data['user_messages'] = len([m for m in messages if m.get('sender') == 'user'])
+    extracted_data['assistant_messages'] = len([m for m in messages if m.get('sender') == 'assistant'])
+
+    if messages:
+        extracted_data['conversation_start'] = messages[0].get('timestamp')
+        extracted_data['conversation_end'] = messages[-1].get('timestamp')
+
+    logger.info(f"Extracted {len(extracted_data)} fields from conversation")
+    return extracted_data
+
 def extract_data_from_chat_messages(messages):
     """
-    Extract structured data from chat messages for PDF generation.
+    Enhanced extraction of structured data from chat messages for PDF generation.
+    Handles both structured Murder Agent conversations and general chat patterns.
 
     Args:
         messages: List of chat messages
@@ -1860,52 +2017,135 @@ def extract_data_from_chat_messages(messages):
     Returns:
         Dictionary containing extracted data
     """
+    # Check if this is a Murder Agent conversation
+    is_murder_agent = any(
+        'Murder Agent' in message.get('content', '')
+        for message in messages
+        if message.get('sender') == 'assistant'
+    )
+
+    if is_murder_agent:
+        # Use structured extraction for Murder Agent conversations
+        return extract_structured_investigation_data(messages)
+
+    # Fall back to pattern-based extraction for other conversations
     extracted_data = {}
 
-    # Look for patterns in user messages that contain data
+    # Combine all user messages for comprehensive analysis
+    all_user_content = ""
+    for message in messages:
+        if message.get('sender') == 'user':
+            all_user_content += " " + message.get('content', '')
+
+    content_lower = all_user_content.lower()
+
+    # Enhanced extraction patterns
+    extraction_patterns = {
+        # Basic case information
+        'case_id': [
+            r'case\s*(?:id|number)[:\s]*([^\s,\n.]+)',
+            r'case[:\s]*([A-Z0-9-]+)',
+            r'id[:\s]*([A-Z0-9-]+)'
+        ],
+        'crime_date': [
+            r'date\s*(?:of\s*crime|of\s*incident)?[:\s]*(\d{4}-\d{2}-\d{2})',
+            r'date[:\s]*(\d{1,2}\/\d{1,2}\/\d{4})',
+            r'(\d{4}-\d{2}-\d{2})',
+            r'(\d{1,2}\/\d{1,2}\/\d{4})',
+            r'(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},?\s+\d{4}'
+        ],
+        'crime_time': [
+            r'time\s*(?:of\s*crime|of\s*incident)?[:\s]*(\d{1,2}:\d{2})',
+            r'at\s*(\d{1,2}:\d{2})',
+            r'(\d{1,2}:\d{2})',
+            r'(noon|midnight|morning|evening|afternoon)'
+        ],
+        'location': [
+            r'location[:\s]*([^.\n]+?)(?:\.|$)',
+            r'address[:\s]*([^.\n]+?)(?:\.|$)',
+            r'(?:at|in)\s*([^.\n]+?)(?:\.|$)',
+            r'street[:\s]*([^.\n]+?)(?:\.|$)'
+        ],
+
+        # Victim information
+        'victim_name': [
+            r'victim\s*name[:\s]*([^,\n.]+)',
+            r'victim[:\s]*([^,\n.]+)',
+            r'name[:\s]*([^,\n.]+)'
+        ],
+        'victim_age': [
+            r'victim\s*age[:\s]*(\d{1,3})',
+            r'age[:\s]*(\d{1,3})',
+            r'(\d{1,3})\s*years?\s*old'
+        ],
+        'victim_gender': [
+            r'victim\s*gender[:\s]*(male|female|non-binary)',
+            r'gender[:\s]*(male|female|non-binary)',
+            r'\b(male|female)\b'
+        ],
+
+        # Crime details
+        'cause_of_death': [
+            r'cause\s*of\s*death[:\s]*([^.\n]+?)(?:\.|$)',
+            r'died\s*(?:from|of)[:\s]*([^.\n]+?)(?:\.|$)',
+            r'killed\s*(?:by|with)[:\s]*([^.\n]+?)(?:\.|$)',
+            r'(shot|stabbed|strangled|poisoned|beaten)'
+        ],
+        'weapon_used': [
+            r'weapon\s*used[:\s]*([^.\n]+?)(?:\.|$)',
+            r'weapon[:\s]*([^.\n]+?)(?:\.|$)',
+            r'killed\s*with\s*(?:a\s*)?([^.\n]+?)(?:\.|$)',
+            r'(gun|knife|pistol|rifle|sword|bat)'
+        ],
+        'crime_scene_description': [
+            r'crime\s*scene[:\s]*([^.\n]+?)(?:\.|$)',
+            r'scene\s*description[:\s]*([^.\n]+?)(?:\.|$)',
+            r'found\s*(?:in|at)[:\s]*([^.\n]+?)(?:\.|$)'
+        ],
+
+        # Evidence and witnesses
+        'witnesses': [
+            r'witness(?:es)?[:\s]*([^.\n]+?)(?:\.|$)',
+            r'saw[:\s]*([^.\n]+?)(?:\.|$)',
+            r'heard[:\s]*([^.\n]+?)(?:\.|$)',
+            r'(\d+)\s*people'
+        ],
+        'evidence_found': [
+            r'evidence[:\s]*([^.\n]+?)(?:\.|$)',
+            r'found[:\s]*([^.\n]+?)(?:\.|$)',
+            r'fingerprints[:\s]*([^.\n]+?)(?:\.|$)'
+        ],
+        'suspects': [
+            r'suspect(?:s)?[:\s]*([^.\n]+?)(?:\.|$)',
+            r'perpetrator[:\s]*([^.\n]+?)(?:\.|$)',
+            r'accused[:\s]*([^.\n]+?)(?:\.|$)'
+        ],
+
+        # Additional information
+        'additional_notes': [
+            r'notes?[:\s]*([^.\n]+?)(?:\.|$)',
+            r'additional[:\s]*([^.\n]+?)(?:\.|$)',
+            r'also[:\s]*([^.\n]+?)(?:\.|$)'
+        ]
+    }
+
+    # Extract data using patterns
+    for field, patterns in extraction_patterns.items():
+        for pattern in patterns:
+            match = re.search(pattern, all_user_content, re.IGNORECASE | re.DOTALL)
+            if match and field not in extracted_data:
+                value = match.group(1).strip()
+                # Clean up the extracted value
+                value = re.sub(r'\s+', ' ', value)  # Normalize whitespace
+                value = value.strip('.,;')  # Remove trailing punctuation
+                if value and len(value) > 2:  # Only store meaningful values
+                    extracted_data[field] = value
+                break
+
+    # Store individual messages for reference
     for index, message in enumerate(messages):
         if message.get('sender') == 'user':
-            content = message.get('content', '').lower()
-            original_content = message.get('content', '')
-
-            # Extract case ID
-            if 'case' in content and 'id' in content:
-                match = re.search(r'case\s*id[:\s]*([^\s,]+)', original_content, re.IGNORECASE)
-                if match:
-                    extracted_data['case_id'] = match.group(1)
-
-            # Extract dates
-            if 'date' in content or re.search(r'\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4}', content):
-                date_match = re.search(r'(\d{4}-\d{2}-\d{2}|\d{1,2}\/\d{1,2}\/\d{4})', original_content)
-                if date_match:
-                    extracted_data['date'] = date_match.group(1)
-
-            # Extract time
-            if 'time' in content or re.search(r'\d{1,2}:\d{2}', content):
-                time_match = re.search(r'(\d{1,2}:\d{2})', original_content)
-                if time_match:
-                    extracted_data['time'] = time_match.group(1)
-
-            # Extract location
-            if any(word in content for word in ['location', 'address', 'street']):
-                location_match = re.search(r'(?:location|address|street)[:\s]*(.+)', original_content, re.IGNORECASE)
-                if location_match:
-                    extracted_data['location'] = location_match.group(1).strip()
-
-            # Extract names
-            if 'name' in content and 'filename' not in content:
-                name_match = re.search(r'name[:\s]*([^,\n]+)', original_content, re.IGNORECASE)
-                if name_match:
-                    extracted_data['name'] = name_match.group(1).strip()
-
-            # Extract age
-            if 'age' in content or re.search(r'\b\d{1,3}\s*years?\s*old\b', content):
-                age_match = re.search(r'(?:age[:\s]*)?(\d{1,3})(?:\s*years?\s*old)?', original_content, re.IGNORECASE)
-                if age_match:
-                    extracted_data['age'] = age_match.group(1)
-
-            # Store raw message content with index for reference
-            extracted_data[f'message_{index + 1}'] = original_content
+            extracted_data[f'message_{index + 1}'] = message.get('content', '')
 
     # Add conversation metadata
     extracted_data['total_messages'] = len(messages)

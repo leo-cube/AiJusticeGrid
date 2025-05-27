@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Card';
 import Button from '@/app/components/ui/Button';
-import { DocumentTextIcon, ChartBarIcon, DownloadIcon } from '@heroicons/react/24/outline';
+import { DocumentTextIcon, ChartBarIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 
 export default function ReportsPage() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -120,7 +120,7 @@ export default function ReportsPage() {
               <CardContent className="p-6">
                 <div className="flex items-center">
                   <div className="p-3 bg-orange-100 rounded-lg">
-                    <DownloadIcon className="h-6 w-6 text-orange-600" />
+                    <ArrowDownTrayIcon className="h-6 w-6 text-orange-600" />
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Downloads</p>
@@ -150,8 +150,8 @@ export default function ReportsPage() {
                             {report.title}
                           </h3>
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            report.status === 'Completed' 
-                              ? 'bg-green-100 text-green-800' 
+                            report.status === 'Completed'
+                              ? 'bg-green-100 text-green-800'
                               : 'bg-orange-100 text-orange-800'
                           }`}>
                             {report.status}
@@ -169,7 +169,7 @@ export default function ReportsPage() {
                           View
                         </Button>
                         <Button variant="outline" size="sm">
-                          <DownloadIcon className="h-4 w-4" />
+                          <ArrowDownTrayIcon className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>

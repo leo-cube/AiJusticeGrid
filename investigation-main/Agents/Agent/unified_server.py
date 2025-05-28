@@ -1666,29 +1666,102 @@ def finance_agent_endpoint():
             "status": "healthy"
         }), 200
 
-    try:
-        # Analyze the case using the Financial Agent
-        logger.info("Calling Financial Agent for analysis")
-        analysis = financial_agent.analyze_case(case_details)
+    # Get the session ID, user input, and special flags from the request
+    session_id = case_details.get("session_id")
+    user_input = case_details.get("question", "")
+    force_new_session = case_details.get("force_new_session", False)
+    reset_conversation = case_details.get("reset_conversation", False)
+    force_reset = case_details.get("forceReset", False)  # For compatibility with frontend
 
-        # Return the response
-        return jsonify({
-            "success": True,
-            "data": {
-                "analysis": analysis
-            },
-            "message": "Financial fraud analysis completed successfully"
-        })
+    # If force_reset is True, set both flags
+    if force_reset:
+        force_new_session = True
+        reset_conversation = True
 
-    except Exception as e:
-        logger.error(f"Error analyzing case with Financial Agent: {str(e)}")
-        return jsonify({
-            "success": False,
-            "error": f"Error analyzing case: {str(e)}",
-            "data": {
-                "analysis": f"Error analyzing case: {str(e)}"
-            }
-        }), 500
+    # Special handling for FORCE_NEW_SESSION command
+    if user_input == "FORCE_NEW_SESSION":
+        logger.info("FORCE_NEW_SESSION command detected")
+        force_new_session = True
+        reset_conversation = True
+        user_input = ""  # Clear the input to get the greeting
+
+    logger.info(f"Received request with session_id: {session_id}, user_input: {user_input}")
+    logger.info(f"force_new_session: {force_new_session}, reset_conversation: {reset_conversation}")
+
+    # Process the message using the Financial Agent's process_message method with the special flags
+    session_id, response, is_collecting_info, current_step, error_message = financial_agent.process_message(
+        user_input,
+        session_id,
+        force_new_session=force_new_session,
+        reset_conversation=reset_conversation
+    )
+
+    # Check if analysis is completed and store the investigation data
+    if current_step == "analysis" and not is_collecting_info:
+        try:
+            # Import the finance storage module
+            from FinancialAgent.finance_data_storage import finance_storage
+
+            # Get the collected data from the conversation state
+            collected_data = financial_agent.conversation_states[session_id]["collected_data"] if session_id in financial_agent.conversation_states else {}
+
+            if collected_data:
+                case_id = collected_data.get('case_id', str(datetime.now().timestamp()))
+
+                # Create conversation pairs from collected data
+                conversation_pairs = []
+                for field, value in collected_data.items():
+                    if field != 'case_id' and value:
+                        # Find the corresponding step to get the question
+                        for step in financial_agent.CASE_INFO_STEPS:
+                            if step.get('field') == field:
+                                conversation_pairs.append({
+                                    'question': step['message'],
+                                    'answer': str(value),
+                                    'timestamp': datetime.now().isoformat()
+                                })
+                                break
+
+                # Prepare user metadata
+                user_metadata = {
+                    'session_id': session_id,
+                    'timestamp': datetime.now().isoformat(),
+                    'analysis_completed': True,
+                    'backend_source': 'unified_server',
+                    'endpoint': '/api/augment/finance'
+                }
+
+                logger.info(f"Storing Financial Agent investigation data for case {case_id} (unified server)")
+
+                # Store the investigation data with AI analysis
+                finance_storage.store_investigation_data(
+                    case_id=case_id,
+                    session_id=session_id,
+                    extracted_data=collected_data,
+                    conversation_pairs=conversation_pairs,
+                    ai_analysis=response,  # The response contains the AI analysis
+                    user_metadata=user_metadata
+                )
+
+                logger.info(f"Successfully stored investigation data for case {case_id} (unified server)")
+
+        except Exception as storage_error:
+            logger.error(f"Error storing Financial Agent data in unified server: {storage_error}")
+            # Continue with response even if storage fails
+
+    # Return the response with the session ID and conversation state
+    return jsonify({
+        "success": True,
+        "data": {
+            "analysis": response,
+            "is_collecting_info": is_collecting_info,
+            "current_step": current_step,
+            "collected_data": financial_agent.conversation_states[session_id]["collected_data"] if session_id in financial_agent.conversation_states else {},
+            "error": error_message
+        },
+        "session_id": session_id,
+        "message": "Message processed successfully"
+    })
 
 # Create a specialized endpoint for the Theft Agent
 @app.route('/api/augment/theft', methods=['POST'])

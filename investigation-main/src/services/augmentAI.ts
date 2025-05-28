@@ -309,50 +309,42 @@ const getTheftAgentResponse = async (
  */
 const getFinancialFraudAgentResponse = async (
   question: string,
-  context?: ChatContext
+  context?: ChatContext,
+  sessionId?: string
 ): Promise<string> => {
-  // Generate a cache key for the Financial Fraud Agent
-  const cacheKey = `finance-${question.trim()}`;
+  // Generate a cache key for the Financial Fraud Agent (don't cache conversation responses)
+  const cacheKey = `finance-${question.trim()}-${sessionId || 'no-session'}`;
 
-  // Check if we have a cached response
-  if (responseCache.has(cacheKey)) {
-    console.log('Using cached Financial Fraud Agent response');
-    return responseCache.get(cacheKey) as string;
-  }
+  // Don't use cache for conversation-based agents to maintain state
+  // if (responseCache.has(cacheKey)) {
+  //   console.log('Using cached Financial Fraud Agent response');
+  //   return responseCache.get(cacheKey) as string;
+  // }
 
   // Try to use the actual Financial Fraud Agent backend
   try {
-    // Set a timeout for the Financial Fraud Agent API call (15 seconds)
-    const TIMEOUT_MS = 15000;
+    // Set a timeout for the Financial Fraud Agent API call (30 seconds for conversation flow)
+    const TIMEOUT_MS = 30000;
 
     // Create an AbortController for the timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
-    // Create case details from context
-    const caseDetails = {
-      case_id: context?.caseId || `case_${Date.now()}`,
-      date_of_fraud: context?.fraudDate || new Date().toISOString().split('T')[0],
-      victim_name: context?.victimName || "Unknown",
-      fraud_type: context?.fraudType || "Unknown",
-      fraud_amount: context?.fraudAmount || "Unknown",
-      financial_institution: context?.financialInstitution || "Unknown",
-      transaction_details: context?.transactionDetails || "Unknown",
-      suspects: context?.suspects || "None",
-      evidence_found: context?.evidence || "None",
-      question: question, // Include the user's question
-    };
-
     // Use the direct Next.js API route to avoid CORS issues
     console.log('Using direct Next.js API route for Financial Fraud Agent to avoid CORS issues');
 
-    // Call the direct API route
-    const response = await fetch('/api/financial-fraud-agent/direct', {
+    // Call the direct API route with session support
+    const response = await fetch('/api/finance-agent/direct', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ question, context }),
+      body: JSON.stringify({
+        question,
+        context,
+        sessionId: sessionId || null,
+        forceReset: question === 'FORCE_NEW_SESSION'
+      }),
       signal: controller.signal
     });
 
@@ -366,14 +358,26 @@ const getFinancialFraudAgentResponse = async (
     const data = await response.json();
     const fraudResponse = data.response;
 
-    // Cache the response
-    responseCache.set(cacheKey, fraudResponse);
+    // Store session information for future requests
+    if (data.sessionId) {
+      console.log('Financial Agent session ID:', data.sessionId);
+    }
+
+    // Log conversation state for debugging
+    if (data.isCollectingInfo !== undefined) {
+      console.log('Financial Agent collecting info:', data.isCollectingInfo);
+      console.log('Financial Agent current step:', data.currentStep);
+      console.log('Financial Agent collected data:', data.collectedData);
+    }
+
+    // Don't cache conversation responses to maintain state
+    // responseCache.set(cacheKey, fraudResponse);
     return fraudResponse;
   } catch (error) {
     console.error('Financial Fraud Agent error:', error);
     // Fallback to standard Augment AI response
     const fallbackResponse = await getFallbackResponse(question, 'finance', context);
-    responseCache.set(cacheKey, fallbackResponse);
+    // Don't cache fallback responses either
     return fallbackResponse;
   }
 };
@@ -540,12 +544,53 @@ export const checkMurderAgentBackend = async (): Promise<boolean> => {
   }
 };
 
+/**
+ * Check if the Finance Agent backend is available
+ * @returns True if the backend is available, false otherwise
+ */
+export const checkFinanceAgentBackend = async (): Promise<boolean> => {
+  try {
+    console.log('Checking Finance Agent backend availability');
+
+    // Use a shorter timeout (3 seconds) to prevent long waiting times
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+    try {
+      // First try to use the Next.js API route to avoid CORS issues
+      const proxyResponse = await fetch('/api/finance-agent/check', {
+        method: 'GET',
+        signal: controller.signal
+      });
+
+      if (proxyResponse.ok) {
+        const data = await proxyResponse.json();
+        clearTimeout(timeoutId);
+        console.log('Finance Agent backend available (via proxy):', data.available);
+        return data.available;
+      } else {
+        clearTimeout(timeoutId);
+        console.log('Finance Agent backend not available (proxy returned error)');
+        return false;
+      }
+    } catch (proxyError) {
+      clearTimeout(timeoutId);
+      console.log('Finance Agent backend check failed:', proxyError);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error checking Finance Agent backend:', error);
+    return false;
+  }
+};
+
 // Export the Augment AI service
 const augmentAIService = {
   getResponse: getAugmentAIResponse,
   getCaseAgent,
   getSpecializedAgent,
   checkMurderAgentBackend,
+  checkFinanceAgentBackend,
   getMurderAgentResponse,
   getTheftAgentResponse,
   getFinancialFraudAgentResponse,

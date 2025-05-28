@@ -42,7 +42,7 @@ API_KEY = "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
 def retrieve_api_key():
     """
     Retrieve the API key from the .env file.
-    
+
     Returns:
         API key or None if not found
     """
@@ -52,7 +52,7 @@ def retrieve_api_key():
         if not env_path.exists():
             logger.error(f".env file not found")
             return None
-        
+
         # Read .env file
         api_key = None
         with open(env_path, 'r') as f:
@@ -60,13 +60,13 @@ def retrieve_api_key():
                 if line.startswith(f"{API_KEY_VAR}="):
                     api_key = line.strip().split('=', 1)[1]
                     break
-        
+
         if not api_key:
             logger.error(f"API key not found in {ENV_FILE}")
             return None
-        
+
         return api_key
-    
+
     except Exception as e:
         logger.error(f"Error retrieving API key: {str(e)}")
         return None
@@ -74,17 +74,17 @@ def retrieve_api_key():
 def store_api_key(api_key):
     """
     Store the API key in the .env file.
-    
+
     Args:
         api_key: The API key to store
-        
+
     Returns:
         Boolean indicating success
     """
     try:
         # Create .env file if it doesn't exist
         env_path = Path(ENV_FILE)
-        
+
         # Check if .env file exists and read existing content
         env_content = {}
         if env_path.exists():
@@ -93,18 +93,18 @@ def store_api_key(api_key):
                     if '=' in line:
                         key, value = line.strip().split('=', 1)
                         env_content[key] = value
-        
+
         # Update or add API key
         env_content[API_KEY_VAR] = api_key
-        
+
         # Write back to .env file
         with open(env_path, 'w') as f:
             for key, value in env_content.items():
                 f.write(f"{key}={value}\n")
-        
+
         logger.info(f"API key stored in {ENV_FILE}")
         return True
-    
+
     except Exception as e:
         logger.error(f"Error storing API key: {str(e)}")
         return False
@@ -113,42 +113,149 @@ class TheftAgent:
     """
     Main interface for the Theft Agent that analyzes theft cases using the NVIDIA API.
     """
-    
+
     def __init__(self, api_key):
         """
         Initialize the Theft Agent.
-        
+
         Args:
             api_key: NVIDIA API key
         """
-        self.api_key = api_key
-        self.client = OpenAI(
-            base_url="https://integrate.api.nvidia.com/v1",
-            api_key=api_key
-        )
-        logger.info(f"Theft Agent initialized with model: {MODEL_NAME}")
-    
+        if not api_key:
+            raise ValueError("API key is required for Theft Agent initialization")
+
+        # Clean and validate the API key
+        self.api_key = api_key.strip() if isinstance(api_key, str) else str(api_key).strip()
+
+        # Remove any potential extra characters or formatting issues
+        self.api_key = self.api_key.replace('\n', '').replace('\r', '').replace('\t', '')
+
+        if not self.api_key:
+            raise ValueError("API key cannot be empty")
+
+        # Validate API key format (should start with nvapi-)
+        if not self.api_key.startswith('nvapi-'):
+            raise ValueError(f"Invalid API key format. Expected to start with 'nvapi-', got: {self.api_key[:10]}...")
+
+        logger.info(f"Initializing Theft Agent with API key length: {len(self.api_key)}")
+
+        try:
+            # Initialize OpenAI client with minimal parameters to avoid compatibility issues
+            self.client = OpenAI(
+                base_url="https://integrate.api.nvidia.com/v1",
+                api_key=self.api_key
+            )
+            logger.info(f"Theft Agent initialized successfully with model: {MODEL_NAME}")
+        except Exception as e:
+            logger.error(f"Failed to initialize OpenAI client: {str(e)}")
+            logger.error(f"API key being used: {self.api_key[:15]}...")
+
+            # Try alternative initialization methods
+            try:
+                logger.info("Attempting alternative OpenAI client initialization...")
+                import openai
+                logger.info(f"OpenAI library version: {openai.__version__}")
+
+                # Method 1: Try with explicit http_client=None
+                try:
+                    self.client = OpenAI(
+                        base_url="https://integrate.api.nvidia.com/v1",
+                        api_key=self.api_key,
+                        http_client=None
+                    )
+                    logger.info("Alternative initialization with http_client=None successful!")
+                except Exception as e3:
+                    logger.info(f"http_client=None failed: {str(e3)}")
+
+                    # Method 2: Use direct HTTP requests
+                    try:
+                        import requests
+
+                        class SimpleTheftClient:
+                            def __init__(self, api_key, base_url):
+                                self.api_key = api_key
+                                self.base_url = base_url
+                                self.headers = {
+                                    "Authorization": f"Bearer {api_key}",
+                                    "Content-Type": "application/json"
+                                }
+
+                            def chat_completions_create(self, **kwargs):
+                                url = f"{self.base_url}/chat/completions"
+                                try:
+                                    response = requests.post(url, headers=self.headers, json=kwargs, timeout=30)
+                                    response.raise_for_status()
+                                    result = response.json()
+
+                                    # Create a mock response object that mimics OpenAI's response structure
+                                    class MockResponse:
+                                        def __init__(self, data):
+                                            self.choices = [MockChoice(data['choices'][0])]
+
+                                    class MockChoice:
+                                        def __init__(self, choice_data):
+                                            self.message = MockMessage(choice_data['message'])
+
+                                    class MockMessage:
+                                        def __init__(self, message_data):
+                                            self.content = message_data['content']
+
+                                    return MockResponse(result)
+                                except requests.exceptions.RequestException as e:
+                                    raise Exception(f"API request failed: {str(e)}")
+
+                            @property
+                            def chat(self):
+                                """Property to mimic OpenAI client structure."""
+                                return ChatCompletions(self)
+
+                        class ChatCompletions:
+                            def __init__(self, client):
+                                self.client = client
+
+                            @property
+                            def completions(self):
+                                return CompletionsCreate(self.client)
+
+                        class CompletionsCreate:
+                            def __init__(self, client):
+                                self.client = client
+
+                            def create(self, **kwargs):
+                                return self.client.chat_completions_create(**kwargs)
+
+                        self.client = SimpleTheftClient(self.api_key, "https://integrate.api.nvidia.com/v1")
+                        logger.info("Fallback client initialization successful!")
+
+                    except Exception as e4:
+                        logger.error(f"All initialization methods failed. Last error: {str(e4)}")
+                        raise e
+
+            except Exception as e2:
+                logger.error(f"Alternative initialization also failed: {str(e2)}")
+                raise e
+
     def analyze_case(self, case_details):
         """
         Analyze a theft case using the NVIDIA model.
-        
+
         Args:
             case_details: Dictionary containing case details
-            
+
         Returns:
             Analysis and solutions for the case
         """
         logger.info("Analyzing theft case")
-        
+
         # Format the case details into a prompt
         prompt = self._format_case_prompt(case_details)
-        
+
         try:
             # Call the NVIDIA API with the real API key
             logger.info("Calling NVIDIA API for analysis")
-            
+
             system_prompt = "You are a Theft Agent, an AI assistant specialized in analyzing and solving theft cases. Provide detailed analysis, insights, and investigative approaches based solely on the case details provided. Focus on the specific information given and avoid making assumptions beyond what's in the data."
-            
+
             response = self.client.chat.completions.create(
                 model=MODEL_NAME,
                 messages=[
@@ -161,31 +268,31 @@ class TheftAgent:
                 frequency_penalty=0,
                 presence_penalty=0
             )
-            
+
             analysis = response.choices[0].message.content
             logger.info("Case analysis completed (using NVIDIA API)")
             return analysis
-            
+
         except Exception as e:
             logger.error(f"Error analyzing case: {str(e)}")
             return f"Error analyzing case: {str(e)}"
-    
+
     def _format_case_prompt(self, case_details):
         """
         Format case details into a prompt for the model.
-        
+
         Args:
             case_details: Dictionary containing case details
-            
+
         Returns:
             Formatted prompt string
         """
         prompt = "Analyze the following theft case and provide insights and solutions based ONLY on the data provided:\n\n"
-        
+
         for key, value in case_details.items():
             if value:
                 prompt += f"{key.replace('_', ' ').title()}: {value}\n"
-        
+
         prompt += "\n\nBased on these specific details, please provide:\n"
         prompt += "1. A comprehensive analysis of the theft case\n"
         prompt += "2. Potential methods used by the thief/thieves\n"
@@ -193,9 +300,9 @@ class TheftAgent:
         prompt += "4. Key evidence to focus on and how to analyze it\n"
         prompt += "5. Possible solutions or preventive measures for the future\n"
         prompt += "\nImportant: Base your analysis ONLY on the information provided in this case. Do not use generic templates or assumptions not supported by the data."
-        
+
         return prompt
-    
+
     def interactive_session(self):
         """
         Start an interactive session with the Theft Agent.
@@ -205,16 +312,16 @@ class TheftAgent:
         print("Enter case details to receive analysis and solutions")
         print("Type 'exit' to end the session")
         print("="*50 + "\n")
-        
+
         while True:
             case_details = {}
-            
+
             print("\nEnter case details (press Enter after each entry, leave blank to skip):")
-            
+
             case_details["case_id"] = input("Case ID: ")
             if case_details["case_id"].lower() == "exit":
                 break
-                
+
             case_details["date_of_theft"] = input("Date of Theft: ")
             case_details["time_of_theft"] = input("Time of Theft: ")
             case_details["location"] = input("Location: ")
@@ -227,50 +334,50 @@ class TheftAgent:
             case_details["suspects"] = input("Suspects: ")
             case_details["security_measures"] = input("Security Measures in Place: ")
             case_details["additional_notes"] = input("Additional Notes: ")
-            
+
             # Remove empty fields
             case_details = {k: v for k, v in case_details.items() if v}
-            
+
             if not case_details:
                 print("No case details provided. Please try again.")
                 continue
-            
+
             print("\nAnalyzing case...")
             analysis = self.analyze_case(case_details)
-            
+
             print("\n" + "="*50)
             print("THEFT AGENT ANALYSIS")
             print("="*50)
             print(analysis)
             print("="*50)
-            
+
             save_option = input("\nWould you like to save this analysis? (y/n): ")
             if save_option.lower() == 'y':
                 case_id = case_details.get("case_id", f"case_{int(time.time())}")
                 filename = f"theft_analysis_{case_id}.txt"
-                
+
                 with open(filename, "w") as f:
                     f.write("CASE DETAILS:\n")
                     f.write("="*50 + "\n")
                     for key, value in case_details.items():
                         f.write(f"{key.replace('_', ' ').title()}: {value}\n")
-                    
+
                     f.write("\nANALYSIS:\n")
                     f.write("="*50 + "\n")
                     f.write(analysis)
-                
+
                 print(f"Analysis saved to {filename}")
-            
+
             continue_option = input("\nWould you like to analyze another case? (y/n): ")
             if continue_option.lower() != 'y':
                 break
-        
+
         print("\nThank you for using the Theft Agent. Goodbye!")
 
 def analyze_sample_case(agent):
     """
     Analyze a sample theft case to demonstrate the Theft Agent.
-    
+
     Args:
         agent: Initialized TheftAgent instance
     """
@@ -290,25 +397,25 @@ def analyze_sample_case(agent):
         "security_measures": "Security cameras, alarm system, locked display cases",
         "additional_notes": "Similar theft reported at another electronics store in the same mall two weeks ago"
     }
-    
+
     print("\n" + "="*50)
     print("THEFT AGENT SAMPLE CASE")
     print("="*50 + "\n")
-    
+
     print("Analyzing sample theft case...")
     print("\nCase Details:")
     for key, value in sample_case.items():
         print(f"{key.replace('_', ' ').title()}: {value}")
-    
+
     # Analyze the case
     analysis = agent.analyze_case(sample_case)
-    
+
     print("\n" + "="*50)
     print("THEFT AGENT ANALYSIS")
     print("="*50)
     print(analysis)
     print("="*50)
-    
+
     # Save the analysis
     filename = "sample_theft_analysis.txt"
     with open(filename, "w") as f:
@@ -316,11 +423,11 @@ def analyze_sample_case(agent):
         f.write("="*50 + "\n")
         for key, value in sample_case.items():
             f.write(f"{key.replace('_', ' ').title()}: {value}\n")
-        
+
         f.write("\nANALYSIS:\n")
         f.write("="*50 + "\n")
         f.write(analysis)
-    
+
     print(f"\nAnalysis saved to {filename}")
     print("\nThis was a sample case analysis. You can now enter your own case details.")
 
@@ -333,15 +440,15 @@ def setup_api_key():
     print("="*50)
     print("The API key will be stored in a .env file.")
     print("="*50 + "\n")
-    
+
     api_key = input("Enter your NVIDIA API key: ")
-    
+
     if not api_key:
         print("Error: No API key provided")
         return False
-    
+
     success = store_api_key(api_key)
-    
+
     if success:
         print(f"API key stored successfully in {ENV_FILE}")
         return True
@@ -355,26 +462,26 @@ def main():
     parser.add_argument("--api_key", help="NVIDIA API key (optional if stored in .env file)")
     parser.add_argument("--setup", action="store_true", help="Set up the API key")
     parser.add_argument("--sample", action="store_true", help="Analyze a sample case")
-    
+
     args = parser.parse_args()
-    
+
     # Set up API key if requested
     if args.setup:
         setup_api_key()
         return
-    
+
     # Use the provided API key directly
     api_key = API_KEY
     logger.info("Using provided NVIDIA API key")
-    
+
     # Initialize the Theft Agent
     agent = TheftAgent(api_key)
-    
+
     # Analyze sample case if requested
     if args.sample:
         analyze_sample_case(agent)
         return
-    
+
     # Start interactive session
     agent.interactive_session()
 

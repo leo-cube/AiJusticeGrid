@@ -84,24 +84,21 @@ The storage system now activates when:
    python check_storage.py
    ```
 
-3. **Run Integration Test**:
-   ```bash
-   python test_murder_storage_integration.py
-   ```
-
-4. **Manual Test via Web Interface**:
+3. **Test via Web Interface**:
    - Open http://localhost:3000
    - Start a Murder Agent conversation
-   - Complete all investigation questions
-   - Wait for AI analysis to be generated
+   - Complete the investigation and verify data storage
+
+4. **Verify Data Storage**:
    - Check `murder_investigation.json` for stored data
+   - Use API endpoints to retrieve case information
 
 ### 🔍 **Verification Points**
 
 1. **Storage File Updated**: `murder_investigation.json` should contain new case data
 2. **AI Analysis Captured**: The `ai_analysis.content` field should contain the full analysis
 3. **Conversation History**: All Q&A pairs should be preserved in `conversation_pairs`
-4. **API Endpoints Working**: 
+4. **API Endpoints Working**:
    - `GET /api/murder-investigations` - List all cases
    - `GET /api/murder-investigations/{case_id}` - Get specific case
 
@@ -123,7 +120,7 @@ The storage system now activates when:
 ### **Integration Architecture**
 
 ```
-Frontend (Next.js) 
+Frontend (Next.js)
     ↓ POST /api/augment/murder
 Unified Server (Port 5000)
     ↓ murder_agent.process_message()
@@ -149,7 +146,7 @@ JSON File (murder_investigation.json)
 ## Files Modified
 
 - ✅ `unified_server.py` - Added storage integration to Murder Agent endpoint
-- ✅ `test_murder_storage_integration.py` - Created comprehensive test suite
+- ✅ Storage integration added to unified server
 - ✅ `check_storage.py` - Created storage status checker
 - ✅ `STORAGE_FIX_SUMMARY.md` - This documentation
 

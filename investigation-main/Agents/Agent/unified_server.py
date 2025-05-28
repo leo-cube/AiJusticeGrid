@@ -34,6 +34,40 @@ except ImportError as e:
     logger = logging.getLogger(__name__)
     logger.warning(f"Murder investigation storage module not available: {e}")
 
+# Import the financial fraud agent module
+try:
+    import sys
+    import os
+    # Add the FinancialAgent directory to the path
+    financial_agent_path = os.path.join(os.path.dirname(__file__), 'FinancialAgent')
+    if financial_agent_path not in sys.path:
+        sys.path.insert(0, financial_agent_path)
+
+    from financial_fraud_agent_main import FinancialFraudAgent
+    FINANCIAL_AGENT_AVAILABLE = True
+    logger = logging.getLogger(__name__)
+    logger.info("Financial Fraud Agent module loaded successfully")
+except ImportError as e:
+    FINANCIAL_AGENT_AVAILABLE = False
+    logger = logging.getLogger(__name__)
+    logger.warning(f"Financial Fraud Agent module not available: {e}")
+
+# Import the theft agent module
+try:
+    # Add the TheftAgent directory to the path
+    theft_agent_path = os.path.join(os.path.dirname(__file__), 'TheftAgent')
+    if theft_agent_path not in sys.path:
+        sys.path.insert(0, theft_agent_path)
+
+    from theft_agent_main import TheftAgent
+    THEFT_AGENT_AVAILABLE = True
+    logger = logging.getLogger(__name__)
+    logger.info("Theft Agent module loaded successfully")
+except ImportError as e:
+    THEFT_AGENT_AVAILABLE = False
+    logger = logging.getLogger(__name__)
+    logger.warning(f"Theft Agent module not available: {e}")
+
 # Import ReportLab with fallback
 try:
     from reportlab.lib.pagesizes import letter, A4
@@ -164,11 +198,11 @@ AGENTS = {
     },
     "theft": {
         "system_prompt": "You are a specialized Theft Investigation AI Agent. Your role is to analyze theft cases, track stolen items, identify patterns, and help investigators recover property and identify perpetrators. Use knowledge of theft techniques, evidence analysis, and investigative methods in your responses.",
-        "enabled": False
+        "enabled": True
     },
     "finance": {
         "system_prompt": "You are a specialized Financial Fraud Investigation AI Agent. Your role is to analyze financial fraud cases, detect suspicious transactions, identify money laundering schemes, and help investigators track financial crimes. Use knowledge of financial systems, fraud patterns, and forensic accounting in your responses.",
-        "enabled": False
+        "enabled": True
     },
     "smuggle": {
         "system_prompt": "You are a specialized Smuggling Investigation AI Agent. Your role is to analyze smuggling cases, identify smuggling routes, and help investigators track contraband. Use knowledge of smuggling techniques, border security, and investigative methods in your responses.",
@@ -1424,6 +1458,36 @@ except Exception as e:
         logger.error(f"API key starts with: {NVIDIA_API_KEY[:10]}...")
     raise
 
+# Initialize the Financial Agent
+financial_agent = None
+if FINANCIAL_AGENT_AVAILABLE:
+    try:
+        logger.info(f"Attempting to initialize Financial Agent with API key length: {len(NVIDIA_API_KEY) if NVIDIA_API_KEY else 0}")
+        financial_agent = FinancialFraudAgent(NVIDIA_API_KEY)
+        logger.info("Financial Agent initialized successfully in unified server")
+    except Exception as e:
+        logger.error(f"Failed to initialize Financial Agent: {str(e)}")
+        logger.warning("Financial Agent will not be available")
+        AGENTS["finance"]["enabled"] = False
+else:
+    logger.warning("Financial Agent module not available, agent will be disabled")
+    AGENTS["finance"]["enabled"] = False
+
+# Initialize the Theft Agent
+theft_agent = None
+if THEFT_AGENT_AVAILABLE:
+    try:
+        logger.info(f"Attempting to initialize Theft Agent with API key length: {len(NVIDIA_API_KEY) if NVIDIA_API_KEY else 0}")
+        theft_agent = TheftAgent(NVIDIA_API_KEY)
+        logger.info("Theft Agent initialized successfully in unified server")
+    except Exception as e:
+        logger.error(f"Failed to initialize Theft Agent: {str(e)}")
+        logger.warning("Theft Agent will not be available")
+        AGENTS["theft"]["enabled"] = False
+else:
+    logger.warning("Theft Agent module not available, agent will be disabled")
+    AGENTS["theft"]["enabled"] = False
+
 # Create a specialized endpoint for the Murder Agent
 @app.route('/api/augment/murder', methods=['POST'])
 def murder_agent_endpoint():
@@ -1555,10 +1619,152 @@ def murder_agent_endpoint():
         "message": "Message processed successfully"
     })
 
+# Create a specialized endpoint for the Financial Agent
+@app.route('/api/augment/finance', methods=['POST'])
+def finance_agent_endpoint():
+    """Financial Agent API endpoint."""
+    logger.info("Received request for Financial Agent")
+
+    # Check if the agent is enabled
+    if not AGENTS["finance"]["enabled"]:
+        return jsonify({
+            "success": False,
+            "error": "Financial Agent is not enabled",
+            "data": {
+                "analysis": "Financial Agent is not enabled. Please enable it in the settings."
+            }
+        }), 403
+
+    # Check if the financial agent is available
+    if not financial_agent:
+        return jsonify({
+            "success": False,
+            "error": "Financial Agent is not available",
+            "data": {
+                "analysis": "Financial Agent is not available. Please check the server configuration."
+            }
+        }), 503
+
+    # Get case details from request
+    case_details = request.json
+    if not case_details:
+        return jsonify({
+            "success": False,
+            "error": "No case details provided",
+            "data": {
+                "analysis": "No case details provided. Please provide case details."
+            }
+        }), 400
+
+    # Check if this is just a ping/health check
+    if case_details.get("question") == "ping":
+        return jsonify({
+            "success": True,
+            "data": {
+                "analysis": "Financial Agent is running"
+            },
+            "status": "healthy"
+        }), 200
+
+    try:
+        # Analyze the case using the Financial Agent
+        logger.info("Calling Financial Agent for analysis")
+        analysis = financial_agent.analyze_case(case_details)
+
+        # Return the response
+        return jsonify({
+            "success": True,
+            "data": {
+                "analysis": analysis
+            },
+            "message": "Financial fraud analysis completed successfully"
+        })
+
+    except Exception as e:
+        logger.error(f"Error analyzing case with Financial Agent: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": f"Error analyzing case: {str(e)}",
+            "data": {
+                "analysis": f"Error analyzing case: {str(e)}"
+            }
+        }), 500
+
+# Create a specialized endpoint for the Theft Agent
+@app.route('/api/augment/theft', methods=['POST'])
+def theft_agent_endpoint():
+    """Theft Agent API endpoint."""
+    logger.info("Received request for Theft Agent")
+
+    # Check if the agent is enabled
+    if not AGENTS["theft"]["enabled"]:
+        return jsonify({
+            "success": False,
+            "error": "Theft Agent is not enabled",
+            "data": {
+                "analysis": "Theft Agent is not enabled. Please enable it in the settings."
+            }
+        }), 403
+
+    # Check if the theft agent is available
+    if not theft_agent:
+        return jsonify({
+            "success": False,
+            "error": "Theft Agent is not available",
+            "data": {
+                "analysis": "Theft Agent is not available. Please check the server configuration."
+            }
+        }), 503
+
+    # Get case details from request
+    case_details = request.json
+    if not case_details:
+        return jsonify({
+            "success": False,
+            "error": "No case details provided",
+            "data": {
+                "analysis": "No case details provided. Please provide case details."
+            }
+        }), 400
+
+    # Check if this is just a ping/health check
+    if case_details.get("question") == "ping":
+        return jsonify({
+            "success": True,
+            "data": {
+                "analysis": "Theft Agent is running"
+            },
+            "status": "healthy"
+        }), 200
+
+    try:
+        # Analyze the case using the Theft Agent
+        logger.info("Calling Theft Agent for analysis")
+        analysis = theft_agent.analyze_case(case_details)
+
+        # Return the response
+        return jsonify({
+            "success": True,
+            "data": {
+                "analysis": analysis
+            },
+            "message": "Theft investigation analysis completed successfully"
+        })
+
+    except Exception as e:
+        logger.error(f"Error analyzing case with Theft Agent: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": f"Error analyzing case: {str(e)}",
+            "data": {
+                "analysis": f"Error analyzing case: {str(e)}"
+            }
+        }), 500
+
 # Create endpoints for other agents
 for agent_name, agent_config in AGENTS.items():
-    # Skip the murder agent as we've already created a specialized endpoint for it
-    if agent_name == "murder":
+    # Skip the murder, finance, and theft agents as we've created specialized endpoints for them
+    if agent_name in ["murder", "finance", "theft"]:
         continue
 
     # Create a closure to capture the agent_name variable
@@ -1611,6 +1817,16 @@ def health_check():
         "murder_agent": {
             "status": "integrated",
             "model": MURDER_MODEL_NAME
+        },
+        "financial_agent": {
+            "status": "integrated" if financial_agent else "not_available",
+            "available": FINANCIAL_AGENT_AVAILABLE,
+            "enabled": AGENTS["finance"]["enabled"]
+        },
+        "theft_agent": {
+            "status": "integrated" if theft_agent else "not_available",
+            "available": THEFT_AGENT_AVAILABLE,
+            "enabled": AGENTS["theft"]["enabled"]
         }
     })
 
@@ -1627,6 +1843,18 @@ def full_health_check():
         "murder_agent": {
             "status": "integrated",
             "model": MURDER_MODEL_NAME,
+            "api_key_source": "env" if os.getenv('NVIDIA_API_KEY') else (".env file" if retrieve_api_key() else "default")
+        },
+        "financial_agent": {
+            "status": "integrated" if financial_agent else "not_available",
+            "available": FINANCIAL_AGENT_AVAILABLE,
+            "enabled": AGENTS["finance"]["enabled"],
+            "api_key_source": "env" if os.getenv('NVIDIA_API_KEY') else (".env file" if retrieve_api_key() else "default")
+        },
+        "theft_agent": {
+            "status": "integrated" if theft_agent else "not_available",
+            "available": THEFT_AGENT_AVAILABLE,
+            "enabled": AGENTS["theft"]["enabled"],
             "api_key_source": "env" if os.getenv('NVIDIA_API_KEY') else (".env file" if retrieve_api_key() else "default")
         },
         "system_info": {

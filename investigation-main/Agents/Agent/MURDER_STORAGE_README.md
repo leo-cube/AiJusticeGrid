@@ -30,7 +30,6 @@ The Murder Investigation Data Storage System is a comprehensive solution for aut
 investigation-main/Agents/Agent/
 ├── murder_investigation.json          # Main storage file
 ├── murder_data_storage.py            # Storage module
-├── test_murder_storage.py            # Test script
 ├── unified_server.py                 # Modified with storage integration
 ├── murder_agent_backend.py           # Modified with storage integration
 └── MURDER_STORAGE_README.md          # This documentation
@@ -193,19 +192,17 @@ metadata = murder_storage.get_storage_metadata()
 
 ## Testing
 
-Run the test script to verify system functionality:
+The storage system can be verified through:
 
+1. **Storage Status Check**:
 ```bash
 cd investigation-main/Agents/Agent
-python test_murder_storage.py
+python check_storage.py
 ```
 
-The test script validates:
-- ✅ Data storage functionality
-- ✅ Data retrieval operations
-- ✅ AI analysis updates
-- ✅ Metadata management
-- ✅ Error handling
+2. **Manual Testing**: Use the web interface to create investigations and verify data is stored in `murder_investigation.json`
+
+3. **API Testing**: Use the storage API endpoints to verify data retrieval
 
 ## Maintenance
 

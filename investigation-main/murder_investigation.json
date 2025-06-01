@@ -1,0 +1,12 @@
+{
+  "murder_investigations": {
+    "metadata": {
+      "created": "2025-06-02T00:46:38.538154",
+      "last_updated": "2025-06-02T00:46:38.538154",
+      "total_cases": 0,
+      "version": "1.0.0",
+      "description": "Persistent storage for Murder Agent investigation data and AI analysis reports"
+    },
+    "cases": {}
+  }
+}

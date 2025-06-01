@@ -174,6 +174,65 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
           }
         }
 
+        // For Finance Agent, initialize a completely new session
+        if (assignedAgent.id === 'finance' || assignedAgent.id === 'financial-fraud') {
+          try {
+            console.log('Initializing new Finance Agent session');
+
+            // Create a fresh context for the Finance Agent
+            context = {
+              crimeType,
+              caseId,
+              caseTitle: caseTitle || `${crimeType} Investigation`,
+              caseName,
+              caseStatus,
+              casePriority,
+              assignedTo,
+              assignedDate,
+              usingLiveBackend: true,
+              isCollectingInfo: true,
+              currentStep: 'greeting',
+              collectedData: {}
+            };
+
+            // Call the Finance Agent API to get a greeting and session ID
+            const response = await fetch('/api/finance-agent/direct', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                question: 'FORCE_NEW_SESSION',
+                context,
+                forceReset: true
+              }),
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              console.log('Finance Agent initialization response:', data);
+
+              if (data.sessionId) {
+                // Add session information to the context
+                context.sessionId = data.sessionId;
+
+                // Store the session ID in localStorage
+                try {
+                  localStorage.setItem('financeAgentSessionId', data.sessionId);
+                  console.log('Saved new Finance Agent session ID to localStorage:', data.sessionId);
+                } catch (e) {
+                  console.error('Failed to save Finance Agent session ID to localStorage:', e);
+                }
+
+                console.log('Finance Agent session initialized with ID:', data.sessionId);
+              }
+            }
+          } catch (error) {
+            console.error('Error initializing Finance Agent session:', error);
+            // Continue even if initialization fails
+          }
+        }
+
         // Set the current agent in the chat context
         setCurrentAgent(assignedAgent.id, context);
       } else {
@@ -239,6 +298,58 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
             }
           } catch (error) {
             console.error('Error initializing Murder Agent session:', error);
+            // Continue even if initialization fails
+          }
+        }
+
+        // For Finance Agent, initialize a completely new session
+        if (specializedAgentType === 'finance' || specializedAgentType === 'financial-fraud') {
+          try {
+            console.log('Initializing new Finance Agent session');
+
+            // Create a fresh context for the Finance Agent
+            context = {
+              ...context,
+              usingLiveBackend: true,
+              isCollectingInfo: true,
+              currentStep: 'greeting',
+              collectedData: {}
+            };
+
+            // Call the Finance Agent API to get a greeting and session ID
+            const response = await fetch('/api/finance-agent/direct', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                question: 'FORCE_NEW_SESSION',
+                context,
+                forceReset: true
+              }),
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              console.log('Finance Agent initialization response:', data);
+
+              if (data.sessionId) {
+                // Add session information to the context
+                context.sessionId = data.sessionId;
+
+                // Store the session ID in localStorage
+                try {
+                  localStorage.setItem('financeAgentSessionId', data.sessionId);
+                  console.log('Saved new Finance Agent session ID to localStorage:', data.sessionId);
+                } catch (e) {
+                  console.error('Failed to save Finance Agent session ID to localStorage:', e);
+                }
+
+                console.log('Finance Agent session initialized with ID:', data.sessionId);
+              }
+            }
+          } catch (error) {
+            console.error('Error initializing Finance Agent session:', error);
             // Continue even if initialization fails
           }
         }

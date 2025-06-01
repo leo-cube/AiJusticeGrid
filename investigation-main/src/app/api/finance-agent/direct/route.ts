@@ -74,26 +74,18 @@ export async function POST(request: Request) {
         additional_notes: 'This is a ping to check if the Finance Agent API is running.'
       };
     } else if (question === 'FORCE_NEW_SESSION') {
-      // This is a session initialization request
+      // This is a session initialization request - send empty question to get greeting
       caseDetails = {
-        question: 'Please start a new financial fraud investigation. What is the case ID?',
-        session_init: true
-      };
-    } else if (question.length < 50 && !context) {
-      // This looks like a direct question rather than case data
-      caseDetails = {
-        question: question,
-        additional_notes: context?.additionalNotes || ''
+        question: '',
+        force_new_session: true,
+        reset_conversation: true
       };
     } else {
-      // This is likely case data or a continuation of the conversation
-      if (!context) {
-        // If no context, treat the question as additional notes
-        caseDetails.additional_notes = question;
-      } else {
-        // Update the additional notes with the current question
-        caseDetails.additional_notes = (caseDetails.additional_notes || '') + '\n' + question;
-      }
+      // For all other cases, send the question directly to the backend
+      // The backend will handle the conversation flow properly
+      caseDetails = {
+        question: question
+      };
     }
 
     // Add session ID if available
@@ -164,20 +156,20 @@ export async function POST(request: Request) {
         // Successful response from unified server
         if (data.data) {
           responseText = data.data.analysis || data.data.response || data.message || 'Analysis completed successfully.';
-          
+
           // Extract session information if available
-          if (data.data.session_id) {
-            newSessionId = data.data.session_id;
+          if (data.session_id) {
+            newSessionId = data.session_id;
           }
-          
+
           if (data.data.is_collecting_info !== undefined) {
             isCollectingInfo = data.data.is_collecting_info;
           }
-          
+
           if (data.data.current_step) {
             currentStep = data.data.current_step;
           }
-          
+
           if (data.data.collected_data) {
             collectedData = data.data.collected_data;
           }
@@ -222,7 +214,7 @@ export async function POST(request: Request) {
       // Check if it's a network error
       if (fetchError.message.includes('fetch')) {
         console.log('Network error detected, Finance Agent backend may not be running');
-        
+
         return NextResponse.json({
           response: 'The Finance Agent backend is currently unavailable. Please ensure the backend server is running and try again.',
           source: 'network_error',
@@ -259,7 +251,7 @@ export async function POST(request: Request) {
         }
       } catch (fallbackError) {
         console.error('Fallback Finance Agent API also failed:', fallbackError);
-        
+
         return NextResponse.json({
           response: 'I apologize, but the Finance Agent is currently experiencing technical difficulties. Please try again later or contact support if the issue persists.',
           source: 'error_fallback',
@@ -275,7 +267,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error in Finance Agent direct route:', error);
     return NextResponse.json(
-      { 
+      {
         error: 'Failed to process Finance Agent request',
         response: 'I apologize, but I encountered an error while processing your request. Please try again.',
         source: 'route_error',

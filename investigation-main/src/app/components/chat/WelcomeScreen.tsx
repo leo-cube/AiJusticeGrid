@@ -90,18 +90,20 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ agentType, onQuestionClic
       </div>
       <h3 className="text-lg font-medium text-gray-900">{content.title}</h3>
       <p className="mt-1 max-w-xs text-sm text-gray-500">{content.description}</p>
-      <div className="mt-6 space-y-2">
-        <p className="text-xs text-gray-500">Try asking:</p>
-        {content.suggestedQuestions.map((question, index) => (
-          <button
-            key={index}
-            onClick={() => onQuestionClick(question)}
-            className="block w-full rounded-md bg-gray-100 px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-200"
-          >
-            {question}
-          </button>
-        ))}
-      </div>
+      {content.suggestedQuestions.length > 0 && (
+        <div className="mt-6 space-y-2">
+          <p className="text-xs text-gray-500">Try asking:</p>
+          {content.suggestedQuestions.map((question, index) => (
+            <button
+              key={index}
+              onClick={() => onQuestionClick(question)}
+              className="block w-full rounded-md bg-gray-100 px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-200"
+            >
+              {question}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

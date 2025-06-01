@@ -32,12 +32,7 @@ const defaultSuggestedQuestions: Record<AgentType, string[]> = {
     'What techniques are used for suspect profiling?',
     'How are witness testimonies verified?'
   ],
-  'finance': [
-    'What are common financial fraud indicators?',
-    'How do you trace money laundering activities?',
-    'What financial documents should be analyzed in fraud cases?',
-    'How are digital financial crimes investigated?'
-  ],
+  'finance': [],
   'theft': [
     'What are the most common theft patterns?',
     'How do you track stolen goods?',

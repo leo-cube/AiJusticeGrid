@@ -95,111 +95,161 @@ def setup_api_key():
         print(f"Error saving API key: {e}")
         logger.error(f"Error saving API key: {e}")
 
-# Financial fraud investigation conversation flow
-FINANCIAL_CONVERSATION_STEPS = [
+# Define the case information collection steps (following Murder Agent pattern)
+CASE_INFO_STEPS = [
     {
-        "id": "case_id",
-        "question": "What is the case ID for this financial fraud investigation?",
+        "id": "greeting",
+        "message": "Hello, I'm the Financial Fraud Agent, an AI assistant specialized in financial fraud investigations. I'll help you analyze a financial fraud case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+        "question": "Hello, I'm the Financial Fraud Agent, an AI assistant specialized in financial fraud investigations. I'll help you analyze a financial fraud case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
         "field": "case_id",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Case ID cannot be empty."
+        "next_step": "date_of_incident",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide a valid Case ID."
     },
     {
         "id": "date_of_incident",
-        "question": "When did the financial fraud incident occur? (YYYY-MM-DD format)",
+        "message": "When did the financial fraud incident occur? Please provide the date (YYYY-MM-DD).",
+        "question": "When did the financial fraud incident occur? Please provide the date (YYYY-MM-DD).",
         "field": "date_of_incident",
-        "validation": lambda x: bool(re.match(r'\d{4}-\d{2}-\d{2}', x.strip())),
-        "error_message": "Please provide the date in YYYY-MM-DD format."
+        "next_step": "time_of_discovery",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide a valid date."
     },
     {
         "id": "time_of_discovery",
+        "message": "When was the fraud discovered? (HH:MM format or description)",
         "question": "When was the fraud discovered? (HH:MM format or description)",
         "field": "time_of_discovery",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Time of discovery cannot be empty."
+        "next_step": "financial_institution",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide a valid time or description."
     },
     {
         "id": "financial_institution",
+        "message": "Which financial institution is involved? (Bank name, credit union, etc.)",
         "question": "Which financial institution is involved? (Bank name, credit union, etc.)",
         "field": "financial_institution",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Financial institution cannot be empty."
+        "next_step": "victim_name",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide a valid financial institution name."
     },
     {
         "id": "victim_name",
+        "message": "What is the name of the victim (individual or entity)?",
         "question": "What is the name of the victim (individual or entity)?",
         "field": "victim_name",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Victim name cannot be empty."
+        "next_step": "account_type",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide a valid victim name."
     },
     {
         "id": "account_type",
+        "message": "What type of account was involved? (checking, savings, credit card, investment, etc.)",
         "question": "What type of account was involved? (checking, savings, credit card, investment, etc.)",
         "field": "account_type",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Account type cannot be empty."
+        "next_step": "account_number",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide a valid account type."
     },
     {
         "id": "account_number",
+        "message": "What is the account number? (Please provide only the last 4 digits for security)",
         "question": "What is the account number? (Please provide only the last 4 digits for security)",
         "field": "account_number",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Account number (last 4 digits) cannot be empty."
+        "next_step": "fraud_type",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide valid account information."
     },
     {
         "id": "fraud_type",
+        "message": "What type of financial fraud occurred? (identity theft, wire fraud, credit card fraud, etc.)",
         "question": "What type of financial fraud occurred? (identity theft, wire fraud, credit card fraud, etc.)",
         "field": "fraud_type",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Fraud type cannot be empty."
+        "next_step": "amount_involved",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide a valid fraud type."
     },
     {
         "id": "amount_involved",
+        "message": "What is the financial amount involved? (Include currency if not USD)",
         "question": "What is the financial amount involved? (Include currency if not USD)",
         "field": "amount_involved",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Amount involved cannot be empty."
+        "next_step": "method_used",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide a valid amount."
     },
     {
         "id": "method_used",
+        "message": "How was the fraud executed? (Describe the method used by the perpetrator)",
         "question": "How was the fraud executed? (Describe the method used by the perpetrator)",
         "field": "method_used",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Method used cannot be empty."
+        "next_step": "suspicious_activity",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide a valid description of the method used."
     },
     {
         "id": "suspicious_activity",
+        "message": "What suspicious activities or patterns were identified?",
         "question": "What suspicious activities or patterns were identified?",
         "field": "suspicious_activity",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Suspicious activity description cannot be empty."
+        "next_step": "evidence_collected",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide information about suspicious activities."
     },
     {
         "id": "evidence_collected",
+        "message": "What evidence has been collected? (Digital records, documents, transaction logs, etc.)",
         "question": "What evidence has been collected? (Digital records, documents, transaction logs, etc.)",
         "field": "evidence_collected",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Evidence description cannot be empty."
+        "next_step": "suspects",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide information about evidence collected."
     },
     {
         "id": "suspects",
+        "message": "Are there any suspects identified? (Names, descriptions, or 'None identified')",
         "question": "Are there any suspects identified? (Names, descriptions, or 'None identified')",
         "field": "suspects",
-        "validation": lambda x: len(x.strip()) > 0,
-        "error_message": "Suspect information cannot be empty."
+        "next_step": "additional_notes",
+        "validation": lambda x: bool(x and x.strip()),
+        "error_message": "Please provide information about suspects or indicate 'None identified'."
     },
     {
         "id": "additional_notes",
+        "message": "Any additional relevant information about this financial fraud case?",
         "question": "Any additional relevant information about this financial fraud case?",
         "field": "additional_notes",
-        "validation": lambda x: True,  # Optional field
-        "error_message": ""
+        "next_step": "analysis",
+        "validation": lambda x: True,  # Allow empty for additional notes
+        "error_message": "Please provide any additional information or type 'None'."
     }
 ]
 
-def get_step_by_id(step_id: str) -> Optional[Dict[str, Any]]:
-    """Get a conversation step by its ID."""
-    for step in FINANCIAL_CONVERSATION_STEPS:
+# Define the correct field names for storing data
+FIELD_NAMES = {
+    "case_id": "case_id",
+    "date_of_incident": "date_of_incident",
+    "time_of_discovery": "time_of_discovery",
+    "financial_institution": "financial_institution",
+    "victim_name": "victim_name",
+    "account_type": "account_type",
+    "account_number": "account_number",
+    "fraud_type": "fraud_type",
+    "amount_involved": "amount_involved",
+    "method_used": "method_used",
+    "suspicious_activity": "suspicious_activity",
+    "evidence_collected": "evidence_collected",
+    "suspects": "suspects",
+    "additional_notes": "additional_notes"
+}
+
+# Keep FINANCIAL_CONVERSATION_STEPS for backward compatibility
+FINANCIAL_CONVERSATION_STEPS = CASE_INFO_STEPS
+
+# Helper function to get step by ID
+def get_step_by_id(step_id):
+    """Get a step by its ID."""
+    for step in CASE_INFO_STEPS:
         if step["id"] == step_id:
             return step
     return None
@@ -207,23 +257,78 @@ def get_step_by_id(step_id: str) -> Optional[Dict[str, Any]]:
 def get_next_step_id(current_step_id: str) -> Optional[str]:
     """Get the next step ID in the conversation flow."""
     current_index = None
-    for i, step in enumerate(FINANCIAL_CONVERSATION_STEPS):
+    for i, step in enumerate(CASE_INFO_STEPS):
         if step["id"] == current_step_id:
             current_index = i
             break
 
-    if current_index is not None and current_index < len(FINANCIAL_CONVERSATION_STEPS) - 1:
-        return FINANCIAL_CONVERSATION_STEPS[current_index + 1]["id"]
+    if current_index is not None and current_index < len(CASE_INFO_STEPS) - 1:
+        return CASE_INFO_STEPS[current_index + 1]["id"]
     return None
 
 def is_conversation_complete(current_step_id: str) -> bool:
     """Check if the conversation is complete."""
-    return current_step_id == FINANCIAL_CONVERSATION_STEPS[-1]["id"]
+    return current_step_id == CASE_INFO_STEPS[-1]["id"]
+
+# Helper function to store user input
+def store_user_input(session_id, current_step_id, user_input):
+    """Store user input for the current step."""
+    if session_id not in conversation_states:
+        logger.error(f"Session ID {session_id} not found in conversation states")
+        return False
+
+    # Get the current step
+    current_step = get_step_by_id(current_step_id)
+    if not current_step:
+        logger.error(f"Step {current_step_id} not found")
+        return False
+
+    # Store the user input if this step has a field
+    if current_step["field"]:
+        # Get the correct field name for storing the data
+        field_name = FIELD_NAMES.get(current_step["field"], current_step["field"])
+
+        # Store the user input in the correct field
+        conversation_states[session_id]["collected_data"][field_name] = user_input
+        logger.info(f"Stored user input in field {field_name}: {user_input}")
+
+    return True
+
+# Helper function to get or create conversation state
+def get_or_create_conversation_state(session_id):
+    """Get existing conversation state or create a new one."""
+    if session_id and session_id in conversation_states:
+        return session_id, conversation_states[session_id]
+
+    # Create new session
+    new_session_id = str(uuid.uuid4())
+    conversation_states[new_session_id] = {
+        "current_step": "greeting",
+        "collected_data": {},
+        "conversation_pairs": [],
+        "last_updated": datetime.now().isoformat(),
+        "status": "active"
+    }
+    logger.info(f"Created new conversation state for session {new_session_id}")
+    return new_session_id, conversation_states[new_session_id]
+
+def create_new_conversation_state():
+    """Create a new conversation state and return the session ID."""
+    session_id = str(uuid.uuid4())
+    conversation_states[session_id] = {
+        "current_step": "greeting",
+        "collected_data": {},
+        "conversation_pairs": [],
+        "last_updated": datetime.now().isoformat(),
+        "status": "active"
+    }
+    logger.info(f"Created new conversation state for session {session_id}")
+    return session_id
 
 def initialize_conversation_state(session_id: str) -> Dict[str, Any]:
     """Initialize a new conversation state."""
     state = {
-        "current_step": FINANCIAL_CONVERSATION_STEPS[0]["id"],
+        "current_step": "greeting",
         "collected_data": {},
         "conversation_pairs": [],
         "last_updated": datetime.now().isoformat(),
@@ -232,6 +337,66 @@ def initialize_conversation_state(session_id: str) -> Dict[str, Any]:
     conversation_states[session_id] = state
     logger.info(f"Initialized conversation state for session {session_id}")
     return state
+
+# Helper function to process user input and update conversation state
+def process_user_input(session_id, user_input):
+    """Process user input and update the conversation state."""
+    if session_id not in conversation_states:
+        logger.error(f"Session ID {session_id} not found in conversation states")
+        # Create a new session if the session ID doesn't exist
+        new_session_id, conv_state = get_or_create_conversation_state(None)
+        logger.info(f"Created new session {new_session_id} for non-existent session {session_id}")
+        return new_session_id, conv_state, None
+
+    # Get the current conversation state
+    conv_state = conversation_states[session_id]
+    current_step_id = conv_state["current_step"]
+
+    # Log the current state and user input
+    logger.info(f"Processing user input for session {session_id}, step {current_step_id}: {user_input}")
+    logger.info(f"Current conversation state: {conv_state}")
+
+    # Validate and store the user input
+    current_step = get_step_by_id(current_step_id)
+    if not current_step:
+        logger.error(f"Current step {current_step_id} not found")
+        return session_id, conv_state, "Invalid step"
+
+    # Validate the response if validation function exists
+    if "validation" in current_step and current_step["validation"]:
+        try:
+            if not current_step["validation"](user_input):
+                error_msg = current_step.get("error_message", "Invalid input")
+                logger.info(f"Validation failed for step {current_step_id}: {error_msg}")
+                return session_id, conv_state, error_msg
+        except Exception as e:
+            logger.error(f"Error during validation for step {current_step_id}: {e}")
+            # Continue without validation if there's an error
+
+    # Store the user input
+    store_result = store_user_input(session_id, current_step_id, user_input)
+    if not store_result:
+        logger.error(f"Failed to store user input: {user_input}")
+        return session_id, conv_state, "Failed to store input"
+
+    # Store the conversation pair
+    conversation_states[session_id]["conversation_pairs"].append({
+        "question": current_step.get("question", current_step.get("message", "")),
+        "answer": user_input.strip(),
+        "step_id": current_step_id,
+        "timestamp": datetime.now().isoformat()
+    })
+
+    # Move to the next step
+    next_step_id = current_step.get("next_step")
+    if next_step_id:
+        conversation_states[session_id]["current_step"] = next_step_id
+        conversation_states[session_id]["last_updated"] = datetime.now().isoformat()
+        logger.info(f"Advanced session {session_id} to step {next_step_id}")
+    else:
+        logger.info(f"No next step defined for {current_step_id}")
+
+    return session_id, conversation_states[session_id], None
 
 def advance_to_next_step(session_id: str, current_step_id: str) -> bool:
     """Advance the conversation to the next step."""
@@ -488,7 +653,7 @@ class FinancialFraudAgent:
 
         # Add conversation states and case info steps for compatibility with unified server
         self.conversation_states = conversation_states
-        self.CASE_INFO_STEPS = FINANCIAL_CONVERSATION_STEPS
+        self.CASE_INFO_STEPS = CASE_INFO_STEPS
 
     def analyze_case(self, case_details):
         """
@@ -599,7 +764,7 @@ class FinancialFraudAgent:
 
         return analysis
 
-    def process_message(self, message: str, session_id: Optional[str] = None, force_new_session: bool = False, reset_conversation: bool = False) -> Tuple[str, str, bool, str, Optional[str]]:
+    def process_message(self, message, session_id=None, force_new_session=False, reset_conversation=False):
         """
         Process a message from the user and update the conversation state.
 
@@ -610,7 +775,7 @@ class FinancialFraudAgent:
             reset_conversation: Reset the conversation state but keep the session ID
 
         Returns:
-            Tuple of (session_id, response_message, is_collecting_info, current_step, error_message)
+            Tuple of (session_id, response, is_collecting_info, current_step, error_message)
         """
         logger.info(f"Processing message: {message} with session_id: {session_id}")
         logger.info(f"force_new_session: {force_new_session}, reset_conversation: {reset_conversation}")
@@ -633,7 +798,7 @@ class FinancialFraudAgent:
             elif reset_conversation and session_id and session_id in conversation_states:
                 logger.info(f"Resetting conversation state for session {session_id}")
                 conversation_states[session_id] = {
-                    "current_step": FINANCIAL_CONVERSATION_STEPS[0]["id"],
+                    "current_step": "greeting",
                     "collected_data": {},
                     "conversation_pairs": [],
                     "last_updated": datetime.now().isoformat(),
@@ -645,10 +810,10 @@ class FinancialFraudAgent:
                 session_id = str(uuid.uuid4())
                 initialize_conversation_state(session_id)
 
-            current_step = get_step_by_id(FINANCIAL_CONVERSATION_STEPS[0]["id"])
+            current_step = get_step_by_id("greeting")
 
             # Return the greeting message
-            return session_id, current_step["question"], True, FINANCIAL_CONVERSATION_STEPS[0]["id"], None
+            return session_id, current_step["message"], True, "greeting", None
 
         # Create a new session if none exists
         if not session_id or session_id not in conversation_states:
@@ -659,8 +824,8 @@ class FinancialFraudAgent:
 
             # If this is a new session and there's no message, return the greeting
             if not message:
-                current_step = get_step_by_id(FINANCIAL_CONVERSATION_STEPS[0]["id"])
-                return session_id, current_step["question"], True, FINANCIAL_CONVERSATION_STEPS[0]["id"], None
+                current_step = get_step_by_id("greeting")
+                return session_id, current_step["message"], True, "greeting", None
 
         # Get the current conversation state
         conv_state = conversation_states[session_id]
@@ -669,28 +834,32 @@ class FinancialFraudAgent:
         logger.info(f"Current step: {current_step_id}")
         logger.info(f"Current conversation state: {conv_state}")
 
-        # If this is the first message and there's no message, just return the greeting
-        if current_step_id == FINANCIAL_CONVERSATION_STEPS[0]["id"] and not message:
-            logger.info("No message provided for greeting, returning greeting message")
-            return session_id, get_step_by_id(FINANCIAL_CONVERSATION_STEPS[0]["id"])["question"], True, FINANCIAL_CONVERSATION_STEPS[0]["id"], None
+        # If this is the first message (greeting) and there's no message, return the greeting
+        if current_step_id == "greeting" and not message:
+            logger.info("First message (greeting), returning greeting message")
+            return session_id, get_step_by_id("greeting")["message"], True, "greeting", None
 
         # Process the user input and update the conversation state
         if message:
-            # Validate and store the response
-            is_valid, error_msg = validate_and_store_response(session_id, current_step_id, message)
+            # Update the conversation state with the user's input
+            session_id, updated_state, error_message = process_user_input(session_id, message)
 
             # If there was an error, return the error message and stay on the current step
-            if not is_valid:
+            if error_message:
                 current_step = get_step_by_id(current_step_id)
                 # Create a more user-friendly error message with examples
-                error_response = f"I couldn't process your input: {error_msg}\n\nPlease try again. {current_step['question']}"
-                return session_id, error_response, True, current_step_id, error_msg
+                error_response = f"I couldn't process your input: {error_message}\n\nPlease try again. {current_step['message']}"
+                return session_id, error_response, True, current_step_id, error_message
 
-            # Check if conversation is complete
-            if is_conversation_complete(current_step_id):
+            # Get the updated step
+            current_step_id = updated_state["current_step"]
+            current_step = get_step_by_id(current_step_id)
+
+            # If we've reached the analysis step, perform the analysis
+            if current_step_id == "analysis":
                 try:
                     # Get the collected data
-                    collected_data = conv_state["collected_data"]
+                    collected_data = updated_state["collected_data"]
                     logger.info(f"Performing analysis with collected data: {collected_data}")
 
                     # Perform the analysis
@@ -702,25 +871,14 @@ class FinancialFraudAgent:
                     logger.error(f"Error analyzing case: {str(e)}")
                     return session_id, f"Error analyzing case: {str(e)}", False, "analysis", str(e)
 
-            # Advance to next step
-            advance_result = advance_to_next_step(session_id, current_step_id)
-            if not advance_result:
-                logger.error(f"Failed to advance to next step from {current_step_id}")
-                # This is not a fatal error, so we continue
-
-            # Get the updated step
-            updated_state = conversation_states[session_id]
-            current_step_id = updated_state["current_step"]
-            current_step = get_step_by_id(current_step_id)
-
             # Return the next question
-            if current_step and current_step["question"]:
-                return session_id, current_step["question"], True, current_step_id, None
+            if current_step and current_step["message"]:
+                return session_id, current_step["message"], True, current_step_id, None
 
         # If we've reached this point, something went wrong
         # Return the current step's question
         current_step = get_step_by_id(current_step_id)
-        return session_id, current_step["question"] if current_step else "What would you like to know?", True, current_step_id, None
+        return session_id, current_step["message"] if current_step else "What would you like to know?", True, current_step_id, None
 
     def _format_case_prompt(self, case_details):
         """

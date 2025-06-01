@@ -76,7 +76,41 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         });
       }
     } catch (error) {
-      console.error('Failed to load stored session ID:', error);
+      console.error('Failed to load stored Murder Agent session ID:', error);
+    }
+
+    // Load Finance Agent session ID if available
+    try {
+      const storedFinanceSessionId = localStorage.getItem('financeAgentSessionId');
+      if (storedFinanceSessionId) {
+        console.log('Found stored Finance Agent session ID:', storedFinanceSessionId);
+
+        // Update the Finance Agent context with the session ID
+        setAgentContexts(prev => {
+          const updatedContexts = { ...prev };
+
+          // Update for both 'finance' and 'financial-fraud' agent types
+          if (updatedContexts['finance']) {
+            updatedContexts['finance'] = {
+              ...updatedContexts['finance'],
+              sessionId: storedFinanceSessionId,
+              usingLiveBackend: true
+            };
+          }
+
+          if (updatedContexts['financial-fraud']) {
+            updatedContexts['financial-fraud'] = {
+              ...updatedContexts['financial-fraud'],
+              sessionId: storedFinanceSessionId,
+              usingLiveBackend: true
+            };
+          }
+
+          return updatedContexts;
+        });
+      }
+    } catch (error) {
+      console.error('Failed to load stored Finance Agent session ID:', error);
     }
   }, []);
 
@@ -130,7 +164,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       // Mark the current agent as about to respond to prevent duplicates
       setRespondedAgents(prev => new Set([...prev, currentAgent]));
 
-      // Check if this is a murder agent that should use the backend
+      // Check if this is a murder or finance agent that should use the backend
       let response;
       let usingBackend = false;
       let updatedContext = { ...currentContext };
@@ -308,13 +342,186 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
           // Fall back to the default response generation
           response = await augmentAIService.getResponse(content, currentAgent, currentContext);
         }
+      } else if (currentAgent === 'finance' || currentAgent === 'financial-fraud') {
+        try {
+          // Try to get response from the Finance Agent backend
+          console.log('Attempting to use Finance Agent backend');
+
+          // Get the session ID from the current context if available
+          let sessionId = currentContext?.sessionId;
+
+          // Try to get the session ID from localStorage if not in context
+          if (!sessionId) {
+            try {
+              const storedSessionId = localStorage.getItem('financeAgentSessionId');
+              if (storedSessionId) {
+                sessionId = storedSessionId;
+                console.log('Retrieved Finance Agent session ID from localStorage:', sessionId);
+              }
+            } catch (e) {
+              console.error('Failed to retrieve Finance Agent session ID from localStorage:', e);
+            }
+          }
+
+          console.log('Current Finance Agent session ID:', sessionId);
+
+          // Log the full context for debugging
+          console.log('Full Finance Agent context being sent:', JSON.stringify(currentContext));
+
+          // If this is the first message and we don't have a session ID, we need to initialize the conversation
+          if (!sessionId && !content.trim()) {
+            console.log('No session ID and empty content, initializing Finance Agent conversation');
+
+            // Make a special call to initialize the conversation
+            const initResponse = await fetch('/api/finance-agent/direct', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                question: '',
+                context: currentContext
+              }),
+            });
+
+            if (initResponse.ok) {
+              const initData = await initResponse.json();
+              console.log('Finance Agent initialization response:', initData);
+
+              if (initData.response) {
+                response = initData.response;
+                usingBackend = true;
+
+                // Add a marker to the response to indicate it's from the live backend (only if not already present)
+                if (!response.includes('[LIVE DATA ANALYSIS]')) {
+                  response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
+                }
+
+                // Create a new context with the session information
+                const newContext = { ...currentContext };
+
+                if (initData.sessionId) {
+                  newContext.sessionId = initData.sessionId;
+                  newContext.isCollectingInfo = true;
+                  newContext.currentStep = 'greeting';
+                  newContext.collectedData = {};
+                  newContext.usingLiveBackend = true;
+
+                  // Update the context
+                  updatedContext = newContext;
+
+                  // Update the agent contexts
+                  setAgentContexts(prev => ({
+                    ...prev,
+                    [currentAgent]: newContext
+                  }));
+
+                  console.log('Finance Agent initialized with session ID:', initData.sessionId);
+                }
+              }
+            }
+          } else {
+            // Normal message processing
+            console.log('Sending message to Finance Agent with session ID:', sessionId);
+
+            // Create a copy of the context with the session ID
+            const contextWithSessionId = {
+              ...currentContext,
+              sessionId: sessionId
+            };
+
+            const backendResponse = await fetch('/api/finance-agent/direct', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                question: content,
+                context: contextWithSessionId,
+                sessionId: sessionId
+              }),
+            });
+
+            if (backendResponse.ok) {
+              const data = await backendResponse.json();
+              console.log('Finance Agent response data:', data);
+
+              if (data.response) {
+                response = data.response;
+                usingBackend = true;
+                console.log('Successfully used Finance Agent backend');
+
+                // Add a marker to the response to indicate it's from the live backend (only if not already present)
+                if (!response.includes('[LIVE DATA ANALYSIS]')) {
+                  response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
+                }
+
+                // Create a new context object to avoid reference issues
+                const newContext = { ...currentContext };
+
+                // Update the context with session information
+                if (data.sessionId) {
+                  newContext.sessionId = data.sessionId;
+                  console.log('Updated Finance Agent session ID:', data.sessionId);
+
+                  // Store the session ID in localStorage for persistence
+                  try {
+                    localStorage.setItem('financeAgentSessionId', data.sessionId);
+                    console.log('Saved Finance Agent session ID to localStorage:', data.sessionId);
+                  } catch (e) {
+                    console.error('Failed to save Finance Agent session ID to localStorage:', e);
+                  }
+                } else {
+                  console.warn('No session ID in Finance Agent response, using existing session ID if available');
+                  // Keep the existing session ID if available
+                  if (sessionId) {
+                    newContext.sessionId = sessionId;
+                  }
+                }
+
+                // Update the context with conversation state information
+                if (data.isCollectingInfo !== undefined) {
+                  newContext.isCollectingInfo = data.isCollectingInfo;
+                }
+
+                if (data.currentStep) {
+                  newContext.currentStep = data.currentStep;
+                }
+
+                if (data.collectedData) {
+                  newContext.collectedData = data.collectedData;
+                }
+
+                // Set the updated context
+                updatedContext = newContext;
+
+                // Update the agent contexts to ensure persistence
+                setAgentContexts(prev => ({
+                  ...prev,
+                  [currentAgent]: newContext
+                }));
+
+                console.log('Updated Finance Agent context:', updatedContext);
+              } else {
+                throw new Error('No response from Finance Agent backend');
+              }
+            } else {
+              throw new Error(`Finance Agent backend error: ${backendResponse.statusText}`);
+            }
+          }
+        } catch (backendError) {
+          console.error('Error using Finance Agent backend:', backendError);
+          console.log('Falling back to default response generation');
+          // Fall back to the default response generation
+          response = await augmentAIService.getResponse(content, currentAgent, currentContext);
+        }
       } else {
-        // For non-murder agents, use the default response generation
+        // For non-murder/finance agents, use the default response generation
         response = await augmentAIService.getResponse(content, currentAgent, currentContext);
       }
 
       // Update context with live backend flag
-      if (currentAgent === 'murder') {
+      if (currentAgent === 'murder' || currentAgent === 'finance' || currentAgent === 'financial-fraud') {
         updatedContext.usingLiveBackend = usingBackend;
       }
 
@@ -622,6 +829,69 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
               });
             } catch (error) {
               console.error('Error initializing Murder Agent conversation:', error);
+            }
+          }
+
+          // For Finance Agent, if we're switching to the Finance Agent and there are no messages, add the greeting message
+          if ((agentType === 'finance' || agentType === 'financial-fraud') && messages.length === 0) {
+            console.log('Adding initial greeting for Finance Agent');
+
+            // Create a greeting message
+            const greetingMessage: ChatMessage = {
+              id: Date.now().toString(),
+              sender: 'assistant',
+              content: `**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Financial Fraud Agent, an AI assistant specialized in financial fraud investigations. I'll help you analyze a financial fraud case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?`,
+              timestamp: new Date().toISOString(),
+              status: 'delivered',
+              agentType: agentType,
+              context: {
+                ...context,
+                isCollectingInfo: true,
+                currentStep: 'greeting'
+              },
+            };
+
+            // Add the greeting message
+            setMessages([greetingMessage]);
+
+            // Also initialize the conversation with the Finance Agent backend
+            try {
+              console.log('Initializing Finance Agent conversation with session ID:', context.sessionId);
+
+              fetch('/api/finance-agent/direct', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  question: 'FORCE_NEW_SESSION',
+                  context: context,
+                  sessionId: context.sessionId,
+                  forceReset: true
+                }),
+              }).then(response => {
+                if (response.ok) {
+                  return response.json();
+                }
+                console.error('Failed to initialize Finance Agent conversation:', response.statusText);
+                // Don't throw an error, just log it and continue
+                return { success: false, error: 'Failed to initialize Finance Agent conversation' };
+              }).then(data => {
+                console.log('Finance Agent initialization response:', data);
+                // If we got a session ID, store it
+                if (data.sessionId) {
+                  try {
+                    localStorage.setItem('financeAgentSessionId', data.sessionId);
+                    console.log('Saved Finance Agent session ID to localStorage:', data.sessionId);
+                  } catch (e) {
+                    console.error('Failed to save Finance Agent session ID to localStorage:', e);
+                  }
+                }
+              }).catch(error => {
+                console.error('Error initializing Finance Agent conversation:', error);
+              });
+            } catch (error) {
+              console.error('Error initializing Finance Agent conversation:', error);
             }
           }
         }

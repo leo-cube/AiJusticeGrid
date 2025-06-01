@@ -59,12 +59,7 @@ const welcomeScreenContent: Record<AgentType, WelcomeScreenContent> = {
     title: 'Financial Fraud Assistant',
     description: 'Specialized help for financial crime investigations and fraud detection.',
     icon: 'CurrencyDollarIcon',
-    suggestedQuestions: [
-      'What are common financial fraud indicators?',
-      'How do you trace money laundering activities?',
-      'What financial documents should be analyzed in fraud cases?',
-      'How are digital financial crimes investigated?'
-    ]
+    suggestedQuestions: []
   },
   'theft': {
     title: 'Theft Investigation Assistant',

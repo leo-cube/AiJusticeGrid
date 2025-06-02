@@ -20,6 +20,9 @@ interface ChatContextProviderType {
   selectAgent: (agentType: AgentType, context?: ChatContextType) => void;
   deselectAgent: (agentType: AgentType) => void;
   resetMurderAgentSession: () => Promise<boolean>;
+  resetFinanceAgentSession: () => Promise<boolean>;
+  resetTheftAgentSession: () => Promise<boolean>;
+  resetAgentSession: (agentType: AgentType) => Promise<boolean>;
 }
 
 const ChatContext = createContext<ChatContextProviderType | undefined>(undefined);
@@ -120,6 +123,185 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem('chatMessages', JSON.stringify(messages));
     }
   }, [messages]);
+
+  // Add greeting message when Murder or Finance Agent is first selected
+  useEffect(() => {
+    if (currentAgent === 'murder') {
+      const murderMessages = messages.filter(msg => msg.agentType === 'murder');
+
+      if (murderMessages.length === 0) {
+        console.log('Murder Agent selected with no messages, adding greeting');
+
+        // Create a fresh context for Murder Agent
+        const freshContext = {
+          usingLiveBackend: true,
+          isCollectingInfo: true,
+          currentStep: 'greeting',
+          collectedData: {}
+        };
+
+        // Update the current context
+        setCurrentContext(freshContext);
+
+        // Update the agent contexts
+        setAgentContexts(prev => ({
+          ...prev,
+          [currentAgent]: freshContext
+        }));
+
+        // Create a greeting message
+        const greetingMessage: ChatMessage = {
+          id: Date.now().toString(),
+          sender: 'assistant',
+          content: `**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?`,
+          timestamp: new Date().toISOString(),
+          status: 'delivered',
+          agentType: currentAgent,
+          context: freshContext,
+        };
+
+        // Add the greeting message
+        setMessages(prev => [...prev, greetingMessage]);
+
+        // Initialize the conversation with the Murder Agent backend
+        try {
+          console.log('Initializing Murder Agent conversation');
+
+          fetch('/api/murder-agent/direct', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              question: 'FORCE_NEW_SESSION',
+              context: freshContext,
+              forceReset: true
+            }),
+          }).then(response => {
+            if (response.ok) {
+              return response.json();
+            }
+            console.error('Failed to initialize Murder Agent conversation:', response.statusText);
+            return { success: false, error: 'Failed to initialize Murder Agent conversation' };
+          }).then(data => {
+            console.log('Murder Agent initialization response:', data);
+            // If we got a session ID, store it
+            if (data.sessionId) {
+              try {
+                localStorage.setItem('murderAgentSessionId', data.sessionId);
+                console.log('Saved Murder Agent session ID to localStorage:', data.sessionId);
+
+                // Update the context with the session ID
+                const updatedContext = {
+                  ...freshContext,
+                  sessionId: data.sessionId
+                };
+
+                setCurrentContext(updatedContext);
+                setAgentContexts(prev => ({
+                  ...prev,
+                  [currentAgent]: updatedContext
+                }));
+              } catch (e) {
+                console.error('Failed to save Murder Agent session ID to localStorage:', e);
+              }
+            }
+          }).catch(error => {
+            console.error('Error initializing Murder Agent conversation:', error);
+          });
+        } catch (error) {
+          console.error('Error initializing Murder Agent conversation:', error);
+        }
+      }
+    } else if (currentAgent === 'finance' || currentAgent === 'financial-fraud') {
+      const financeMessages = messages.filter(msg => msg.agentType === 'finance' || msg.agentType === 'financial-fraud');
+
+      if (financeMessages.length === 0) {
+        console.log('Finance Agent selected with no messages, adding greeting');
+
+        // Create a fresh context for Finance Agent
+        const freshContext = {
+          usingLiveBackend: true,
+          isCollectingInfo: true,
+          currentStep: 'greeting',
+          collectedData: {}
+        };
+
+        // Update the current context
+        setCurrentContext(freshContext);
+
+        // Update the agent contexts
+        setAgentContexts(prev => ({
+          ...prev,
+          [currentAgent]: freshContext
+        }));
+
+        // Create a greeting message
+        const greetingMessage: ChatMessage = {
+          id: Date.now().toString(),
+          sender: 'assistant',
+          content: `**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Financial Fraud Agent, an AI assistant specialized in financial fraud investigations. I'll help you analyze a financial fraud case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?`,
+          timestamp: new Date().toISOString(),
+          status: 'delivered',
+          agentType: currentAgent,
+          context: freshContext,
+        };
+
+        // Add the greeting message
+        setMessages(prev => [...prev, greetingMessage]);
+
+        // Initialize the conversation with the Finance Agent backend
+        try {
+          console.log('Initializing Finance Agent conversation');
+
+          fetch('/api/finance-agent/direct', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              question: 'FORCE_NEW_SESSION',
+              context: freshContext,
+              forceReset: true
+            }),
+          }).then(response => {
+            if (response.ok) {
+              return response.json();
+            }
+            console.error('Failed to initialize Finance Agent conversation:', response.statusText);
+            return { success: false, error: 'Failed to initialize Finance Agent conversation' };
+          }).then(data => {
+            console.log('Finance Agent initialization response:', data);
+            // If we got a session ID, store it
+            if (data.sessionId) {
+              try {
+                localStorage.setItem('financeAgentSessionId', data.sessionId);
+                console.log('Saved Finance Agent session ID to localStorage:', data.sessionId);
+
+                // Update the context with the session ID
+                const updatedContext = {
+                  ...freshContext,
+                  sessionId: data.sessionId
+                };
+
+                setCurrentContext(updatedContext);
+                setAgentContexts(prev => ({
+                  ...prev,
+                  [currentAgent]: updatedContext
+                }));
+              } catch (e) {
+                console.error('Failed to save Finance Agent session ID to localStorage:', e);
+              }
+            }
+          }).catch(error => {
+            console.error('Error initializing Finance Agent conversation:', error);
+          });
+        } catch (error) {
+          console.error('Error initializing Finance Agent conversation:', error);
+        }
+      }
+    }
+  }, [currentAgent, messages]);
 
   const sendMessage = async (content: string) => {
     if (!content.trim()) return;
@@ -736,6 +918,280 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     return true;
   };
 
+  // Reset the Finance Agent session
+  const resetFinanceAgentSession = async () => {
+    console.log('Completely resetting Finance Agent session');
+
+    // Clear any stored session ID
+    try {
+      localStorage.removeItem('financeAgentSessionId');
+      console.log('Cleared stored Finance Agent session ID');
+    } catch (e) {
+      console.error('Failed to clear stored Finance Agent session ID:', e);
+    }
+
+    // Clear messages first
+    clearMessages();
+
+    // Create a fresh context without any previous data
+    const freshContext = {
+      usingLiveBackend: true,
+      isCollectingInfo: true,
+      currentStep: 'greeting',
+      collectedData: {}
+    };
+
+    // Update the current context with the fresh context
+    setCurrentContext(freshContext);
+
+    // Update the agent contexts
+    setAgentContexts(prev => ({
+      ...prev,
+      ['finance']: freshContext
+    }));
+
+    // Add the initial greeting message
+    const greetingMessage = {
+      id: Date.now().toString(),
+      sender: 'assistant',
+      content: `**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Financial Fraud Agent, an AI assistant specialized in financial fraud investigations. I'll help you analyze a financial fraud case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?`,
+      timestamp: new Date().toISOString(),
+      status: 'delivered',
+      agentType: 'finance',
+      context: freshContext,
+    };
+
+    setMessages([greetingMessage]);
+
+    // Make a direct call to initialize a new session
+    try {
+      console.log('Initializing new Finance Agent session');
+
+      const response = await fetch('/api/finance-agent/direct', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: 'FORCE_NEW_SESSION',
+          context: freshContext,
+          forceReset: true
+        }),
+      });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Finance Agent session reset response:', data);
+
+          // If we got a session ID, update the context
+          if (data.sessionId) {
+            // Update the fresh context with the new session ID
+            const updatedContext = {
+              ...freshContext,
+              sessionId: data.sessionId
+            };
+
+            // Update the current context
+            setCurrentContext(updatedContext);
+
+            // Also update the agent contexts
+            setAgentContexts(prev => ({
+              ...prev,
+              ['finance']: updatedContext
+            }));
+
+            // Store the session ID in localStorage
+            try {
+              localStorage.setItem('financeAgentSessionId', data.sessionId);
+              console.log('Saved new Finance Agent session ID to localStorage:', data.sessionId);
+            } catch (e) {
+              console.error('Failed to save Finance Agent session ID to localStorage:', e);
+            }
+
+            console.log('Updated to new Finance Agent session ID:', data.sessionId);
+          }
+
+          console.log('Finance Agent reset complete');
+          return true;
+        } else {
+          console.error('Failed to reset Finance Agent session:', await response.text());
+          // Even if the API call fails, we've already reset the UI state
+          return true;
+        }
+      } catch (error) {
+        console.error('Error resetting Finance Agent session:', error);
+        // Even if there's an error, we've already reset the UI state
+        return true;
+      }
+
+    // Try to call the Finance Agent reset API if we have a session ID (legacy cleanup)
+    try {
+      const storedSessionId = localStorage.getItem('financeAgentSessionId');
+      if (storedSessionId) {
+        console.log('Calling Finance Agent reset API with session ID:', storedSessionId);
+
+        const response = await fetch('/api/finance-agent/reset', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            sessionId: storedSessionId
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Finance Agent reset response:', data);
+
+          // If we got a new session ID, store it
+          if (data.sessionId) {
+            try {
+              localStorage.setItem('financeAgentSessionId', data.sessionId);
+              console.log('Saved new Finance Agent session ID to localStorage:', data.sessionId);
+            } catch (e) {
+              console.error('Failed to save new Finance Agent session ID to localStorage:', e);
+            }
+          }
+
+          console.log('Finance Agent reset complete');
+          return true;
+        } else {
+          console.error('Failed to reset Finance Agent session:', await response.text());
+          // Even if the API call fails, we've already reset the UI state
+          return true;
+        }
+      } else {
+        console.log('No Finance Agent session ID found, skipping API reset call');
+        return true;
+      }
+    } catch (error) {
+      console.error('Error resetting Finance Agent session:', error);
+      // Even if there's an error, we've already reset the UI state
+      return true;
+    }
+
+    // We've already reset everything, so return true
+    return true;
+  };
+
+  // Reset the Theft Agent session
+  const resetTheftAgentSession = async () => {
+    console.log('Completely resetting Theft Agent session');
+
+    // Clear any stored session ID
+    try {
+      localStorage.removeItem('theftAgentSessionId');
+      console.log('Cleared stored Theft Agent session ID');
+    } catch (e) {
+      console.error('Failed to clear stored Theft Agent session ID:', e);
+    }
+
+    // Clear messages first
+    clearMessages();
+
+    // Create a fresh context without any previous data
+    const freshContext = {
+      usingLiveBackend: true,
+      isCollectingInfo: true,
+      currentStep: 'greeting',
+      collectedData: {}
+    };
+
+    // Update the current context with the fresh context
+    setCurrentContext(freshContext);
+
+    // Update the agent contexts
+    setAgentContexts(prev => ({
+      ...prev,
+      ['theft']: freshContext
+    }));
+
+    // Try to call the Theft Agent reset API if we have a session ID
+    try {
+      const storedSessionId = localStorage.getItem('theftAgentSessionId');
+      if (storedSessionId) {
+        console.log('Calling Theft Agent reset API with session ID:', storedSessionId);
+
+        const response = await fetch('/api/theft-agent/reset', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            sessionId: storedSessionId
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Theft Agent reset response:', data);
+
+          // If we got a new session ID, store it
+          if (data.sessionId) {
+            try {
+              localStorage.setItem('theftAgentSessionId', data.sessionId);
+              console.log('Saved new Theft Agent session ID to localStorage:', data.sessionId);
+            } catch (e) {
+              console.error('Failed to save new Theft Agent session ID to localStorage:', e);
+            }
+          }
+
+          console.log('Theft Agent reset complete');
+          return true;
+        } else {
+          console.error('Failed to reset Theft Agent session:', await response.text());
+          // Even if the API call fails, we've already reset the UI state
+          return true;
+        }
+      } else {
+        console.log('No Theft Agent session ID found, skipping API reset call');
+        return true;
+      }
+    } catch (error) {
+      console.error('Error resetting Theft Agent session:', error);
+      // Even if there's an error, we've already reset the UI state
+      return true;
+    }
+
+    // We've already reset everything, so return true
+    return true;
+  };
+
+  // Generic reset function for any agent
+  const resetAgentSession = async (agentType: AgentType) => {
+    console.log(`Resetting ${agentType} agent session`);
+
+    switch (agentType) {
+      case 'murder':
+        return await resetMurderAgentSession();
+      case 'finance':
+      case 'financial-fraud':
+        return await resetFinanceAgentSession();
+      case 'theft':
+        return await resetTheftAgentSession();
+      default:
+        // For other agents, just clear messages and reset context
+        console.log(`Generic reset for ${agentType} agent`);
+        clearMessages();
+
+        const freshContext = {
+          usingLiveBackend: false,
+          isCollectingInfo: false,
+          currentStep: 'greeting',
+          collectedData: {}
+        };
+
+        setCurrentContext(freshContext);
+        setAgentContexts(prev => ({
+          ...prev,
+          [agentType]: freshContext
+        }));
+
+        return true;
+    }
+  };
+
   // Update the current agent and context
   const handleSetCurrentAgent = (agentType: AgentType, context?: ChatContextType) => {
     // Only update if the agent is actually changing
@@ -769,8 +1225,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
           console.log('Updating context:', { old: currentContext, new: context });
           setCurrentContext(context);
 
-          // For Murder Agent, if we're switching to the Murder Agent and there are no messages, add the greeting message
-          if (agentType === 'murder' && messages.length === 0) {
+          // For Murder Agent, if we're switching to the Murder Agent and there are no Murder Agent messages, add the greeting message
+          const murderMessages = messages.filter(msg => msg.agentType === 'murder');
+          if (agentType === 'murder' && murderMessages.length === 0) {
             console.log('Adding initial greeting for Murder Agent');
 
             // Create a greeting message
@@ -789,7 +1246,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             };
 
             // Add the greeting message
-            setMessages([greetingMessage]);
+            setMessages(prev => [...prev, greetingMessage]);
 
             // Also initialize the conversation with the Murder Agent backend
             try {
@@ -832,8 +1289,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             }
           }
 
-          // For Finance Agent, if we're switching to the Finance Agent and there are no messages, add the greeting message
-          if ((agentType === 'finance' || agentType === 'financial-fraud') && messages.length === 0) {
+          // For Finance Agent, if we're switching to the Finance Agent and there are no Finance Agent messages, add the greeting message
+          const financeMessages = messages.filter(msg => msg.agentType === 'finance' || msg.agentType === 'financial-fraud');
+          if ((agentType === 'finance' || agentType === 'financial-fraud') && financeMessages.length === 0) {
             console.log('Adding initial greeting for Finance Agent');
 
             // Create a greeting message
@@ -852,7 +1310,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             };
 
             // Add the greeting message
-            setMessages([greetingMessage]);
+            setMessages(prev => [...prev, greetingMessage]);
 
             // Also initialize the conversation with the Finance Agent backend
             try {
@@ -977,6 +1435,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         selectAgent,
         deselectAgent,
         resetMurderAgentSession,
+        resetFinanceAgentSession,
+        resetTheftAgentSession,
+        resetAgentSession,
       }}
     >
       {children}

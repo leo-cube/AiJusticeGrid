@@ -14,6 +14,33 @@ const getAgentStatusUrl = () => `/api/agents/status`;
 // Unified Agent Server URL for direct backend communication
 const UNIFIED_AGENT_SERVER_URL = process.env.NEXT_PUBLIC_UNIFIED_AGENT_SERVER_URL || 'http://localhost:5000';
 
+// localStorage key for agent settings
+const AGENT_SETTINGS_KEY = 'enabledAgents';
+
+// Helper functions for localStorage
+const saveToLocalStorage = (enabledAgents: Record<string, boolean>) => {
+  try {
+    localStorage.setItem(AGENT_SETTINGS_KEY, JSON.stringify(enabledAgents));
+    console.log('Saved enabled agents to localStorage:', enabledAgents);
+  } catch (error) {
+    console.error('Error saving to localStorage:', error);
+  }
+};
+
+const loadFromLocalStorage = (): Record<string, boolean> | null => {
+  try {
+    const stored = localStorage.getItem(AGENT_SETTINGS_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      console.log('Loaded enabled agents from localStorage:', parsed);
+      return parsed;
+    }
+  } catch (error) {
+    console.error('Error loading from localStorage:', error);
+  }
+  return null;
+};
+
 /**
  * Service for managing agent toggle settings
  */
@@ -32,6 +59,10 @@ const agentToggleService = {
         if (response.ok) {
           const result = await response.json();
           console.log('Successfully fetched enabled agents from API:', result);
+
+          // Save to localStorage for persistence
+          saveToLocalStorage(result);
+
           return result;
         } else {
           console.warn(`API response not OK: ${response.status} ${response.statusText}`);
@@ -49,6 +80,8 @@ const agentToggleService = {
           const result = await response.json();
           console.log('Successfully fetched from unified server:', result);
           if (result.data && typeof result.data === 'object') {
+            // Save to localStorage for persistence
+            saveToLocalStorage(result.data);
             return result.data;
           }
         } else {
@@ -58,17 +91,34 @@ const agentToggleService = {
         console.error('Error fetching from unified server:', unifiedError);
       }
 
+      // Try to get from localStorage
+      const localStorageData = loadFromLocalStorage();
+      if (localStorageData) {
+        console.log('Using enabled agents from localStorage');
+        return localStorageData;
+      }
+
       // Fall back to default settings
       const defaultSettings = await import('@/config/defaultSettings.json');
       console.log('Falling back to default settings for enabled agents');
-      return defaultSettings.default.enabledAgents || {};
+      const defaultEnabledAgents = defaultSettings.default.enabledAgents || {};
+
+      // Save defaults to localStorage
+      saveToLocalStorage(defaultEnabledAgents);
+
+      return defaultEnabledAgents;
     } catch (error) {
       console.error('Error fetching enabled agents:', error);
       // Fall back to default settings
       try {
         const defaultSettings = await import('@/config/defaultSettings.json');
         console.log('Falling back to default settings after error');
-        return defaultSettings.default.enabledAgents || {};
+        const defaultEnabledAgents = defaultSettings.default.enabledAgents || {};
+
+        // Save defaults to localStorage
+        saveToLocalStorage(defaultEnabledAgents);
+
+        return defaultEnabledAgents;
       } catch (importError) {
         console.error('Error importing default settings:', importError);
         return {};
@@ -99,6 +149,15 @@ const agentToggleService = {
         if (response.ok) {
           const result = await response.json();
           console.log('Successfully toggled agent via Next.js API:', result);
+
+          // Update localStorage with the new state
+          const currentState = loadFromLocalStorage() || {};
+          const updatedState = {
+            ...currentState,
+            [agentId]: enabled
+          };
+          saveToLocalStorage(updatedState);
+
           return {
             agentId: result.agentId || agentId,
             enabled: result.enabled || enabled
@@ -124,6 +183,14 @@ const agentToggleService = {
           const result = await response.json();
           console.log('Successfully toggled agent via unified server:', result);
           if (result.data) {
+            // Update localStorage with the new state
+            const currentState = loadFromLocalStorage() || {};
+            const updatedState = {
+              ...currentState,
+              [agentId]: enabled
+            };
+            saveToLocalStorage(updatedState);
+
             return {
               agentId: result.data.agentId || agentId,
               enabled: result.data.enabled || enabled
@@ -192,7 +259,12 @@ const agentToggleService = {
         if (response.ok) {
           const result = await response.json();
           console.log('Successfully updated all agent statuses via Next.js API:', result.agents);
-          return result.agents || enabledAgents;
+          const updatedAgents = result.agents || enabledAgents;
+
+          // Save to localStorage for persistence
+          saveToLocalStorage(updatedAgents);
+
+          return updatedAgents;
         } else {
           console.warn(`Next.js API response not OK: ${response.status} ${response.statusText}`);
         }
@@ -214,6 +286,8 @@ const agentToggleService = {
           const result = await response.json();
           console.log('Successfully updated all agent statuses via unified server:', result);
           if (result.data && result.data.agents) {
+            // Save to localStorage for persistence
+            saveToLocalStorage(result.data.agents);
             return result.data.agents;
           }
         } else {

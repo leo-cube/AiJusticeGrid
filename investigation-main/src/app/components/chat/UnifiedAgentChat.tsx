@@ -13,7 +13,6 @@ import WelcomeScreen from './WelcomeScreen';
 import { useChat } from '@/app/context/ChatContext';
 import { AgentType, ChatContextType } from '@/app/types';
 import { defaultAgents } from './AgentSelector';
-import suggestedQuestionsService from '@/services/suggestedQuestionsService';
 import Button from '@/app/components/ui/Button';
 
 interface UnifiedAgentChatProps {
@@ -35,12 +34,15 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
     currentAgent,
     currentContext,
     setCurrentAgent,
-    resetMurderAgentSession
+    resetMurderAgentSession,
+    resetFinanceAgentSession,
+    resetTheftAgentSession,
+    resetAgentSession
   } = useChat();
 
   const [inputValue, setInputValue] = useState('');
-  const [suggestedQuestions, setSuggestedQuestions] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   // Set the current agent when the component mounts or when agentType/context changes
@@ -66,72 +68,21 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
     }
   }, [messages]);
 
-  // Fetch suggested questions when the component mounts or agent changes
+  // Auto-focus input when typing stops or on mount
   useEffect(() => {
-    const fetchSuggestedQuestions = async () => {
-      // Default fallback questions to use if API fails
-      const fallbackQuestions = [
-        'What can you help me with?',
-        'How do I use this system?',
-        'What are your capabilities?',
-        'Tell me about this application'
-      ];
+    if (!isTyping && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isTyping]);
 
-      try {
-        // Only attempt to fetch if we have a valid agent type
-        if (!currentAgent) {
-          console.warn('No current agent specified, using fallback questions');
-          setSuggestedQuestions(fallbackQuestions);
-          return;
-        }
+  // Focus input on mount
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
-        console.log(`Fetching suggested questions for agent: ${currentAgent}`);
 
-        // Use a try-catch block specifically for the service call
-        try {
-          const questions = await suggestedQuestionsService.getSuggestedQuestions(currentAgent);
-          console.log('Received suggested questions:', questions);
-
-          // Validate the response
-          if (Array.isArray(questions) && questions.length > 0) {
-            setSuggestedQuestions(questions);
-            return; // Exit early if successful
-          } else {
-            console.warn('Received empty or invalid questions array');
-          }
-        } catch (serviceError) {
-          console.error('Service error fetching suggested questions:', serviceError);
-        }
-
-        // If we get here, the service call failed or returned invalid data
-        // Try a direct fetch as a fallback
-        try {
-          console.log('Trying direct fetch for suggested questions');
-          const response = await fetch(`/api/augment/suggested-questions?agentType=${currentAgent}`);
-
-          if (response.ok) {
-            const data = await response.json();
-            if (data && data.data && Array.isArray(data.data) && data.data.length > 0) {
-              console.log('Successfully fetched suggested questions via direct fetch');
-              setSuggestedQuestions(data.data);
-              return; // Exit early if successful
-            }
-          }
-        } catch (fetchError) {
-          console.error('Direct fetch error:', fetchError);
-        }
-
-        // If all attempts failed, use fallback questions
-        console.warn('All attempts to fetch suggested questions failed, using fallback questions');
-        setSuggestedQuestions(fallbackQuestions);
-      } catch (error) {
-        console.error('Unexpected error in fetchSuggestedQuestions:', error);
-        setSuggestedQuestions(fallbackQuestions);
-      }
-    };
-
-    fetchSuggestedQuestions();
-  }, [currentAgent]);
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
@@ -177,17 +128,16 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
           </div>
         </div>
         <div className="flex space-x-2">
-          {currentAgent === 'murder' && (
-            <button
-              onClick={() => resetMurderAgentSession()}
-              className="p-1 rounded-full hover:bg-gray-200"
-              title="Reset Murder Agent (start new case)"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5 text-gray-500">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-              </svg>
-            </button>
-          )}
+          {/* Reset button for all agents */}
+          <button
+            onClick={() => resetAgentSession(currentAgent)}
+            className="p-1 rounded-full hover:bg-gray-200"
+            title={`Reset ${activeAgent.name} (start new case)`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5 text-gray-500">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+          </button>
           <button
             onClick={handleClearChat}
             className="p-1 rounded-full hover:bg-gray-200"
@@ -207,7 +157,7 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
 
       {/* Chat content */}
       <div className="flex-1 overflow-y-auto p-4">
-        {filteredMessages.length === 0 ? (
+        {filteredMessages.length === 0 && currentAgent !== 'murder' && currentAgent !== 'finance' ? (
           <WelcomeScreen agentType={currentAgent} onSendMessage={handleSendMessage} />
         ) : (
           <div className="space-y-4">
@@ -238,6 +188,7 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
       <div className="border-t border-gray-200 p-4">
         <div className="flex items-center">
           <input
+            ref={inputRef}
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}

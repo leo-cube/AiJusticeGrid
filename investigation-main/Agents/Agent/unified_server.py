@@ -2102,6 +2102,48 @@ def murder_agent_reset():
         "message": "Conversation reset successfully"
     })
 
+# Endpoint to reset a Finance Agent conversation
+@app.route('/api/augment/finance/reset', methods=['POST'])
+def finance_agent_reset():
+    """Reset a Finance Agent conversation."""
+    session_id = request.json.get('session_id')
+
+    logger.info(f"Resetting Finance Agent conversation for session: {session_id}")
+
+    # For Finance Agent, we'll just return a success response since it doesn't use the same
+    # conversation state management as the Murder Agent
+    return jsonify({
+        "success": True,
+        "data": {
+            "analysis": "Hello, I'm the Financial Fraud Agent, an AI assistant specialized in financial fraud investigations. I'll help you analyze a financial fraud case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+            "is_collecting_info": True,
+            "current_step": "greeting"
+        },
+        "session_id": session_id or "new_session",
+        "message": "Finance Agent conversation reset successfully"
+    })
+
+# Endpoint to reset a Theft Agent conversation
+@app.route('/api/augment/theft/reset', methods=['POST'])
+def theft_agent_reset():
+    """Reset a Theft Agent conversation."""
+    session_id = request.json.get('session_id')
+
+    logger.info(f"Resetting Theft Agent conversation for session: {session_id}")
+
+    # For Theft Agent, we'll just return a success response since it doesn't use the same
+    # conversation state management as the Murder Agent
+    return jsonify({
+        "success": True,
+        "data": {
+            "analysis": "Hello, I'm the Theft Agent, an AI assistant specialized in theft investigations. I'll help you analyze a theft case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+            "is_collecting_info": True,
+            "current_step": "greeting"
+        },
+        "session_id": session_id or "new_session",
+        "message": "Theft Agent conversation reset successfully"
+    })
+
 # Sample case endpoint for Murder Agent
 @app.route('/api/augment/murder/sample', methods=['GET'])
 def murder_agent_sample():

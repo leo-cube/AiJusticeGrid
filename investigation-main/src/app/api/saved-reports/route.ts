@@ -1,9 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SavedPDFReport } from '@/app/types';
+import fs from 'fs';
+import path from 'path';
 
-// In a real application, this would be stored in a database
-// For now, we'll use a simple in-memory store that persists to localStorage on the client
-let savedReports: SavedPDFReport[] = [];
+// File-based storage for saved reports
+const REPORTS_FILE_PATH = path.join(process.cwd(), 'data', 'saved-reports.json');
+
+// Ensure data directory exists
+const ensureDataDirectory = () => {
+  const dataDir = path.dirname(REPORTS_FILE_PATH);
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+};
+
+// Load saved reports from file
+const loadSavedReports = (): SavedPDFReport[] => {
+  try {
+    ensureDataDirectory();
+    if (fs.existsSync(REPORTS_FILE_PATH)) {
+      const data = fs.readFileSync(REPORTS_FILE_PATH, 'utf8');
+      return JSON.parse(data);
+    }
+    return [];
+  } catch (error) {
+    console.error('Error loading saved reports:', error);
+    return [];
+  }
+};
+
+// Save reports to file
+const saveSavedReports = (reports: SavedPDFReport[]): void => {
+  try {
+    ensureDataDirectory();
+    fs.writeFileSync(REPORTS_FILE_PATH, JSON.stringify(reports, null, 2));
+  } catch (error) {
+    console.error('Error saving reports to file:', error);
+    throw error;
+  }
+};
 
 /**
  * GET handler for saved PDF reports
@@ -13,6 +48,9 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
+
+    // Load reports from persistent storage
+    const savedReports = loadSavedReports();
 
     // If ID is provided, return specific report
     if (id) {
@@ -29,7 +67,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Otherwise return all reports, sorted by creation date (newest first)
-    const sortedReports = savedReports.sort((a, b) => 
+    const sortedReports = savedReports.sort((a, b) =>
       new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
     );
 
@@ -58,6 +96,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Load existing reports from persistent storage
+    const savedReports = loadSavedReports();
+
     // Generate unique ID and filename
     const reportId = `RPT-${Date.now()}`;
     const timestamp = new Date().toISOString();
@@ -77,8 +118,9 @@ export async function POST(request: NextRequest) {
       description: body.description || `PDF report generated from ${body.agentType} agent conversation`
     };
 
-    // Add to saved reports
+    // Add to saved reports and save to file
     savedReports.push(newReport);
+    saveSavedReports(savedReports);
 
     console.log('Saved new PDF report:', {
       id: newReport.id,
@@ -112,6 +154,9 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
+    // Load existing reports from persistent storage
+    const savedReports = loadSavedReports();
+
     // Find and remove the report
     const reportIndex = savedReports.findIndex(report => report.id === id);
 
@@ -123,6 +168,9 @@ export async function DELETE(request: NextRequest) {
     }
 
     const deletedReport = savedReports.splice(reportIndex, 1)[0];
+
+    // Save updated reports to file
+    saveSavedReports(savedReports);
 
     console.log('Deleted PDF report:', {
       id: deletedReport.id,

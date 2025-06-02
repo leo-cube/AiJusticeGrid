@@ -48,12 +48,7 @@ const welcomeScreenContent: Record<AgentType, WelcomeScreenContent> = {
     title: 'Homicide Investigation Assistant',
     description: 'Expert guidance for murder investigations and forensic analysis.',
     icon: 'ExclamationTriangleIcon',
-    suggestedQuestions: [
-      'What are the key steps in a homicide investigation?',
-      'How is forensic evidence collected at a murder scene?',
-      'What techniques are used for suspect profiling?',
-      'How are witness testimonies verified?'
-    ]
+    suggestedQuestions: []
   },
   'finance': {
     title: 'Financial Fraud Assistant',

@@ -211,7 +211,48 @@ class DynamicPDFGenerator:
             "general": "You are an expert analyst. Provide detailed, professional analysis of the provided data with actionable insights and recommendations.",
             "investigation": "You are a professional investigator and analyst. Analyze the provided case data and provide detailed investigative insights, potential leads, and recommended actions.",
             "business": "You are a business analyst and consultant. Analyze the provided business data and provide strategic insights, recommendations, and risk assessments.",
-            "financial": "You are a financial analyst. Analyze the provided financial data and provide detailed financial insights, risk assessments, and recommendations.",
+            "financial": """You are a Financial Fraud Investigation Agent. Analyze the provided financial fraud case data and provide a comprehensive analysis in the following exact format:
+
+**Comprehensive Analysis: Case ID [case_id] - [fraud_type]**
+
+### 1. **Case Assessment:**
+- **Fraud Type:** [Type of financial fraud]
+- **Severity:** [High/Medium/Low based on amount and complexity]
+- **Overview:** [Brief summary of the fraud case]
+
+### 2. **Fraud Methodology:**
+- **Likely Execution:** [How the fraud was likely carried out]
+- **Technical Analysis:** [Technical aspects of the fraud method]
+- **Vulnerability Exploited:** [What security gaps were exploited]
+
+### 3. **Evidence Analysis:**
+- **Available Evidence:** [Analysis of collected evidence]
+- **Evaluation:** [Strength and reliability of evidence]
+- **Potential Gaps:** [What additional evidence is needed]
+
+### 4. **Investigative Approach:**
+- **Immediate Steps:** [Priority actions for investigators]
+- **In-Depth Investigation:** [Detailed investigative strategy]
+- **Technical Analysis:** [Forensic and technical analysis needed]
+
+### 5. **Recovery Strategy:**
+- **Fund Recovery:** [Strategies for asset recovery]
+- **Damage Mitigation:** [Steps to minimize ongoing damage]
+
+### 6. **Prevention Measures:**
+- **Short-Term:** [Immediate security improvements]
+- **Long-Term:** [Systemic improvements and controls]
+
+### 7. **Legal Considerations:**
+- **Reporting Requirements:** [Regulatory and legal obligations]
+- **Relevant Laws:** [Applicable laws and regulations]
+
+**Actionable Insights Summary:**
+- **Urgency:** [Critical/High/Medium/Low based on ongoing risk]
+- **Resource Allocation:** [Recommended investigation resources]
+- **Stakeholder Communication:** [Key parties to notify and coordinate with]
+
+Provide detailed, evidence-based analysis using financial forensics principles and fraud investigation best practices.""",
             "legal": "You are a legal analyst. Analyze the provided information from a legal perspective and provide insights on legal implications, risks, and recommendations.",
             "medical": "You are a medical analyst. Analyze the provided medical data and provide professional medical insights and recommendations.",
             "technical": "You are a technical analyst. Analyze the provided technical data and provide detailed technical insights, assessments, and recommendations.",
@@ -247,7 +288,7 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
     def generate_investigation_pdf(self, data: Dict[str, Any], analysis_type: str = "general") -> BytesIO:
         """
         Generate a comprehensive PDF report from live chat conversation data.
-        Creates a structured investigation report with conversation flow and AI analysis.
+        Routes to specialized PDF generators based on agent type.
 
         Args:
             data: Dictionary containing case data and conversation pairs
@@ -255,6 +296,43 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
 
         Returns:
             BytesIO object containing the PDF data
+        """
+        # Detect agent type and route to appropriate specialized PDF generator
+        agent_type = self.detect_agent_type(data)
+
+        try:
+            if agent_type == 'financial':
+                # Use specialized Financial Agent PDF generator
+                from FinancialAgent.financial_pdf_generator import FinancialPDFGenerator
+                financial_generator = FinancialPDFGenerator()
+                return financial_generator.generate_financial_pdf(data)
+
+            elif agent_type == 'theft':
+                # Use specialized Theft Agent PDF generator
+                from TheftAgent.theft_pdf_generator import TheftPDFGenerator
+                theft_generator = TheftPDFGenerator()
+                return theft_generator.generate_theft_pdf(data)
+
+            elif agent_type == 'murder':
+                # Use specialized Murder Agent PDF generator
+                from murder_pdf_generator import MurderPDFGenerator
+                murder_generator = MurderPDFGenerator()
+                return murder_generator.generate_murder_pdf(data)
+
+            else:
+                # Default to murder format for backward compatibility
+                from murder_pdf_generator import MurderPDFGenerator
+                murder_generator = MurderPDFGenerator()
+                return murder_generator.generate_murder_pdf(data)
+
+        except ImportError as e:
+            logger.warning(f"Could not import specialized PDF generator: {e}")
+            # Fall back to legacy generation method
+            return self.generate_legacy_pdf(data, analysis_type)
+
+    def generate_legacy_pdf(self, data: Dict[str, Any], analysis_type: str = "general") -> BytesIO:
+        """
+        Legacy PDF generation method - kept for backward compatibility.
         """
         buffer = BytesIO()
 
@@ -281,11 +359,22 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
 
         header_data.append(['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
 
-        if data.get('crime_date'):
-            header_data.append(['Investigation Date:', data.get('crime_date')])
+        # Use appropriate date field based on agent type
+        agent_type = self.detect_agent_type(data)
+        if agent_type == 'financial':
+            if data.get('date_of_incident'):
+                header_data.append(['Investigation Date:', data.get('date_of_incident')])
+        else:
+            if data.get('crime_date'):
+                header_data.append(['Investigation Date:', data.get('crime_date')])
 
         header_data.append(['Status:', 'Under Investigation'])
-        header_data.append(['Report Type:', f'{analysis_type.title()} Investigation Report'])
+
+        # Set appropriate report type based on agent
+        if agent_type == 'financial':
+            header_data.append(['Report Type:', 'Finance Investigation Report'])
+        else:
+            header_data.append(['Report Type:', f'{analysis_type.title()} Investigation Report'])
 
         header_table = Table(header_data, colWidths=[2*inch, 4*inch])
         header_table.setStyle(TableStyle([
@@ -320,6 +409,10 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
                 ('FONTSIZE', (0, 0), (-1, -1), 10),
                 ('GRID', (0, 0), (-1, -1), 1, colors.black),
                 ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                # Allow text wrapping in cells
+                ('WORDWRAP', (0, 0), (-1, -1), True),
+                # Set row height to auto-adjust for wrapped text
+                ('ROWBACKGROUNDS', (0, 0), (-1, -1), [None, colors.HexColor('#fafafa')]),
             ]))
             story.append(details_table)
 
@@ -333,12 +426,16 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
 
             # Add conversation flow
             for i, pair in enumerate(data['conversation_pairs'], 1):
-                # Question
+                # Question - clean agent names and formatting
                 question_text = pair['question'].replace('Murder Agent', '').strip()
+                question_text = question_text.replace('Financial Fraud Agent', '').strip()
+                question_text = question_text.replace('Finance Agent', '').strip()
                 if question_text.startswith('Live Data'):
                     question_text = question_text.replace('Live Data', '').strip()
                 if question_text.startswith('Live Data Analysis'):
                     question_text = question_text.replace('Live Data Analysis', '').strip()
+                if question_text.startswith('**[LIVE DATA ANALYSIS]**'):
+                    question_text = question_text.replace('**[LIVE DATA ANALYSIS]**', '').strip()
 
                 # Clean markdown formatting from question
                 clean_question = self.clean_markdown_text(question_text)
@@ -386,6 +483,254 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
         doc.build(story)
         buffer.seek(0)
 
+        return buffer
+
+    def generate_financial_pdf_legacy(self, data: Dict[str, Any], analysis_type: str = "financial") -> BytesIO:
+        """
+        Generate a Financial Agent specific PDF report.
+        """
+        buffer = BytesIO()
+
+        # Create the PDF document with proper margins
+        doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
+                               topMargin=72, bottomMargin=18)
+
+        # Get custom styles
+        styles = self.create_professional_styles()
+
+        # Build the story (content)
+        story = []
+
+        # Financial Agent specific title
+        story.append(Paragraph("FINANCIAL FRAUD INVESTIGATION REPORT", styles['title']))
+        story.append(Spacer(1, 20))
+
+        # Financial Agent specific header
+        header_data = []
+        if data.get('case_id'):
+            header_data.append(['Case ID:', data.get('case_id')])
+
+        header_data.append(['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+
+        if data.get('date_of_incident'):
+            header_data.append(['Investigation Date:', data.get('date_of_incident')])
+
+        header_data.append(['Status:', 'Under Investigation'])
+        header_data.append(['Report Type:', 'Financial Fraud Investigation Report'])
+
+        header_table = Table(header_data, colWidths=[2*inch, 4*inch])
+        header_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f2f2f2')),
+            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+            ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ]))
+
+        story.append(header_table)
+        story.append(Spacer(1, 20))
+
+        # Financial case details section
+        story.append(Paragraph("FRAUD CASE DETAILS:", styles['section_header']))
+        story.append(Paragraph("=" * 50, styles['separator']))
+        story.append(Spacer(1, 10))
+
+        # Financial specific case details
+        case_details = self.format_financial_case_details(data)
+        if case_details:
+            details_table = Table(case_details, colWidths=[2*inch, 4*inch])
+            details_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
+                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+                ('FONTSIZE', (0, 0), (-1, -1), 10),
+                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                ('WORDWRAP', (0, 0), (-1, -1), True),
+            ]))
+            story.append(details_table)
+
+        story.append(Spacer(1, 20))
+
+        # Add conversation section if available
+        if 'conversation_pairs' in data and data['conversation_pairs']:
+            story.append(Paragraph("INVESTIGATION INTERVIEW:", styles['section_header']))
+            story.append(Paragraph("=" * 50, styles['separator']))
+            story.append(Spacer(1, 10))
+
+            for i, pair in enumerate(data['conversation_pairs'], 1):
+                # Clean question text for financial agent
+                question_text = pair['question'].replace('Financial Fraud Agent', '').strip()
+                question_text = question_text.replace('Finance Agent', '').strip()
+                question_text = question_text.replace('**[LIVE DATA ANALYSIS]**', '').strip()
+
+                clean_question = self.clean_markdown_text(question_text)
+                story.append(Paragraph(f"Q{i}: {clean_question}", styles['question']))
+                story.append(Spacer(1, 3))
+
+                clean_answer = self.clean_markdown_text(pair['answer'])
+                story.append(Paragraph(f"A{i}: {clean_answer}", styles['answer']))
+                story.append(Spacer(1, 8))
+
+            story.append(Spacer(1, 15))
+
+        # Financial analysis section
+        story.append(Paragraph("FINANCIAL FORENSIC ANALYSIS:", styles['section_header']))
+        story.append(Paragraph("=" * 50, styles['separator']))
+        story.append(Spacer(1, 10))
+
+        try:
+            ai_analysis = self.generate_ai_analysis(data, "financial")
+            clean_analysis = self.clean_markdown_text(ai_analysis)
+            analysis_paragraphs = clean_analysis.split('\n\n')
+            for paragraph in analysis_paragraphs:
+                paragraph = paragraph.strip()
+                if paragraph:
+                    story.append(Paragraph(paragraph, styles['analysis_text']))
+                    story.append(Spacer(1, 6))
+        except Exception as e:
+            logger.error(f"Error generating financial analysis: {str(e)}")
+            story.append(Paragraph(f"Error generating analysis: {str(e)}", styles['analysis_text']))
+
+        # Footer
+        story.append(Spacer(1, 30))
+        footer_text = f"Generated by Financial Fraud Investigation System - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        story.append(Paragraph(footer_text, styles['footer']))
+
+        # Build the PDF
+        doc.build(story)
+        buffer.seek(0)
+        return buffer
+
+    def generate_murder_pdf(self, data: Dict[str, Any], analysis_type: str = "murder") -> BytesIO:
+        """
+        Generate a Murder Agent specific PDF report.
+        """
+        buffer = BytesIO()
+
+        # Create the PDF document with proper margins
+        doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
+                               topMargin=72, bottomMargin=18)
+
+        # Get custom styles
+        styles = self.create_professional_styles()
+
+        # Build the story (content)
+        story = []
+
+        # Murder Agent specific title
+        story.append(Paragraph("HOMICIDE INVESTIGATION REPORT", styles['title']))
+        story.append(Spacer(1, 20))
+
+        # Murder Agent specific header
+        header_data = []
+        if data.get('case_id'):
+            header_data.append(['Case ID:', data.get('case_id')])
+
+        header_data.append(['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+
+        if data.get('crime_date') or data.get('date'):
+            crime_date = data.get('crime_date') or data.get('date')
+            header_data.append(['Investigation Date:', crime_date])
+
+        header_data.append(['Status:', 'Under Investigation'])
+        header_data.append(['Report Type:', 'Homicide Investigation Report'])
+
+        header_table = Table(header_data, colWidths=[2*inch, 4*inch])
+        header_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f2f2f2')),
+            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+            ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ]))
+
+        story.append(header_table)
+        story.append(Spacer(1, 20))
+
+        # Murder case details section
+        story.append(Paragraph("CRIME SCENE DETAILS:", styles['section_header']))
+        story.append(Paragraph("=" * 50, styles['separator']))
+        story.append(Spacer(1, 10))
+
+        # Murder specific case details
+        case_details = self.format_murder_case_details(data)
+        if case_details:
+            details_table = Table(case_details, colWidths=[2*inch, 4*inch])
+            details_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
+                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+                ('FONTSIZE', (0, 0), (-1, -1), 10),
+                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                ('WORDWRAP', (0, 0), (-1, -1), True),
+            ]))
+            story.append(details_table)
+
+        story.append(Spacer(1, 20))
+
+        # Add conversation section if available
+        if 'conversation_pairs' in data and data['conversation_pairs']:
+            story.append(Paragraph("INVESTIGATION INTERVIEW:", styles['section_header']))
+            story.append(Paragraph("=" * 50, styles['separator']))
+            story.append(Spacer(1, 10))
+
+            for i, pair in enumerate(data['conversation_pairs'], 1):
+                # Clean question text for murder agent
+                question_text = pair['question'].replace('Murder Agent', '').strip()
+                question_text = question_text.replace('**[LIVE DATA ANALYSIS]**', '').strip()
+                if question_text.startswith('Live Data'):
+                    question_text = question_text.replace('Live Data', '').strip()
+                if question_text.startswith('Live Data Analysis'):
+                    question_text = question_text.replace('Live Data Analysis', '').strip()
+
+                clean_question = self.clean_markdown_text(question_text)
+                story.append(Paragraph(f"Q{i}: {clean_question}", styles['question']))
+                story.append(Spacer(1, 3))
+
+                clean_answer = self.clean_markdown_text(pair['answer'])
+                story.append(Paragraph(f"A{i}: {clean_answer}", styles['answer']))
+                story.append(Spacer(1, 8))
+
+            story.append(Spacer(1, 15))
+
+        # Murder analysis section
+        story.append(Paragraph("FORENSIC ANALYSIS:", styles['section_header']))
+        story.append(Paragraph("=" * 50, styles['separator']))
+        story.append(Spacer(1, 10))
+
+        try:
+            ai_analysis = self.generate_ai_analysis(data, "murder")
+            clean_analysis = self.clean_markdown_text(ai_analysis)
+            analysis_paragraphs = clean_analysis.split('\n\n')
+            for paragraph in analysis_paragraphs:
+                paragraph = paragraph.strip()
+                if paragraph:
+                    story.append(Paragraph(paragraph, styles['analysis_text']))
+                    story.append(Spacer(1, 6))
+        except Exception as e:
+            logger.error(f"Error generating murder analysis: {str(e)}")
+            story.append(Paragraph(f"Error generating analysis: {str(e)}", styles['analysis_text']))
+
+        # Footer
+        story.append(Spacer(1, 30))
+        footer_text = f"Generated by Homicide Investigation System - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        story.append(Paragraph(footer_text, styles['footer']))
+
+        # Build the PDF
+        doc.build(story)
+        buffer.seek(0)
         return buffer
 
     def create_professional_styles(self):
@@ -561,14 +906,140 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
 
         return True
 
-    def format_case_details_table(self, data: Dict[str, Any]) -> List[List[str]]:
+    def detect_agent_type(self, data: Dict[str, Any]) -> str:
         """
-        Format case details as table data for professional PDF layout.
-        Only includes actual user-provided data, no placeholders or hardcoded values.
+        Detect the agent type based on the data fields present.
+
+        Args:
+            data: Dictionary containing case data
+
+        Returns:
+            String indicating agent type ('financial', 'murder', 'theft', etc.)
+        """
+        # Check conversation pairs for agent type indicators first
+        if 'conversation_pairs' in data:
+            for pair in data['conversation_pairs']:
+                question = pair.get('question', '').lower()
+
+                # Financial agent indicators
+                if any(keyword in question for keyword in [
+                    'financial fraud', 'fraud agent', 'financial institution',
+                    'account number', 'wire fraud', 'credit card fraud',
+                    'amount involved', 'financial amount'
+                ]):
+                    return 'financial'
+
+                # Theft agent indicators
+                if any(keyword in question for keyword in [
+                    'theft agent', 'stolen items', 'theft investigation',
+                    'burglary', 'robbery', 'item value', 'entry method'
+                ]):
+                    return 'theft'
+
+                # Murder agent indicators
+                if any(keyword in question for keyword in [
+                    'murder agent', 'homicide', 'victim name', 'cause of death',
+                    'weapon used', 'crime scene', 'body found'
+                ]):
+                    return 'murder'
+
+        # Check for Financial Agent specific fields
+        financial_fields = ['financial_institution', 'fraud_type', 'amount_involved', 'account_type', 'account_number']
+        if any(field in data for field in financial_fields):
+            return 'financial'
+
+        # Check for Theft Agent specific fields
+        theft_fields = ['stolen_items', 'item_value', 'theft_method', 'entry_method', 'theft_date']
+        if any(field in data for field in theft_fields):
+            return 'theft'
+
+        # Check for Murder Agent specific fields
+        murder_fields = ['cause_of_death', 'weapon_used', 'crime_scene']
+        if any(field in data for field in murder_fields):
+            return 'murder'
+
+        # Default to murder agent format for backward compatibility
+        return 'murder'
+
+    def wrap_long_text(self, text: str, max_length: int = 80) -> str:
+        """
+        Wrap long text to prevent table overflow in PDF.
+
+        Args:
+            text: Text to wrap
+            max_length: Maximum length per line
+
+        Returns:
+            Text with line breaks for better formatting
+        """
+        if len(text) <= max_length:
+            return text
+
+        words = text.split()
+        lines = []
+        current_line = []
+        current_length = 0
+
+        for word in words:
+            if current_length + len(word) + 1 <= max_length:
+                current_line.append(word)
+                current_length += len(word) + 1
+            else:
+                if current_line:
+                    lines.append(' '.join(current_line))
+                current_line = [word]
+                current_length = len(word)
+
+        if current_line:
+            lines.append(' '.join(current_line))
+
+        return '\n'.join(lines)
+
+    def format_financial_case_details(self, data: Dict[str, Any]) -> List[List[str]]:
+        """
+        Format financial case details specifically for Financial Agent PDFs.
         """
         details = []
 
-        # Define the exact field mapping and formatting in order
+        # Financial Agent specific field mapping (no location field)
+        field_mapping = [
+            ('case_id', 'Case ID:'),
+            ('date_of_incident', 'Date of Incident:'),
+            ('time_of_discovery', 'Time of Discovery:'),
+            ('financial_institution', 'Financial Institution:'),
+            ('victim_name', 'Victim Name:'),
+            ('account_type', 'Account Type:'),
+            ('account_number', 'Account Number:'),
+            ('fraud_type', 'Type of Fraud:'),
+            ('amount_involved', 'Amount Involved:'),
+            ('method_used', 'Method Used:'),
+            ('suspicious_activity', 'Suspicious Activity:'),
+            ('evidence_collected', 'Evidence Collected:'),
+            ('suspects', 'Suspects:'),
+            ('additional_notes', 'Additional Notes:')
+        ]
+
+        # Process each field in order - only include validated data
+        for data_key, display_name in field_mapping:
+            if (data_key in data and self.validate_data_value(data[data_key])):
+                value = self.clean_markdown_text(str(data[data_key]))
+
+                # Handle evidence fields with proper text wrapping
+                if 'evidence' in data_key.lower() and len(value) > 100:
+                    value = self.wrap_long_text(value, max_length=80)
+
+                details.append([display_name, value])
+                logger.info(f"Added financial field to PDF: {display_name} = {value[:50]}{'...' if len(value) > 50 else ''}")
+
+        return details
+
+    def format_murder_case_details(self, data: Dict[str, Any]) -> List[List[str]]:
+        """
+        Format murder case details specifically for Murder Agent PDFs.
+        """
+        details = []
+
+        # Murder Agent specific field mapping (includes location)
         field_mapping = [
             ('case_id', 'Case ID:'),
             ('crime_date', 'Date of Incident:'),
@@ -605,13 +1076,100 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
                 self.validate_data_value(data[data_key])):
 
                 value = self.clean_markdown_text(str(data[data_key]))
+
+                # Handle evidence fields with proper text wrapping
+                if 'evidence' in data_key.lower() and len(value) > 100:
+                    value = self.wrap_long_text(value, max_length=80)
+
                 details.append([display_name, value])
                 processed_keys.add(data_key)
-                logger.info(f"Added field to PDF: {display_name} = {value}")
+                logger.info(f"Added murder field to PDF: {display_name} = {value[:50]}{'...' if len(value) > 50 else ''}")
+
+        return details
+
+    def format_case_details_table(self, data: Dict[str, Any]) -> List[List[str]]:
+        """
+        Format case details as table data for professional PDF layout.
+        Only includes actual user-provided data, no placeholders or hardcoded values.
+        """
+        details = []
+
+        # Detect agent type from data to use appropriate field mapping
+        agent_type = self.detect_agent_type(data)
+
+        if agent_type == 'financial':
+            # Financial Agent specific field mapping (no location field)
+            field_mapping = [
+                ('case_id', 'Case ID:'),
+                ('date_of_incident', 'Date of Incident:'),
+                ('time_of_discovery', 'Time of Discovery:'),
+                ('financial_institution', 'Financial Institution:'),
+                ('victim_name', 'Victim Name:'),
+                ('account_type', 'Account Type:'),
+                ('account_number', 'Account Number:'),
+                ('fraud_type', 'Type of Fraud:'),
+                ('amount_involved', 'Amount Involved:'),
+                ('method_used', 'Method Used:'),
+                ('suspicious_activity', 'Suspicious Activity:'),
+                ('evidence_collected', 'Evidence Collected:'),
+                ('suspects', 'Suspects:'),
+                ('additional_notes', 'Additional Notes:')
+            ]
+        else:
+            # Default/Murder Agent field mapping
+            field_mapping = [
+                ('case_id', 'Case ID:'),
+                ('crime_date', 'Date of Incident:'),
+                ('date', 'Date of Incident:'),
+                ('crime_time', 'Time of Incident:'),
+                ('time', 'Time of Incident:'),
+                ('location', 'Location:'),
+                ('victim_name', 'Victim Name:'),
+                ('name', 'Victim Name:'),
+                ('victim_age', 'Victim Age:'),
+                ('age', 'Victim Age:'),
+                ('victim_gender', 'Victim Gender:'),
+                ('gender', 'Victim Gender:'),
+                ('cause_of_death', 'Cause of Death:'),
+                ('weapon_used', 'Weapon Used:'),
+                ('weapon', 'Weapon Used:'),
+                ('crime_scene_description', 'Crime Scene:'),
+                ('crime_scene', 'Crime Scene:'),
+                ('witnesses', 'Witnesses:'),
+                ('evidence_found', 'Evidence:'),
+                ('evidence', 'Evidence:'),
+                ('suspects', 'Suspects:'),
+                ('additional_notes', 'Additional Notes:'),
+                ('notes', 'Additional Notes:')
+            ]
+
+        # Track processed keys to avoid duplicates
+        processed_keys = set()
+
+        # Process each field in order - only include validated data
+        for data_key, display_name in field_mapping:
+            if (data_key in data and
+                data_key not in processed_keys and
+                self.validate_data_value(data[data_key])):
+
+                value = self.clean_markdown_text(str(data[data_key]))
+
+                # Handle evidence fields with proper text wrapping
+                if 'evidence' in data_key.lower() and len(value) > 100:
+                    # Split long evidence text into multiple lines for better table formatting
+                    value = self.wrap_long_text(value, max_length=80)
+
+                details.append([display_name, value])
+                processed_keys.add(data_key)
+                logger.info(f"Added field to PDF: {display_name} = {value[:50]}{'...' if len(value) > 50 else ''}")
 
         # Add any other relevant fields not in the mapping - only validated data
         excluded_prefixes = ['message_', 'total_', 'user_', 'assistant_', 'conversation_']
         excluded_keys = {'requestId', 'sessionId', 'timestamp', 'conversation_start', 'conversation_end', 'userId', 'userid'}
+
+        # For financial agent, also exclude location field if it appears in additional fields
+        if agent_type == 'financial':
+            excluded_keys.add('location')
 
         for key, value in data.items():
             if (key not in processed_keys and
@@ -621,8 +1179,13 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
 
                 formatted_key = key.replace('_', ' ').title() + ':'
                 clean_value = self.clean_markdown_text(str(value))
+
+                # Handle evidence fields with proper text wrapping for additional fields too
+                if 'evidence' in key.lower() and len(clean_value) > 100:
+                    clean_value = self.wrap_long_text(clean_value, max_length=80)
+
                 details.append([formatted_key, clean_value])
-                logger.info(f"Added additional field to PDF: {formatted_key} = {clean_value}")
+                logger.info(f"Added additional field to PDF: {formatted_key} = {clean_value[:50]}{'...' if len(clean_value) > 50 else ''}")
 
         logger.info(f"Total fields added to PDF: {len(details)}")
         return details

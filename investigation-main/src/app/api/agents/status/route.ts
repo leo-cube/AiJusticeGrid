@@ -1,23 +1,72 @@
 import { NextResponse } from 'next/server';
 import defaultSettings from '@/config/defaultSettings.json';
+import fs from 'fs';
+import path from 'path';
 
-// In a real application, this would be stored in a database
-let enabledAgents: Record<string, boolean> = {};
+// File path for persistent storage
+const STORAGE_FILE = path.join(process.cwd(), 'data', 'agent-settings.json');
 
-// Initialize enabled agents from default settings
-defaultSettings.agentTypes.forEach(agent => {
-  enabledAgents[agent.id] = false;
-});
+// Ensure data directory exists
+const ensureDataDirectory = () => {
+  const dataDir = path.dirname(STORAGE_FILE);
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+};
 
-// All agents are disabled by default
-// If there's a default enabledAgents configuration, use it
-if (defaultSettings.enabledAgents && typeof defaultSettings.enabledAgents === 'object') {
-  // Use the default enabled agents configuration
-  enabledAgents = {
-    ...enabledAgents,
-    ...defaultSettings.enabledAgents
-  };
-}
+// Load enabled agents from file or use defaults
+const loadEnabledAgents = (): Record<string, boolean> => {
+  try {
+    ensureDataDirectory();
+
+    if (fs.existsSync(STORAGE_FILE)) {
+      const data = fs.readFileSync(STORAGE_FILE, 'utf8');
+      const parsed = JSON.parse(data);
+      if (parsed.enabledAgents && typeof parsed.enabledAgents === 'object') {
+        console.log('Loaded enabled agents from file:', parsed.enabledAgents);
+        return parsed.enabledAgents;
+      }
+    }
+  } catch (error) {
+    console.error('Error loading enabled agents from file:', error);
+  }
+
+  // Fall back to default settings
+  const defaultEnabledAgents: Record<string, boolean> = {};
+
+  // Initialize enabled agents from default settings
+  defaultSettings.agentTypes.forEach(agent => {
+    defaultEnabledAgents[agent.id] = false;
+  });
+
+  // Use the default enabled agents configuration if available
+  if (defaultSettings.enabledAgents && typeof defaultSettings.enabledAgents === 'object') {
+    Object.assign(defaultEnabledAgents, defaultSettings.enabledAgents);
+  }
+
+  console.log('Using default enabled agents:', defaultEnabledAgents);
+  return defaultEnabledAgents;
+};
+
+// Save enabled agents to file
+const saveEnabledAgents = (enabledAgents: Record<string, boolean>) => {
+  try {
+    ensureDataDirectory();
+
+    const data = {
+      enabledAgents,
+      lastUpdated: new Date().toISOString()
+    };
+
+    fs.writeFileSync(STORAGE_FILE, JSON.stringify(data, null, 2));
+    console.log('Saved enabled agents to file:', enabledAgents);
+  } catch (error) {
+    console.error('Error saving enabled agents to file:', error);
+  }
+};
+
+// Load initial state
+let enabledAgents: Record<string, boolean> = loadEnabledAgents();
 
 /**
  * GET handler for agent status
@@ -57,6 +106,9 @@ export async function PUT(request: Request) {
     // Update agent status
     enabledAgents[body.agentId] = body.enabled;
     console.log(`Agent ${body.agentId} ${body.enabled ? 'enabled' : 'disabled'}`);
+
+    // Save to persistent storage
+    saveEnabledAgents(enabledAgents);
 
     return NextResponse.json(
       {
@@ -100,6 +152,9 @@ export async function PATCH(request: Request) {
     };
 
     console.log('Updated agent statuses:', enabledAgents);
+
+    // Save to persistent storage
+    saveEnabledAgents(enabledAgents);
 
     return NextResponse.json(
       {

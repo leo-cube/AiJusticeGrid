@@ -121,11 +121,17 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
 
       console.log('PDF generated, saved, and downloaded successfully');
 
-      // Show success message and redirect to reports page
-      alert('PDF report generated and saved successfully! You can find it in the Reports page for future downloads.');
+      // Show success message with better UX
+      const userConfirm = confirm(
+        'PDF report generated and downloaded successfully!\n\n' +
+        'The report has been saved and is available in the Reports page for future downloads.\n\n' +
+        'Would you like to go to the Reports page now to see all your saved reports?'
+      );
 
-      // Redirect to reports page to show the saved report
-      router.push('/reports');
+      // Only redirect if user confirms
+      if (userConfirm) {
+        router.push('/reports');
+      }
 
     } catch (error) {
       console.error('Error generating PDF:', error);

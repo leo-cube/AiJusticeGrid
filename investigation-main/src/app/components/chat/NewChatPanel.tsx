@@ -36,6 +36,7 @@ const NewChatPanel: React.FC<NewChatPanelProps> = ({ isOpen, onToggle }) => {
 
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [agentSelectorOpen, setAgentSelectorOpen] = useState(false);
   const [subAgentSelectorOpen, setSubAgentSelectorOpen] = useState<Record<string, boolean>>({});
 
@@ -79,6 +80,20 @@ const NewChatPanel: React.FC<NewChatPanelProps> = ({ isOpen, onToggle }) => {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
+
+  // Auto-focus input when typing stops or on mount
+  useEffect(() => {
+    if (!isTyping && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isTyping]);
+
+  // Focus input on mount
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
@@ -231,6 +246,7 @@ const NewChatPanel: React.FC<NewChatPanelProps> = ({ isOpen, onToggle }) => {
         <div className="border-t border-gray-200 bg-white p-4">
           <div className="flex items-center overflow-hidden rounded-lg border border-gray-300 bg-white focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
             <input
+              ref={inputRef}
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}

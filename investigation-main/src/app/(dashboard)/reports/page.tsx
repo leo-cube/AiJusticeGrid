@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Card';
 import Button from '@/app/components/ui/Button';
-import { DocumentTextIcon, ChartBarIcon, ArrowDownTrayIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { DocumentTextIcon, ChartBarIcon, ArrowDownTrayIcon, TrashIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { SavedPDFReport } from '@/app/types';
 
 export default function ReportsPage() {
@@ -14,27 +14,40 @@ export default function ReportsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isDownloading, setIsDownloading] = useState<string | null>(null); // Track which report is being downloaded
 
+  // Load saved reports function
+  const loadSavedReports = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('/api/saved-reports', {
+        // Add cache busting to ensure fresh data
+        cache: 'no-cache',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
+      if (response.ok) {
+        const reports = await response.json();
+        setSavedReports(reports);
+        console.log('Loaded saved reports:', reports.length);
+      } else {
+        console.error('Failed to load saved reports');
+      }
+    } catch (error) {
+      console.error('Error loading saved reports:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Load saved reports on component mount
   useEffect(() => {
-    const loadSavedReports = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch('/api/saved-reports');
-        if (response.ok) {
-          const reports = await response.json();
-          setSavedReports(reports);
-        } else {
-          console.error('Failed to load saved reports');
-        }
-      } catch (error) {
-        console.error('Error loading saved reports:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     loadSavedReports();
   }, []);
+
+  // Refresh reports function
+  const handleRefreshReports = () => {
+    loadSavedReports();
+  };
 
   // Handle downloading a saved PDF report
   const handleDownloadSavedReport = async (report: SavedPDFReport) => {
@@ -197,7 +210,23 @@ export default function ReportsPage() {
           {/* Saved Reports */}
           <Card>
             <CardHeader>
-              <CardTitle>Saved PDF Reports</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle>Saved PDF Reports</CardTitle>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleRefreshReports}
+                  disabled={isLoading}
+                  className="flex items-center space-x-2"
+                >
+                  {isLoading ? (
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                  ) : (
+                    <ArrowPathIcon className="h-4 w-4" />
+                  )}
+                  <span>Refresh</span>
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
               {isLoading ? (

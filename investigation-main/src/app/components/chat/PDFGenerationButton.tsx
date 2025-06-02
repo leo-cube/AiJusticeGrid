@@ -97,6 +97,9 @@ const PDFGenerationButton: React.FC<PDFGenerationButtonProps> = ({
 
       console.log('PDF generated and downloaded successfully');
 
+      // Show success message to user
+      alert('PDF report generated and downloaded successfully!\n\nThe report has been saved and is available in the Reports page for future downloads.');
+
     } catch (error) {
       console.error('Error generating PDF:', error);
       setError(error instanceof Error ? error.message : 'Failed to generate PDF');

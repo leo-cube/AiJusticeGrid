@@ -13,7 +13,7 @@ import WelcomeScreen from './WelcomeScreen';
 import { useChat } from '@/app/context/ChatContext';
 import { AgentType, ChatContextType } from '@/app/types';
 import { defaultAgents } from './AgentSelector';
-import suggestedQuestionsService from '@/services/suggestedQuestionsService';
+
 import Button from '@/app/components/ui/Button';
 
 interface UnifiedAgentChatProps {
@@ -37,8 +37,8 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
   } = useChat();
 
   const [inputValue, setInputValue] = useState('');
-  const [suggestedQuestions, setSuggestedQuestions] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   // Set the current agent when the component mounts
@@ -60,38 +60,21 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
     }
   }, [messages]);
 
-  // Fetch suggested questions when the component mounts or agent changes
+  // Auto-focus input when typing stops or on mount
   useEffect(() => {
-    const fetchSuggestedQuestions = async () => {
-      try {
-        console.log(`Fetching suggested questions for agent: ${currentAgent}`);
-        const questions = await suggestedQuestionsService.getSuggestedQuestions(currentAgent);
-        console.log('Received suggested questions:', questions);
+    if (!isTyping && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isTyping]);
 
-        if (Array.isArray(questions) && questions.length > 0) {
-          setSuggestedQuestions(questions);
-        } else {
-          console.warn('Received empty or invalid questions array, using fallback questions');
-          setSuggestedQuestions([
-            'What can you help me with?',
-            'How do I use this system?',
-            'What are your capabilities?',
-            'Tell me about this application'
-          ]);
-        }
-      } catch (error) {
-        console.error('Error fetching suggested questions:', error);
-        setSuggestedQuestions([
-          'What can you help me with?',
-          'How do I use this system?',
-          'What are your capabilities?',
-          'Tell me about this application'
-        ]);
-      }
-    };
+  // Focus input on mount
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
-    fetchSuggestedQuestions();
-  }, [currentAgent]);
+
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
@@ -187,6 +170,7 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
       <div className="border-t border-gray-200 p-4">
         <div className="flex items-center">
           <input
+            ref={inputRef}
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}

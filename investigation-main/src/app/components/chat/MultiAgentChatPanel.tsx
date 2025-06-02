@@ -29,11 +29,13 @@ const MultiAgentChatPanel: React.FC<MultiAgentChatPanelProps> = ({ isOpen, onTog
     selectedAgents,
     setCurrentAgent,
     selectAgent,
-    deselectAgent
+    deselectAgent,
+    resetAgentSession
   } = useChat();
 
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   // Get the current agent details
   const activeAgent = defaultAgents.find(agent => agent.id === currentAgent) || defaultAgents[0];
@@ -44,6 +46,20 @@ const MultiAgentChatPanel: React.FC<MultiAgentChatPanelProps> = ({ isOpen, onTog
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
+
+  // Auto-focus input when typing stops or on mount
+  useEffect(() => {
+    if (!isTyping && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isTyping]);
+
+  // Focus input on mount
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
@@ -89,6 +105,18 @@ const MultiAgentChatPanel: React.FC<MultiAgentChatPanelProps> = ({ isOpen, onTog
           <div className="flex items-center space-x-2">
             <span className="flex h-2 w-2 rounded-full bg-green-400"></span>
             <span className="text-xs font-medium">Online</span>
+
+            {/* Reset button for all agents */}
+            <button
+              onClick={() => resetAgentSession(currentAgent)}
+              className="rounded-md p-1 hover:bg-white hover:bg-opacity-20"
+              aria-label="Reset agent"
+              title={`Reset ${activeAgent.name} (start new case)`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+              </svg>
+            </button>
 
             {messages.length > 0 && (
               <button
@@ -185,6 +213,7 @@ const MultiAgentChatPanel: React.FC<MultiAgentChatPanelProps> = ({ isOpen, onTog
           )}
           <div className="flex items-center overflow-hidden rounded-lg border border-gray-300 bg-white focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
             <textarea
+              ref={inputRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}

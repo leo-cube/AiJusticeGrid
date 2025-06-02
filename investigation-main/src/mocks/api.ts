@@ -223,63 +223,7 @@ const mockAgentAssignments = Object.entries(agentAssignments).map(([crimeType, a
   priority: 'high',
 }));
 
-// Mock suggested questions by agent type
-const mockSuggestedQuestions = {
-  'degree-guru': [
-    'Are there resources for students interested in creative writing?',
-    'Are there any workshops or seminars on entrepreneurship for students?',
-    'Are there courses on environmental sustainability?',
-    'What kinds of courses will I take as a philosophy major?'
-  ],
-  'general': [
-    'What can you help me with?',
-    'Tell me about the latest cases',
-    'How do I analyze evidence?',
-    'What investigation techniques should I use?'
-  ],
-  'crime': [
-    'What are the recent crime statistics in the area?',
-    'How do I report suspicious activity?',
-    'What evidence is needed for a crime investigation?',
-    'How are crime scenes processed?'
-  ],
-  'murder': [
-    'What are the key steps in a homicide investigation?',
-    'How is forensic evidence collected at a murder scene?',
-    'What techniques are used for suspect profiling?',
-    'How are witness testimonies verified?'
-  ],
-  'finance': [
-    'What are common financial fraud indicators?',
-    'How do you trace money laundering activities?',
-    'What financial documents should be analyzed in fraud cases?',
-    'How are digital financial crimes investigated?'
-  ],
-  'theft': [
-    'What are the most common theft patterns?',
-    'How do you track stolen goods?',
-    'What security measures prevent theft?',
-    'How do you identify professional thieves?'
-  ],
-  'smuggle': [
-    'What are common smuggling routes?',
-    'How are smuggled goods detected?',
-    'What technologies are used to prevent smuggling?',
-    'How do international agencies coordinate on smuggling cases?'
-  ],
-  'crime-accident': [
-    'How do you determine if an accident was staged?',
-    'What evidence is crucial in accident reconstruction?',
-    'How do you analyze vehicle damage patterns?',
-    'What factors indicate negligence in accidents?'
-  ],
-  'crime-abuse': [
-    'What are the signs of domestic abuse?',
-    'How do you interview abuse victims sensitively?',
-    'What evidence collection protocols exist for abuse cases?',
-    'How do you ensure victim safety during investigations?'
-  ]
-};
+
 
 // Mock API endpoints
 const mockApi = {
@@ -295,11 +239,7 @@ const mockApi = {
   '/exchange-matching': mockExchangeMatches,
   '/api-reports': mockApiReports,
   '/dashboard': mockDashboard,
-  '/api/augment/suggested-questions': {
-    success: true,
-    data: mockSuggestedQuestions.general,
-    message: 'Default suggested questions retrieved successfully'
-  },
+
   '/settings': {
     ui: {
       login: {
@@ -508,30 +448,6 @@ export const mockHandlers = {
     }
   },
   // Add more handlers as needed
-  '/api/augment/suggested-questions': {
-    get: (headers?: Record<string, string>, url?: string) => {
-      // Extract agentType from URL query parameters
-      let agentType = 'general';
-
-      if (url && url.includes('?')) {
-        const queryString = url.split('?')[1];
-        const params = new URLSearchParams(queryString);
-        agentType = params.get('agentType') || 'general';
-      }
-
-      console.log(`Mock API: Fetching suggested questions for agent type: ${agentType}`);
-
-      // Get the suggested questions for the specified agent type
-      const questions = mockSuggestedQuestions[agentType as keyof typeof mockSuggestedQuestions] ||
-                        mockSuggestedQuestions.general;
-
-      return {
-        success: true,
-        data: questions,
-        message: `Suggested questions for ${agentType} retrieved successfully`
-      };
-    }
-  },
   '/settings': {
     put: (data: any) => {
       // Update the mock settings with the new data

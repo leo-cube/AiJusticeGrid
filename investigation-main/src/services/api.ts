@@ -69,32 +69,7 @@ export const fetchWithRetry = async (url: string, options: RequestOptions = {}) 
         if (response.status === 404 && url.includes('/api/augment/')) {
           console.warn(`404 Not Found for ${url}. Check if the API endpoint exists and API_BASE_URL is correct.`);
 
-          // Special handling for suggested questions endpoint
-          if (url.includes('/api/augment/suggested-questions')) {
-            console.log('Detected suggested questions endpoint, trying alternative approaches');
 
-            // Try with direct fetch to the Next.js API route
-            try {
-              const nextJsApiUrl = `/api/augment/suggested-questions${url.includes('?') ? url.substring(url.indexOf('?')) : ''}`;
-              console.log(`Trying Next.js API route: ${nextJsApiUrl}`);
-
-              const nextJsResponse = await fetch(nextJsApiUrl, {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'application/json'
-                }
-              });
-
-              if (nextJsResponse.ok) {
-                console.log(`Next.js API route ${nextJsApiUrl} succeeded`);
-                return await nextJsResponse.json();
-              } else {
-                console.warn(`Next.js API route ${nextJsApiUrl} failed: ${nextJsResponse.status} ${nextJsResponse.statusText}`);
-              }
-            } catch (nextJsError) {
-              console.error(`Next.js API route failed:`, nextJsError);
-            }
-          }
 
           // If we're using a custom API_BASE_URL, try with the default /api base URL
           if (API_BASE_URL !== '/api' && !url.startsWith('/api/')) {

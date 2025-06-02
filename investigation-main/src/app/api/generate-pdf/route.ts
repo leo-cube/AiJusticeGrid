@@ -95,6 +95,7 @@ export async function POST(request: NextRequest) {
 
     // Save the report to persistent storage for future downloads
     try {
+      console.log('Attempting to save report to persistent storage...');
       const saveReportResponse = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/saved-reports`, {
         method: 'POST',
         headers: {
@@ -112,12 +113,13 @@ export async function POST(request: NextRequest) {
 
       if (saveReportResponse.ok) {
         const savedReport = await saveReportResponse.json();
-        console.log('Report saved successfully:', savedReport.id);
+        console.log('Report saved successfully to persistent storage:', savedReport.id);
       } else {
-        console.warn('Failed to save report to persistent storage');
+        const errorText = await saveReportResponse.text();
+        console.warn('Failed to save report to persistent storage:', errorText);
       }
     } catch (saveError) {
-      console.error('Error saving report:', saveError);
+      console.error('Error saving report to persistent storage:', saveError);
       // Continue with PDF generation even if saving fails
     }
 
@@ -143,6 +145,298 @@ export async function POST(request: NextRequest) {
 /**
  * Extract structured data from chat messages
  */
+
+/**
+ * Extract structured financial investigation data from Financial Agent's Q&A conversation.
+ */
+function extractStructuredFinancialData(messages: any[]): Record<string, any> {
+  const extractedData: Record<string, any> = {};
+  const conversationPairs: any[] = [];
+
+  console.log('Extracting structured financial data from', messages.length, 'messages');
+
+  // Parse the conversation into question-answer pairs
+  for (let i = 0; i < messages.length; i++) {
+    const message = messages[i];
+
+    // Check for Financial Agent questions (assistant messages)
+    if (message.sender === 'assistant' &&
+        (message.agentType === 'financial' || message.content.includes('Financial Fraud Agent'))) {
+
+      // Look for the next user response
+      for (let j = i + 1; j < messages.length; j++) {
+        const nextMessage = messages[j];
+        if (nextMessage.sender === 'user') {
+          conversationPairs.push({
+            question: message.content,
+            answer: nextMessage.content,
+            questionIndex: i,
+            answerIndex: j
+          });
+          break;
+        }
+      }
+    }
+  }
+
+  console.log('Found', conversationPairs.length, 'financial conversation pairs');
+
+  // Financial Agent specific question mappings (no location field)
+  const questionMappings: Record<string, string> = {
+    // Case identification
+    'case id': 'case_id',
+    'what is the case id': 'case_id',
+    'case number': 'case_id',
+
+    // Date and time
+    'when did the financial fraud incident occur': 'date_of_incident',
+    'date of incident': 'date_of_incident',
+    'incident occur': 'date_of_incident',
+
+    'when was the fraud discovered': 'time_of_discovery',
+    'fraud discovered': 'time_of_discovery',
+    'time of discovery': 'time_of_discovery',
+
+    // Financial institution
+    'which financial institution': 'financial_institution',
+    'financial institution': 'financial_institution',
+    'bank name': 'financial_institution',
+
+    // Victim information
+    'name of the victim': 'victim_name',
+    'victim name': 'victim_name',
+    'what is the name': 'victim_name',
+
+    // Account details
+    'what type of account': 'account_type',
+    'account type': 'account_type',
+    'type of account': 'account_type',
+
+    'account number': 'account_number',
+    'what is the account number': 'account_number',
+
+    // Fraud details
+    'what type of financial fraud': 'fraud_type',
+    'type of financial fraud': 'fraud_type',
+    'fraud type': 'fraud_type',
+
+    'financial amount involved': 'amount_involved',
+    'amount involved': 'amount_involved',
+    'what is the financial amount': 'amount_involved',
+
+    'how was the fraud executed': 'method_used',
+    'fraud executed': 'method_used',
+    'method used': 'method_used',
+
+    // Investigation details
+    'suspicious activities': 'suspicious_activity',
+    'suspicious activity': 'suspicious_activity',
+    'what suspicious activities': 'suspicious_activity',
+
+    'what evidence has been collected': 'evidence_collected',
+    'evidence collected': 'evidence_collected',
+    'evidence has been collected': 'evidence_collected',
+
+    // Suspects
+    'any suspects identified': 'suspects',
+    'suspects identified': 'suspects',
+    'are there any suspects': 'suspects',
+
+    // Additional information
+    'additional relevant information': 'additional_notes',
+    'additional information': 'additional_notes',
+    'relevant information': 'additional_notes',
+    'any additional': 'additional_notes'
+  };
+
+  // Map answers to structured fields
+  for (const pair of conversationPairs) {
+    const questionLower = pair.question.toLowerCase();
+    const answer = pair.answer.trim();
+
+    // Skip empty answers
+    if (!answer) continue;
+
+    let matched = false;
+    for (const [keyPhrase, fieldName] of Object.entries(questionMappings)) {
+      if (questionLower.includes(keyPhrase)) {
+        // Only store if we don't already have this field
+        if (!extractedData[fieldName]) {
+          extractedData[fieldName] = answer;
+          console.log(`Mapped "${keyPhrase}" -> ${fieldName}: ${answer}`);
+          matched = true;
+          break;
+        }
+      }
+    }
+
+    // If no specific mapping found, log for debugging
+    if (!matched) {
+      console.warn(`No mapping found for financial question: ${questionLower.substring(0, 100)}`);
+    }
+  }
+
+  // Store the full conversation for reference
+  extractedData.conversation_pairs = conversationPairs;
+  extractedData.total_messages = messages.length;
+  extractedData.user_messages = messages.filter(m => m.sender === 'user').length;
+  extractedData.assistant_messages = messages.filter(m => m.sender === 'assistant').length;
+
+  if (messages.length > 0) {
+    extractedData.conversation_start = messages[0].timestamp;
+    extractedData.conversation_end = messages[messages.length - 1].timestamp;
+  }
+
+  console.log('Final extracted financial data keys:', Object.keys(extractedData));
+  console.log('Financial conversation pairs found:', conversationPairs.length);
+
+  return extractedData;
+}
+
+/**
+ * Extract structured theft investigation data from Theft Agent's Q&A conversation.
+ */
+function extractStructuredTheftData(messages: any[]): Record<string, any> {
+  const extractedData: Record<string, any> = {};
+  const conversationPairs: any[] = [];
+
+  console.log('Extracting structured theft data from', messages.length, 'messages');
+
+  // Parse the conversation into question-answer pairs
+  for (let i = 0; i < messages.length; i++) {
+    const message = messages[i];
+
+    // Check for Theft Agent questions (assistant messages)
+    if (message.sender === 'assistant' &&
+        (message.agentType === 'theft' || message.content.includes('Theft Agent'))) {
+
+      // Look for the next user response
+      for (let j = i + 1; j < messages.length; j++) {
+        const nextMessage = messages[j];
+        if (nextMessage.sender === 'user') {
+          conversationPairs.push({
+            question: message.content,
+            answer: nextMessage.content,
+            questionIndex: i,
+            answerIndex: j
+          });
+          break;
+        }
+      }
+    }
+  }
+
+  console.log('Found', conversationPairs.length, 'theft conversation pairs');
+
+  // Theft Agent specific question mappings (includes location field)
+  const questionMappings: Record<string, string> = {
+    // Case identification
+    'case id': 'case_id',
+    'what is the case id': 'case_id',
+    'case number': 'case_id',
+
+    // Date and time
+    'when did the theft occur': 'theft_date',
+    'date of theft': 'theft_date',
+    'theft occur': 'theft_date',
+
+    'what time did the theft occur': 'theft_time',
+    'time of theft': 'theft_time',
+
+    // Location
+    'where did the theft take place': 'location',
+    'location of theft': 'location',
+    'theft location': 'location',
+
+    // Victim information
+    'name of the victim': 'victim_name',
+    'victim name': 'victim_name',
+    'what is the name': 'victim_name',
+
+    // Theft details
+    'what items were stolen': 'stolen_items',
+    'stolen items': 'stolen_items',
+    'items stolen': 'stolen_items',
+
+    'estimated value': 'item_value',
+    'value of stolen items': 'item_value',
+    'item value': 'item_value',
+
+    'how was the theft committed': 'theft_method',
+    'method of theft': 'theft_method',
+    'theft method': 'theft_method',
+
+    'how did the perpetrator gain entry': 'entry_method',
+    'entry method': 'entry_method',
+    'method of entry': 'entry_method',
+
+    // Security and investigation
+    'security measures in place': 'security_measures',
+    'security measures': 'security_measures',
+
+    'any witnesses': 'witnesses',
+    'witnesses': 'witnesses',
+    'were there witnesses': 'witnesses',
+
+    'what evidence was found': 'evidence_found',
+    'evidence found': 'evidence_found',
+    'evidence': 'evidence_found',
+
+    // Suspects
+    'any suspects': 'suspects',
+    'suspects': 'suspects',
+    'suspected individuals': 'suspects',
+
+    // Additional information
+    'additional information': 'additional_notes',
+    'additional notes': 'additional_notes',
+    'any additional': 'additional_notes'
+  };
+
+  // Map answers to structured fields
+  for (const pair of conversationPairs) {
+    const questionLower = pair.question.toLowerCase();
+    const answer = pair.answer.trim();
+
+    // Skip empty answers
+    if (!answer) continue;
+
+    let matched = false;
+    for (const [keyPhrase, fieldName] of Object.entries(questionMappings)) {
+      if (questionLower.includes(keyPhrase)) {
+        // Only store if we don't already have this field
+        if (!extractedData[fieldName]) {
+          extractedData[fieldName] = answer;
+          console.log(`Mapped "${keyPhrase}" -> ${fieldName}: ${answer}`);
+          matched = true;
+          break;
+        }
+      }
+    }
+
+    // If no specific mapping found, log for debugging
+    if (!matched) {
+      console.warn(`No mapping found for theft question: ${questionLower.substring(0, 100)}`);
+    }
+  }
+
+  // Store the full conversation for reference
+  extractedData.conversation_pairs = conversationPairs;
+  extractedData.total_messages = messages.length;
+  extractedData.user_messages = messages.filter(m => m.sender === 'user').length;
+  extractedData.assistant_messages = messages.filter(m => m.sender === 'assistant').length;
+
+  if (messages.length > 0) {
+    extractedData.conversation_start = messages[0].timestamp;
+    extractedData.conversation_end = messages[messages.length - 1].timestamp;
+  }
+
+  console.log('Final extracted theft data keys:', Object.keys(extractedData));
+  console.log('Theft conversation pairs found:', conversationPairs.length);
+
+  return extractedData;
+}
+
 /**
  * Extract structured investigation data from Murder Agent's Q&A conversation.
  */
@@ -320,11 +614,35 @@ function extractDataFromMessages(messages: any[]): Record<string, any> {
     (message.agentType === 'murder' || message.content.includes('Murder Agent'))
   );
 
+  // Check if this is a Financial Agent conversation
+  const isFinancialAgent = messages.some(
+    message => message.sender === 'assistant' &&
+    (message.agentType === 'financial' || message.content.includes('Financial Fraud Agent'))
+  );
+
+  // Check if this is a Theft Agent conversation
+  const isTheftAgent = messages.some(
+    message => message.sender === 'assistant' &&
+    (message.agentType === 'theft' || message.content.includes('Theft Agent'))
+  );
+
   console.log('Is Murder Agent conversation:', isMurderAgent);
+  console.log('Is Financial Agent conversation:', isFinancialAgent);
+  console.log('Is Theft Agent conversation:', isTheftAgent);
 
   if (isMurderAgent) {
     // Use structured extraction for Murder Agent conversations
     return extractStructuredInvestigationData(messages);
+  }
+
+  if (isFinancialAgent) {
+    // Use structured extraction for Financial Agent conversations
+    return extractStructuredFinancialData(messages);
+  }
+
+  if (isTheftAgent) {
+    // Use structured extraction for Theft Agent conversations
+    return extractStructuredTheftData(messages);
   }
 
   // Fall back to pattern-based extraction for other conversations

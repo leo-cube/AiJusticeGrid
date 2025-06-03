@@ -2,8 +2,8 @@
   "murder_investigations": {
     "metadata": {
       "created": "2025-01-27T23:00:00.000Z",
-      "last_updated": "2025-05-27T23:47:41.625999",
-      "total_cases": 2,
+      "last_updated": "2025-06-03T21:44:00.073519",
+      "total_cases": 3,
       "version": "1.0.0",
       "description": "Persistent storage for Murder Agent investigation data and AI analysis reports"
     },
@@ -297,6 +297,146 @@
           "assistant_messages": 24,
           "conversation_start": "2025-05-27T18:14:24.805Z",
           "conversation_end": "2025-05-27T18:16:38.374Z"
+        }
+      },
+      "TN-090": {
+        "case_metadata": {
+          "case_id": "TN-090",
+          "session_id": "session_1748967100741",
+          "created": "2025-06-03T21:44:00.070899",
+          "last_updated": "2025-06-03T21:44:00.070899",
+          "status": "active"
+        },
+        "conversation_data": {
+          "total_messages": 36,
+          "user_messages": 14,
+          "assistant_messages": 22,
+          "conversation_start": "2025-06-03T16:06:44.355Z",
+          "conversation_end": "2025-06-03T16:11:30.458Z",
+          "conversation_pairs": [
+            {
+              "question": "Hello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+              "answer": "TN-090",
+              "timestamp": "2025-06-03T16:06:44.355Z"
+            },
+            {
+              "question": "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+              "answer": "2:30pm in the noon",
+              "timestamp": "2025-06-03T16:07:13.422Z"
+            },
+            {
+              "question": "What is the victim's name?",
+              "answer": "JJ",
+              "timestamp": "2025-06-03T16:08:05.540Z"
+            },
+            {
+              "question": "What is the victim's gender?",
+              "answer": "Male",
+              "timestamp": "2025-06-03T16:08:14.497Z"
+            },
+            {
+              "question": "Was a weapon used? If so, what kind?",
+              "answer": "knife",
+              "timestamp": "2025-06-03T16:09:19.794Z"
+            },
+            {
+              "question": "Were there any witnesses? If so, please provide details.",
+              "answer": "The witnesses were maid of JJ",
+              "timestamp": "2025-06-03T16:10:11.770Z"
+            },
+            {
+              "question": "Are there any suspects at this time?",
+              "answer": "yes his friend named tim, who is always with him, but not sure whether it is him. its just an hunch",
+              "timestamp": "2025-06-03T16:10:28.560Z"
+            }
+          ]
+        },
+        "case_details": {
+          "victim_information": {
+            "name": "JJ",
+            "age": null,
+            "gender": "Male"
+          },
+          "crime_information": {
+            "date": null,
+            "time": "2:30pm in the noon",
+            "location": null,
+            "weapon_used": "knife",
+            "cause_of_death": null
+          },
+          "investigation_details": {
+            "witnesses": "The witnesses were maid of JJ",
+            "evidence": null,
+            "suspects": "yes his friend named tim, who is always with him, but not sure whether it is him. its just an hunch",
+            "crime_scene_description": null
+          },
+          "additional_information": {
+            "notes": null
+          }
+        },
+        "ai_analysis": {
+          "generated": false,
+          "generated_at": null,
+          "content": null
+        },
+        "user_metadata": {
+          "request_id": "1748967100741",
+          "user_id": "user",
+          "timestamp": "2025-06-03T21:44:00.060920",
+          "pdf_generated": true,
+          "title": "Murder Investigation Report",
+          "analysis_type": "murder"
+        },
+        "raw_extracted_data": {
+          "case_id": "TN-090",
+          "crime_time": "2:30pm in the noon",
+          "victim_name": "JJ",
+          "victim_gender": "Male",
+          "weapon_used": "knife",
+          "witnesses": "The witnesses were maid of JJ",
+          "suspects": "yes his friend named tim, who is always with him, but not sure whether it is him. its just an hunch",
+          "conversation_pairs": [
+            {
+              "question": "Hello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+              "answer": "TN-090",
+              "timestamp": "2025-06-03T16:06:44.355Z"
+            },
+            {
+              "question": "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+              "answer": "2:30pm in the noon",
+              "timestamp": "2025-06-03T16:07:13.422Z"
+            },
+            {
+              "question": "What is the victim's name?",
+              "answer": "JJ",
+              "timestamp": "2025-06-03T16:08:05.540Z"
+            },
+            {
+              "question": "What is the victim's gender?",
+              "answer": "Male",
+              "timestamp": "2025-06-03T16:08:14.497Z"
+            },
+            {
+              "question": "Was a weapon used? If so, what kind?",
+              "answer": "knife",
+              "timestamp": "2025-06-03T16:09:19.794Z"
+            },
+            {
+              "question": "Were there any witnesses? If so, please provide details.",
+              "answer": "The witnesses were maid of JJ",
+              "timestamp": "2025-06-03T16:10:11.770Z"
+            },
+            {
+              "question": "Are there any suspects at this time?",
+              "answer": "yes his friend named tim, who is always with him, but not sure whether it is him. its just an hunch",
+              "timestamp": "2025-06-03T16:10:28.560Z"
+            }
+          ],
+          "total_messages": 36,
+          "user_messages": 14,
+          "assistant_messages": 22,
+          "conversation_start": "2025-06-03T16:06:44.355Z",
+          "conversation_end": "2025-06-03T16:11:30.458Z"
         }
       }
     }

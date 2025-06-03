@@ -480,5 +480,487 @@
     "fileSize": 6250,
     "status": "generated",
     "description": "PDF report generated from finance agent conversation"
+  },
+  {
+    "id": "RPT-1748967103108",
+    "title": "Murder Investigation Report",
+    "agentType": "murder",
+    "caseId": "TN-090",
+    "filename": "murder_report_RPT-1748967103108.pdf",
+    "createdDate": "2025-06-03T16:11:43.108Z",
+    "conversationData": {
+      "title": "Murder Investigation Report",
+      "analysisType": "murder",
+      "agentType": "murder",
+      "messages": [
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+          "timestamp": "2025-06-03T16:06:44.355Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "TN-090",
+          "timestamp": "2025-06-03T16:06:58.499Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nThank you. When did the crime occur? Please provide the date (YYYY-MM-DD, MM/DD/YYYY, or text format like 'January 15, 2023').",
+          "timestamp": "2025-06-03T16:07:00.045Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:07:01.468Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "February 10, 2025",
+          "timestamp": "2025-06-03T16:07:11.867Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+          "timestamp": "2025-06-03T16:07:13.422Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "2:30pm in the noon",
+          "timestamp": "2025-06-03T16:07:52.245Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhere did the crime take place? Please provide the location.",
+          "timestamp": "2025-06-03T16:07:53.800Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:07:54.829Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "New York",
+          "timestamp": "2025-06-03T16:08:03.984Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat is the victim's name?",
+          "timestamp": "2025-06-03T16:08:05.540Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "JJ",
+          "timestamp": "2025-06-03T16:08:09.049Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat is the victim's age?",
+          "timestamp": "2025-06-03T16:08:10.603Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:08:11.638Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "20",
+          "timestamp": "2025-06-03T16:08:12.962Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat is the victim's gender?",
+          "timestamp": "2025-06-03T16:08:14.497Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "Male",
+          "timestamp": "2025-06-03T16:08:21.634Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat was the cause of death?",
+          "timestamp": "2025-06-03T16:08:23.226Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:08:24.267Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "wounded by knife",
+          "timestamp": "2025-06-03T16:09:18.251Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWas a weapon used? If so, what kind?",
+          "timestamp": "2025-06-03T16:09:19.794Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "knife",
+          "timestamp": "2025-06-03T16:09:33.263Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nPlease describe the crime scene.",
+          "timestamp": "2025-06-03T16:09:34.805Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:09:35.827Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "The victim was stabbed to death by friend",
+          "timestamp": "2025-06-03T16:10:10.224Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWere there any witnesses? If so, please provide details.",
+          "timestamp": "2025-06-03T16:10:11.770Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "The witnesses were maid of JJ",
+          "timestamp": "2025-06-03T16:10:21.942Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat evidence was found at the scene?",
+          "timestamp": "2025-06-03T16:10:23.491Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:10:24.520Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "knife ",
+          "timestamp": "2025-06-03T16:10:27.009Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nAre there any suspects at this time?",
+          "timestamp": "2025-06-03T16:10:28.560Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "yes his friend named tim, who is always with him, but not sure whether it is him. its just an hunch",
+          "timestamp": "2025-06-03T16:10:54.175Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nDo you have any additional notes or information about the case?",
+          "timestamp": "2025-06-03T16:10:55.715Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:10:56.742Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "no",
+          "timestamp": "2025-06-03T16:10:57.506Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\n**Comprehensive Analysis of Case TN-090**\n\n**Summary:**\n- **Victim:** JJ, a 20-year-old male, was stabbed to death with a knife.\n- **Time and Location:** The crime occurred at 12:00 on 2025-02-10 in New York.\n- **Crime Scene:** The victim was stabbed by a friend (as per the description).\n- **Witnesses:** The maid of JJ was present.\n- **Evidence:** A knife was found at the scene.\n- **Suspects:** Tim, identified as JJ's friend, who is frequently with him, though suspicion is based on a hunch.\n\n**1. Comprehensive Analysis:**\n\n- **Nature of the Crime:** The stabbing indicates a personal and possibly impulsive act, given the use of a knife and the victim-offender relationship (friend).\n- **Temporal and Spatial Context:** The crime occurred at noon in New York, suggesting it might have happened in a residence or a location where JJ and his friend would typically be at that time of day.\n- **Witness Involvement:** The presence of JJ's maid as a witness is crucial. Her testimony could provide insights into the events leading up to the stabbing, the relationship dynamics between JJ and Tim, and potentially, the immediate aftermath.\n- **Evidence:** The knife, as the primary piece of physical evidence, requires thorough forensic analysis to link it to the suspect or the crime scene.\n\n**2. Potential Motives and Suspects:**\n\n- **Primary Suspect:** Tim, the friend.\n  - **Potential Motives to Consider:**\n    1. **Personal Conflict:** A disagreement or argument that escalated to violence.\n    2. **Jealousy or Rivalry:** Unspecified, but possible given their close relationship.\n    3. **Impulsive Act:** Sudden anger or provocation leading to the stabbing.\n- **Other Potential Suspects (Based on Witness and Crime Scene):**\n  - The maid, though listed as a witness, should be interviewed to rule out involvement or to gather more context about the relationship between JJ and Tim.\n\n**3. Recommended Investigative Approaches:**\n\n- **Interviews:**\n  1. **In-Depth Interview with Tim:** Assess his alibi for the time of the crime, his relationship with JJ, and potential motives.\n  2. **Maid's Testimony:** Detailed questioning about the events of the day, her observations of JJ and Tim's interactions, and any potential conflicts.\n- **Forensic Analysis:**\n  - **Knife Examination:** Fingerprint, DNA, and bloodstain pattern analysis to link the knife to Tim or the crime scene.\n  - **Crime Scene Reconstruction:** To understand the sequence of events and the positioning of individuals involved.\n- **Background Checks:**\n  - Investigate Tim's and JJ's backgrounds for any history of violence, disputes, or relevant behavioral patterns.\n\n**4. Key Evidence to Focus On and Analysis:**\n\n- **The Knife:**\n  - **Analysis:** Forensic examination for fingerprints, DNA (blood, skin cells), and trace evidence.\n  - **Objective:** Link the knife to Tim or determine if it was the murder weapon.\n- **Witness Testimony (Maid):**\n  - **Analysis:** Consistency in her story, potential biases, and any corroborating evidence.\n  - **Objective:** Establish a timeline of events and assess the relationship between JJ and Tim.\n- **Tim's Alibi and Statement:**\n  - **Analysis:** Verification of his whereabouts at the time of the crime and assessment of his demeanor during questioning.\n  - **Objective:** Determine if Tim's account matches the evidence and witness testimony.\n\n**5. Possible Solutions or Conclusions:**\n\n- **Scenario 1: Tim's Involvement Confirmed**\n  - **Evidence Needed:** Forensic link to the knife, inconsistent alibi, corroborating witness testimony.\n  - **Conclusion:** Tim committed the crime, potentially due to a personal conflict or impulsive act.\n- **Scenario 2: Tim's Innocence Established**\n  - **Evidence Needed:** Solid alibi, lack of forensic evidence linking him to the crime, maid's testimony supporting his innocence.\n  - **Conclusion:** The investigation should expand to consider other suspects, including the maid or unknown individuals, based on new leads or evidence.\n- **Scenario 3: Inconclusive Evidence**\n  - **Action:** Continue investigation with a broader scope, re-question witnesses, and pursue additional forensic analysis to uncover more evidence.",
+          "timestamp": "2025-06-03T16:11:30.458Z",
+          "agentType": "murder"
+        }
+      ],
+      "includeAIAnalysis": true,
+      "userMetadata": {
+        "sessionId": "session_1748967100741",
+        "userId": "user",
+        "requestId": "1748967100741"
+      },
+      "timestamp": "2025-06-03T16:11:40.741Z"
+    },
+    "fileSize": 1815,
+    "status": "generated",
+    "description": "PDF report generated from murder agent conversation"
+  },
+  {
+    "id": "RPT-1748967240580",
+    "title": "Murder Investigation Report",
+    "agentType": "murder",
+    "caseId": "TN-090",
+    "filename": "murder_report_RPT-1748967240580.pdf",
+    "createdDate": "2025-06-03T16:14:00.580Z",
+    "conversationData": {
+      "title": "Murder Investigation Report",
+      "analysisType": "murder",
+      "agentType": "murder",
+      "messages": [
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+          "timestamp": "2025-06-03T16:06:44.355Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "TN-090",
+          "timestamp": "2025-06-03T16:06:58.499Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nThank you. When did the crime occur? Please provide the date (YYYY-MM-DD, MM/DD/YYYY, or text format like 'January 15, 2023').",
+          "timestamp": "2025-06-03T16:07:00.045Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:07:01.468Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "February 10, 2025",
+          "timestamp": "2025-06-03T16:07:11.867Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+          "timestamp": "2025-06-03T16:07:13.422Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "2:30pm in the noon",
+          "timestamp": "2025-06-03T16:07:52.245Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhere did the crime take place? Please provide the location.",
+          "timestamp": "2025-06-03T16:07:53.800Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:07:54.829Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "New York",
+          "timestamp": "2025-06-03T16:08:03.984Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat is the victim's name?",
+          "timestamp": "2025-06-03T16:08:05.540Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "JJ",
+          "timestamp": "2025-06-03T16:08:09.049Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat is the victim's age?",
+          "timestamp": "2025-06-03T16:08:10.603Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:08:11.638Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "20",
+          "timestamp": "2025-06-03T16:08:12.962Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat is the victim's gender?",
+          "timestamp": "2025-06-03T16:08:14.497Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "Male",
+          "timestamp": "2025-06-03T16:08:21.634Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat was the cause of death?",
+          "timestamp": "2025-06-03T16:08:23.226Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:08:24.267Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "wounded by knife",
+          "timestamp": "2025-06-03T16:09:18.251Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWas a weapon used? If so, what kind?",
+          "timestamp": "2025-06-03T16:09:19.794Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "knife",
+          "timestamp": "2025-06-03T16:09:33.263Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nPlease describe the crime scene.",
+          "timestamp": "2025-06-03T16:09:34.805Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:09:35.827Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "The victim was stabbed to death by friend",
+          "timestamp": "2025-06-03T16:10:10.224Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWere there any witnesses? If so, please provide details.",
+          "timestamp": "2025-06-03T16:10:11.770Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "The witnesses were maid of JJ",
+          "timestamp": "2025-06-03T16:10:21.942Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat evidence was found at the scene?",
+          "timestamp": "2025-06-03T16:10:23.491Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:10:24.520Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "knife ",
+          "timestamp": "2025-06-03T16:10:27.009Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nAre there any suspects at this time?",
+          "timestamp": "2025-06-03T16:10:28.560Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "yes his friend named tim, who is always with him, but not sure whether it is him. its just an hunch",
+          "timestamp": "2025-06-03T16:10:54.175Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nDo you have any additional notes or information about the case?",
+          "timestamp": "2025-06-03T16:10:55.715Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-03T16:10:56.742Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "no",
+          "timestamp": "2025-06-03T16:10:57.506Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\n**Comprehensive Analysis of Case TN-090**\n\n**Summary:**\n- **Victim:** JJ, a 20-year-old male, was stabbed to death with a knife.\n- **Time and Location:** The crime occurred at 12:00 on 2025-02-10 in New York.\n- **Crime Scene:** The victim was stabbed by a friend (as per the description).\n- **Witnesses:** The maid of JJ was present.\n- **Evidence:** A knife was found at the scene.\n- **Suspects:** Tim, identified as JJ's friend, who is frequently with him, though suspicion is based on a hunch.\n\n**1. Comprehensive Analysis:**\n\n- **Nature of the Crime:** The stabbing indicates a personal and possibly impulsive act, given the use of a knife and the victim-offender relationship (friend).\n- **Temporal and Spatial Context:** The crime occurred at noon in New York, suggesting it might have happened in a residence or a location where JJ and his friend would typically be at that time of day.\n- **Witness Involvement:** The presence of JJ's maid as a witness is crucial. Her testimony could provide insights into the events leading up to the stabbing, the relationship dynamics between JJ and Tim, and potentially, the immediate aftermath.\n- **Evidence:** The knife, as the primary piece of physical evidence, requires thorough forensic analysis to link it to the suspect or the crime scene.\n\n**2. Potential Motives and Suspects:**\n\n- **Primary Suspect:** Tim, the friend.\n  - **Potential Motives to Consider:**\n    1. **Personal Conflict:** A disagreement or argument that escalated to violence.\n    2. **Jealousy or Rivalry:** Unspecified, but possible given their close relationship.\n    3. **Impulsive Act:** Sudden anger or provocation leading to the stabbing.\n- **Other Potential Suspects (Based on Witness and Crime Scene):**\n  - The maid, though listed as a witness, should be interviewed to rule out involvement or to gather more context about the relationship between JJ and Tim.\n\n**3. Recommended Investigative Approaches:**\n\n- **Interviews:**\n  1. **In-Depth Interview with Tim:** Assess his alibi for the time of the crime, his relationship with JJ, and potential motives.\n  2. **Maid's Testimony:** Detailed questioning about the events of the day, her observations of JJ and Tim's interactions, and any potential conflicts.\n- **Forensic Analysis:**\n  - **Knife Examination:** Fingerprint, DNA, and bloodstain pattern analysis to link the knife to Tim or the crime scene.\n  - **Crime Scene Reconstruction:** To understand the sequence of events and the positioning of individuals involved.\n- **Background Checks:**\n  - Investigate Tim's and JJ's backgrounds for any history of violence, disputes, or relevant behavioral patterns.\n\n**4. Key Evidence to Focus On and Analysis:**\n\n- **The Knife:**\n  - **Analysis:** Forensic examination for fingerprints, DNA (blood, skin cells), and trace evidence.\n  - **Objective:** Link the knife to Tim or determine if it was the murder weapon.\n- **Witness Testimony (Maid):**\n  - **Analysis:** Consistency in her story, potential biases, and any corroborating evidence.\n  - **Objective:** Establish a timeline of events and assess the relationship between JJ and Tim.\n- **Tim's Alibi and Statement:**\n  - **Analysis:** Verification of his whereabouts at the time of the crime and assessment of his demeanor during questioning.\n  - **Objective:** Determine if Tim's account matches the evidence and witness testimony.\n\n**5. Possible Solutions or Conclusions:**\n\n- **Scenario 1: Tim's Involvement Confirmed**\n  - **Evidence Needed:** Forensic link to the knife, inconsistent alibi, corroborating witness testimony.\n  - **Conclusion:** Tim committed the crime, potentially due to a personal conflict or impulsive act.\n- **Scenario 2: Tim's Innocence Established**\n  - **Evidence Needed:** Solid alibi, lack of forensic evidence linking him to the crime, maid's testimony supporting his innocence.\n  - **Conclusion:** The investigation should expand to consider other suspects, including the maid or unknown individuals, based on new leads or evidence.\n- **Scenario 3: Inconclusive Evidence**\n  - **Action:** Continue investigation with a broader scope, re-question witnesses, and pursue additional forensic analysis to uncover more evidence.",
+          "timestamp": "2025-06-03T16:11:30.458Z",
+          "agentType": "murder"
+        }
+      ],
+      "includeAIAnalysis": true,
+      "userMetadata": {
+        "sessionId": "session_1748967100741",
+        "userId": "user",
+        "requestId": "1748967100741"
+      },
+      "timestamp": "2025-06-03T16:11:40.741Z"
+    },
+    "fileSize": 1815,
+    "status": "generated",
+    "description": "PDF report generated from murder agent conversation"
   }
 ]

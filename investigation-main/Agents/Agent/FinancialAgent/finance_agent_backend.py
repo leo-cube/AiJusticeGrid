@@ -518,67 +518,134 @@ class FinanceAgent:
     def _generate_fallback_analysis(self, case_details):
         """
         Generate a fallback analysis when the API is unavailable.
+        Uses the same structured approach as the AI analysis.
 
         Args:
             case_details: Dictionary containing case details
 
         Returns:
-            Simulated analysis
+            Structured analysis based on the 14-question framework
         """
-        # Extract key details
+        # Extract key details from the 14-question structure
         case_id = case_details.get("case_id", "Unknown")
+        date_of_incident = case_details.get("date_of_incident", "Unknown date")
+        time_of_discovery = case_details.get("time_of_discovery", "Unknown time")
+        financial_institution = case_details.get("financial_institution", "Unknown institution")
+        victim_name = case_details.get("victim_name", "the victim")
+        account_type = case_details.get("account_type", "unknown account type")
+        account_number = case_details.get("account_number", "unknown account")
         fraud_type = case_details.get("fraud_type", "unknown fraud type")
         amount_involved = case_details.get("amount_involved", "unknown amount")
-        victim_name = case_details.get("victim_name", "the victim")
-        financial_institution = case_details.get("financial_institution", "unknown institution")
         method_used = case_details.get("method_used", "unknown method")
+        suspicious_activity = case_details.get("suspicious_activity", "No suspicious activity reported")
         evidence_collected = case_details.get("evidence_collected", "No evidence reported")
         suspects = case_details.get("suspects", "No suspects identified")
+        additional_notes = case_details.get("additional_notes", "")
 
-        # Build a dynamic analysis based on the specific case details
-        analysis = "# FINANCIAL FRAUD CASE ANALYSIS\n\n"
-        analysis += f"**Case ID:** {case_id}\n"
-        analysis += f"**Fraud Type:** {fraud_type}\n"
-        analysis += f"**Financial Impact:** {amount_involved}\n\n"
+        # Build structured analysis following the 6-section format
+        analysis = f"# FINANCIAL FRAUD INVESTIGATION ANALYSIS - CASE {case_id}\n\n"
 
-        analysis += "## CASE OVERVIEW\n"
-        analysis += f"This investigation involves a {fraud_type} case affecting {victim_name} "
-        analysis += f"at {financial_institution}. The fraudulent activity resulted in "
-        analysis += f"financial losses of {amount_involved}.\n\n"
+        # 1. Summary of the Fraud Incident
+        analysis += "## 1. Summary of the Fraud Incident\n"
+        analysis += f"**Nature of Offense:** {fraud_type}\n"
+        analysis += f"**Financial Impact:** {amount_involved}\n"
+        analysis += f"**Victim:** {victim_name}\n"
+        analysis += f"**Institution:** {financial_institution}\n"
+        analysis += f"**Account Type:** {account_type}\n"
+        analysis += f"**Incident Date:** {date_of_incident}\n"
+        analysis += f"**Discovery Time:** {time_of_discovery}\n\n"
 
-        analysis += "## FRAUD METHODOLOGY\n"
-        analysis += f"Based on the reported information, the fraud was executed using: {method_used}\n\n"
+        analysis += f"This case involves {fraud_type} targeting {victim_name}'s {account_type} "
+        analysis += f"at {financial_institution}, resulting in financial losses of {amount_involved}. "
+        analysis += f"The fraud occurred on {date_of_incident} and was discovered at {time_of_discovery}.\n\n"
 
-        analysis += "## EVIDENCE ANALYSIS\n"
-        analysis += f"Available evidence includes: {evidence_collected}\n\n"
+        # 2. Timeline and System Access Reconstruction
+        analysis += "## 2. Timeline and System Access Reconstruction\n"
+        analysis += f"**Incident Timeline:** {date_of_incident}\n"
+        analysis += f"**Discovery Timeline:** {time_of_discovery}\n"
+        analysis += f"**Method of Access:** {method_used}\n"
+        analysis += f"**Suspicious Activity Patterns:** {suspicious_activity}\n\n"
 
-        analysis += "## SUSPECT INFORMATION\n"
-        analysis += f"Current suspect status: {suspects}\n\n"
+        if date_of_incident != "Unknown date" and time_of_discovery != "Unknown time":
+            analysis += "The timeline shows a gap between the incident occurrence and discovery, "
+            analysis += "which may indicate delayed detection systems or sophisticated concealment methods.\n\n"
 
-        analysis += "## INVESTIGATIVE RECOMMENDATIONS\n"
-        analysis += "1. **Immediate Actions:**\n"
-        analysis += "   - Secure all affected accounts\n"
-        analysis += "   - Preserve digital evidence\n"
-        analysis += "   - Contact relevant financial institutions\n\n"
+        # 3. Suspect and Method Analysis
+        analysis += "## 3. Suspect and Method Analysis\n"
+        analysis += f"**Current Suspect Status:** {suspects}\n"
+        analysis += f"**Method Used:** {method_used}\n"
+        analysis += f"**Technical Approach:** Based on the {method_used}, this suggests "
 
-        analysis += "2. **Evidence Collection:**\n"
-        analysis += "   - Transaction logs and timestamps\n"
-        analysis += "   - IP addresses and device information\n"
-        analysis += "   - Communication records\n\n"
+        if "phishing" in method_used.lower():
+            analysis += "social engineering tactics and email-based deception.\n"
+        elif "malware" in method_used.lower():
+            analysis += "sophisticated technical knowledge and system infiltration capabilities.\n"
+        elif "insider" in method_used.lower():
+            analysis += "internal access and knowledge of institutional procedures.\n"
+        else:
+            analysis += "a methodical approach requiring planning and system knowledge.\n"
 
-        analysis += "3. **Recovery Strategies:**\n"
-        analysis += "   - Work with financial institutions for fund recovery\n"
-        analysis += "   - File appropriate reports with authorities\n"
-        analysis += "   - Implement enhanced security measures\n\n"
+        analysis += "\n"
 
-        analysis += "## PREVENTION MEASURES\n"
-        analysis += "- Enhanced authentication protocols\n"
-        analysis += "- Regular account monitoring\n"
-        analysis += "- Employee/customer education programs\n"
-        analysis += "- Advanced fraud detection systems\n\n"
+        # 4. Evidence Correlation
+        analysis += "## 4. Evidence Correlation\n"
+        analysis += f"**Available Evidence:** {evidence_collected}\n"
+        analysis += f"**Account Information:** {account_number} ({account_type})\n"
+        analysis += f"**Suspicious Activity Indicators:** {suspicious_activity}\n\n"
+
+        if evidence_collected != "No evidence reported":
+            analysis += "The collected evidence should be analyzed for:\n"
+            analysis += "- Digital footprints and IP address tracking\n"
+            analysis += "- Transaction metadata and timestamps\n"
+            analysis += "- Communication records and access logs\n"
+            analysis += "- Device fingerprinting and authentication records\n\n"
+
+        # 5. Recommended Investigative Steps
+        analysis += "## 5. Recommended Investigative Steps\n"
+        analysis += "**Immediate Actions:**\n"
+        analysis += f"- Secure and freeze affected {account_type} accounts\n"
+        analysis += "- Preserve all digital evidence and transaction logs\n"
+        analysis += f"- Coordinate with {financial_institution} security team\n"
+        analysis += "- Implement account monitoring and alerts\n\n"
+
+        analysis += "**Forensic Analysis:**\n"
+        analysis += "- Conduct detailed transaction flow analysis\n"
+        analysis += "- Perform IP address and device tracking\n"
+        analysis += "- Analyze authentication and access patterns\n"
+        analysis += "- Review security camera footage if applicable\n\n"
+
+        analysis += "**Recovery and Legal Actions:**\n"
+        analysis += "- File reports with appropriate financial crime units\n"
+        analysis += "- Initiate fund recovery procedures\n"
+        analysis += "- Coordinate with other affected institutions\n"
+        analysis += "- Prepare documentation for legal proceedings\n\n"
+
+        # 6. Probability-Based Conclusions
+        analysis += "## 6. Probability-Based Conclusions\n"
+
+        if suspects != "No suspects identified":
+            analysis += f"**Suspect Likelihood:** Based on available information about {suspects}, "
+            analysis += "further investigation is warranted to establish means, motive, and opportunity.\n\n"
+
+        if amount_involved != "unknown amount":
+            analysis += f"**Recovery Prospects:** Given the {amount_involved} involved and the "
+            analysis += f"{method_used}, recovery efforts should focus on rapid response and "
+            analysis += "institutional cooperation.\n\n"
+
+        analysis += f"**Risk Assessment:** The use of {method_used} suggests "
+        if "sophisticated" in method_used.lower() or "advanced" in method_used.lower():
+            analysis += "a high-skill perpetrator with potential for repeat offenses.\n"
+        else:
+            analysis += "standard fraud techniques that may be part of broader criminal patterns.\n"
+
+        analysis += "\n"
+
+        if additional_notes:
+            analysis += f"**Additional Considerations:** {additional_notes}\n\n"
 
         analysis += "---\n"
-        analysis += "*This analysis is based on the provided case details and standard financial fraud investigation protocols.*"
+        analysis += "*This analysis is based on the provided case details and follows standard financial fraud investigation protocols. "
+        analysis += "All conclusions are preliminary and subject to further investigation and evidence analysis.*"
 
         return analysis
 
@@ -604,23 +671,12 @@ class FinanceAgent:
             return prompt
 
         # Full case analysis
-        prompt = "Analyze the following financial fraud case and provide comprehensive insights:\n\n"
+        prompt = "Analyze the following financial fraud case and provide insights and solutions based ONLY on the data provided:\n\nEach input field in this case has been designed to gather essential facts critical for resolving financial fraud incidents. Your analysis should treat each answer with the following contextual importance:\n1. Case ID: A unique identifier used to track, cross-reference, and audit the case. It acts as the primary key for storing and retrieving associated data. Always link findings to this identifier.\n2. Date of Incident: Establishes when the fraud was committed. This is crucial for narrowing transaction windows, identifying vulnerable system periods, and correlating activity across financial networks.\n3. Time of Discovery: Distinguishes between the crime window and detection window. Critical for response timing, identifying gaps in security protocols, and calculating potential damage spread.\n4. Financial Institution: The involved institution informs about the type of systems compromised, internal security protocols, jurisdiction, and regulatory framework.\n5. Victim Name: Helps in identity tracing, asset linkage, and motive analysis. Corporate victims may require different investigative frameworks than individual ones.\n6. Account Type: Indicates the nature of access or privileges potentially exploited. For example, investment frauds differ in approach and traceability compared to credit card thefts.\n7. Account Number (partial): Enables secure referencing without full exposure. Use for linking logs, transaction IDs, or inter-system tracking while preserving confidentiality.\n8. Fraud Type: Identifies the primary category of offense (e.g., wire fraud, identity theft, phishing). Each has distinct behavioral, technical, and procedural markers.\n9. Amount Involved: Quantifies the scale of the fraud. Larger amounts typically signal sophisticated planning, multi-party coordination, or internal compromise.\n10. Method Used: Reveals the technical or procedural approach of the fraudster. This is crucial for pattern recognition, signature analysis, and cybersecurity posture review.\n11. Suspicious Activity: Patterns such as unusual logins, ATM locations, or login time anomalies help in behavioral profiling and anomaly detection.\n12. Evidence Collected: All tangible or digital evidence (e.g., IP logs, transaction metadata, forged documents) should be mapped to the fraud timeline and actors involved.\n13. Suspect Information: If suspects are known, analyze their role, means, and motive. Prioritize connection to transaction data, prior offenses, or insider access.\n14. Additional Notes: This may include narrative context, preliminary theories, intuition from investigators, or edge-case details that need expert review.\nYou must weigh each factor proportionally. For example, a suspect with insider access combined with sophisticated technical methods and large amounts could suggest coordinated internal fraud. Your insights must strive for maximum accuracy, taking logical steps only grounded in the input data. Do not speculate beyond the provided facts.\nYou must prioritize:\n- Alignment between transaction data, fraud timelines, and access logs.\n- Presence of premeditation or systemic vulnerability.\n- Traceability of funds, digital footprints, and suspect access.\n- Legal and procedural next steps to contain damage and pursue recovery.\nStructure your final output with:\n1. Summary of the Fraud Incident\n2. Timeline and System Access Reconstruction\n3. Suspect and Method Analysis\n4. Evidence Correlation\n5. Recommended Investigative Steps\n6. Probability-Based Conclusions (only if supported by data)\nRemember: this analysis will support legal documentation, recovery efforts, and institutional risk assessments. Maximize factual coherence, logic, and compliance-oriented recommendations. Minimize assumptions. Do not exceed the facts presented.\nBegin analysis below."
 
         # Add case details
         for key, value in case_details.items():
             if value and str(value).strip():
                 formatted_key = key.replace('_', ' ').title()
-                prompt += f"**{formatted_key}:** {value}\n"
-
-        prompt += "\n## ANALYSIS REQUEST\n"
-        prompt += "Please provide a comprehensive analysis including:\n\n"
-        prompt += "1. **Case Assessment:** Overview of the fraud type and severity\n"
-        prompt += "2. **Fraud Methodology:** How the fraud was likely executed\n"
-        prompt += "3. **Evidence Analysis:** Evaluation of available evidence\n"
-        prompt += "4. **Investigative Approach:** Recommended investigation steps\n"
-        prompt += "5. **Recovery Strategy:** Steps for fund recovery and damage mitigation\n"
-        prompt += "6. **Prevention Measures:** Recommendations to prevent similar incidents\n"
-        prompt += "7. **Legal Considerations:** Relevant laws and reporting requirements\n\n"
-        prompt += "Focus on actionable insights based on the specific details provided."
+                prompt += f"\n**{formatted_key}:** {value}"
 
         return prompt

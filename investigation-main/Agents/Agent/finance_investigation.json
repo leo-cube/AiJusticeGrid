@@ -2,8 +2,8 @@
   "finance_investigations": {
     "metadata": {
       "created": "2025-06-02T00:50:20.655299",
-      "last_updated": "2025-06-02T00:50:20.757107",
-      "total_cases": 1,
+      "last_updated": "2025-06-03T23:32:00.378166",
+      "total_cases": 2,
       "version": "1.0.0",
       "description": "Persistent storage for Finance Agent investigation data and AI analysis reports"
     },
@@ -140,6 +140,141 @@
           "suspicious_activity": "duplicate card",
           "evidence_collected": "documents",
           "suspects": "none",
+          "additional_notes": "none"
+        }
+      },
+      "02312": {
+        "case_metadata": {
+          "case_id": "02312",
+          "session_id": "fadf6751-8c4c-41b2-908a-aa041197597b",
+          "created": "2025-06-03T23:32:00.377154",
+          "last_updated": "2025-06-03T23:32:00.378166",
+          "status": "active"
+        },
+        "conversation_data": {
+          "total_messages": 0,
+          "user_messages": 0,
+          "assistant_messages": 0,
+          "conversation_start": null,
+          "conversation_end": null,
+          "conversation_pairs": [
+            {
+              "question": "When did the financial fraud incident occur? Please provide the date (YYYY-MM-DD).",
+              "answer": "2000-03-04",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "When was the fraud discovered? (HH:MM format or description)",
+              "answer": "12:33",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "Which financial institution is involved? (Bank name, credit union, etc.)",
+              "answer": "Citadel Federal Bank",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "What is the name of the victim (individual or entity)?",
+              "answer": "Westbridge Logistics LLC",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "What type of account was involved? (checking, savings, credit card, investment, etc.)",
+              "answer": "Business Checking",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "What is the account number? (Please provide only the last 4 digits for security)",
+              "answer": "8472",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "What type of financial fraud occurred? (identity theft, wire fraud, credit card fraud, etc.)",
+              "answer": "Business Email Compromise (BEC)",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "What is the financial amount involved? (Include currency if not USD)",
+              "answer": "USD 217,560.00",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "How was the fraud executed? (Describe the method used by the perpetrator)",
+              "answer": "The fraudster impersonated the company’s CFO using a spoofed email domain and instructed the finance department to urgently transfer funds to a new vendor account for a 'supply chain emergency.' The account was controlled by the fraudster and located in a Hong Kong-based shell company.",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "What suspicious activities or patterns were identified?",
+              "answer": "The email appeared to be from the CFO but used a subtly altered domain name (e.g., @company-finance.com instead of @company.com).",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "What evidence has been collected? (Digital records, documents, transaction logs, etc.)",
+              "answer": "documents",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "Are there any suspects identified? (Names, descriptions, or 'None identified')",
+              "answer": "none ",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            },
+            {
+              "question": "Any additional relevant information about this financial fraud case?",
+              "answer": "none",
+              "timestamp": "2025-06-03T23:32:00.349238"
+            }
+          ]
+        },
+        "case_details": {
+          "victim_information": {
+            "name": "Westbridge Logistics LLC",
+            "account_type": "Business Checking",
+            "account_number": "8472"
+          },
+          "fraud_information": {
+            "case_id": "02312",
+            "date_of_incident": "2000-03-04",
+            "time_of_discovery": "12:33",
+            "financial_institution": "Citadel Federal Bank",
+            "fraud_type": "Business Email Compromise (BEC)",
+            "amount_involved": "USD 217,560.00",
+            "method_used": "The fraudster impersonated the company’s CFO using a spoofed email domain and instructed the finance department to urgently transfer funds to a new vendor account for a 'supply chain emergency.' The account was controlled by the fraudster and located in a Hong Kong-based shell company."
+          },
+          "investigation_details": {
+            "suspicious_activity": "The email appeared to be from the CFO but used a subtly altered domain name (e.g., @company-finance.com instead of @company.com).",
+            "evidence_collected": "documents",
+            "suspects": "none "
+          },
+          "additional_information": {
+            "notes": "none"
+          }
+        },
+        "ai_analysis": {
+          "generated": true,
+          "generated_at": "2025-06-03T23:32:00.378166",
+          "content": "**Comprehensive Analysis: Case ID 02312 - Business Email Compromise (BEC) Fraud**\n\n### 1. **Case Assessment:**\n- **Fraud Type:** Business Email Compromise (BEC), specifically targeting a business checking account through social engineering.\n- **Severity:**\n  - **Financial Impact:** High (USD 217,560.00)\n  - **Operational Disruption:** Potential high, depending on the liquidity and operational reliance on the affected funds.\n  - **Reputational Risk:** Moderate to High, considering the breach of trust in financial protocols.\n\n### 2. **Fraud Methodology:**\n- **Execution Steps:**\n  1. **Domain Spoofing:** The fraudster created a nearly identical domain name (@company-finance.com) to the legitimate company domain (@company.com), exploiting the slight variation to evade immediate detection.\n  2. **Social Engineering:** Utilized the spoofed email to impersonate the CFO, leveraging the authority associated with the CFO’s position to create a sense of urgency (\"supply chain emergency\").\n  3. **Urgent Funds Transfer Request:** Directed the finance department to transfer funds to a Hong Kong-based shell company account, likely chosen for its anonymity and jurisdictional challenges in recovery efforts.\n- **Exploited Vulnerabilities:**\n  - Lack of stringent email verification protocols.\n  - Insufficient training on recognizing sophisticated phishing attempts.\n  - Possible weaknesses in the verification process for new vendor accounts.\n\n### 3. **Evidence Analysis:**\n- **Available Evidence:** Documents (presumably including the fraudulent email(s), transfer instructions, and possibly internal communications).\n- **Evaluation:**\n  - **Email Headers:** Analysis could reveal the email’s origin, potentially tracing back to the fraudster’s infrastructure.\n  - **Email Content:** Review for language anomalies, urgency tactics, and deviations from standard CFO communication patterns.\n  - **Transfer Documentation:** Verification of the process followed by the finance department, highlighting any bypassed controls.\n- **Gaps in Evidence:**\n  - Lack of network logs or digital forensics from the company’s email server.\n  - No suspect information, indicating a need for further investigation into the shell company and its beneficiaries.\n\n### 4. **Investigative Approach:**\n- **Immediate Actions:**\n  1. **Preserve All Evidence:** Ensure all digital and physical evidence is secured to prevent tampering.\n  2. **Internal Review:** Conduct interviews with the finance department to understand the transaction approval process.\n- **External Investigations:**\n  1. **Domain Registration Inquiry:** Investigate the registration details of @company-finance.com to identify the registrant.\n  2. **Shell Company Investigation:** Engage with Hong Kong authorities to uncover the beneficial owners of the recipient account.\n  3. **Financial Tracing:** Collaborate with Citadel Federal Bank and Hong Kong banking institutions to trace the funds, potentially utilizing SWIFT messaging analysis.\n- **Digital Forensics:**\n  - Analyze email server logs to identify any unauthorized access or suspicious login attempts.\n  - Perform a network scan for potential malware or backdoors that could have facilitated the breach.\n\n### 5. **Recovery Strategy:**\n- **Fund Recovery:**\n  1. **Immediate Freeze Request:** Work with the involved banks to freeze the recipient account, if still possible.\n  2. **Legal Action in Hong Kong:** Pursue legal remedies in the jurisdiction where the shell company is based, potentially through local legal counsel.\n  3. **International Cooperation:** Engage law enforcement agencies (e.g., FBI’s IC3 for US aspects, and Hong Kong Police’s Cybercrime Unit) for cross-border assistance.\n- **Damage Mitigation:**\n  1. **Internal Communication:** Transparently inform stakeholders to manage reputational risk.\n  2. **Operational Review:** Assess and adjust liquidity management to prevent operational disruptions.\n\n### 6. **Prevention Measures:**\n- **Technical Controls:**\n  1. **Implement DMARC:** To prevent domain spoofing by rejecting emails from unauthorized domains.\n  2. **Email Filtering:** Enhance spam and phishing filters to detect slight domain variations.\n- **Administrative Controls:**\n  1. **Dual Authorization:** Require two separate approvals for large or urgent transfers.\n  2. **Vendor Verification Process:** Strengthen protocols for adding new vendors, including out-of-band verification (e.g., phone calls).\n- **Training and Awareness:**\n  1. **Regular Phishing Simulations:** Educate employees on recognizing sophisticated BEC attempts.\n  2. **CFO Communication Protocols:** Establish clear, secure channels for urgent financial requests.\n\n### 7. **Legal Considerations:**\n- **Reporting Requirements:**\n  - **USA:** File a complaint with the FBI’s Internet Crime Complaint Center (IC3) and notify the Federal Trade Commission (FTC).\n  - **Hong Kong:** Report to the Hong Kong Police Force’s Cybercrime Unit and consider notifying the Securities and Futures Commission (SFC) if securities fraud is suspected.\n- **Relevant Laws:**\n  - **USA:** 18 U.S.C. § 1343 (Wire Fraud), 18 U.S.C. § 1029 (Fraud and Related Activity in Connection with Access Devices).\n  - **Hong Kong:** Section 59(1) of the Theft Ordinance (Cap. 210) for obtaining property by deception, and potentially the Prevention of Bribery Ordinance (Cap. 201) if corruption is involved.\n- **Civil Action:** Consider pursuing civil litigation against the perpetrators and potentially the shell company, if feasible, to recover damages."
+        },
+        "user_metadata": {
+          "session_id": "fadf6751-8c4c-41b2-908a-aa041197597b",
+          "timestamp": "2025-06-03T23:32:00.349238",
+          "analysis_completed": true,
+          "backend_source": "unified_server",
+          "endpoint": "/api/augment/finance"
+        },
+        "raw_extracted_data": {
+          "case_id": "02312",
+          "date_of_incident": "2000-03-04",
+          "time_of_discovery": "12:33",
+          "financial_institution": "Citadel Federal Bank",
+          "victim_name": "Westbridge Logistics LLC",
+          "account_type": "Business Checking",
+          "account_number": "8472",
+          "fraud_type": "Business Email Compromise (BEC)",
+          "amount_involved": "USD 217,560.00",
+          "method_used": "The fraudster impersonated the company’s CFO using a spoofed email domain and instructed the finance department to urgently transfer funds to a new vendor account for a 'supply chain emergency.' The account was controlled by the fraudster and located in a Hong Kong-based shell company.",
+          "suspicious_activity": "The email appeared to be from the CFO but used a subtly altered domain name (e.g., @company-finance.com instead of @company.com).",
+          "evidence_collected": "documents",
+          "suspects": "none ",
           "additional_notes": "none"
         }
       }

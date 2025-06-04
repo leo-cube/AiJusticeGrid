@@ -2,7 +2,7 @@
   "murder_investigations": {
     "metadata": {
       "created": "2025-01-27T23:00:00.000Z",
-      "last_updated": "2025-06-03T21:44:00.073519",
+      "last_updated": "2025-06-04T23:17:51.435758",
       "total_cases": 3,
       "version": "1.0.0",
       "description": "Persistent storage for Murder Agent investigation data and AI analysis reports"
@@ -303,8 +303,8 @@
         "case_metadata": {
           "case_id": "TN-090",
           "session_id": "session_1748967100741",
-          "created": "2025-06-03T21:44:00.070899",
-          "last_updated": "2025-06-03T21:44:00.070899",
+          "created": "2025-06-04T23:17:51.435758",
+          "last_updated": "2025-06-04T23:17:51.435758",
           "status": "active"
         },
         "conversation_data": {
@@ -382,7 +382,7 @@
         "user_metadata": {
           "request_id": "1748967100741",
           "user_id": "user",
-          "timestamp": "2025-06-03T21:44:00.060920",
+          "timestamp": "2025-06-04T23:17:51.431344",
           "pdf_generated": true,
           "title": "Murder Investigation Report",
           "analysis_type": "murder"

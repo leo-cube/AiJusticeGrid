@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     
     // In a real application, this would validate against a database
     // For now, we'll use hardcoded demo credentials
-    if (body.email === 'admin@police.gov' && body.password === 'password') {
+    if (body.email === 'admin@police.gov' && body.password === 'policecrime@586$gov') {
       // Import mock user data
       const { default: mockApi } = await import('@/mocks/api');
       const mockResponse = mockApi['/auth/login'];

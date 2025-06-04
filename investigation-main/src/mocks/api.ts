@@ -250,7 +250,7 @@ const mockApi = {
     auth: {
       demoCredentials: {
         email: 'admin@police.gov',
-        password: 'password'
+        password: 'policecrime@586$gov'
       }
     },
     api: defaultSettings.api
@@ -286,7 +286,7 @@ export const mockHandlers = {
   },
   '/auth/login': {
     post: (data: { email: string; password: string }) => {
-      if (data.email === 'admin@police.gov' && data.password === 'password') {
+      if (data.email === 'admin@police.gov' && data.password === 'policecrime@586$gov') {
         return { user: mockUser, token: 'mock-token' };
       }
       throw new Error('Invalid credentials');

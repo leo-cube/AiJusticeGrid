@@ -1,99 +1,115 @@
-# Api-key-Nvidia
+# Investigation Agents Backend System
 
-NVIDIA_API_KEY=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
+A comprehensive Python backend system for police investigations, featuring specialized AI agents for different crime types. This system provides powerful investigation tools for law enforcement officers to analyze cases, detect patterns, and generate detailed reports.
 
-# Police Investigation System
+## API Key Configuration
 
-A comprehensive web application for police investigations, financial fraud detection, and exchange matching. This system provides a user-friendly interface for law enforcement officers to manage investigations, track financial fraud cases, analyze exchange mismatches, and generate reports.
+Set your NVIDIA API key in a `.env` file:
+```
+NVIDIA_API_KEY=your_nvidia_api_key_here
+```
 
-## Augment AI Integration
+## AI Agents
 
-This system features Augment AI integration, providing specialized AI agents for different crime types:
+This system features specialized AI agents powered by NVIDIA's Llama-3.1-Nemotron-Ultra-253B model:
 
-- **Murder Agent**: Powered by NVIDIA's Llama-3.1-Nemotron-Ultra-253B model for homicide investigations
-- **Theft Agent**: Specialized in property crime analysis
-- **Financial Fraud Agent**: Expert in detecting financial crimes and patterns
-- **General Agent**: Provides overall assistance for all investigation types
+- **Murder Agent**: Expert in homicide investigations and crime scene analysis
+- **Financial Fraud Agent**: Specialized in detecting financial crimes and fraud patterns
+- **Theft Agent**: Focused on property crime analysis and theft investigations
 
 ## Features
 
-- **Authentication**: Secure login system for authorized personnel
-- **Dashboard**: Overview of active investigations, recent crimes, and key statistics
-- **Crime Section**: Map and list views of crime data with detailed information
-- **Finance Fraud**: Tools for investigating financial fraud cases and stock manipulation
-- **Exchange Matching**: Detection and analysis of suspicious exchange patterns
-- **Reports**: Generation and management of investigation reports
-- **Chat Assistant**: AI-powered assistant to help with investigations
-- **Responsive Design**: Works on desktop and mobile devices
+- **Unified Server**: Single backend server managing all investigation agents
+- **Case Management**: Persistent storage for investigation data and analysis
+- **PDF Report Generation**: Automated generation of detailed investigation reports
+- **Data Storage**: JSON-based case storage with comprehensive metadata
+- **AI Analysis**: Advanced AI-powered case analysis and recommendations
+- **RESTful API**: Clean API endpoints for agent interactions
 
 ## Technologies Used
 
-- **Frontend**: Next.js, React, Tailwind CSS
-- **Authentication**: NextAuth.js
-- **Icons**: Heroicons
-- **Charts**: Chart.js
-- **Maps**: Leaflet
+- **Backend**: Python, Flask
+- **AI Model**: NVIDIA Llama-3.1-Nemotron-Ultra-253B
+- **PDF Generation**: ReportLab
+- **Data Storage**: JSON files with structured schemas
+- **API Client**: OpenAI-compatible client for NVIDIA API
 
 ## Getting Started
 
-First, run the development server:
+1. **Install Dependencies**:
+   ```bash
+   cd Agent
+   pip install -r requirements.txt
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+2. **Set up API Key**:
+   Create a `.env` file with your NVIDIA API key:
+   ```
+   NVIDIA_API_KEY=your_nvidia_api_key_here
+   ```
+
+3. **Run the Unified Server**:
+   ```bash
+   python unified_server.py
+   ```
+
+4. **Access the API**:
+   The server runs on `http://localhost:5000` with endpoints for each agent.
+
+## Agent Usage
+
+### Murder Agent
+- Endpoint: `/murder`
+- Analyzes homicide cases through 14-question conversation flow
+- Generates comprehensive investigation reports
+
+### Financial Fraud Agent
+- Endpoint: `/finance`
+- Investigates financial fraud cases
+- Provides detailed fraud analysis and recommendations
+
+### Theft Agent
+- Endpoint: `/theft`
+- Handles property crime investigations
+- Analyzes theft patterns and provides insights
+
+## File Structure
+
+```
+investigation-main/
+├── Agent/                          # Main backend directory
+│   ├── unified_server.py           # Main server file
+│   ├── murder_agent_backend.py     # Murder investigation logic
+│   ├── murder_data_storage.py      # Data persistence
+│   ├── murder_pdf_generator.py     # PDF report generation
+│   ├── FinancialAgent/            # Financial fraud agent
+│   ├── TheftAgent/                 # Theft investigation agent
+│   ├── templates/                  # PDF templates
+│   └── requirements.txt            # Python dependencies
+├── data/                           # Configuration and saved data
+├── generated_reports/              # PDF output directory
+└── *.json                         # Investigation data files
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## API Endpoints
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `POST /murder` - Murder agent interactions
+- `POST /finance` - Financial fraud agent interactions
+- `POST /theft` - Theft agent interactions
+- `GET /health` - Server health check
+- `POST /reset/{agent}` - Reset agent conversation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Data Storage
 
-## Learn More
+Each agent maintains persistent storage:
+- **Case Data**: Structured JSON with metadata
+- **Conversation History**: Complete interaction logs
+- **AI Analysis**: Generated insights and recommendations
+- **PDF Reports**: Downloadable investigation reports
 
-To learn more about Next.js, take a look at the following resources:
+## Limitations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## Git and Large Files
-
-This repository contains some large files, particularly in the `Agent/murder datasets/` directory. Files over 100MB are excluded from Git tracking to comply with GitHub's file size limits.
-
-### Excluded Large Files
-
-The following files are excluded from Git:
-
-- `Agent/murder datasets/Crime_Data_from_2020_to_Present (1).csv` (208MB)
-- `Agent/murder datasets/database.csv` (111MB)
-
-### Using Git LFS
-
-For tracking large files, this repository is configured to use Git Large File Storage (LFS). To work with these files:
-
-1. Install Git LFS: https://git-lfs.github.com/
-2. Initialize Git LFS: `git lfs install`
-3. Clone the repository: `git clone https://github.com/your-username/investigation.git`
-4. Pull LFS files: `git lfs pull`
-
-### Sample Data
-
-For development purposes, sample data files are included in the repository:
-
-- `Agent/murder datasets/sample_murder_data.csv`
-- `Agent/murder datasets/sample_murder_data.json`
-
-You can generate these sample files using the script at `Agent/scripts/generate_sample_data.py`.
+- AI agents are tools to assist human investigators, not replace them
+- Analysis is based on provided data and may not account for all factors
+- All recommendations should be verified by human experts
+- Use as part of a broader investigative process

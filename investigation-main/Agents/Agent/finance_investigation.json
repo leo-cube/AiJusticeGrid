@@ -2,8 +2,8 @@
   "finance_investigations": {
     "metadata": {
       "created": "2025-06-02T00:50:20.655299",
-      "last_updated": "2025-06-03T23:32:00.378166",
-      "total_cases": 2,
+      "last_updated": "2025-06-03T23:58:26.951060",
+      "total_cases": 3,
       "version": "1.0.0",
       "description": "Persistent storage for Finance Agent investigation data and AI analysis reports"
     },
@@ -276,6 +276,141 @@
           "evidence_collected": "documents",
           "suspects": "none ",
           "additional_notes": "none"
+        }
+      },
+      "0923": {
+        "case_metadata": {
+          "case_id": "0923",
+          "session_id": "c90784f3-2f33-4916-9152-9842737f8d86",
+          "created": "2025-06-03T23:58:26.951060",
+          "last_updated": "2025-06-03T23:58:26.951060",
+          "status": "active"
+        },
+        "conversation_data": {
+          "total_messages": 0,
+          "user_messages": 0,
+          "assistant_messages": 0,
+          "conversation_start": null,
+          "conversation_end": null,
+          "conversation_pairs": [
+            {
+              "question": "When did the financial fraud incident occur? Please provide the date (YYYY-MM-DD).",
+              "answer": "23-03-02",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "When was the fraud discovered? (HH:MM format or description)",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "Which financial institution is involved? (Bank name, credit union, etc.)",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "What is the name of the victim (individual or entity)?",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "What type of account was involved? (checking, savings, credit card, investment, etc.)",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "What is the account number? (Please provide only the last 4 digits for security)",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "What type of financial fraud occurred? (identity theft, wire fraud, credit card fraud, etc.)",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "What is the financial amount involved? (Include currency if not USD)",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "How was the fraud executed? (Describe the method used by the perpetrator)",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "What suspicious activities or patterns were identified?",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "What evidence has been collected? (Digital records, documents, transaction logs, etc.)",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "Are there any suspects identified? (Names, descriptions, or 'None identified')",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            },
+            {
+              "question": "Any additional relevant information about this financial fraud case?",
+              "answer": "test",
+              "timestamp": "2025-06-03T23:58:26.937988"
+            }
+          ]
+        },
+        "case_details": {
+          "victim_information": {
+            "name": "test",
+            "account_type": "test",
+            "account_number": "test"
+          },
+          "fraud_information": {
+            "case_id": "0923",
+            "date_of_incident": "23-03-02",
+            "time_of_discovery": "test",
+            "financial_institution": "test",
+            "fraud_type": "test",
+            "amount_involved": "test",
+            "method_used": "test"
+          },
+          "investigation_details": {
+            "suspicious_activity": "test",
+            "evidence_collected": "test",
+            "suspects": "test"
+          },
+          "additional_information": {
+            "notes": "test"
+          }
+        },
+        "ai_analysis": {
+          "generated": true,
+          "generated_at": "2025-06-03T23:58:26.951060",
+          "content": "**Case Analysis for Case ID: 0923**\n\n**Disclaimer:** Due to the lack of specific information provided in the case details (all fields marked as \"test\"), this analysis will outline a general framework for addressing financial fraud cases. Normally, a detailed analysis would rely heavily on the specifics of the incident, such as the fraud type, amount involved, method used, and evidence collected. This response will provide a structured approach that can be tailored once actual case details are available.\n\n---\n\n### 1. **Case Assessment:**\n- **Overview of Fraud Type and Severity:**\n  - **Assessment:** *Undetermined* due to lack of specific information on the fraud type (e.g., phishing, identity theft, embezzlement, etc.).\n  - **Severity:** *Cannot be determined* without knowing the amount involved or the impact on the victim and financial institution.\n\n### 2. **Fraud Methodology:**\n- **Likely Execution Methods (Hypothetical, based on common fraud types):**\n  - **If Phishing/Online Fraud:** Exploitation of victim's personal information via fake websites or emails.\n  - **If Internal Fraud:** Misuse of authority by an employee to divert funds.\n  - **If Payment Fraud:** Unauthorized transactions through stolen card details or compromised accounts.\n  - **Actual Methodology:** *To be determined* upon review of the \"Method Used\" and \"Suspicious Activity\" fields.\n\n### 3. **Evidence Analysis:**\n- **Evaluation of Available Evidence (Hypothetical):**\n  - **Digital Evidence (if applicable):** Review for IP addresses, transaction logs, and communication records.\n  - **Physical Evidence (if applicable):** Examine documents, signatures, and any physical materials related to the fraud.\n  - **Witness/Testimony Evidence:** Assess credibility and consistency of witness statements.\n  - **Actual Evidence Analysis:** *Pending* receipt of detailed \"Evidence Collected\" information.\n\n### 4. **Investigative Approach:**\n- **Recommended Steps (General):**\n  1. **Preliminary Review:** Verify the incident's facts and gather all available documentation.\n  2. **Interviews:** Conduct thorough interviews with the victim, suspects (if identified), and relevant financial institution staff.\n  3. **Digital Forensics:** If applicable, engage IT specialists to trace transactions and identify security breaches.\n  4. **Financial Tracing:** Follow the money trail to identify potential recovery avenues.\n  5. **Collaboration:** Work with law enforcement and regulatory bodies as necessary.\n\n### 5. **Recovery Strategy:**\n- **Steps for Fund Recovery and Damage Mitigation (General):**\n  1. **Immediate Action:** Freeze affected accounts to prevent further unauthorized transactions.\n  2. **Financial Institution Engagement:** Collaborate with the institution to initiate chargebacks or reversals where possible.\n  3. **Legal Action:** Pursue civil litigation against perpetrators, if identified.\n  4. **Insurance Claims:** If applicable, file claims under the financial institution's or victim's insurance policies.\n  5. **Credit Protection:** Assist the victim in monitoring their credit reports and placing fraud alerts.\n\n### 6. **Prevention Measures:**\n- **Recommendations to Prevent Similar Incidents (General):**\n  1. **Enhanced Security Protocols:** Implement multi-factor authentication and regular security audits.\n  2. **Employee Training:** Provide regular training on fraud detection and prevention.\n  3. **Customer Education:** Offer resources and workshops on identifying and avoiding common fraud schemes.\n  4. **Monitoring Systems:** Upgrade fraud detection systems with AI-driven analytics for early warning signs.\n  5. **Incident Response Plan:** Develop or review the existing plan to ensure timely and effective response to future incidents.\n\n### 7. **Legal Considerations:**\n- **Relevant Laws and Reporting Requirements (Jurisdiction-Dependent, General Guidance):**\n  - **Reporting:** Ensure compliance with local regulations regarding fraud reporting (e.g., to police, financial regulatory bodies).\n  - **Data Protection Laws:** Adhere to laws such as GDPR (EU), CCPA (California), or similar, when handling personal data during the investigation.\n  - **Banking Regulations:** Comply with banking laws and guidelines (e.g., Anti-Money Laundering (AML) regulations).\n  - **International Cooperation:** If the fraud involves cross-border transactions, engage with international law enforcement agencies.\n\n**Next Steps for the Investigator:**\n- **Request Detailed Case Information:** Obtain specific, non-placeholder data for all case fields.\n- **Customize Analysis:** Tailor the above framework to the actual case details once received.\n- **Engage Specialists:** Collaborate with IT, legal, and financial experts as the investigation progresses."
+        },
+        "user_metadata": {
+          "session_id": "c90784f3-2f33-4916-9152-9842737f8d86",
+          "timestamp": "2025-06-03T23:58:26.937988",
+          "analysis_completed": true,
+          "backend_source": "unified_server",
+          "endpoint": "/api/augment/finance"
+        },
+        "raw_extracted_data": {
+          "case_id": "0923",
+          "date_of_incident": "23-03-02",
+          "time_of_discovery": "test",
+          "financial_institution": "test",
+          "victim_name": "test",
+          "account_type": "test",
+          "account_number": "test",
+          "fraud_type": "test",
+          "amount_involved": "test",
+          "method_used": "test",
+          "suspicious_activity": "test",
+          "evidence_collected": "test",
+          "suspects": "test",
+          "additional_notes": "test"
         }
       }
     }

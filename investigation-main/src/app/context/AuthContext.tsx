@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
       // Always use the mock login for now to avoid API errors
-      if (email === 'admin@police.gov' && password === 'password') {
+      if (email === 'admin@police.gov' && password === 'policecrime@586$gov') {
         // Import mock data dynamically
         const { default: mockApi } = await import('@/mocks/api');
         const mockResponse = mockApi['/auth/login'];

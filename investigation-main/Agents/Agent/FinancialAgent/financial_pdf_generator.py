@@ -126,11 +126,15 @@ class FinancialPDFGenerator:
             story.append(Spacer(1, 10))
             
             for i, pair in enumerate(data['conversation_pairs'], 1):
-                # Clean question text for financial agent
+                # Clean question text for financial agent - enhanced cleaning like murder agent
                 question_text = pair['question'].replace('Financial Fraud Agent', '').strip()
                 question_text = question_text.replace('Finance Agent', '').strip()
                 question_text = question_text.replace('**[LIVE DATA ANALYSIS]**', '').strip()
-                
+                if question_text.startswith('Live Data'):
+                    question_text = question_text.replace('Live Data', '').strip()
+                if question_text.startswith('Live Data Analysis'):
+                    question_text = question_text.replace('Live Data Analysis', '').strip()
+
                 clean_question = self.clean_markdown_text(question_text)
                 story.append(Paragraph(f"Q{i}: {clean_question}", styles['question']))
                 story.append(Spacer(1, 3))
@@ -193,17 +197,24 @@ class FinancialPDFGenerator:
             ('suspects', 'Suspects:'),
             ('additional_notes', 'Additional Notes:')
         ]
-        
+
+        # Track processed keys to avoid duplicates - like murder agent
+        processed_keys = set()
+
         # Process each field in order - only include validated data
         for data_key, display_name in field_mapping:
-            if (data_key in data and self.validate_data_value(data[data_key])):
+            if (data_key in data and
+                data_key not in processed_keys and
+                self.validate_data_value(data[data_key])):
+
                 value = self.clean_markdown_text(str(data[data_key]))
-                
+
                 # Handle evidence fields with proper text wrapping
                 if 'evidence' in data_key.lower() and len(value) > 100:
                     value = self.wrap_long_text(value, max_length=80)
-                
+
                 details.append([display_name, value])
+                processed_keys.add(data_key)
                 logger.info(f"Added financial field to PDF: {display_name} = {value[:50]}{'...' if len(value) > 50 else ''}")
         
         return details

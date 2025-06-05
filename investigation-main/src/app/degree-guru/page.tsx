@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import UnifiedAgentChat from '@/app/components/chat/UnifiedAgentChat';
 import { useChat } from '@/app/context/ChatContext';
 import { AgentType } from '@/app/types';
 
-export default function DegreeGuruPage() {
+function DegreeGuruContent() {
   const searchParams = useSearchParams();
   const agentType = searchParams.get('agent') as AgentType || 'degree-guru';
-  const { setCurrentAgent, currentAgent, currentContext } = useChat();
+  const { setCurrentAgent, currentAgent } = useChat();
 
   // Set the current agent based on the URL parameter
   useEffect(() => {
@@ -34,5 +34,13 @@ export default function DegreeGuruPage() {
         />
       </div>
     </div>
+  );
+}
+
+export default function DegreeGuruPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DegreeGuruContent />
+    </Suspense>
   );
 }

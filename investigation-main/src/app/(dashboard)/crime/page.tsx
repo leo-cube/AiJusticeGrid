@@ -11,7 +11,7 @@ import defaultSettings from '@/config/defaultSettings.json';
 
 export default function CrimePage() {
   const router = useRouter();
-  const [crimeAgents, setCrimeAgents] = useState<any[]>([]);
+  const [crimeAgents, setCrimeAgents] = useState<Agent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -55,7 +55,7 @@ export default function CrimePage() {
           // Check if the agent is a crime agent
           const isCrimeAgent =
             crimeAgentIds.includes(agent.id) ||
-            agent.crimeType; // Include any agent with a crimeType property
+            (agent as Agent & { crimeType?: string }).crimeType; // Include any agent with a crimeType property
 
           // Check if the agent is explicitly enabled (must be true)
           const isEnabled = enabledAgentsData[agent.id as keyof typeof enabledAgentsData] === true;
@@ -105,9 +105,7 @@ export default function CrimePage() {
     fetchEnabledAgents();
   }, []);
 
-  const handleAgentSelect = (agentType: AgentType) => {
-    router.push(`/degree-guru?agent=${agentType}`);
-  };
+  // Removed unused handleAgentSelect function
 
   return (
     <div className="space-y-6">

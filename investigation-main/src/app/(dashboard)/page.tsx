@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/app/context/AuthContext';
 import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Card';
 import { ChartBarIcon, DocumentTextIcon, UserGroupIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import defaultSettings from '@/config/defaultSettings.json';
+// Removed unused import: defaultSettings
 
 interface DashboardStats {
   id: number;
@@ -18,8 +18,8 @@ interface DashboardStats {
 
 interface DashboardData {
   stats: DashboardStats[];
-  recentCrimes: any[];
-  agentStatus: any[];
+  recentCrimes: Record<string, unknown>[];
+  agentStatus: Record<string, unknown>[];
 }
 
 export default function DashboardPage() {
@@ -133,7 +133,7 @@ export default function DashboardPage() {
           Welcome back, {user?.name || 'Officer'}
         </h1>
         <p className="text-gray-600 mt-1">
-          Here's what's happening with your investigations today.
+          Here&apos;s what&apos;s happening with your investigations today.
         </p>
       </div>
 

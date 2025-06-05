@@ -301,32 +301,42 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
         agent_type = self.detect_agent_type(data)
 
         try:
+            # Use relative imports with proper error handling
             if agent_type == 'financial':
-                # Use specialized Financial Agent PDF generator
-                from FinancialAgent.financial_pdf_generator import FinancialPDFGenerator
-                financial_generator = FinancialPDFGenerator()
-                return financial_generator.generate_financial_pdf(data)
-
+                try:
+                    # Use specialized Financial Agent PDF generator
+                    from FinancialAgent.financial_pdf_generator import FinancialPDFGenerator
+                    financial_generator = FinancialPDFGenerator()
+                    return financial_generator.generate_financial_pdf(data)
+                except ImportError as e:
+                    logger.warning(f"Could not import financial PDF generator: {e}")
+                    # Fall back to legacy generation
+            
             elif agent_type == 'theft':
-                # Use specialized Theft Agent PDF generator
-                from TheftAgent.theft_pdf_generator import TheftPDFGenerator
-                theft_generator = TheftPDFGenerator()
-                return theft_generator.generate_theft_pdf(data)
-
+                try:
+                    # Use specialized Theft Agent PDF generator
+                    from TheftAgent.theft_pdf_generator import TheftPDFGenerator
+                    theft_generator = TheftPDFGenerator()
+                    return theft_generator.generate_theft_pdf(data)
+                except ImportError as e:
+                    logger.warning(f"Could not import theft PDF generator: {e}")
+                    # Fall back to legacy generation
+            
             elif agent_type == 'murder':
-                # Use specialized Murder Agent PDF generator
-                from murder_pdf_generator import MurderPDFGenerator
-                murder_generator = MurderPDFGenerator()
-                return murder_generator.generate_murder_pdf(data)
+                try:
+                    # Use specialized Murder Agent PDF generator
+                    from murder_pdf_generator import MurderPDFGenerator
+                    murder_generator = MurderPDFGenerator()
+                    return murder_generator.generate_murder_pdf(data)
+                except ImportError as e:
+                    logger.warning(f"Could not import murder PDF generator: {e}")
+                    # Fall back to legacy generation
+            
+            # Default to legacy generation method
+            return self.generate_legacy_pdf(data, analysis_type)
 
-            else:
-                # Default to murder format for backward compatibility
-                from murder_pdf_generator import MurderPDFGenerator
-                murder_generator = MurderPDFGenerator()
-                return murder_generator.generate_murder_pdf(data)
-
-        except ImportError as e:
-            logger.warning(f"Could not import specialized PDF generator: {e}")
+        except Exception as e:
+            logger.error(f"Error in PDF generation routing: {e}")
             # Fall back to legacy generation method
             return self.generate_legacy_pdf(data, analysis_type)
 
@@ -1237,3 +1247,31 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
                 details.append(f"{formatted_key}: {str(value).strip()}")
 
         return details
+
+    def optimize_image_for_pdf(self, image_data, max_size=(800, 800)):
+        """Optimize images to reduce PDF size and memory usage."""
+        try:
+            from PIL import Image
+            import io
+            
+            # Open the image from bytes
+            img = Image.open(io.BytesIO(image_data))
+            
+            # Resize if needed
+            if img.width > max_size[0] or img.height > max_size[1]:
+                img.thumbnail(max_size)
+            
+            # Convert to RGB if RGBA
+            if img.mode == 'RGBA':
+                background = Image.new('RGB', img.size, (255, 255, 255))
+                background.paste(img, mask=img.split()[3])
+                img = background
+            
+            # Save optimized image
+            output = io.BytesIO()
+            img.save(output, format='JPEG', quality=85, optimize=True)
+            output.seek(0)
+            return output.getvalue()
+        except Exception as e:
+            logger.warning(f"Image optimization failed: {e}")
+            return image_data

@@ -1,3 +1,4 @@
+import asyncio
 from flask import Flask, request, jsonify, session, send_file
 from flask_cors import CORS
 import os
@@ -2193,122 +2194,71 @@ def murder_agent_sample():
 
 # Enhanced PDF Generation endpoint with AI analysis
 @app.route('/api/generate-pdf', methods=['POST'])
-def generate_pdf():
+async def generate_pdf():
     """Generate a PDF report from user data with AI analysis."""
     logger.info("Received request for enhanced PDF generation")
-
+    
     try:
-        # Get request data
-        request_data = request.json
-        if not request_data:
-            return jsonify({
-                "success": False,
-                "error": "No data provided"
-            }), 400
-
-        # Extract parameters
-        title = request_data.get('title', 'AI Analysis Report')
-        analysis_type = request_data.get('analysisType', 'general')
-        data = request_data.get('data', {})
-        messages = request_data.get('messages', [])
-        include_ai_analysis = request_data.get('includeAIAnalysis', True)
-        agent_type = request_data.get('agentType', 'general')
-
-        # Add metadata
-        data.update({
-            'requestId': request_data.get('userMetadata', {}).get('requestId', str(datetime.now().timestamp())),
-            'sessionId': request_data.get('userMetadata', {}).get('sessionId', 'unknown'),
-            'userId': request_data.get('userMetadata', {}).get('userId', 'unknown')
-        })
-
-        # If messages are provided, extract additional data
-        if messages:
-            extracted_data = extract_data_from_chat_messages(messages)
-            data.update(extracted_data)
-
-        # Map agent types to analysis types
-        analysis_type_mapping = {
+        # Get data from request
+        data = request.json
+        if not data:
+            return jsonify({"success": False, "error": "No data provided"}), 400
+            
+        # Extract title and agent type
+        title = data.get('title', 'Investigation Report')
+        agent_type = data.get('agent_type', 'murder').lower()
+        
+        # Map analysis type
+        mapped_analysis_type = {
             'murder': 'murder',
-            'theft': 'theft',
+            'homicide': 'murder',
+            'financial': 'financial',
             'fraud': 'fraud',
-            'financial-fraud': 'fraud',
-            'general': 'general'
-        }
-
-        mapped_analysis_type = analysis_type_mapping.get(agent_type, analysis_type)
-
-        # Store Murder Agent investigation data if this is a murder case
-        ai_analysis_content = None
-        if agent_type == 'murder' and MURDER_STORAGE_AVAILABLE and messages:
-            try:
-                # Extract case ID and session ID
-                case_id = data.get('case_id') or data.get('requestId', str(datetime.now().timestamp()))
-                session_id = data.get('sessionId', 'unknown')
-
-                # Get conversation pairs from extracted data
-                conversation_pairs = extracted_data.get('conversation_pairs', [])
-
-                # Prepare user metadata
-                user_metadata = {
-                    'request_id': data.get('requestId'),
-                    'user_id': data.get('userId'),
-                    'timestamp': datetime.now().isoformat(),
-                    'pdf_generated': True,
-                    'title': title,
-                    'analysis_type': mapped_analysis_type
-                }
-
-                logger.info(f"Storing Murder Agent investigation data for case {case_id}")
-
-                # Store the investigation data (without AI analysis for now)
-                murder_storage.store_investigation_data(
-                    case_id=case_id,
-                    session_id=session_id,
-                    extracted_data=extracted_data,
-                    conversation_pairs=conversation_pairs,
-                    ai_analysis=None,  # Will be updated after generation
-                    user_metadata=user_metadata
-                )
-
-            except Exception as e:
-                logger.error(f"Error storing Murder Agent data: {e}")
-                # Continue with PDF generation even if storage fails
-
-        # Initialize PDF generator
+            'theft': 'theft'
+        }.get(agent_type, 'general')
+        
+        # Initialize PDF generator with proper waiting
         try:
             from dynamic_pdf_generator import DynamicPDFGenerator
             pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
-
-            # Generate the PDF in investigation format (only case details and analysis)
-            pdf_buffer = pdf_generator.generate_investigation_pdf(
+            
+            # Generate the PDF with explicit waiting
+            pdf_buffer = await asyncio.to_thread(
+                pdf_generator.generate_investigation_pdf,
                 data=data,
                 analysis_type=mapped_analysis_type
             )
-
-            # If this is a murder case, capture the AI analysis that was generated
+            
+            # If this is a murder case, capture the AI analysis with explicit waiting
             if agent_type == 'murder' and MURDER_STORAGE_AVAILABLE:
                 try:
-                    # Generate AI analysis separately to capture it
-                    ai_analysis_content = pdf_generator.generate_ai_analysis(data, mapped_analysis_type)
-
+                    ai_analysis_content = await asyncio.to_thread(
+                        pdf_generator.generate_ai_analysis,
+                        data, 
+                        mapped_analysis_type
+                    )
+                    
                     # Update the stored case with the AI analysis
                     case_id = data.get('case_id') or data.get('requestId', str(datetime.now().timestamp()))
-                    murder_storage.update_ai_analysis(case_id, ai_analysis_content)
+                    await asyncio.to_thread(
+                        murder_storage.update_ai_analysis,
+                        case_id, 
+                        ai_analysis_content
+                    )
                     logger.info(f"Updated case {case_id} with AI analysis")
-
+                    
                 except Exception as e:
                     logger.error(f"Error capturing AI analysis for storage: {e}")
-
         except ImportError:
             logger.warning("Dynamic PDF generator not available, using fallback")
-            # Fallback to existing PDF generation
-            pdf_buffer = generate_incident_pdf(data)
-
-        # Create a unique filename
+            # Fallback to existing PDF generation with explicit waiting
+            pdf_buffer = await asyncio.to_thread(generate_incident_pdf, data)
+            
+        # Create a unique filename that doesn't reference local paths
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         safe_title = title.replace(' ', '_').replace('/', '_')[:50]
         filename = f"{safe_title}_{timestamp}.pdf"
-
+        
         # Return the PDF as a file download
         return send_file(
             pdf_buffer,
@@ -2316,7 +2266,6 @@ def generate_pdf():
             download_name=filename,
             mimetype='application/pdf'
         )
-
     except Exception as e:
         logger.error(f"Error generating PDF: {str(e)}")
         return jsonify({

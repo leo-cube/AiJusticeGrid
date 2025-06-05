@@ -53,125 +53,76 @@ class MurderPDFGenerator:
         """
         buffer = BytesIO()
         
-        # Create the PDF document with proper margins
-        doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
-                               topMargin=72, bottomMargin=18)
-        
-        # Get custom styles
-        styles = self.create_murder_styles()
-        
-        # Build the story (content)
-        story = []
-        
-        # Murder Agent specific title
-        story.append(Paragraph("HOMICIDE INVESTIGATION REPORT", styles['title']))
-        story.append(Spacer(1, 20))
-        
-        # Murder Agent specific header
-        header_data = []
-        if data.get('case_id'):
-            header_data.append(['Case ID:', data.get('case_id')])
-        
-        header_data.append(['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
-        
-        if data.get('crime_date') or data.get('date'):
-            crime_date = data.get('crime_date') or data.get('date')
-            header_data.append(['Investigation Date:', crime_date])
-        
-        header_data.append(['Status:', 'Under Investigation'])
-        header_data.append(['Report Type:', 'Homicide Investigation Report'])
-        
-        header_table = Table(header_data, colWidths=[2*inch, 4*inch])
-        header_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f2f2f2')),
-            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-            ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 0), (-1, -1), 10),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black),
-            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ]))
-        
-        story.append(header_table)
-        story.append(Spacer(1, 20))
-        
-        # Murder case details section
-        story.append(Paragraph("CRIME SCENE DETAILS:", styles['section_header']))
-        story.append(Paragraph("=" * 50, styles['separator']))
-        story.append(Spacer(1, 10))
-        
-        # Murder specific case details
-        case_details = self.format_murder_case_details(data)
-        if case_details:
-            details_table = Table(case_details, colWidths=[2*inch, 4*inch])
-            details_table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
-                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-                ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-                ('FONTSIZE', (0, 0), (-1, -1), 10),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-                ('WORDWRAP', (0, 0), (-1, -1), True),
-            ]))
-            story.append(details_table)
-        
-        story.append(Spacer(1, 20))
-        
-        # Add conversation section if available
-        if 'conversation_pairs' in data and data['conversation_pairs']:
-            story.append(Paragraph("INVESTIGATION INTERVIEW:", styles['section_header']))
-            story.append(Paragraph("=" * 50, styles['separator']))
-            story.append(Spacer(1, 10))
-            
-            for i, pair in enumerate(data['conversation_pairs'], 1):
-                # Clean question text for murder agent
-                question_text = pair['question'].replace('Murder Agent', '').strip()
-                question_text = question_text.replace('**[LIVE DATA ANALYSIS]**', '').strip()
-                if question_text.startswith('Live Data'):
-                    question_text = question_text.replace('Live Data', '').strip()
-                if question_text.startswith('Live Data Analysis'):
-                    question_text = question_text.replace('Live Data Analysis', '').strip()
-                
-                clean_question = self.clean_markdown_text(question_text)
-                story.append(Paragraph(f"Q{i}: {clean_question}", styles['question']))
-                story.append(Spacer(1, 3))
-                
-                clean_answer = self.clean_markdown_text(pair['answer'])
-                story.append(Paragraph(f"A{i}: {clean_answer}", styles['answer']))
-                story.append(Spacer(1, 8))
-            
-            story.append(Spacer(1, 15))
-        
-        # Murder analysis section
-        story.append(Paragraph("FORENSIC ANALYSIS:", styles['section_header']))
-        story.append(Paragraph("=" * 50, styles['separator']))
-        story.append(Spacer(1, 10))
-        
         try:
-            ai_analysis = self.generate_murder_analysis(data)
-            clean_analysis = self.clean_markdown_text(ai_analysis)
-            analysis_paragraphs = clean_analysis.split('\n\n')
-            for paragraph in analysis_paragraphs:
-                paragraph = paragraph.strip()
-                if paragraph:
-                    story.append(Paragraph(paragraph, styles['analysis_text']))
-                    story.append(Spacer(1, 6))
+            # Create the PDF document with proper margins
+            doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
+                                   topMargin=72, bottomMargin=18)
+            
+            # Get custom styles
+            styles = self.create_murder_styles()
+            
+            # Build the story (content)
+            story = []
+            
+            # Murder Agent specific title
+            story.append(Paragraph("HOMICIDE INVESTIGATION REPORT", styles['title']))
+            story.append(Spacer(1, 20))
+            
+            # Murder Agent specific header
+            header_data = []
+            if data.get('case_id'):
+                header_data.append(['Case ID:', data.get('case_id')])
+            
+            header_data.append(['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+            
+            if data.get('crime_date') or data.get('date'):
+                crime_date = data.get('crime_date') or data.get('date')
+                header_data.append(['Investigation Date:', crime_date])
+            
+            # Add header table
+            if header_data:
+                header_table = Table(header_data, colWidths=[1.5*inch, 5*inch])
+                header_table.setStyle(TableStyle([
+                    ('FONTNAME', (0, 0), (-1, -1), 'Helvetica-Bold'),
+                    ('FONTSIZE', (0, 0), (-1, -1), 10),
+                    ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+                    ('TOPPADDING', (0, 0), (-1, -1), 6),
+                    ('ALIGN', (0, 0), (0, -1), 'RIGHT'),
+                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                ]))
+                story.append(header_table)
+                story.append(Spacer(1, 15))
+            
+            # Build the PDF
+            doc.build(story)
+            buffer.seek(0)
+            
+            # Validate PDF integrity
+            if buffer.getbuffer().nbytes < 100:  # If PDF is too small, it's likely corrupted
+                logger.error("Generated PDF is too small, likely corrupted")
+                # Create a simple error PDF instead
+                buffer = BytesIO()
+                doc = SimpleDocTemplate(buffer, pagesize=A4)
+                story = [Paragraph("Error: PDF generation failed. Please try again.", styles['title'])]
+                doc.build(story)
+                buffer.seek(0)
+            
+            return buffer
+            
         except Exception as e:
-            logger.error(f"Error generating murder analysis: {str(e)}")
-            story.append(Paragraph(f"Error generating analysis: {str(e)}", styles['analysis_text']))
-        
-        # Footer
-        story.append(Spacer(1, 30))
-        footer_text = f"Generated by Homicide Investigation System - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        story.append(Paragraph(footer_text, styles['footer']))
-        
-        # Build the PDF
-        doc.build(story)
-        buffer.seek(0)
-        return buffer
+            logger.error(f"Error in murder PDF generation: {str(e)}")
+            # Create a simple error PDF
+            buffer = BytesIO()
+            try:
+                doc = SimpleDocTemplate(buffer, pagesize=A4)
+                styles = getSampleStyleSheet()
+                story = [Paragraph(f"Error generating PDF: {str(e)}", styles['Title'])]
+                doc.build(story)
+            except:
+                # If even the error PDF fails, return a text message
+                buffer.write(f"Error generating PDF: {str(e)}".encode('utf-8'))
+            buffer.seek(0)
+            return buffer
     
     def format_murder_case_details(self, data: Dict[str, Any]) -> List[List[str]]:
         """
@@ -429,7 +380,7 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
         return "\n".join(formatted_data)
 
     def call_nvidia_api(self, user_prompt: str, system_prompt: str) -> str:
-        """Call NVIDIA API for AI analysis."""
+        """Call NVIDIA API for AI analysis with improved timeout handling."""
         try:
             url = "https://integrate.api.nvidia.com/v1/chat/completions"
             headers = {
@@ -447,12 +398,19 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
                 "max_tokens": 2000
             }
 
-            response = requests.post(url, headers=headers, json=payload, timeout=30)
+            # Increased timeout for Render's environment
+            response = requests.post(url, headers=headers, json=payload, timeout=60)
             response.raise_for_status()
 
             result = response.json()
             return result['choices'][0]['message']['content']
 
+        except requests.exceptions.Timeout:
+            logger.error("NVIDIA API request timed out")
+            return "Analysis generation timed out. The server may be experiencing high load. Please try again later."
+        except requests.exceptions.RequestException as e:
+            logger.error(f"NVIDIA API request error: {str(e)}")
+            return f"Error connecting to analysis service: {str(e)}"
         except Exception as e:
             logger.error(f"Error calling NVIDIA API: {str(e)}")
             return f"Error generating AI analysis: {str(e)}"

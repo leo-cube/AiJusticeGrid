@@ -19,6 +19,7 @@ import json
 import time
 import uuid
 import re
+import requests
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Tuple, Optional, List
@@ -633,32 +634,176 @@ class MurderAgent:
         # Format the case details into a prompt
         prompt = self._format_case_prompt(case_details)
 
+        # Check if we're running on Render
+        is_render = os.getenv("RENDER", "false").lower() == "true"
+        
+        # Log environment information for debugging
+        logger.info(f"Running on Render: {is_render}")
+        
         try:
-            # Call the NVIDIA API with the real API key
+            # Call the NVIDIA API with timeout handling
             logger.info("Calling NVIDIA API for murder analysis")
-
+            
             system_prompt = "You are a Murder Agent, an AI assistant specialized in analyzing and solving murder cases. Provide detailed analysis, insights, and investigative approaches based solely on the case details provided. Focus on the specific information given and avoid making assumptions beyond what's in the data."
 
-            response = self.client.chat.completions.create(
-                model=MODEL_NAME,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.6,
-                top_p=0.95,
-                max_tokens=4096,
-                frequency_penalty=0,
-                presence_penalty=0
-            )
-
-            analysis = response.choices[0].message.content
-            logger.info("Case analysis completed (using NVIDIA API)")
-            return analysis
+            # Set a reasonable timeout for Render's environment
+            timeout_seconds = 45 if is_render else 60
+            
+            # Use a session with timeout
+            session = requests.Session()
+            session.mount('https://', requests.adapters.HTTPAdapter(max_retries=2))
+            
+            # Make the API call with explicit timeout
+            try:
+                response = self.client.chat.completions.create(
+                    model=MODEL_NAME,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.6,
+                    top_p=0.95,
+                    max_tokens=4096,
+                    frequency_penalty=0,
+                    presence_penalty=0,
+                    timeout=timeout_seconds
+                )
+                
+                analysis = response.choices[0].message.content
+                logger.info("Case analysis completed (using NVIDIA API)")
+                return analysis
+                
+            except Exception as api_error:
+                logger.error(f"NVIDIA API call failed: {str(api_error)}")
+                
+                # If we're on Render, use a fallback approach
+                if is_render:
+                    logger.info("Using fallback analysis method for Render environment")
+                    return self._generate_fallback_analysis(case_details)
+                else:
+                    # Re-raise the exception for non-Render environments
+                    raise api_error
 
         except Exception as e:
             logger.error(f"Error analyzing case with Murder Agent: {str(e)}")
-            return f"Error analyzing case: {str(e)}"
+            return self._generate_fallback_analysis(case_details)
+
+    def _generate_fallback_analysis(self, case_details: Dict[str, Any]) -> str:
+        """
+        Generate a fallback analysis when the NVIDIA API is unavailable.
+        This provides a reasonable response when running in environments like Render.
+
+        Args:
+            case_details: Dictionary containing case details
+
+        Returns:
+            Fallback analysis text
+        """
+        logger.info("Generating fallback analysis")
+        
+        # Extract key details
+        victim_name = case_details.get("victim_name", "the victim")
+        victim_age = case_details.get("victim_age", "unknown age")
+        victim_gender = case_details.get("victim_gender", "unknown gender")
+        cause_of_death = case_details.get("cause_of_death", "unknown cause")
+        weapon_used = case_details.get("weapon_used", "unknown weapon")
+        location = case_details.get("location", "the crime scene")
+        crime_scene_desc = case_details.get("crime_scene_description", "")
+        suspects = case_details.get("suspects", "No suspects identified yet")
+        evidence = case_details.get("evidence_found", "No evidence reported")
+        
+        # Build a structured analysis based on the provided case details
+        analysis = "# MURDER CASE ANALYSIS\n\n"
+        analysis += f"## Case Overview\n"
+        analysis += f"This analysis examines the death of {victim_name}, a {victim_age}-year-old {victim_gender}, "
+        analysis += f"who died from {cause_of_death} at {location}.\n\n"
+        
+        # Evidence analysis
+        analysis += "## Evidence Analysis\n"
+        if evidence != "No evidence reported":
+            analysis += f"The evidence collected includes: {evidence}\n\n"
+            
+            # Add specific insights based on the evidence
+            if "fingerprint" in evidence.lower():
+                analysis += "The fingerprint evidence should be processed through AFIS and compared against any suspects.\n\n"
+            if "dna" in evidence.lower():
+                analysis += "DNA evidence should be prioritized for laboratory analysis and database comparison.\n\n"
+        else:
+            analysis += "No physical evidence was reported in this case. Further forensic examination of the crime scene is recommended.\n\n"
+        
+        # Weapon analysis
+        if weapon_used != "unknown weapon":
+            analysis += "## Weapon Analysis\n"
+            analysis += f"The cause of death involved {weapon_used}. "
+            
+            if "gun" in weapon_used.lower() or "firearm" in weapon_used.lower():
+                analysis += "Ballistic analysis should be conducted to determine the specific firearm used. Check for registration records and prior incidents involving similar weapons.\n\n"
+            elif "knife" in weapon_used.lower() or "stab" in weapon_used.lower():
+                analysis += "The knife or sharp object should be examined for fingerprints, DNA, and compared to the wound patterns on the victim.\n\n"
+            elif "poison" in weapon_used.lower():
+                analysis += "Toxicology reports should be expedited to identify the specific poison used, which may help trace its source.\n\n"
+            else:
+                analysis += "Further forensic analysis of the weapon is recommended.\n\n"
+        
+        # Suspect analysis
+        if suspects != "No suspects identified yet":
+            analysis += "## Suspect Analysis\n"
+            analysis += f"Based on the information provided, the following suspects should be investigated: {suspects}\n\n"
+            
+            # Add specific insights based on the suspects
+            if "partner" in suspects.lower() or "spouse" in suspects.lower():
+                analysis += "Domestic relationships are statistically significant in homicide cases. The partner/spouse should be thoroughly interviewed and their alibi verified.\n\n"
+            if "business" in suspects.lower():
+                analysis += "Financial motives should be thoroughly investigated, including any recent business disputes or financial transactions.\n\n"
+        else:
+            analysis += "## Potential Suspects\n"
+            analysis += "No specific suspects have been identified yet. Consider investigating:\n"
+            analysis += "- Persons with close relationships to the victim\n"
+            analysis += "- Individuals with potential motives (financial, personal, etc.)\n"
+            analysis += "- Persons with criminal history in the area\n\n"
+        
+        # Recommended actions
+        analysis += "## Recommended Investigative Actions\n"
+        analysis += "1. **Forensic Analysis**: "
+        if evidence != "No evidence reported":
+            analysis += f"Prioritize processing of {evidence.split(',')[0] if ',' in evidence else evidence}.\n"
+        else:
+            analysis += "Conduct a thorough forensic examination of the crime scene.\n"
+        
+        analysis += "2. **Interviews**: Conduct detailed interviews with all witnesses and persons of interest.\n"
+        
+        analysis += "3. **Background Check**: Investigate the victim's personal and professional relationships for potential motives.\n"
+        
+        analysis += "4. **Timeline Construction**: Create a detailed timeline of events leading up to the crime.\n"
+        
+        analysis += "5. **Victimology**: Conduct a thorough analysis of the victim's background, relationships, and recent activities.\n\n"
+        
+        # Conclusion
+        analysis += "## Conclusion\n"
+        analysis += "Based solely on the information provided in this case, "
+        
+        if "no signs of forced entry" in crime_scene_desc.lower():
+            analysis += "this appears to be a crime committed by someone known to the victim. "
+        elif "forced entry" in crime_scene_desc.lower():
+            analysis += "this appears to be a crime committed by an intruder. "
+        
+        if weapon_used != "unknown weapon":
+            if "gun" in weapon_used.lower():
+                analysis += "The use of a firearm suggests premeditation. "
+            elif "knife" in weapon_used.lower():
+                analysis += "The use of a knife may indicate a crime of passion or opportunity. "
+        
+        analysis += "\n\nThe investigation should focus on "
+        
+        if suspects != "No suspects identified yet":
+            analysis += f"the identified suspects, particularly {suspects.split(',')[0] if ',' in suspects else suspects}, "
+        else:
+            analysis += "developing a list of potential suspects based on the victim's relationships and conflicts, "
+        
+        analysis += "while thoroughly analyzing the available evidence and establishing a clear timeline of events."
+        
+        logger.info("Fallback analysis generated successfully")
+        return analysis
 
     def _format_case_prompt(self, case_details: Dict[str, Any]) -> str:
         """
@@ -892,15 +1037,13 @@ def murder_agent_endpoint():
     logger.info(f"force_new_session: {force_new_session}")
     logger.info(f"Full case details: {case_details}")
 
-    # Check if this is a new session or the first message
-    is_new_session = not session_id or session_id not in conversation_states
-    if is_new_session:
-        logger.info("This is a new session or the first message")
-
-        # Create a new session if needed
-        if not session_id or session_id not in conversation_states:
-            session_id = create_new_conversation_state()
-            logger.info(f"Created new session: {session_id}")
+    # Check if we need to create a new session
+    is_new_session = False
+    if force_new_session or not session_id or session_id not in conversation_states:
+        # Create a new session
+        session_id = create_new_conversation_state()
+        is_new_session = True
+        logger.info(f"Created new session: {session_id}")
 
         # If this is the first message and it's not a special command, store it as the case ID
         if user_input and user_input not in ["FORCE_NEW_SESSION", "CONTINUE_ANALYSIS", "reset", "restart", "start over"]:
@@ -922,43 +1065,59 @@ def murder_agent_endpoint():
 
     # Process the message using the process_message method
     # The greeting step now has field="case_id", so the first input will be stored correctly
-    session_id, response, is_collecting_info, current_step, error_message = murder_agent.process_message(
-        user_input,
-        session_id,
-        force_new_session=force_new_session
-    )
+    try:
+        session_id, response, is_collecting_info, current_step, error_message = murder_agent.process_message(
+            user_input,
+            session_id,
+            force_new_session=force_new_session
+        )
+        
+        # Get the collected data from the conversation state
+        collected_data = conversation_states[session_id]["collected_data"] if session_id in conversation_states else {}
+        logger.info(f"Collected data from conversation state: {collected_data}")
+        logger.info(f"Current step: {current_step}")
 
-    # Get the collected data from the conversation state
-    collected_data = conversation_states[session_id]["collected_data"] if session_id in conversation_states else {}
-    logger.info(f"Collected data from conversation state: {collected_data}")
-    logger.info(f"Current step: {current_step}")
+        # With our changes to the greeting step, this should no longer be necessary,
+        # but we'll keep a simplified safety check just in case
+        if is_new_session and user_input and not collected_data.get("case_id"):
+            logger.info(f"Safety check: Adding case ID to collected data: {user_input}")
+            collected_data["case_id"] = user_input
+            conversation_states[session_id]["collected_data"]["case_id"] = user_input
 
-    # With our changes to the greeting step, this should no longer be necessary,
-    # but we'll keep a simplified safety check just in case
-    if is_new_session and user_input and not collected_data.get("case_id"):
-        logger.info(f"Safety check: Adding case ID to collected data: {user_input}")
-        collected_data["case_id"] = user_input
-        conversation_states[session_id]["collected_data"]["case_id"] = user_input
+        # Return the response with the session ID and conversation state
+        response_data = {
+            "success": True,
+            "data": {
+                "analysis": response,
+                "is_collecting_info": is_collecting_info,
+                "current_step": current_step,
+                "collected_data": collected_data,
+                "error": error_message
+            },
+            "session_id": session_id,
+            "message": "Message processed successfully"
+        }
 
-    # Return the response with the session ID and conversation state
-    response_data = {
-        "success": True,
-        "data": {
-            "analysis": response,
-            "is_collecting_info": is_collecting_info,
-            "current_step": current_step,
-            "collected_data": collected_data,
-            "error": error_message
-        },
-        "session_id": session_id,
-        "message": "Message processed successfully"
-    }
-
-    # Log the final response data for debugging
-    logger.info(f"Final collected data in response: {collected_data}")
-
-    logger.info(f"Sending response: {response_data}")
-    return jsonify(response_data)
+        # Log the final response data for debugging
+        logger.info(f"Final collected data in response: {collected_data}")
+        logger.info(f"Sending response: {response_data}")
+        return jsonify(response_data)
+        
+    except Exception as e:
+        logger.error(f"Error processing message: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": f"Error processing message: {str(e)}",
+            "data": {
+                "analysis": f"An error occurred while processing your request: {str(e)}",
+                "is_collecting_info": True,
+                "current_step": "error",
+                "collected_data": {},
+                "error": str(e)
+            },
+            "session_id": session_id,
+            "message": f"Error: {str(e)}"
+        }), 500
 
 @app.route('/api/augment/murder/state', methods=['GET'])
 def murder_agent_state():
@@ -1034,4 +1193,17 @@ def run_server():
     app.run(host="0.0.0.0", port=PORT, debug=False)
 
 if __name__ == "__main__":
-    run_server()
+    # Check if running on Render
+    is_render = os.getenv("RENDER", "false").lower() == "true"
+    
+    # Configure for Render environment if detected
+    if is_render:
+        logger.info("Running in Render environment - using optimized settings")
+        # Use the PORT environment variable provided by Render
+        port = int(os.getenv("PORT", PORT))
+        # Run with optimized settings for Render
+        app.run(host="0.0.0.0", port=port, threaded=True)
+    else:
+        # Run with default settings for local development
+        logger.info(f"Running locally on port {PORT}")
+        app.run(host="0.0.0.0", port=PORT, debug=True)

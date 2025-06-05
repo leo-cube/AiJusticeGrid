@@ -1,0 +1,124 @@
+2025-06-05 22:39:54,896 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-05 22:39:54,908 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-05 22:39:56,136 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-05 22:39:56,138 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-05 22:39:56,138 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-05 22:39:56,881 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 22:39:56,887 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-05 22:39:56,888 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-05 22:39:56,888 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-05 22:39:57,284 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 22:39:57,284 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-05 22:39:57,284 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-05 22:39:57,284 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-05 22:39:57,648 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-05 22:39:57,648 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-05 22:39:57,665 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-05 22:39:57,665 - __main__ - INFO - Murder storage available: True
+2025-06-05 22:39:57,665 - __main__ - INFO - ReportLab available: True
+2025-06-05 22:39:57,665 - __main__ - INFO - OpenAI available: True
+2025-06-05 22:39:57,665 - __main__ - INFO - Testing basic server functionality...
+2025-06-05 22:39:57,665 - __main__ - INFO - Server starting successfully...
+2025-06-05 22:39:57,736 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.12:5000
+2025-06-05 22:39:57,736 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-05 22:39:57,833 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-05 22:39:59,443 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-05 22:39:59,459 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-05 22:39:59,647 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-05 22:39:59,647 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-05 22:39:59,647 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-05 22:40:00,074 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 22:40:00,074 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-05 22:40:00,074 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-05 22:40:00,074 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-05 22:40:00,414 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 22:40:00,414 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-05 22:40:00,414 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-05 22:40:00,414 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-05 22:40:00,795 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-05 22:40:00,797 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-05 22:40:00,810 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-05 22:40:00,810 - __main__ - INFO - Murder storage available: True
+2025-06-05 22:40:00,810 - __main__ - INFO - ReportLab available: True
+2025-06-05 22:40:00,810 - __main__ - INFO - OpenAI available: True
+2025-06-05 22:40:00,811 - __main__ - INFO - Testing basic server functionality...
+2025-06-05 22:40:00,813 - __main__ - INFO - Server starting successfully...
+2025-06-05 22:40:00,822 - werkzeug - WARNING -  * Debugger is active!
+2025-06-05 22:40:00,829 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-05 22:47:04,151 - __main__ - INFO - Received GET request for home endpoint
+2025-06-05 22:47:04,151 - werkzeug - INFO - 192.168.1.12 - - [05/Jun/2025 22:47:04] "GET / HTTP/1.1" 200 -
+2025-06-05 22:47:11,476 - werkzeug - INFO - 192.168.1.12 - - [05/Jun/2025 22:47:11] "[31m[1mGET / HTTP/1.1[0m" 400 -
+2025-06-05 22:47:11,518 - werkzeug - INFO - 192.168.1.12 - - [05/Jun/2025 22:47:11] "[33mGET /loginMsg.js HTTP/1.1[0m" 404 -
+2025-06-05 22:47:11,565 - werkzeug - INFO - 192.168.1.12 - - [05/Jun/2025 22:47:11] "[33mGET /cgi/get.cgi?cmd=home_login HTTP/1.1[0m" 404 -
+2025-06-05 22:47:12,400 - werkzeug - INFO - 192.168.1.12 - - [05/Jun/2025 22:47:12] "[33mGET /rootDesc.xml HTTP/1.1[0m" 404 -
+2025-06-05 23:42:12,236 - unified_server - INFO - Financial Fraud Agent module loaded successfully
+2025-06-05 23:42:12,262 - unified_server - INFO - Theft Agent module loaded successfully
+2025-06-05 23:42:12,678 - unified_server - INFO - API key loaded successfully (length: 70)
+2025-06-05 23:42:12,678 - unified_server - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-05 23:42:12,678 - unified_server - INFO - Initializing Murder Agent with API key length: 70
+2025-06-05 23:42:13,854 - unified_server - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 23:42:13,854 - unified_server - INFO - Murder Agent initialized successfully in unified server
+2025-06-05 23:42:13,856 - unified_server - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-05 23:42:13,856 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-05 23:42:14,699 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 23:42:14,699 - unified_server - INFO - Financial Agent initialized successfully in unified server
+2025-06-05 23:42:14,699 - unified_server - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-05 23:42:14,699 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-05 23:42:15,533 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-05 23:42:15,533 - unified_server - INFO - Theft Agent initialized successfully in unified server
+2025-06-05 23:42:15,634 - murder_agent_backend - INFO - Murder investigation storage module loaded successfully
+2025-06-05 23:42:16,573 - murder_agent_backend - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 23:42:16,576 - murder_agent_backend - INFO - Murder Agent initialized
+2025-06-05 23:44:41,357 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-05 23:44:41,359 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-05 23:44:41,506 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-05 23:44:41,506 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-05 23:44:41,506 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-05 23:44:41,915 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 23:44:41,915 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-05 23:44:41,915 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-05 23:44:41,915 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-05 23:44:42,342 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 23:44:42,342 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-05 23:44:42,342 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-05 23:44:42,342 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-05 23:44:42,869 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-05 23:44:42,869 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-05 23:44:42,888 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-05 23:44:42,889 - __main__ - INFO - Murder storage available: True
+2025-06-05 23:44:42,889 - __main__ - INFO - ReportLab available: True
+2025-06-05 23:44:42,889 - __main__ - INFO - OpenAI available: True
+2025-06-05 23:44:42,889 - __main__ - INFO - Testing basic server functionality...
+2025-06-05 23:44:42,889 - __main__ - INFO - Server starting successfully...
+2025-06-05 23:44:42,920 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.12:5000
+2025-06-05 23:44:42,920 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-05 23:44:42,944 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-05 23:44:44,791 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-05 23:44:44,791 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-05 23:44:44,988 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-05 23:44:44,988 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-05 23:44:44,988 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-05 23:44:45,378 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 23:44:45,378 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-05 23:44:45,378 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-05 23:44:45,378 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-05 23:44:45,796 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-05 23:44:45,796 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-05 23:44:45,796 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-05 23:44:45,796 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-05 23:44:46,221 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-05 23:44:46,221 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-05 23:44:46,227 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-05 23:44:46,227 - __main__ - INFO - Murder storage available: True
+2025-06-05 23:44:46,227 - __main__ - INFO - ReportLab available: True
+2025-06-05 23:44:46,227 - __main__ - INFO - OpenAI available: True
+2025-06-05 23:44:46,227 - __main__ - INFO - Testing basic server functionality...
+2025-06-05 23:44:46,227 - __main__ - INFO - Server starting successfully...
+2025-06-05 23:44:46,235 - werkzeug - WARNING -  * Debugger is active!
+2025-06-05 23:44:46,241 - werkzeug - INFO -  * Debugger PIN: 108-009-930

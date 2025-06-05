@@ -16,6 +16,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
+# Get the absolute path to the project root directory (parent of FinancialAgent)
+PROJECT_ROOT = Path(__file__).parent.parent.absolute()
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -28,12 +31,16 @@ class FinanceInvestigationStorage:
     def __init__(self, storage_file: str = "finance_investigation.json"):
         """
         Initialize the storage system.
-        
+
         Args:
-            storage_file: Path to the JSON storage file
+            storage_file: Path to the JSON storage file (relative to project root)
         """
         self.storage_file = storage_file
-        self.storage_path = Path(storage_file)
+        # Use absolute path relative to project root
+        if Path(storage_file).is_absolute():
+            self.storage_path = Path(storage_file)
+        else:
+            self.storage_path = PROJECT_ROOT / storage_file
         self._ensure_storage_file_exists()
     
     def _ensure_storage_file_exists(self):

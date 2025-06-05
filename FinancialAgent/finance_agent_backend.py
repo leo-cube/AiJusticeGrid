@@ -26,6 +26,16 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from openai import OpenAI
 
+# Get the absolute path to the project root directory (parent of FinancialAgent)
+PROJECT_ROOT = Path(__file__).parent.parent.absolute()
+
+# Path configuration - all paths are now absolute
+PATHS = {
+    'env_file': PROJECT_ROOT / '.env',
+    'finance_storage': PROJECT_ROOT / 'finance_investigation.json',
+    'log_file': PROJECT_ROOT / 'financial_fraud_agent.log'
+}
+
 # Import the finance investigation storage module
 try:
     from finance_data_storage import finance_storage
@@ -49,7 +59,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Constants
-ENV_FILE = ".env"
 API_KEY_VAR = "NVIDIA_API_KEY"
 MODEL_NAME = "nvidia/llama-3.1-nemotron-ultra-253b-v1"
 PORT = 5003  # Using a different port to avoid conflicts with the unified server
@@ -169,14 +178,15 @@ FINANCIAL_CONVERSATION_STEPS = CASE_INFO_STEPS
 
 def retrieve_api_key():
     """
-    Retrieve the API key from the .env file.
+    Retrieve the API key from the .env file using absolute path.
 
     Returns:
         str: The API key if found, None otherwise
     """
     try:
-        if os.path.exists(ENV_FILE):
-            with open(ENV_FILE, 'r') as f:
+        env_path = PATHS['env_file']
+        if env_path.exists():
+            with open(env_path, 'r') as f:
                 for line in f:
                     line = line.strip()
                     if line.startswith(f"{API_KEY_VAR}="):
@@ -188,10 +198,10 @@ def retrieve_api_key():
                             api_key = api_key[1:-1]
                         logger.info("API key retrieved from .env file")
                         return api_key
-        logger.warning(f"API key not found in {ENV_FILE}")
+        logger.warning(f"API key not found in {env_path}")
         return None
     except Exception as e:
-        logger.error(f"Error reading {ENV_FILE}: {e}")
+        logger.error(f"Error reading {env_path}: {e}")
         return None
 
 # Helper function to get step by ID

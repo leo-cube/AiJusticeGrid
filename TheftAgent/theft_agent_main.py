@@ -22,35 +22,44 @@ from typing import Dict, Any
 from pathlib import Path
 from openai import OpenAI
 
-# Configure logging
+# Get the absolute path to the project root directory (parent of TheftAgent)
+PROJECT_ROOT = Path(__file__).parent.parent.absolute()
+
+# Path configuration - all paths are now absolute
+PATHS = {
+    'env_file': PROJECT_ROOT / '.env',
+    'theft_storage': PROJECT_ROOT / 'theft_investigation.json',
+    'log_file': PROJECT_ROOT / 'theft_agent.log'
+}
+
+# Configure logging with absolute path
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("theft_agent.log"),
+        logging.FileHandler(PATHS['log_file']),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
 
 # Constants
-ENV_FILE = ".env"
 API_KEY_VAR = "NVIDIA_API_KEY"
 MODEL_NAME = "nvidia/llama-3.3-nemotron-super-49b-v1"
 API_KEY = "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"
 
 def retrieve_api_key():
     """
-    Retrieve the API key from the .env file.
+    Retrieve the API key from the .env file using absolute path.
 
     Returns:
         API key or None if not found
     """
     try:
-        # Check if .env file exists
-        env_path = Path(ENV_FILE)
+        # Check if .env file exists using absolute path
+        env_path = PATHS['env_file']
         if not env_path.exists():
-            logger.error(f".env file not found")
+            logger.error(f".env file not found at {env_path}")
             return None
 
         # Read .env file
@@ -62,7 +71,7 @@ def retrieve_api_key():
                     break
 
         if not api_key:
-            logger.error(f"API key not found in {ENV_FILE}")
+            logger.error(f"API key not found in {env_path}")
             return None
 
         return api_key
@@ -73,7 +82,7 @@ def retrieve_api_key():
 
 def store_api_key(api_key):
     """
-    Store the API key in the .env file.
+    Store the API key in the .env file using absolute path.
 
     Args:
         api_key: The API key to store
@@ -82,8 +91,8 @@ def store_api_key(api_key):
         Boolean indicating success
     """
     try:
-        # Create .env file if it doesn't exist
-        env_path = Path(ENV_FILE)
+        # Create .env file if it doesn't exist using absolute path
+        env_path = PATHS['env_file']
 
         # Check if .env file exists and read existing content
         env_content = {}
@@ -102,7 +111,7 @@ def store_api_key(api_key):
             for key, value in env_content.items():
                 f.write(f"{key}={value}\n")
 
-        logger.info(f"API key stored in {ENV_FILE}")
+        logger.info(f"API key stored in {env_path}")
         return True
 
     except Exception as e:
@@ -450,7 +459,7 @@ def setup_api_key():
     success = store_api_key(api_key)
 
     if success:
-        print(f"API key stored successfully in {ENV_FILE}")
+        print(f"API key stored successfully in {PATHS['env_file']}")
         return True
     else:
         print("Failed to store API key")

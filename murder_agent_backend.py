@@ -27,6 +27,16 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from openai import OpenAI
 
+# Get the absolute path to the project root directory
+PROJECT_ROOT = Path(__file__).parent.absolute()
+
+# Path configuration - all paths are now absolute
+PATHS = {
+    'env_file': PROJECT_ROOT / '.env',
+    'murder_storage': PROJECT_ROOT / 'murder_investigation.json',
+    'log_file': PROJECT_ROOT / 'murder_agent.log'
+}
+
 # Import the murder investigation storage module
 try:
     from murder_data_storage import murder_storage
@@ -50,7 +60,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Constants
-ENV_FILE = ".env"
 API_KEY_VAR = "NVIDIA_API_KEY"
 MODEL_NAME = "nvidia/llama-3.1-nemotron-ultra-253b-v1"
 PORT = 5001  # Using a different port to avoid conflicts with the unified server
@@ -58,6 +67,10 @@ PORT = 5001  # Using a different port to avoid conflicts with the unified server
 # Dictionary to store conversation states
 # Format: {session_id: {current_step: step_name, collected_data: {field: value}, last_updated: timestamp}}
 conversation_states = {}
+
+# Dictionary to track analysis in progress
+# Format: {session_id: {"status": "in_progress", "started_at": timestamp, "analysis_result": str}}
+analysis_in_progress = {}
 
 # Define the case information collection steps
 CASE_INFO_STEPS = [
@@ -196,16 +209,16 @@ FIELD_NAMES = {
 
 def retrieve_api_key() -> Optional[str]:
     """
-    Retrieve the API key from the .env file.
+    Retrieve the API key from the .env file using absolute path.
 
     Returns:
         API key or None if not found
     """
     try:
-        # Check if .env file exists
-        env_path = Path(ENV_FILE)
+        # Check if .env file exists using absolute path
+        env_path = PATHS['env_file']
         if not env_path.exists():
-            logger.error(f".env file not found")
+            logger.error(f".env file not found at {env_path}")
             return None
 
         # Read .env file
@@ -217,7 +230,7 @@ def retrieve_api_key() -> Optional[str]:
                     break
 
         if not api_key:
-            logger.error(f"API key not found in {ENV_FILE}")
+            logger.error(f"API key not found in {env_path}")
             return None
 
         return api_key
@@ -232,7 +245,7 @@ if not NVIDIA_API_KEY:
     # Try to get API key from .env file
     NVIDIA_API_KEY = retrieve_api_key()
     if NVIDIA_API_KEY:
-        logger.info(f"Using API key from {ENV_FILE} file")
+        logger.info(f"Using API key from {PATHS['env_file']} file")
     else:
         logger.warning("NVIDIA_API_KEY not found in environment variables or .env file. Using default value.")
         NVIDIA_API_KEY = "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"
@@ -921,8 +934,20 @@ class MurderAgent:
                     collected_data = updated_state["collected_data"]
                     logger.info(f"Performing analysis with collected data: {collected_data}")
 
+                    # Mark analysis as in progress
+                    analysis_in_progress[session_id] = {
+                        "status": "in_progress",
+                        "started_at": datetime.now().isoformat()
+                    }
+                    logger.info(f"Marked analysis as in progress for session {session_id}")
+
                     # Perform the analysis
                     analysis = self.analyze_case(collected_data)
+
+                    # Store the analysis result
+                    analysis_in_progress[session_id]["analysis_result"] = analysis
+                    analysis_in_progress[session_id]["status"] = "completed"
+                    logger.info(f"Analysis completed for session {session_id}")
 
                     # Store the investigation data if storage is available
                     if MURDER_STORAGE_AVAILABLE:
@@ -969,10 +994,19 @@ class MurderAgent:
                             logger.error(f"Error storing Murder Agent data: {e}")
                             # Continue with analysis even if storage fails
 
+                    # Clean up analysis tracking
+                    if session_id in analysis_in_progress:
+                        del analysis_in_progress[session_id]
+                        logger.info(f"Cleaned up analysis tracking for session {session_id}")
+
                     # Return the analysis
                     return session_id, analysis, False, "analysis", None
                 except Exception as e:
                     logger.error(f"Error analyzing case: {str(e)}")
+                    # Clean up analysis tracking on error
+                    if session_id in analysis_in_progress:
+                        del analysis_in_progress[session_id]
+                        logger.info(f"Cleaned up analysis tracking for session {session_id} due to error")
                     return session_id, f"Error analyzing case: {str(e)}", False, "analysis", str(e)
 
             # Return the next question
@@ -1039,6 +1073,45 @@ def murder_agent_endpoint():
 
     # Check if we need to create a new session
     is_new_session = False
+
+    # First, check if there's an analysis in progress for any session
+    # If the session_id is None but there's an analysis in progress, try to find the active session
+    if not session_id and analysis_in_progress:
+        # Find the most recent analysis session
+        latest_session = None
+        latest_time = None
+        for analysis_session_id, analysis_info in analysis_in_progress.items():
+            if analysis_info["status"] == "in_progress":
+                started_at = datetime.fromisoformat(analysis_info["started_at"])
+                if latest_time is None or started_at > latest_time:
+                    latest_time = started_at
+                    latest_session = analysis_session_id
+
+        if latest_session and latest_session in conversation_states:
+            logger.info(f"Found active analysis session {latest_session}, using it instead of creating new session")
+            session_id = latest_session
+
+            # Check if analysis is complete
+            if "analysis_result" in analysis_in_progress[session_id]:
+                logger.info(f"Analysis completed for session {session_id}, returning result")
+                analysis_result = analysis_in_progress[session_id]["analysis_result"]
+                # Clean up the analysis tracking
+                del analysis_in_progress[session_id]
+
+                # Return the analysis result
+                return jsonify({
+                    "success": True,
+                    "data": {
+                        "analysis": analysis_result,
+                        "is_collecting_info": False,
+                        "current_step": "analysis",
+                        "collected_data": conversation_states[session_id]["collected_data"],
+                        "error": None
+                    },
+                    "session_id": session_id,
+                    "message": "Analysis completed successfully"
+                })
+
     if force_new_session or not session_id or session_id not in conversation_states:
         # Create a new session
         session_id = create_new_conversation_state()
@@ -1062,6 +1135,42 @@ def murder_agent_endpoint():
         # Also advance to the next step (date_of_crime) to ensure proper flow
         conversation_states[session_id]["current_step"] = "date_of_crime"
         logger.info(f"Advanced to step before processing: date_of_crime")
+
+    # Check if analysis is in progress for this session
+    if session_id in analysis_in_progress:
+        analysis_info = analysis_in_progress[session_id]
+        if analysis_info["status"] == "in_progress":
+            logger.info(f"Analysis in progress for session {session_id}, returning status message")
+            return jsonify({
+                "success": True,
+                "data": {
+                    "analysis": "Analysis is currently in progress. Please wait for the results...",
+                    "is_collecting_info": False,
+                    "current_step": "analysis",
+                    "collected_data": conversation_states[session_id]["collected_data"] if session_id in conversation_states else {},
+                    "error": None
+                },
+                "session_id": session_id,
+                "message": "Analysis in progress"
+            })
+        elif analysis_info["status"] == "completed" and "analysis_result" in analysis_info:
+            logger.info(f"Analysis completed for session {session_id}, returning result")
+            analysis_result = analysis_info["analysis_result"]
+            # Clean up the analysis tracking
+            del analysis_in_progress[session_id]
+
+            return jsonify({
+                "success": True,
+                "data": {
+                    "analysis": analysis_result,
+                    "is_collecting_info": False,
+                    "current_step": "analysis",
+                    "collected_data": conversation_states[session_id]["collected_data"] if session_id in conversation_states else {},
+                    "error": None
+                },
+                "session_id": session_id,
+                "message": "Analysis completed successfully"
+            })
 
     # Process the message using the process_message method
     # The greeting step now has field="case_id", so the first input will be stored correctly

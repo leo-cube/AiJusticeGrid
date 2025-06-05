@@ -72,6 +72,23 @@ conversation_states = {}
 # Format: {session_id: {"status": "in_progress", "started_at": timestamp, "analysis_result": str}}
 analysis_in_progress = {}
 
+def cleanup_old_analysis_tracking():
+    """Clean up old analysis tracking entries to prevent memory leaks."""
+    current_time = datetime.now()
+    expired_sessions = []
+
+    for session_id, analysis_info in analysis_in_progress.items():
+        started_at = datetime.fromisoformat(analysis_info["started_at"])
+        # Remove entries older than 1 hour
+        if (current_time - started_at).total_seconds() > 3600:
+            expired_sessions.append(session_id)
+
+    for session_id in expired_sessions:
+        del analysis_in_progress[session_id]
+        logger.info(f"Cleaned up expired analysis tracking for session {session_id}")
+
+    return len(expired_sessions)
+
 # Define the case information collection steps
 CASE_INFO_STEPS = [
     {
@@ -1076,6 +1093,9 @@ def murder_agent_endpoint():
     logger.info(f"Received request with session_id: {session_id}, user_input: {user_input}")
     logger.info(f"force_new_session: {force_new_session}")
     logger.info(f"Full case details: {case_details}")
+
+    # Periodically clean up old analysis tracking entries
+    cleanup_old_analysis_tracking()
 
     # Check if we need to create a new session
     is_new_session = False

@@ -154,6 +154,23 @@ conversation_states = {}
 # Format: {session_id: {"status": "in_progress", "started_at": timestamp, "analysis_result": str}}
 analysis_in_progress = {}
 
+def cleanup_old_analysis_tracking():
+    """Clean up old analysis tracking entries to prevent memory leaks."""
+    current_time = datetime.now()
+    expired_sessions = []
+
+    for session_id, analysis_info in analysis_in_progress.items():
+        started_at = datetime.fromisoformat(analysis_info["started_at"])
+        # Remove entries older than 1 hour
+        if (current_time - started_at).total_seconds() > 3600:
+            expired_sessions.append(session_id)
+
+    for session_id in expired_sessions:
+        del analysis_in_progress[session_id]
+        logger.info(f"Cleaned up expired analysis tracking for session {session_id}")
+
+    return len(expired_sessions)
+
 # Constants for Murder Agent
 API_KEY_VAR = "NVIDIA_API_KEY"
 MURDER_MODEL_NAME = "nvidia/llama-3.1-nemotron-ultra-253b-v1"
@@ -593,13 +610,17 @@ class MurderAgent:
                     analysis_in_progress[session_id]["status"] = "completed"
                     logger.info(f"Analysis completed for session {session_id}")
 
-                    # Clean up analysis tracking
-                    if session_id in analysis_in_progress:
-                        del analysis_in_progress[session_id]
-                        logger.info(f"Cleaned up analysis tracking for session {session_id}")
+                    # Store the analysis result in conversation state for future requests
+                    conversation_states[session_id]["analysis_result"] = analysis
+                    conversation_states[session_id]["analysis_completed"] = True
+                    conversation_states[session_id]["current_step"] = "completed"
+                    logger.info(f"Stored analysis result in conversation state for session {session_id}")
+
+                    # DON'T clean up analysis tracking yet - let the endpoint handle it
+                    # This allows the frontend to retrieve the result on the next request
 
                     # Return the analysis
-                    return session_id, analysis, False, "analysis", None
+                    return session_id, analysis, False, "completed", None
                 except Exception as e:
                     logger.error(f"Error analyzing case: {str(e)}")
                     # Clean up analysis tracking on error
@@ -1590,6 +1611,9 @@ def murder_agent_endpoint():
     logger.info(f"Received request with session_id: {session_id}, user_input: {user_input}")
     logger.info(f"force_new_session: {force_new_session}, reset_conversation: {reset_conversation}")
 
+    # Periodically clean up old analysis tracking entries
+    cleanup_old_analysis_tracking()
+
     # Check if analysis is in progress for this session
     if session_id and session_id in analysis_in_progress:
         analysis_info = analysis_in_progress[session_id]
@@ -1663,6 +1687,31 @@ def murder_agent_endpoint():
                     "message": "Analysis completed successfully"
                 })
 
+    # Check if analysis is already completed and stored in conversation state
+    if session_id and session_id in conversation_states:
+        conv_state = conversation_states[session_id]
+        if conv_state.get("analysis_completed") and "analysis_result" in conv_state:
+            logger.info(f"Analysis already completed for session {session_id}, returning stored result")
+            analysis_result = conv_state["analysis_result"]
+
+            # Clean up analysis tracking if it still exists
+            if session_id in analysis_in_progress:
+                del analysis_in_progress[session_id]
+                logger.info(f"Cleaned up analysis tracking for completed session {session_id}")
+
+            return jsonify({
+                "success": True,
+                "data": {
+                    "analysis": analysis_result,
+                    "is_collecting_info": False,
+                    "current_step": "completed",
+                    "collected_data": conv_state["collected_data"],
+                    "error": None
+                },
+                "session_id": session_id,
+                "message": "Analysis completed successfully"
+            })
+
     # Process the message using the new process_message method with the special flags
     session_id, response, is_collecting_info, current_step, error_message = murder_agent.process_message(
         user_input,
@@ -1672,7 +1721,7 @@ def murder_agent_endpoint():
     )
 
     # Check if analysis is completed and store the investigation data
-    if current_step == "analysis" and not is_collecting_info and MURDER_STORAGE_AVAILABLE:
+    if (current_step == "completed" or current_step == "analysis") and not is_collecting_info and MURDER_STORAGE_AVAILABLE:
         try:
             # Get the collected data from the conversation state
             collected_data = conversation_states[session_id]["collected_data"] if session_id in conversation_states else {}

@@ -19,3 +19,69 @@
 2025-06-06 20:01:39,101 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
 2025-06-06 20:01:39,103 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
 2025-06-06 20:01:39,985 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:01:44,154 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:01:44,154 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:01:44,164 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:01:44,199 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:01:44,217 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:07:55,595 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:07:55,597 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:07:56,357 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:07:59,817 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:07:59,822 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:07:59,825 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:07:59,847 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:07:59,856 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:08:08,028 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:08,030 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:09,348 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:08:12,671 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:08:12,671 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:08:12,677 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:08:12,692 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:08:12,702 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:08:27,097 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:27,097 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:28,088 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:08:31,739 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:08:31,739 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:08:31,739 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:08:31,767 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:08:31,775 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:08:46,665 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:46,666 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:46,668 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:47,248 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:08:50,909 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:08:50,909 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:08:50,922 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:08:50,939 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:08:50,947 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:09:07,422 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:07,425 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:08,390 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:09:11,920 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:09:11,920 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:09:11,920 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:09:11,947 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:09:11,955 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:09:28,105 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:28,106 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:28,108 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:29,342 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:09:32,441 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:09:32,441 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:09:32,448 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:09:32,462 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:09:32,474 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:09:54,366 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:54,368 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:54,368 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:54,969 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:09:58,077 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:09:58,077 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:09:58,084 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:09:58,106 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:09:58,114 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:10:04,757 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:10:05,433 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)

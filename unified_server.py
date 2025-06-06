@@ -1346,150 +1346,150 @@ def generate_incident_pdf(incident_data):
         # Get styles
         styles = getSampleStyleSheet()
 
-    # Create custom styles
-    title_style = ParagraphStyle(
-        'CustomTitle',
-        parent=styles['Heading1'],
-        fontSize=18,
-        spaceAfter=30,
-        alignment=TA_CENTER,
-        textColor=colors.HexColor('#003366')
-    )
+        # Create custom styles
+        title_style = ParagraphStyle(
+            'CustomTitle',
+            parent=styles['Heading1'],
+            fontSize=18,
+            spaceAfter=30,
+            alignment=TA_CENTER,
+            textColor=colors.HexColor('#003366')
+        )
 
-    heading_style = ParagraphStyle(
-        'CustomHeading',
-        parent=styles['Heading2'],
-        fontSize=14,
-        spaceAfter=12,
-        spaceBefore=20,
-        textColor=colors.HexColor('#003366')
-    )
+        heading_style = ParagraphStyle(
+            'CustomHeading',
+            parent=styles['Heading2'],
+            fontSize=14,
+            spaceAfter=12,
+            spaceBefore=20,
+            textColor=colors.HexColor('#003366')
+        )
 
-    normal_style = ParagraphStyle(
-        'CustomNormal',
-        parent=styles['Normal'],
-        fontSize=11,
-        spaceAfter=6,
-        alignment=TA_JUSTIFY
-    )
+        normal_style = ParagraphStyle(
+            'CustomNormal',
+            parent=styles['Normal'],
+            fontSize=11,
+            spaceAfter=6,
+            alignment=TA_JUSTIFY
+        )
 
-    # Build the story (content)
-    story = []
+        # Build the story (content)
+        story = []
 
-    # Title
-    story.append(Paragraph("INCIDENT INVESTIGATION REPORT", title_style))
-    story.append(Spacer(1, 20))
+        # Title
+        story.append(Paragraph("INCIDENT INVESTIGATION REPORT", title_style))
+        story.append(Spacer(1, 20))
 
-    # Header information
-    header_data = [
-        ['Report ID:', incident_data.get('id', 'Unknown')],
-        ['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
-        ['Status:', incident_data.get('status', 'Unknown')],
-        ['Report Type:', 'AI Generated Investigation Report']
-    ]
+        # Header information
+        header_data = [
+            ['Report ID:', incident_data.get('id', 'Unknown')],
+            ['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
+            ['Status:', incident_data.get('status', 'Unknown')],
+            ['Report Type:', 'AI Generated Investigation Report']
+        ]
 
-    header_table = Table(header_data, colWidths=[2*inch, 4*inch])
-    header_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f2f2f2')),
-        ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-        ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-    ]))
+        header_table = Table(header_data, colWidths=[2*inch, 4*inch])
+        header_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f2f2f2')),
+            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+            ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ]))
 
-    story.append(header_table)
-    story.append(Spacer(1, 20))
+        story.append(header_table)
+        story.append(Spacer(1, 20))
 
-    # Incident Details Section
-    story.append(Paragraph("INCIDENT DETAILS", heading_style))
+        # Incident Details Section
+        story.append(Paragraph("INCIDENT DETAILS", heading_style))
 
-    # Create incident details table with dynamic data
-    incident_details = [
-        ['Date of Incident:', incident_data.get('date', 'Unknown')],
-        ['Time of Incident:', incident_data.get('time', 'Unknown')],
-        ['Location:', incident_data.get('location', 'Unknown')],
-        ['Incident Type:', incident_data.get('incident_type', 'Unknown')],
-        ['Reporting Officer:', incident_data.get('reporting_officer', 'Unknown')],
-        ['Evidence:', incident_data.get('evidence', 'Unknown')]
-    ]
+        # Create incident details table with dynamic data
+        incident_details = [
+            ['Date of Incident:', incident_data.get('date', 'Unknown')],
+            ['Time of Incident:', incident_data.get('time', 'Unknown')],
+            ['Location:', incident_data.get('location', 'Unknown')],
+            ['Incident Type:', incident_data.get('incident_type', 'Unknown')],
+            ['Reporting Officer:', incident_data.get('reporting_officer', 'Unknown')],
+            ['Evidence:', incident_data.get('evidence', 'Unknown')]
+        ]
 
-    details_table = Table(incident_details, colWidths=[2*inch, 4*inch])
-    details_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
-        ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-        ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-    ]))
+        details_table = Table(incident_details, colWidths=[2*inch, 4*inch])
+        details_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
+            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+            ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ]))
 
-    story.append(details_table)
-    story.append(Spacer(1, 20))
+        story.append(details_table)
+        story.append(Spacer(1, 20))
 
-    # Victims Section
-    if 'victims' in incident_data and incident_data['victims']:
-        story.append(Paragraph("VICTIMS", heading_style))
+        # Victims Section
+        if 'victims' in incident_data and incident_data['victims']:
+            story.append(Paragraph("VICTIMS", heading_style))
 
-        for i, victim in enumerate(incident_data['victims']):
-            victim_data = [
-                [f'Victim {i+1} Name:', victim.get('name', 'Unknown')],
-                ['Age:', str(victim.get('age', 'Unknown'))],
-                ['Gender:', victim.get('gender', 'Unknown')],
-                ['Injuries:', victim.get('injuries', 'Unknown')]
-            ]
+            for i, victim in enumerate(incident_data['victims']):
+                victim_data = [
+                    [f'Victim {i+1} Name:', victim.get('name', 'Unknown')],
+                    ['Age:', str(victim.get('age', 'Unknown'))],
+                    ['Gender:', victim.get('gender', 'Unknown')],
+                    ['Injuries:', victim.get('injuries', 'Unknown')]
+                ]
 
-            victim_table = Table(victim_data, colWidths=[2*inch, 4*inch])
-            victim_table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#fff3cd')),
-                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-                ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-                ('FONTSIZE', (0, 0), (-1, -1), 10),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ]))
+                victim_table = Table(victim_data, colWidths=[2*inch, 4*inch])
+                victim_table.setStyle(TableStyle([
+                    ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#fff3cd')),
+                    ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+                    ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                    ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                    ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+                    ('FONTSIZE', (0, 0), (-1, -1), 10),
+                    ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                ]))
 
-            story.append(victim_table)
-            story.append(Spacer(1, 10))
+                story.append(victim_table)
+                story.append(Spacer(1, 10))
 
-    # Suspects Section
-    if 'suspects' in incident_data and incident_data['suspects']:
-        story.append(Paragraph("SUSPECTS", heading_style))
+        # Suspects Section
+        if 'suspects' in incident_data and incident_data['suspects']:
+            story.append(Paragraph("SUSPECTS", heading_style))
 
-        for i, suspect in enumerate(incident_data['suspects']):
-            suspect_data = [
-                [f'Suspect {i+1} Name:', suspect.get('name', 'Unknown')],
-                ['Age:', str(suspect.get('age', 'Unknown'))],
-                ['Gender:', suspect.get('gender', 'Unknown')],
-                ['Description:', suspect.get('description', 'Unknown')]
-            ]
+            for i, suspect in enumerate(incident_data['suspects']):
+                suspect_data = [
+                    [f'Suspect {i+1} Name:', suspect.get('name', 'Unknown')],
+                    ['Age:', str(suspect.get('age', 'Unknown'))],
+                    ['Gender:', suspect.get('gender', 'Unknown')],
+                    ['Description:', suspect.get('description', 'Unknown')]
+                ]
 
-            suspect_table = Table(suspect_data, colWidths=[2*inch, 4*inch])
-            suspect_table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8d7da')),
-                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-                ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-                ('FONTSIZE', (0, 0), (-1, -1), 10),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ]))
+                suspect_table = Table(suspect_data, colWidths=[2*inch, 4*inch])
+                suspect_table.setStyle(TableStyle([
+                    ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8d7da')),
+                    ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+                    ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                    ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                    ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+                    ('FONTSIZE', (0, 0), (-1, -1), 10),
+                    ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                ]))
 
-            story.append(suspect_table)
-            story.append(Spacer(1, 10))
+                story.append(suspect_table)
+                story.append(Spacer(1, 10))
 
-    # Description Section
-    if 'description' in incident_data and incident_data['description']:
-        story.append(Paragraph("INCIDENT DESCRIPTION", heading_style))
-        story.append(Paragraph(incident_data['description'], normal_style))
-        story.append(Spacer(1, 15))
+        # Description Section
+        if 'description' in incident_data and incident_data['description']:
+            story.append(Paragraph("INCIDENT DESCRIPTION", heading_style))
+            story.append(Paragraph(incident_data['description'], normal_style))
+            story.append(Spacer(1, 15))
 
         # AI Analysis Section (if available)
         if 'ai_analysis' in incident_data and incident_data['ai_analysis']:

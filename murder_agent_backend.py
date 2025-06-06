@@ -964,7 +964,15 @@ class MurderAgent:
                     # Store the analysis result
                     analysis_in_progress[session_id]["analysis_result"] = analysis
                     analysis_in_progress[session_id]["status"] = "completed"
+                    analysis_in_progress[session_id]["completed_at"] = datetime.now().isoformat()
                     logger.info(f"Analysis completed for session {session_id}")
+
+                    # Also store the analysis result in the conversation state for persistence
+                    updated_state["analysis_result"] = analysis
+                    updated_state["analysis_completed"] = True
+                    updated_state["analysis_completed_at"] = datetime.now().isoformat()
+                    conversation_states[session_id] = updated_state
+                    logger.info(f"Analysis result stored in conversation state for session {session_id}")
 
                     # Store the investigation data if storage is available
                     if MURDER_STORAGE_AVAILABLE:
@@ -1139,6 +1147,13 @@ def murder_agent_endpoint():
             if session_id in analysis_in_progress and "analysis_result" in analysis_in_progress[session_id]:
                 logger.info(f"Analysis completed for session {session_id}, returning result")
                 analysis_result = analysis_in_progress[session_id]["analysis_result"]
+
+                # Store the result in conversation state before cleaning up tracking
+                if session_id in conversation_states:
+                    conversation_states[session_id]["analysis_result"] = analysis_result
+                    conversation_states[session_id]["analysis_completed"] = True
+                    conversation_states[session_id]["analysis_completed_at"] = datetime.now().isoformat()
+
                 # Clean up the analysis tracking
                 del analysis_in_progress[session_id]
 
@@ -1150,7 +1165,8 @@ def murder_agent_endpoint():
                         "is_collecting_info": False,
                         "current_step": "completed",
                         "collected_data": conversation_states[session_id]["collected_data"],
-                        "error": None
+                        "error": None,
+                        "analysis_completed": True
                     },
                     "session_id": session_id,
                     "message": "Analysis completed successfully"
@@ -1219,6 +1235,13 @@ def murder_agent_endpoint():
         elif analysis_info["status"] == "completed" and "analysis_result" in analysis_info:
             logger.info(f"Analysis completed for session {session_id}, returning result")
             analysis_result = analysis_info["analysis_result"]
+
+            # Store the result in conversation state before cleaning up tracking
+            if session_id in conversation_states:
+                conversation_states[session_id]["analysis_result"] = analysis_result
+                conversation_states[session_id]["analysis_completed"] = True
+                conversation_states[session_id]["analysis_completed_at"] = datetime.now().isoformat()
+
             # Clean up the analysis tracking
             del analysis_in_progress[session_id]
 
@@ -1229,7 +1252,8 @@ def murder_agent_endpoint():
                     "is_collecting_info": False,
                     "current_step": "completed",
                     "collected_data": conversation_states[session_id]["collected_data"] if session_id in conversation_states else {},
-                    "error": None
+                    "error": None,
+                    "analysis_completed": True
                 },
                 "session_id": session_id,
                 "message": "Analysis completed successfully"
@@ -1290,6 +1314,80 @@ def murder_agent_endpoint():
             "session_id": session_id,
             "message": f"Error: {str(e)}"
         }), 500
+
+@app.route('/api/augment/murder/analysis-status', methods=['GET'])
+def murder_agent_analysis_status():
+    """Check the analysis status for a session - used for polling."""
+    session_id = request.args.get('session_id')
+
+    if not session_id:
+        return jsonify({
+            "success": False,
+            "error": "Missing session ID"
+        }), 400
+
+    # Check if analysis is completed in conversation state
+    if session_id in conversation_states:
+        conv_state = conversation_states[session_id]
+        if conv_state.get("analysis_completed") and "analysis_result" in conv_state:
+            return jsonify({
+                "success": True,
+                "status": "completed",
+                "data": {
+                    "analysis": conv_state["analysis_result"],
+                    "is_collecting_info": False,
+                    "current_step": "completed",
+                    "collected_data": conv_state["collected_data"],
+                    "analysis_completed": True
+                },
+                "session_id": session_id,
+                "message": "Analysis completed successfully"
+            })
+
+    # Check if analysis is in progress or completed in tracking dict
+    if session_id in analysis_in_progress:
+        analysis_info = analysis_in_progress[session_id]
+        if analysis_info["status"] == "completed" and "analysis_result" in analysis_info:
+            # Move to conversation state and clean up tracking
+            analysis_result = analysis_info["analysis_result"]
+            if session_id in conversation_states:
+                conversation_states[session_id]["analysis_result"] = analysis_result
+                conversation_states[session_id]["analysis_completed"] = True
+                conversation_states[session_id]["analysis_completed_at"] = datetime.now().isoformat()
+            del analysis_in_progress[session_id]
+
+            return jsonify({
+                "success": True,
+                "status": "completed",
+                "data": {
+                    "analysis": analysis_result,
+                    "is_collecting_info": False,
+                    "current_step": "completed",
+                    "collected_data": conversation_states[session_id]["collected_data"] if session_id in conversation_states else {},
+                    "analysis_completed": True
+                },
+                "session_id": session_id,
+                "message": "Analysis completed successfully"
+            })
+        elif analysis_info["status"] == "in_progress":
+            return jsonify({
+                "success": True,
+                "status": "in_progress",
+                "data": {
+                    "analysis": "Analysis is currently in progress. Please wait for the results...",
+                    "is_collecting_info": False,
+                    "current_step": "analysis"
+                },
+                "session_id": session_id,
+                "message": "Analysis in progress"
+            })
+
+    # No analysis found
+    return jsonify({
+        "success": False,
+        "status": "not_found",
+        "error": "No analysis found for this session"
+    }), 404
 
 @app.route('/api/augment/murder/state', methods=['GET'])
 def murder_agent_state():

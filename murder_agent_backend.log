@@ -1,0 +1,21 @@
+2025-06-06 20:00:35,066 - __main__ - INFO - Using API key from C:\python_programs\newbackend\AiJusticeGrid\.env file
+2025-06-06 20:00:36,816 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:00:36,816 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:00:36,831 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:00:37,117 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.12:5001
+2025-06-06 20:00:37,117 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-06 20:00:37,372 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:00:43,082 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:00:43,082 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:00:43,105 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:00:43,169 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:00:43,184 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:00:58,830 - murder_agent_backend - INFO - Using API key from C:\python_programs\newbackend\AiJusticeGrid\.env file
+2025-06-06 20:01:00,447 - murder_agent_backend - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:01:00,457 - murder_agent_backend - INFO - Murder Agent initialized
+2025-06-06 20:01:39,101 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
+2025-06-06 20:01:39,103 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
+2025-06-06 20:01:39,985 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)

@@ -1025,10 +1025,9 @@ class MurderAgent:
                     conversation_states[session_id]["current_step"] = "completed"
                     logger.info(f"Stored analysis result in conversation state for session {session_id}")
 
-                    # Clean up analysis tracking
-                    if session_id in analysis_in_progress:
-                        del analysis_in_progress[session_id]
-                        logger.info(f"Cleaned up analysis tracking for session {session_id}")
+                    # DON'T clean up analysis tracking immediately - let the frontend retrieve it first
+                    # The cleanup will happen when the frontend polls for the result
+                    logger.info(f"Analysis completed for session {session_id}, keeping in tracking for frontend retrieval")
 
                     # Return the analysis
                     return session_id, analysis, False, "completed", None
@@ -1154,8 +1153,9 @@ def murder_agent_endpoint():
                     conversation_states[session_id]["analysis_completed"] = True
                     conversation_states[session_id]["analysis_completed_at"] = datetime.now().isoformat()
 
-                # Clean up the analysis tracking
+                # Clean up the analysis tracking NOW since frontend is requesting it
                 del analysis_in_progress[session_id]
+                logger.info(f"Cleaned up analysis tracking for session {session_id} after frontend retrieval")
 
                 # Return the analysis result
                 return jsonify({
@@ -1233,7 +1233,8 @@ def murder_agent_endpoint():
                 "message": "Analysis in progress"
             })
         elif analysis_info["status"] == "completed" and "analysis_result" in analysis_info:
-            logger.info(f"Analysis completed for session {session_id}, returning result")
+            # Analysis is completed! Return it immediately and clean up
+            logger.info(f"Analysis completed for session {session_id}, returning result via main endpoint")
             analysis_result = analysis_info["analysis_result"]
 
             # Store the result in conversation state before cleaning up tracking
@@ -1242,8 +1243,9 @@ def murder_agent_endpoint():
                 conversation_states[session_id]["analysis_completed"] = True
                 conversation_states[session_id]["analysis_completed_at"] = datetime.now().isoformat()
 
-            # Clean up the analysis tracking
+            # Clean up the analysis tracking NOW since we're returning the result
             del analysis_in_progress[session_id]
+            logger.info(f"Cleaned up analysis tracking for session {session_id} after returning result")
 
             return jsonify({
                 "success": True,
@@ -1258,6 +1260,7 @@ def murder_agent_endpoint():
                 "session_id": session_id,
                 "message": "Analysis completed successfully"
             })
+
 
     # Process the message using the process_message method
     # The greeting step now has field="case_id", so the first input will be stored correctly

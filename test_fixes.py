@@ -36,60 +36,86 @@ def test_analysis_completion_flow():
     session_id = data.get("session_id")
     print(f"✅ Started conversation with session ID: {session_id}")
     
-    # Simulate Q&A session with minimal data
-    questions_answers = [
-        ("John Doe", "victim_name"),
-        ("2024-01-15", "crime_date"),
-        ("123 Main St", "location"),
-        ("Gunshot wound", "cause_of_death"),
-        ("Jane Smith", "suspect_name"),
-        ("Ex-wife", "suspect_relationship"),
-        ("Financial dispute", "motive"),
-        ("Gun found at scene", "evidence"),
-        ("No additional notes", "additional_notes")
+    # Simulate Q&A session with minimal data - continue until analysis
+    answers = [
+        "John Doe",           # victim_name
+        "2024-01-15",         # crime_date
+        "10:30 PM",           # crime_time
+        "123 Main St",        # location
+        "Gunshot wound",      # cause_of_death
+        "Jane Smith",         # suspect_name
+        "Ex-wife",            # suspect_relationship
+        "Financial dispute",  # motive
+        "Gun found at scene", # evidence
+        "No additional notes" # additional_notes
     ]
-    
+
     print("2. Simulating Q&A session...")
-    for answer, field in questions_answers:
+    for i, answer in enumerate(answers):
         response = requests.post(f"{BACKEND_URL}/api/augment/murder", json={
             "question": answer,
             "session_id": session_id
         })
-        
+
         if response.status_code != 200:
             print(f"❌ Failed to submit answer '{answer}': {response.status_code}")
             return False
-        
+
         data = response.json()
-        print(f"   Submitted: {answer} -> {data.get('data', {}).get('current_step', 'unknown')}")
-        
+        current_step = data.get('data', {}).get('current_step', 'unknown')
+        is_collecting = data.get('data', {}).get('is_collecting_info', True)
+        print(f"   Step {i+1}: {answer} -> {current_step} (collecting: {is_collecting})")
+
         # Check if we've reached analysis
-        if data.get('data', {}).get('current_step') == 'analysis':
+        if current_step == 'analysis' or not is_collecting:
             print("✅ Reached analysis step")
+            break
+
+        # Safety check - if we've submitted all answers, break
+        if i >= len(answers) - 1:
+            print("⚠️ Submitted all answers, checking if analysis started...")
             break
     
     # Wait for analysis to complete and check status
     print("3. Checking analysis completion...")
-    max_attempts = 10
+    max_attempts = 15
     for attempt in range(max_attempts):
-        # Use the new analysis status endpoint
-        response = requests.get(f"{BACKEND_URL}/api/augment/murder/analysis-status", params={
+        # First try the main endpoint (this should now return completed analysis automatically)
+        response = requests.post(f"{BACKEND_URL}/api/augment/murder", json={
+            "question": "",  # Empty question to just check status
             "session_id": session_id
         })
-        
+
         if response.status_code == 200:
             data = response.json()
-            status = data.get("status")
-            print(f"   Attempt {attempt + 1}: Status = {status}")
-            
-            if status == "completed":
-                analysis = data.get("data", {}).get("analysis", "")
+            analysis = data.get("data", {}).get("analysis", "")
+            current_step = data.get("data", {}).get("current_step", "")
+            analysis_completed = data.get("data", {}).get("analysis_completed", False)
+
+            print(f"   Attempt {attempt + 1}: Step = {current_step}, Completed = {analysis_completed}")
+
+            if current_step == "completed" or analysis_completed:
                 if analysis and "Analysis is currently in progress" not in analysis:
-                    print("✅ Analysis completed successfully!")
+                    print("✅ Analysis completed successfully via main endpoint!")
                     print(f"   Analysis preview: {analysis[:100]}...")
                     return True
-        
-        time.sleep(2)
+
+            # Also try the analysis status endpoint as backup
+            status_response = requests.get(f"{BACKEND_URL}/api/augment/murder/analysis-status", params={
+                "session_id": session_id
+            })
+
+            if status_response.status_code == 200:
+                status_data = status_response.json()
+                status = status_data.get("status")
+                if status == "completed":
+                    analysis = status_data.get("data", {}).get("analysis", "")
+                    if analysis and "Analysis is currently in progress" not in analysis:
+                        print("✅ Analysis completed successfully via status endpoint!")
+                        print(f"   Analysis preview: {analysis[:100]}...")
+                        return True
+
+        time.sleep(3)
     
     print("❌ Analysis did not complete within expected time")
     return False

@@ -2383,20 +2383,20 @@ def murder_agent_sample():
 
 # Enhanced PDF Generation endpoint with AI analysis
 @app.route('/api/generate-pdf', methods=['POST'])
-async def generate_pdf():
+def generate_pdf():
     """Generate a PDF report from user data with AI analysis."""
     logger.info("Received request for enhanced PDF generation")
-    
+
     try:
         # Get data from request
         data = request.json
         if not data:
             return jsonify({"success": False, "error": "No data provided"}), 400
-            
+
         # Extract title and agent type
         title = data.get('title', 'Investigation Report')
         agent_type = data.get('agent_type', 'murder').lower()
-        
+
         # Map analysis type
         mapped_analysis_type = {
             'murder': 'murder',
@@ -2406,59 +2406,85 @@ async def generate_pdf():
             'theft': 'theft'
         }.get(agent_type, 'general')
         
-        # Initialize PDF generator with proper waiting and error handling
+        # Initialize PDF generator with proper error handling
         try:
             logger.info(f"Attempting to generate PDF for agent type: {agent_type}")
             from dynamic_pdf_generator import DynamicPDFGenerator
             pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
 
-            # Generate the PDF with explicit waiting
+            # Generate the PDF synchronously
             logger.info("Calling PDF generator...")
-            pdf_buffer = await asyncio.to_thread(
-                pdf_generator.generate_investigation_pdf,
+            pdf_buffer = pdf_generator.generate_investigation_pdf(
                 data=data,
                 analysis_type=mapped_analysis_type
             )
             logger.info("PDF generation completed successfully")
-            
-            # If this is a murder case, capture the AI analysis with explicit waiting
+
+            # If this is a murder case, capture the AI analysis
             if agent_type == 'murder' and MURDER_STORAGE_AVAILABLE:
                 try:
-                    ai_analysis_content = await asyncio.to_thread(
-                        pdf_generator.generate_ai_analysis,
-                        data, 
+                    ai_analysis_content = pdf_generator.generate_ai_analysis(
+                        data,
                         mapped_analysis_type
                     )
-                    
+
                     # Update the stored case with the AI analysis
                     case_id = data.get('case_id') or data.get('requestId', str(datetime.now().timestamp()))
-                    await asyncio.to_thread(
-                        murder_storage.update_ai_analysis,
-                        case_id, 
+                    murder_storage.update_ai_analysis(
+                        case_id,
                         ai_analysis_content
                     )
                     logger.info(f"Updated case {case_id} with AI analysis")
-                    
+
                 except Exception as e:
                     logger.error(f"Error capturing AI analysis for storage: {e}")
         except ImportError as import_error:
             logger.warning(f"Dynamic PDF generator not available: {import_error}, using fallback")
-            # Fallback to existing PDF generation with explicit waiting
+            # Fallback to existing PDF generation
             logger.info("Using fallback PDF generation method")
-            pdf_buffer = await asyncio.to_thread(generate_incident_pdf, data)
+            pdf_buffer = generate_incident_pdf(data)
         except Exception as pdf_error:
             logger.error(f"Error in PDF generation: {pdf_error}")
-            # Create error response
+            # Try fallback method as last resort
+            try:
+                logger.info("Attempting fallback PDF generation due to error")
+                pdf_buffer = generate_incident_pdf(data)
+                logger.info("Fallback PDF generation successful")
+            except Exception as fallback_error:
+                logger.error(f"Fallback PDF generation also failed: {fallback_error}")
+                return jsonify({
+                    "success": False,
+                    "error": f"Failed to generate PDF: {str(pdf_error)}. Fallback also failed: {str(fallback_error)}"
+                }), 500
+            
+        # Validate PDF buffer
+        if not pdf_buffer:
+            logger.error("PDF buffer is None or empty")
             return jsonify({
                 "success": False,
-                "error": f"Failed to generate PDF: {str(pdf_error)}"
+                "error": "PDF generation returned empty buffer"
             }), 500
-            
+
+        # Check if buffer has content
+        pdf_buffer.seek(0)
+        content = pdf_buffer.read()
+        if not content:
+            logger.error("PDF buffer contains no data")
+            return jsonify({
+                "success": False,
+                "error": "PDF generation produced no content"
+            }), 500
+
+        # Reset buffer position for file sending
+        pdf_buffer.seek(0)
+
         # Create a unique filename that doesn't reference local paths
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         safe_title = title.replace(' ', '_').replace('/', '_')[:50]
         filename = f"{safe_title}_{timestamp}.pdf"
-        
+
+        logger.info(f"Sending PDF file: {filename}, size: {len(content)} bytes")
+
         # Return the PDF as a file download
         return send_file(
             pdf_buffer,

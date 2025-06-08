@@ -2,8 +2,8 @@
   "murder_investigations": {
     "metadata": {
       "created": "2025-01-27T23:00:00.000Z",
-      "last_updated": "2025-06-03T22:38:09.431587",
-      "total_cases": 4,
+      "last_updated": "2025-06-08T21:20:51.924930",
+      "total_cases": 7,
       "version": "1.0.0",
       "description": "Persistent storage for Murder Agent investigation data and AI analysis reports"
     },
@@ -577,6 +577,408 @@
           "assistant_messages": 23,
           "conversation_start": "2025-06-02T19:55:17.624Z",
           "conversation_end": "2025-06-03T17:06:44.291Z"
+        }
+      },
+      "002": {
+        "case_metadata": {
+          "case_id": "002",
+          "session_id": "90c15982-bf84-42e2-a113-7c9d69d0bfec",
+          "created": "2025-06-06T22:58:43.328071",
+          "last_updated": "2025-06-06T22:58:43.328071",
+          "status": "active"
+        },
+        "conversation_data": {
+          "total_messages": 0,
+          "user_messages": 0,
+          "assistant_messages": 0,
+          "conversation_start": null,
+          "conversation_end": null,
+          "conversation_pairs": [
+            {
+              "question": "Thank you. When did the crime occur? Please provide the date (YYYY-MM-DD, MM/DD/YYYY, or text format like 'January 15, 2023').",
+              "answer": "2000-05-12",
+              "timestamp": "2025-06-06T22:58:43.318722"
+            },
+            {
+              "question": "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+              "answer": "00:30",
+              "timestamp": "2025-06-06T22:58:43.318722"
+            },
+            {
+              "question": "Where did the crime take place? Please provide the location.",
+              "answer": "italy",
+              "timestamp": "2025-06-06T22:58:43.318722"
+            },
+            {
+              "question": "What is the victim's name?",
+              "answer": "itaniey",
+              "timestamp": "2025-06-06T22:58:43.318722"
+            },
+            {
+              "question": "What is the victim's age?",
+              "answer": "34",
+              "timestamp": "2025-06-06T22:58:43.318722"
+            },
+            {
+              "question": "What is the victim's gender?",
+              "answer": "male",
+              "timestamp": "2025-06-06T22:58:43.318722"
+            },
+            {
+              "question": "What was the cause of death?",
+              "answer": "test",
+              "timestamp": "2025-06-06T22:58:43.318722"
+            },
+            {
+              "question": "Was a weapon used? If so, what kind?",
+              "answer": "test",
+              "timestamp": "2025-06-06T22:58:43.318722"
+            },
+            {
+              "question": "Please describe the crime scene.",
+              "answer": "test",
+              "timestamp": "2025-06-06T22:58:43.321348"
+            },
+            {
+              "question": "Were there any witnesses? If so, please provide details.",
+              "answer": "test",
+              "timestamp": "2025-06-06T22:58:43.321348"
+            },
+            {
+              "question": "What evidence was found at the scene?",
+              "answer": "test",
+              "timestamp": "2025-06-06T22:58:43.321348"
+            },
+            {
+              "question": "Are there any suspects at this time?",
+              "answer": "test",
+              "timestamp": "2025-06-06T22:58:43.321348"
+            },
+            {
+              "question": "Do you have any additional notes or information about the case?",
+              "answer": "test",
+              "timestamp": "2025-06-06T22:58:43.321348"
+            }
+          ]
+        },
+        "case_details": {
+          "victim_information": {
+            "name": "itaniey",
+            "age": "34",
+            "gender": "male"
+          },
+          "crime_information": {
+            "date": null,
+            "time": null,
+            "location": "italy",
+            "weapon_used": "test",
+            "cause_of_death": "test"
+          },
+          "investigation_details": {
+            "witnesses": "test",
+            "evidence": "test",
+            "suspects": "test",
+            "crime_scene_description": "test"
+          },
+          "additional_information": {
+            "notes": "test"
+          }
+        },
+        "ai_analysis": {
+          "generated": true,
+          "generated_at": "2025-06-06T22:58:43.328071",
+          "content": "**Case Analysis: Case ID 002**\n\n**1. Comprehensive Analysis of the Case**\n\nBased on the provided data, the analysis is significantly limited due to the lack of specific information. Here's a breakdown of what can be inferred:\n\n- **Victim Profile**: Male, 34 years old, named \"itaniey\" (potentially a typo or placeholder), found deceased in Italy.\n- **Crime Details**: The murder occurred on May 12, 2000, at 00:30. The cause of death, weapon used, crime scene description, witnesses, evidence found, suspects, and additional notes are all listed as \"test\".\n- **Critical Observation**: The repetition of \"test\" across all critical fields (cause of death, weapon, crime scene, witnesses, evidence, suspects, and notes) suggests that the data provided is either a placeholder, incomplete, or has been obscured for the purpose of this exercise.\n\n**Conclusion from Analysis**: Given the current information, it's impossible to conduct a meaningful analysis or draw conclusions about the murder case. The data lacks specificity, and all critical details are placeholders.\n\n**2. Potential Motives and Suspects to Consider**\n\n- **Motives**: Cannot be determined due to lack of information on the victim's background, the nature of the crime, or potential conflicts.\n- **Suspects**: The \"test\" entry under suspects indicates no identifiable persons of interest are provided. Typically, in a murder investigation, suspects might include individuals with a motive (e.g., personal, financial, or professional conflicts with the victim), but without specific data, no inferences can be made.\n\n**Recommendation**: If this were a real investigation, the first step would be to gather detailed information on the victim, the crime scene, and potential witnesses to establish a baseline for suspect identification and motive analysis.\n\n**3. Recommended Investigative Approaches**\n\nGiven the data's current state, the recommended approach is to:\n\n- **Request Additional Information**: Seek complete and accurate details for all fields currently marked as \"test\". This includes conducting interviews with potential witnesses, re-examining the crime scene, and re-analyzing physical evidence.\n- **Verify Data Integrity**: Ensure that the provided data is not corrupted or intentionally obscured. If \"test\" is a placeholder, replace it with actual case details to proceed with the investigation.\n\n**4. Key Evidence to Focus On and Analysis**\n\n- **Current Key Evidence**: None identifiable due to the \"test\" placeholder.\n- **Suggested Focus**: Once actual evidence is provided, focus on:\n  - **Cause of Death and Weapon Used**: To understand the method of the crime and potentially identify the perpetrator's profile.\n  - **Crime Scene Description**: For insights into the perpetrator's behavior, potential staging, or evidence of a struggle.\n  - **Witnesses and Suspects**: To establish timelines, alibis, and potential motives.\n\n**5. Possible Solutions or Conclusions**\n\n**Direct Conclusion from Provided Data**: The case, as presented, cannot be solved or further analyzed due to the absence of substantive information. All critical fields are placeholders, making it impossible to apply investigative logic or forensic analysis.\n\n**Next Steps for Resolution**:\n- **Data Correction**: Obtain accurate and detailed information for all case aspects.\n- **Re-Initiation of Analysis**: Once comprehensive data is available, re-analyze the case with a focus on the victimology, crime scene analysis, and suspect profiling based on the corrected information."
+        },
+        "user_metadata": {
+          "session_id": "90c15982-bf84-42e2-a113-7c9d69d0bfec",
+          "timestamp": "2025-06-06T22:58:43.321348",
+          "analysis_completed": true,
+          "backend_source": "unified_server",
+          "endpoint": "/api/augment/murder"
+        },
+        "raw_extracted_data": {
+          "case_id": "002",
+          "date_of_crime": "2000-05-12",
+          "time_of_crime": "00:30",
+          "location": "italy",
+          "victim_name": "itaniey",
+          "victim_age": "34",
+          "victim_gender": "male",
+          "cause_of_death": "test",
+          "weapon_used": "test",
+          "crime_scene_description": "test",
+          "witnesses": "test",
+          "evidence_found": "test",
+          "suspects": "test",
+          "additional_notes": "test"
+        }
+      },
+      "0132": {
+        "case_metadata": {
+          "case_id": "0132",
+          "session_id": "f7c076f0-7a60-4058-8b3f-ad3bf00e68cb",
+          "created": "2025-06-06T23:08:07.527177",
+          "last_updated": "2025-06-06T23:08:07.527177",
+          "status": "active"
+        },
+        "conversation_data": {
+          "total_messages": 0,
+          "user_messages": 0,
+          "assistant_messages": 0,
+          "conversation_start": null,
+          "conversation_end": null,
+          "conversation_pairs": [
+            {
+              "question": "Thank you. When did the crime occur? Please provide the date (YYYY-MM-DD, MM/DD/YYYY, or text format like 'January 15, 2023').",
+              "answer": "2000-04-11",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+              "answer": "00:30",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "Where did the crime take place? Please provide the location.",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "What is the victim's name?",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "What is the victim's age?",
+              "answer": "34",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "What is the victim's gender?",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "What was the cause of death?",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "Was a weapon used? If so, what kind?",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "Please describe the crime scene.",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "Were there any witnesses? If so, please provide details.",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "What evidence was found at the scene?",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "Are there any suspects at this time?",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            },
+            {
+              "question": "Do you have any additional notes or information about the case?",
+              "answer": "test",
+              "timestamp": "2025-06-06T23:08:07.527177"
+            }
+          ]
+        },
+        "case_details": {
+          "victim_information": {
+            "name": "test",
+            "age": "34",
+            "gender": "test"
+          },
+          "crime_information": {
+            "date": null,
+            "time": null,
+            "location": "test",
+            "weapon_used": "test",
+            "cause_of_death": "test"
+          },
+          "investigation_details": {
+            "witnesses": "test",
+            "evidence": "test",
+            "suspects": "test",
+            "crime_scene_description": "test"
+          },
+          "additional_information": {
+            "notes": "test"
+          }
+        },
+        "ai_analysis": {
+          "generated": true,
+          "generated_at": "2025-06-06T23:08:07.527177",
+          "content": "**Case Analysis: 0132**\n\n**1. Comprehensive Analysis of the Case**\n\n* **Case Overview**: The provided case details are incomplete, with all critical fields marked as \"test\". This indicates a lack of substantive information to conduct a meaningful analysis.\n* **Data Integrity**: The absence of specific data (e.g., victim name, age, gender, cause of death, weapon used, crime scene description, witnesses, evidence, suspects, and additional notes) severely hinders the ability to draw conclusions or identify patterns.\n* **Initial Impression**: Given the placeholder data, it appears this case has not been properly populated with factual information, suggesting a potential error in data entry or transmission.\n\n**2. Potential Motives and Suspects to Consider Based on the Evidence**\n\n* **Motives**: None can be inferred due to the absence of victimology, cause of death, or crime scene context.\n* **Suspects**: The \"test\" entry under suspects does not provide a viable lead. Typically, suspects could be identified based on relationships to the victim, presence at the crime scene, or motive, but none of these elements are available.\n\n**3. Recommended Investigative Approaches Specific to This Case**\n\n* **Data Verification**: Immediately verify the integrity of the case file. Contact the reporting source or database administrator to confirm if the \"test\" entries are placeholders or indicative of a system error.\n* **Information Gathering**: If the case is legitimate but the data is missing, prioritize collecting basic case information (e.g., victim details, crime scene assessment, witness statements).\n* **System Check**: If this is part of a database or digital system, perform a diagnostic check to ensure no other cases have been similarly affected, which could indicate a broader technical issue.\n\n**4. Key Evidence to Focus On and How to Analyze It**\n\n* **Currently Identified Evidence**: None, as \"Evidence Found\" is listed as \"test\".\n* **Recommendation**: Once actual evidence is identified, standard forensic analysis (e.g., DNA, fingerprints, digital evidence examination) would be applicable. However, without specifics, no tailored analytical approach can be suggested.\n\n**5. Possible Solutions or Conclusions Directly Following from the Data**\n\n* **Primary Conclusion**: The case, as presented, cannot be solved or meaningfully analyzed due to the complete lack of substantive information.\n* **Immediate Action Required**: Rectify the data entry issue to populate the case file with accurate, detailed information.\n* **Procedural Recommendation**: Implement a data validation process to prevent similar placeholder entries from being submitted as legitimate case files in the future.\n\n**Final Note**: This analysis is constrained by the absence of factual data. Any further progress on this case is contingent upon obtaining and verifying the missing information."
+        },
+        "user_metadata": {
+          "session_id": "f7c076f0-7a60-4058-8b3f-ad3bf00e68cb",
+          "timestamp": "2025-06-06T23:08:07.527177",
+          "analysis_completed": true,
+          "backend_source": "unified_server",
+          "endpoint": "/api/augment/murder"
+        },
+        "raw_extracted_data": {
+          "case_id": "0132",
+          "date_of_crime": "2000-04-11",
+          "time_of_crime": "00:30",
+          "location": "test",
+          "victim_name": "test",
+          "victim_age": "34",
+          "victim_gender": "test",
+          "cause_of_death": "test",
+          "weapon_used": "test",
+          "crime_scene_description": "test",
+          "witnesses": "test",
+          "evidence_found": "test",
+          "suspects": "test",
+          "additional_notes": "test"
+        }
+      },
+      "094": {
+        "case_metadata": {
+          "case_id": "094",
+          "session_id": "e70c961f-1a85-4855-b9ac-6d5e9f157825",
+          "created": "2025-06-08T21:20:51.924930",
+          "last_updated": "2025-06-08T21:20:51.924930",
+          "status": "active"
+        },
+        "conversation_data": {
+          "total_messages": 0,
+          "user_messages": 0,
+          "assistant_messages": 0,
+          "conversation_start": null,
+          "conversation_end": null,
+          "conversation_pairs": [
+            {
+              "question": "Thank you. When did the crime occur? Please provide the date (YYYY-MM-DD, MM/DD/YYYY, or text format like 'January 15, 2023').",
+              "answer": "2000-03-13",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+              "answer": "00:30",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "Where did the crime take place? Please provide the location.",
+              "answer": "toranto",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "What is the victim's name?",
+              "answer": "test",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "What is the victim's age?",
+              "answer": "45",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "What is the victim's gender?",
+              "answer": "test",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "What was the cause of death?",
+              "answer": "test",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "Was a weapon used? If so, what kind?",
+              "answer": "test",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "Please describe the crime scene.",
+              "answer": "test",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "Were there any witnesses? If so, please provide details.",
+              "answer": "test",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "What evidence was found at the scene?",
+              "answer": "test",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "Are there any suspects at this time?",
+              "answer": "test",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            },
+            {
+              "question": "Do you have any additional notes or information about the case?",
+              "answer": "test",
+              "timestamp": "2025-06-08T21:20:51.924930"
+            }
+          ]
+        },
+        "case_details": {
+          "victim_information": {
+            "name": "test",
+            "age": "45",
+            "gender": "test"
+          },
+          "crime_information": {
+            "date": null,
+            "time": null,
+            "location": "toranto",
+            "weapon_used": "test",
+            "cause_of_death": "test"
+          },
+          "investigation_details": {
+            "witnesses": "test",
+            "evidence": "test",
+            "suspects": "test",
+            "crime_scene_description": "test"
+          },
+          "additional_information": {
+            "notes": "test"
+          }
+        },
+        "ai_analysis": {
+          "generated": true,
+          "generated_at": "2025-06-08T21:20:51.924930",
+          "content": "**Comprehensive Analysis of Case Id: 094**\n\nGiven the provided data, the analysis is constrained by the absence of specific, detailed information across all categories. Here's a structured breakdown based solely on the given details:\n\n### 1. **Comprehensive Analysis of the Case**\n\n- **Case Overview**: The case involves a murder that occurred on March 13, 2000, at 00:30 in Toronto. The victim is a 45-year-old individual. All other critical details (victim's name, gender, cause of death, weapon used, crime scene description, witnesses, evidence found, suspects, and additional notes) are listed as \"test\", indicating either a placeholder or missing information.\n  \n- **Critical Observations**:\n  - **Location**: Toronto, a major city, suggests potential for varied motives (e.g., gang-related, personal, random violence).\n  - **Time of Crime**: 00:30 (12:30 AM) implies the crime occurred late at night, possibly reducing the number of potential witnesses and increasing the likelihood of the victim being alone or in a vulnerable state.\n  - **Victim Age**: 45 years old, which might suggest the victim had established relationships, career, or habits that could be relevant, but without more context, this is speculative.\n\n### 2. **Potential Motives and Suspects to Consider**\n\n- **Motives**:\n  - **Unknown** due to lack of specific information about the victim, cause of death, and crime scene. Typically, motives could range from personal vendettas, financial gain, to random acts of violence, but none can be prioritized without further data.\n  \n- **Suspects**:\n  - **Not Identifiable** from the provided data. Normally, suspects could include individuals with a history of conflict with the victim, those who stood to gain from the victim's death, or persons of interest in the area at the time. However, with all fields related to suspects and witnesses marked as \"test\", no specific individuals can be highlighted.\n\n### 3. **Recommended Investigative Approaches**\n\n- **Immediate Actions**:\n  1. **Verify and Update Case Information**: Ensure all \"test\" placeholders are replaced with accurate, detailed information to facilitate a meaningful investigation.\n  2. **Canvass the Area**: Given the time and location, interview potential witnesses in Toronto who might have been in the vicinity around 00:30 on March 13, 2000.\n  3. **Victimology**: Conduct a thorough background check on the victim (once the name is provided) to identify potential enemies, financial status, and recent activities.\n\n- **Follow-Up Strategies**:\n  - **Forensic Analysis**: Once the weapon and evidence are properly identified, prioritize forensic examination to link the suspect to the crime scene or victim.\n  - **Psychological Profiling**: If the cause of death and crime scene description become available, consider psychological profiling to infer characteristics of the perpetrator.\n\n### 4. **Key Evidence to Focus On and How to Analyze It**\n\n- **Currently Identified Key Evidence**: None, due to \"test\" placeholders.\n  \n- **Anticipated Key Evidence (Once Available)**:\n  - **Weapon Used**: Analyze for fingerprints, DNA, or unique identifiers that could link to a suspect.\n  - **Crime Scene Description**: Look for signs of struggle, forced entry, or specific modus operandi (MO) that could match known criminals or past crimes.\n  - **Witness Statements**: Evaluate for consistency and potential biases; corroborate with physical evidence.\n\n### 5. **Possible Solutions or Conclusions**\n\n- **Direct Conclusions from Provided Data**: None can be definitively drawn due to the lack of substantive information. All conclusions would be speculative without detailed evidence and context.\n  \n- **Next Steps for Solution**:\n  1. **Data Completion**: Obtain and integrate accurate information for all \"test\" fields.\n  2. **Preliminary Investigation**: Based on updated data, reassess the case for potential motives, suspects, and evidence analysis pathways.\n  3. **Public Appeal**: If appropriate, issue a public appeal for information regarding the murder, emphasizing the date, time, and location to jog potential witnesses' memories.\n\n**Critical Note**: The advancement of this case hinges entirely on the provision of detailed, accurate information to replace the \"test\" placeholders. Without such, the investigation cannot proceed with any degree of certainty or effectiveness."
+        },
+        "user_metadata": {
+          "session_id": "e70c961f-1a85-4855-b9ac-6d5e9f157825",
+          "timestamp": "2025-06-08T21:20:51.924930",
+          "analysis_completed": true,
+          "backend_source": "unified_server",
+          "endpoint": "/api/augment/murder"
+        },
+        "raw_extracted_data": {
+          "case_id": "094",
+          "date_of_crime": "2000-03-13",
+          "time_of_crime": "00:30",
+          "location": "toranto",
+          "victim_name": "test",
+          "victim_age": "45",
+          "victim_gender": "test",
+          "cause_of_death": "test",
+          "weapon_used": "test",
+          "crime_scene_description": "test",
+          "witnesses": "test",
+          "evidence_found": "test",
+          "suspects": "test",
+          "additional_notes": "test"
         }
       }
     }

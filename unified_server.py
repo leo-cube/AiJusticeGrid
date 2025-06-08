@@ -1320,220 +1320,279 @@ def generate_incident_pdf(incident_data):
     Returns:
         BytesIO object containing the PDF data
     """
-    logger.info("Starting fallback PDF generation")
-
+    # Log the incoming data for debugging
+    logger.info(f"Fallback PDF generator received data with keys: {list(incident_data.keys())}")
+    logger.info(f"Incident data preview: {str(incident_data)[:500]}...")
     if not REPORTLAB_AVAILABLE:
         # Return a simple text-based response when ReportLab is not available
-        logger.error("ReportLab is not available for PDF generation")
         buffer = BytesIO()
         error_message = "PDF generation is not available. ReportLab library is not installed.\n"
         error_message += "Please install ReportLab with: pip install reportlab\n\n"
         error_message += "Case Data:\n"
         for key, value in incident_data.items():
-            if value:  # Only include non-empty values
-                error_message += f"{key}: {value}\n"
+            error_message += f"{key}: {value}\n"
         buffer.write(error_message.encode('utf-8'))
         buffer.seek(0)
         return buffer
 
     buffer = BytesIO()
 
-    try:
-        # Create the PDF document
-        doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
-                               topMargin=72, bottomMargin=18)
+    # Create the PDF document
+    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
+                           topMargin=72, bottomMargin=18)
 
-        # Get styles
-        styles = getSampleStyleSheet()
+    # Get styles
+    styles = getSampleStyleSheet()
 
-        # Create custom styles
-        title_style = ParagraphStyle(
-            'CustomTitle',
-            parent=styles['Heading1'],
-            fontSize=18,
-            spaceAfter=30,
-            alignment=TA_CENTER,
-            textColor=colors.HexColor('#003366')
-        )
+    # Create custom styles
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=18,
+        spaceAfter=30,
+        alignment=TA_CENTER,
+        textColor=colors.HexColor('#003366')
+    )
 
-        heading_style = ParagraphStyle(
-            'CustomHeading',
-            parent=styles['Heading2'],
-            fontSize=14,
-            spaceAfter=12,
-            spaceBefore=20,
-            textColor=colors.HexColor('#003366')
-        )
+    heading_style = ParagraphStyle(
+        'CustomHeading',
+        parent=styles['Heading2'],
+        fontSize=14,
+        spaceAfter=12,
+        spaceBefore=20,
+        textColor=colors.HexColor('#003366')
+    )
 
-        normal_style = ParagraphStyle(
-            'CustomNormal',
-            parent=styles['Normal'],
-            fontSize=11,
-            spaceAfter=6,
-            alignment=TA_JUSTIFY
-        )
+    normal_style = ParagraphStyle(
+        'CustomNormal',
+        parent=styles['Normal'],
+        fontSize=11,
+        spaceAfter=6,
+        alignment=TA_JUSTIFY
+    )
 
-        # Build the story (content)
-        story = []
+    # Build the story (content)
+    story = []
 
-        # Title
-        story.append(Paragraph("INCIDENT INVESTIGATION REPORT", title_style))
-        story.append(Spacer(1, 20))
+    # Title
+    story.append(Paragraph("INCIDENT INVESTIGATION REPORT", title_style))
+    story.append(Spacer(1, 20))
 
-        # Header information
-        header_data = [
-            ['Report ID:', incident_data.get('id', 'Unknown')],
-            ['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
-            ['Status:', incident_data.get('status', 'Unknown')],
-            ['Report Type:', 'AI Generated Investigation Report']
-        ]
+    # Header information
+    header_data = [
+        ['Report ID:', incident_data.get('id', 'Unknown')],
+        ['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
+        ['Status:', incident_data.get('status', 'Unknown')],
+        ['Report Type:', 'AI Generated Investigation Report']
+    ]
 
-        header_table = Table(header_data, colWidths=[2*inch, 4*inch])
-        header_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f2f2f2')),
-            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-            ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 0), (-1, -1), 10),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black),
-            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ]))
+    header_table = Table(header_data, colWidths=[2*inch, 4*inch])
+    header_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f2f2f2')),
+        ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+        ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+    ]))
 
-        story.append(header_table)
-        story.append(Spacer(1, 20))
+    story.append(header_table)
+    story.append(Spacer(1, 20))
 
-        # Incident Details Section
-        story.append(Paragraph("INCIDENT DETAILS", heading_style))
+    # Incident Details Section
+    story.append(Paragraph("INCIDENT DETAILS", heading_style))
 
-        # Create incident details table with dynamic data
+    # Create incident details table with dynamic data - handle murder case fields
+    incident_details = []
+
+    # Add case ID if available
+    if incident_data.get('case_id'):
+        incident_details.append(['Case ID:', incident_data.get('case_id')])
+
+    # Handle date fields (multiple possible keys)
+    date_value = (incident_data.get('crime_date') or
+                  incident_data.get('date') or
+                  incident_data.get('date_of_incident', 'Unknown'))
+    incident_details.append(['Date of Incident:', date_value])
+
+    # Handle time fields
+    time_value = (incident_data.get('crime_time') or
+                  incident_data.get('time') or
+                  incident_data.get('time_of_incident', 'Unknown'))
+    incident_details.append(['Time of Incident:', time_value])
+
+    # Location
+    incident_details.append(['Location:', incident_data.get('location', 'Unknown')])
+
+    # Victim information
+    if incident_data.get('victim_name') or incident_data.get('name'):
+        victim_name = incident_data.get('victim_name') or incident_data.get('name')
+        incident_details.append(['Victim Name:', victim_name])
+
+    if incident_data.get('victim_age') or incident_data.get('age'):
+        victim_age = incident_data.get('victim_age') or incident_data.get('age')
+        incident_details.append(['Victim Age:', victim_age])
+
+    if incident_data.get('victim_gender') or incident_data.get('gender'):
+        victim_gender = incident_data.get('victim_gender') or incident_data.get('gender')
+        incident_details.append(['Victim Gender:', victim_gender])
+
+    # Murder-specific fields
+    if incident_data.get('cause_of_death'):
+        incident_details.append(['Cause of Death:', incident_data.get('cause_of_death')])
+
+    if incident_data.get('weapon_used') or incident_data.get('weapon'):
+        weapon = incident_data.get('weapon_used') or incident_data.get('weapon')
+        incident_details.append(['Weapon Used:', weapon])
+
+    if incident_data.get('crime_scene_description') or incident_data.get('crime_scene'):
+        crime_scene = incident_data.get('crime_scene_description') or incident_data.get('crime_scene')
+        incident_details.append(['Crime Scene:', crime_scene])
+
+    if incident_data.get('witnesses'):
+        incident_details.append(['Witnesses:', incident_data.get('witnesses')])
+
+    if incident_data.get('evidence_found') or incident_data.get('evidence'):
+        evidence = incident_data.get('evidence_found') or incident_data.get('evidence')
+        incident_details.append(['Evidence:', evidence])
+
+    if incident_data.get('suspects'):
+        incident_details.append(['Suspects:', incident_data.get('suspects')])
+
+    if incident_data.get('additional_notes') or incident_data.get('notes'):
+        notes = incident_data.get('additional_notes') or incident_data.get('notes')
+        incident_details.append(['Additional Notes:', notes])
+
+    # Fallback for generic fields
+    if not incident_details:
         incident_details = [
-            ['Date of Incident:', incident_data.get('date', 'Unknown')],
-            ['Time of Incident:', incident_data.get('time', 'Unknown')],
-            ['Location:', incident_data.get('location', 'Unknown')],
-            ['Incident Type:', incident_data.get('incident_type', 'Unknown')],
-            ['Reporting Officer:', incident_data.get('reporting_officer', 'Unknown')],
-            ['Evidence:', incident_data.get('evidence', 'Unknown')]
+            ['Incident Type:', incident_data.get('incident_type', 'Investigation')],
+            ['Status:', incident_data.get('status', 'Under Investigation')]
         ]
 
-        details_table = Table(incident_details, colWidths=[2*inch, 4*inch])
-        details_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
-            ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-            ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-            ('FONTSIZE', (0, 0), (-1, -1), 10),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black),
-            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-        ]))
+    details_table = Table(incident_details, colWidths=[2*inch, 4*inch])
+    details_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
+        ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+        ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+    ]))
 
-        story.append(details_table)
+    story.append(details_table)
+    story.append(Spacer(1, 20))
+
+    # Conversation Section (if available)
+    if 'conversation_pairs' in incident_data and incident_data['conversation_pairs']:
+        story.append(Paragraph("INVESTIGATION CONVERSATION", heading_style))
+
+        for i, pair in enumerate(incident_data['conversation_pairs'], 1):
+            # Question
+            question_text = pair.get('question', f'Question {i}')
+            # Clean agent names from questions
+            question_text = question_text.replace('Murder Agent', '').strip()
+            question_text = question_text.replace('**[LIVE DATA ANALYSIS]**', '').strip()
+            if question_text.startswith('Live Data'):
+                question_text = question_text.replace('Live Data', '').strip()
+
+            story.append(Paragraph(f"Q{i}: {question_text}", normal_style))
+            story.append(Spacer(1, 3))
+
+            # Answer
+            answer_text = pair.get('answer', 'No answer provided')
+            story.append(Paragraph(f"A{i}: {answer_text}", normal_style))
+            story.append(Spacer(1, 8))
+
         story.append(Spacer(1, 20))
 
-        # Victims Section
-        if 'victims' in incident_data and incident_data['victims']:
-            story.append(Paragraph("VICTIMS", heading_style))
+    # Victims Section
+    if 'victims' in incident_data and incident_data['victims']:
+        story.append(Paragraph("VICTIMS", heading_style))
 
-            for i, victim in enumerate(incident_data['victims']):
-                victim_data = [
-                    [f'Victim {i+1} Name:', victim.get('name', 'Unknown')],
-                    ['Age:', str(victim.get('age', 'Unknown'))],
-                    ['Gender:', victim.get('gender', 'Unknown')],
-                    ['Injuries:', victim.get('injuries', 'Unknown')]
-                ]
-
-                victim_table = Table(victim_data, colWidths=[2*inch, 4*inch])
-                victim_table.setStyle(TableStyle([
-                    ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#fff3cd')),
-                    ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-                    ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                    ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-                    ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-                    ('FONTSIZE', (0, 0), (-1, -1), 10),
-                    ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-                ]))
-
-                story.append(victim_table)
-                story.append(Spacer(1, 10))
-
-        # Suspects Section
-        if 'suspects' in incident_data and incident_data['suspects']:
-            story.append(Paragraph("SUSPECTS", heading_style))
-
-            for i, suspect in enumerate(incident_data['suspects']):
-                suspect_data = [
-                    [f'Suspect {i+1} Name:', suspect.get('name', 'Unknown')],
-                    ['Age:', str(suspect.get('age', 'Unknown'))],
-                    ['Gender:', suspect.get('gender', 'Unknown')],
-                    ['Description:', suspect.get('description', 'Unknown')]
-                ]
-
-                suspect_table = Table(suspect_data, colWidths=[2*inch, 4*inch])
-                suspect_table.setStyle(TableStyle([
-                    ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8d7da')),
-                    ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-                    ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                    ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-                    ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-                    ('FONTSIZE', (0, 0), (-1, -1), 10),
-                    ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-                ]))
-
-                story.append(suspect_table)
-                story.append(Spacer(1, 10))
-
-        # Description Section
-        if 'description' in incident_data and incident_data['description']:
-            story.append(Paragraph("INCIDENT DESCRIPTION", heading_style))
-            story.append(Paragraph(incident_data['description'], normal_style))
-            story.append(Spacer(1, 15))
-
-        # AI Analysis Section (if available)
-        if 'ai_analysis' in incident_data and incident_data['ai_analysis']:
-            story.append(Paragraph("AI ANALYSIS", heading_style))
-            story.append(Paragraph(incident_data['ai_analysis'], normal_style))
-            story.append(Spacer(1, 15))
-
-        # Footer
-        story.append(Spacer(1, 30))
-        footer_style = ParagraphStyle(
-            'Footer',
-            parent=styles['Normal'],
-            fontSize=8,
-            alignment=TA_CENTER,
-            textColor=colors.grey
-        )
-        story.append(Paragraph(f"Generated by AI Justice Grid Investigation System - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", footer_style))
-
-        # Build the PDF
-        doc.build(story)
-
-        # Get the value of the BytesIO buffer and return it
-        buffer.seek(0)
-        return buffer
-
-    except Exception as e:
-        logger.error(f"Error generating PDF: {str(e)}")
-        # Create a simple error PDF
-        buffer = BytesIO()
-        try:
-            doc = SimpleDocTemplate(buffer, pagesize=A4)
-            styles = getSampleStyleSheet()
-            story = [
-                Paragraph("PDF Generation Error", styles['Title']),
-                Paragraph(f"An error occurred while generating the PDF report: {str(e)}", styles['Normal']),
-                Paragraph("Please contact support if this issue persists.", styles['Normal'])
+        for i, victim in enumerate(incident_data['victims']):
+            victim_data = [
+                [f'Victim {i+1} Name:', victim.get('name', 'Unknown')],
+                ['Age:', str(victim.get('age', 'Unknown'))],
+                ['Gender:', victim.get('gender', 'Unknown')],
+                ['Injuries:', victim.get('injuries', 'Unknown')]
             ]
-            doc.build(story)
-        except:
-            # If even the error PDF fails, return a text message
-            error_message = f"PDF Generation Failed: {str(e)}\n\nPlease contact support."
-            buffer.write(error_message.encode('utf-8'))
-        buffer.seek(0)
-        return buffer
+
+            victim_table = Table(victim_data, colWidths=[2*inch, 4*inch])
+            victim_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#fff3cd')),
+                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+                ('FONTSIZE', (0, 0), (-1, -1), 10),
+                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ]))
+
+            story.append(victim_table)
+            story.append(Spacer(1, 10))
+
+    # Suspects Section
+    if 'suspects' in incident_data and incident_data['suspects']:
+        story.append(Paragraph("SUSPECTS", heading_style))
+
+        for i, suspect in enumerate(incident_data['suspects']):
+            suspect_data = [
+                [f'Suspect {i+1} Name:', suspect.get('name', 'Unknown')],
+                ['Age:', str(suspect.get('age', 'Unknown'))],
+                ['Gender:', suspect.get('gender', 'Unknown')],
+                ['Description:', suspect.get('description', 'Unknown')]
+            ]
+
+            suspect_table = Table(suspect_data, colWidths=[2*inch, 4*inch])
+            suspect_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8d7da')),
+                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+                ('FONTSIZE', (0, 0), (-1, -1), 10),
+                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ]))
+
+            story.append(suspect_table)
+            story.append(Spacer(1, 10))
+
+    # Description Section
+    if 'description' in incident_data and incident_data['description']:
+        story.append(Paragraph("INCIDENT DESCRIPTION", heading_style))
+        story.append(Paragraph(incident_data['description'], normal_style))
+        story.append(Spacer(1, 15))
+
+    # AI Analysis Section (if available)
+    if 'ai_analysis' in incident_data and incident_data['ai_analysis']:
+        story.append(Paragraph("AI ANALYSIS", heading_style))
+        story.append(Paragraph(incident_data['ai_analysis'], normal_style))
+        story.append(Spacer(1, 15))
+
+    # Footer
+    story.append(Spacer(1, 30))
+    footer_style = ParagraphStyle(
+        'Footer',
+        parent=styles['Normal'],
+        fontSize=8,
+        alignment=TA_CENTER,
+        textColor=colors.grey
+    )
+    story.append(Paragraph(f"Generated by AI Justice Grid Investigation System - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", footer_style))
+
+    # Build the PDF
+    doc.build(story)
+
+    # Get the value of the BytesIO buffer and return it
+    buffer.seek(0)
+    return buffer
 
 # Initialize the Murder Agent
 try:
@@ -2386,16 +2445,26 @@ def murder_agent_sample():
 def generate_pdf():
     """Generate a PDF report from user data with AI analysis."""
     logger.info("Received request for enhanced PDF generation")
-
+    
     try:
         # Get data from request
         data = request.json
         if not data:
             return jsonify({"success": False, "error": "No data provided"}), 400
+            
+        # Log the full incoming data for debugging
+        logger.info(f"Received PDF generation request with keys: {list(data.keys())}")
+        logger.info(f"Data structure: {json.dumps(data, indent=2, default=str)[:2000]}...")
+
+        # Log messages if they exist
+        if 'messages' in data:
+            logger.info(f"Messages count: {len(data['messages'])}")
+            for i, msg in enumerate(data['messages'][:5]):  # Log first 5 messages
+                logger.info(f"Message {i}: {msg.get('sender')} - {msg.get('content', '')[:100]}...")
 
         # Extract title and agent type
         title = data.get('title', 'Investigation Report')
-        agent_type = data.get('agent_type', 'murder').lower()
+        agent_type = data.get('agentType', data.get('agent_type', 'murder')).lower()
 
         # Map analysis type
         mapped_analysis_type = {
@@ -2405,20 +2474,33 @@ def generate_pdf():
             'fraud': 'fraud',
             'theft': 'theft'
         }.get(agent_type, 'general')
+
+        # Extract the actual case data
+        case_data = data.get('data', {})
+        logger.info(f"Case data keys: {list(case_data.keys())}")
+        logger.info(f"Case data content: {json.dumps(case_data, indent=2, default=str)[:500]}...")
         
         # Initialize PDF generator with proper error handling
+        pdf_buffer = None
         try:
-            logger.info(f"Attempting to generate PDF for agent type: {agent_type}")
             from dynamic_pdf_generator import DynamicPDFGenerator
+            logger.info("Using DynamicPDFGenerator")
             pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
 
-            # Generate the PDF synchronously
-            logger.info("Calling PDF generator...")
+            # Ensure the data structure is correct for the PDF generator
+            # The PDF generator expects the case data to be at the top level
+            pdf_data = data.copy()
+
+            # If case data is nested under 'data' key, flatten it
+            if 'data' in data and isinstance(data['data'], dict):
+                pdf_data.update(data['data'])
+                logger.info(f"Flattened nested data structure. New keys: {list(pdf_data.keys())}")
+
+            # Generate the PDF
             pdf_buffer = pdf_generator.generate_investigation_pdf(
-                data=data,
+                data=pdf_data,
                 analysis_type=mapped_analysis_type
             )
-            logger.info("PDF generation completed successfully")
 
             # If this is a murder case, capture the AI analysis
             if agent_type == 'murder' and MURDER_STORAGE_AVAILABLE:
@@ -2430,60 +2512,30 @@ def generate_pdf():
 
                     # Update the stored case with the AI analysis
                     case_id = data.get('case_id') or data.get('requestId', str(datetime.now().timestamp()))
-                    murder_storage.update_ai_analysis(
-                        case_id,
-                        ai_analysis_content
-                    )
+                    murder_storage.update_ai_analysis(case_id, ai_analysis_content)
                     logger.info(f"Updated case {case_id} with AI analysis")
 
                 except Exception as e:
                     logger.error(f"Error capturing AI analysis for storage: {e}")
-        except ImportError as import_error:
-            logger.warning(f"Dynamic PDF generator not available: {import_error}, using fallback")
+
+        except ImportError as e:
+            logger.warning(f"Dynamic PDF generator not available: {e}, using fallback")
             # Fallback to existing PDF generation
-            logger.info("Using fallback PDF generation method")
             pdf_buffer = generate_incident_pdf(data)
-        except Exception as pdf_error:
-            logger.error(f"Error in PDF generation: {pdf_error}")
-            # Try fallback method as last resort
-            try:
-                logger.info("Attempting fallback PDF generation due to error")
-                pdf_buffer = generate_incident_pdf(data)
-                logger.info("Fallback PDF generation successful")
-            except Exception as fallback_error:
-                logger.error(f"Fallback PDF generation also failed: {fallback_error}")
-                return jsonify({
-                    "success": False,
-                    "error": f"Failed to generate PDF: {str(pdf_error)}. Fallback also failed: {str(fallback_error)}"
-                }), 500
-            
-        # Validate PDF buffer
+        except Exception as e:
+            logger.error(f"Error with DynamicPDFGenerator: {e}, using fallback")
+            # Fallback to existing PDF generation
+            pdf_buffer = generate_incident_pdf(data)
+
         if not pdf_buffer:
-            logger.error("PDF buffer is None or empty")
-            return jsonify({
-                "success": False,
-                "error": "PDF generation returned empty buffer"
-            }), 500
-
-        # Check if buffer has content
-        pdf_buffer.seek(0)
-        content = pdf_buffer.read()
-        if not content:
-            logger.error("PDF buffer contains no data")
-            return jsonify({
-                "success": False,
-                "error": "PDF generation produced no content"
-            }), 500
-
-        # Reset buffer position for file sending
-        pdf_buffer.seek(0)
-
+            raise Exception("Failed to generate PDF buffer")
+            
         # Create a unique filename that doesn't reference local paths
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         safe_title = title.replace(' ', '_').replace('/', '_')[:50]
         filename = f"{safe_title}_{timestamp}.pdf"
 
-        logger.info(f"Sending PDF file: {filename}, size: {len(content)} bytes")
+        logger.info(f"Returning PDF file: {filename}")
 
         # Return the PDF as a file download
         return send_file(
@@ -2494,6 +2546,8 @@ def generate_pdf():
         )
     except Exception as e:
         logger.error(f"Error generating PDF: {str(e)}")
+        import traceback
+        logger.error(f"Full traceback: {traceback.format_exc()}")
         return jsonify({
             "success": False,
             "error": f"Failed to generate PDF: {str(e)}"

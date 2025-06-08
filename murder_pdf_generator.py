@@ -44,41 +44,41 @@ class MurderPDFGenerator:
     def generate_murder_pdf(self, data: Dict[str, Any]) -> BytesIO:
         """
         Generate a Homicide Investigation PDF report.
-        
+
         Args:
             data: Dictionary containing murder case data and conversation pairs
-            
+
         Returns:
             BytesIO object containing the PDF data
         """
         buffer = BytesIO()
-        
+
         try:
             # Create the PDF document with proper margins
             doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
                                    topMargin=72, bottomMargin=18)
-            
+
             # Get custom styles
             styles = self.create_murder_styles()
-            
+
             # Build the story (content)
             story = []
-            
+
             # Murder Agent specific title
             story.append(Paragraph("HOMICIDE INVESTIGATION REPORT", styles['title']))
             story.append(Spacer(1, 20))
-            
+
             # Murder Agent specific header
             header_data = []
             if data.get('case_id'):
                 header_data.append(['Case ID:', data.get('case_id')])
-            
+
             header_data.append(['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
-            
+
             if data.get('crime_date') or data.get('date'):
                 crime_date = data.get('crime_date') or data.get('date')
                 header_data.append(['Investigation Date:', crime_date])
-            
+
             # Add header table
             if header_data:
                 header_table = Table(header_data, colWidths=[1.5*inch, 5*inch])
@@ -92,11 +92,74 @@ class MurderPDFGenerator:
                 ]))
                 story.append(header_table)
                 story.append(Spacer(1, 15))
-            
+
+            # Add case details section
+            case_details = self.format_murder_case_details(data)
+            if case_details:
+                story.append(Paragraph("CASE DETAILS", styles['section_header']))
+                story.append(Spacer(1, 10))
+
+                # Create case details table
+                case_table = Table(case_details, colWidths=[2*inch, 4.5*inch])
+                case_table.setStyle(TableStyle([
+                    ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                    ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+                    ('FONTSIZE', (0, 0), (-1, -1), 10),
+                    ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+                    ('TOPPADDING', (0, 0), (-1, -1), 6),
+                    ('ALIGN', (0, 0), (0, -1), 'RIGHT'),
+                    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                    ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                ]))
+                story.append(case_table)
+                story.append(Spacer(1, 20))
+
+            # Add conversation section if available
+            if 'conversation_pairs' in data and data['conversation_pairs']:
+                story.append(Paragraph("INVESTIGATION INTERVIEW", styles['section_header']))
+                story.append(Spacer(1, 10))
+
+                for i, pair in enumerate(data['conversation_pairs'], 1):
+                    # Clean question text for murder agent
+                    question_text = pair['question'].replace('Murder Agent', '').strip()
+                    question_text = question_text.replace('**[LIVE DATA ANALYSIS]**', '').strip()
+                    if question_text.startswith('Live Data'):
+                        question_text = question_text.replace('Live Data', '').strip()
+                    if question_text.startswith('Live Data Analysis'):
+                        question_text = question_text.replace('Live Data Analysis', '').strip()
+
+                    # Remove any remaining markdown formatting
+                    question_text = self.clean_markdown_text(question_text)
+
+                    if question_text:
+                        story.append(Paragraph(f"Q{i}: {question_text}", styles['question']))
+                        story.append(Paragraph(f"A{i}: {self.clean_markdown_text(pair['answer'])}", styles['answer']))
+                        story.append(Spacer(1, 8))
+
+                story.append(Spacer(1, 15))
+
+            # Add analysis section - look for analysis in the conversation or generate one
+            analysis_text = self.extract_or_generate_analysis(data)
+            if analysis_text:
+                story.append(Paragraph("COMPREHENSIVE CASE ANALYSIS", styles['section_header']))
+                story.append(Spacer(1, 10))
+
+                # Split analysis into paragraphs and format properly
+                analysis_paragraphs = self.format_analysis_text(analysis_text, styles)
+                for paragraph in analysis_paragraphs:
+                    story.append(paragraph)
+                    story.append(Spacer(1, 6))
+
+                story.append(Spacer(1, 15))
+
+            # Add footer
+            story.append(Spacer(1, 20))
+            story.append(Paragraph("--- End of Report ---", styles['footer']))
+
             # Build the PDF
             doc.build(story)
             buffer.seek(0)
-            
+
             # Validate PDF integrity
             if buffer.getbuffer().nbytes < 100:  # If PDF is too small, it's likely corrupted
                 logger.error("Generated PDF is too small, likely corrupted")
@@ -106,7 +169,7 @@ class MurderPDFGenerator:
                 story = [Paragraph("Error: PDF generation failed. Please try again.", styles['title'])]
                 doc.build(story)
                 buffer.seek(0)
-            
+
             return buffer
             
         except Exception as e:
@@ -261,6 +324,57 @@ class MurderPDFGenerator:
             lines.append(' '.join(current_line))
         
         return '\n'.join(lines)
+
+    def extract_or_generate_analysis(self, data: Dict[str, Any]) -> str:
+        """
+        Extract analysis from conversation or generate new analysis.
+        """
+        # First, try to find existing analysis in the conversation
+        if 'conversation_pairs' in data and data['conversation_pairs']:
+            for pair in data['conversation_pairs']:
+                answer = pair.get('answer', '')
+                # Look for comprehensive analysis patterns
+                if ('**Case Analysis:' in answer or
+                    '**1. Comprehensive Analysis' in answer or
+                    'Comprehensive Analysis of the Case' in answer or
+                    'CASE ANALYSIS' in answer.upper()):
+                    logger.info("Found existing analysis in conversation")
+                    return answer
+
+        # If no analysis found in conversation, try to generate one
+        logger.info("No existing analysis found, generating new analysis")
+        return self.generate_murder_analysis(data)
+
+    def format_analysis_text(self, analysis_text: str, styles) -> List:
+        """
+        Format analysis text into properly styled paragraphs for PDF.
+        """
+        paragraphs = []
+
+        # Split by double newlines to get paragraphs
+        sections = analysis_text.split('\n\n')
+
+        for section in sections:
+            section = section.strip()
+            if not section:
+                continue
+
+            # Check if this is a header (starts with ** or #)
+            if section.startswith('**') and section.endswith('**'):
+                # This is a header
+                header_text = section.replace('**', '').strip()
+                paragraphs.append(Paragraph(header_text, styles['section_header']))
+            elif section.startswith('#'):
+                # This is also a header
+                header_text = section.replace('#', '').strip()
+                paragraphs.append(Paragraph(header_text, styles['section_header']))
+            else:
+                # This is regular text, clean it and add as analysis text
+                clean_text = self.clean_markdown_text(section)
+                if clean_text:
+                    paragraphs.append(Paragraph(clean_text, styles['analysis_text']))
+
+        return paragraphs
 
     def create_murder_styles(self):
         """Create professional styles for Murder Agent PDFs."""

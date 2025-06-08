@@ -430,6 +430,7 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
 
         # INVESTIGATION CONVERSATION Section (if conversation pairs exist)
         if 'conversation_pairs' in data and data['conversation_pairs']:
+            logger.info(f"Adding {len(data['conversation_pairs'])} conversation pairs to PDF")
             story.append(Paragraph("INVESTIGATION CONVERSATION:", styles['section_header']))
             story.append(Paragraph("=" * 50, styles['separator']))
             story.append(Spacer(1, 10))
@@ -1104,8 +1105,13 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
         """
         details = []
 
+        # Log the incoming data for debugging
+        logger.info(f"PDF Generator received data with keys: {list(data.keys())}")
+        logger.info(f"Data content preview: {str(data)[:500]}...")
+
         # Detect agent type from data to use appropriate field mapping
         agent_type = self.detect_agent_type(data)
+        logger.info(f"Detected agent type: {agent_type}")
 
         if agent_type == 'financial':
             # Financial Agent specific field mapping (no location field)
@@ -1156,13 +1162,17 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
         # Track processed keys to avoid duplicates
         processed_keys = set()
 
-        # Process each field in order - only include validated data
+        # Process each field in order - include all non-empty data
         for data_key, display_name in field_mapping:
             if (data_key in data and
                 data_key not in processed_keys and
-                self.validate_data_value(data[data_key])):
+                data[data_key] is not None and
+                str(data[data_key]).strip()):  # More lenient validation
 
                 value = self.clean_markdown_text(str(data[data_key]))
+
+                # Log validation details for debugging
+                logger.info(f"Processing field {data_key}: '{data[data_key]}' -> validation: {self.validate_data_value(data[data_key])}")
 
                 # Handle evidence fields with proper text wrapping
                 if 'evidence' in data_key.lower() and len(value) > 100:
@@ -1173,19 +1183,22 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
                 processed_keys.add(data_key)
                 logger.info(f"Added field to PDF: {display_name} = {value[:50]}{'...' if len(value) > 50 else ''}")
 
-        # Add any other relevant fields not in the mapping - only validated data
+        # Add any other relevant fields not in the mapping - more lenient validation
         excluded_prefixes = ['message_', 'total_', 'user_', 'assistant_', 'conversation_']
-        excluded_keys = {'requestId', 'sessionId', 'timestamp', 'conversation_start', 'conversation_end', 'userId', 'userid'}
+        excluded_keys = {'requestId', 'sessionId', 'timestamp', 'conversation_start', 'conversation_end', 'userId', 'userid', 'title', 'agentType', 'agent_type', 'includeAIAnalysis', 'messages'}
 
         # For financial agent, also exclude location field if it appears in additional fields
         if agent_type == 'financial':
             excluded_keys.add('location')
 
+        logger.info(f"Looking for additional fields in data keys: {list(data.keys())}")
+
         for key, value in data.items():
             if (key not in processed_keys and
                 not any(key.startswith(prefix) for prefix in excluded_prefixes) and
                 key not in excluded_keys and
-                self.validate_data_value(value)):
+                value is not None and
+                str(value).strip()):  # More lenient validation
 
                 formatted_key = key.replace('_', ' ').title() + ':'
                 clean_value = self.clean_markdown_text(str(value))
@@ -1198,6 +1211,26 @@ Use bullet points with bold headers where appropriate. Be thorough and professio
                 logger.info(f"Added additional field to PDF: {formatted_key} = {clean_value[:50]}{'...' if len(clean_value) > 50 else ''}")
 
         logger.info(f"Total fields added to PDF: {len(details)}")
+
+        # If no details were added, log a warning and add some basic info anyway
+        if not details:
+            logger.warning("No case details were added to PDF! This will result in an empty report.")
+            logger.warning(f"Available data keys: {list(data.keys())}")
+            logger.warning(f"Data content: {str(data)[:500]}...")
+
+            # EMERGENCY FIX: Add any available data to prevent empty PDF
+            logger.warning("EMERGENCY FIX: Adding any available data to prevent empty PDF")
+            for key, value in data.items():
+                if (key not in ['title', 'agentType', 'agent_type', 'includeAIAnalysis', 'messages', 'userMetadata', 'timestamp', 'analysisType'] and
+                    value is not None and
+                    str(value).strip() and
+                    len(str(value).strip()) > 0):
+
+                    formatted_key = key.replace('_', ' ').title() + ':'
+                    clean_value = str(value).strip()[:200]  # Limit length
+                    details.append([formatted_key, clean_value])
+                    logger.warning(f"EMERGENCY: Added {formatted_key} = {clean_value[:50]}...")
+
         return details
 
     def format_case_details(self, data: Dict[str, Any]) -> List[str]:

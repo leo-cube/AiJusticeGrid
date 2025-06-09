@@ -75,6 +75,105 @@ const welcomeScreenContent: Record<AgentType, {
       'What technologies are used to prevent smuggling?',
       'How do international agencies coordinate on smuggling cases?'
     ]
+  },
+  'financial-fraud': {
+    title: 'Financial Fraud Investigation Assistant',
+    description: 'Expert guidance for financial fraud investigations.',
+    icon: 'CurrencyDollarIcon',
+    suggestedQuestions: [
+      'How do I detect financial fraud patterns?',
+      'What are common types of financial fraud?',
+      'How do I trace fraudulent transactions?',
+      'What evidence is needed for fraud cases?'
+    ]
+  },
+  'exchange-matching': {
+    title: 'Exchange Matching Assistant',
+    description: 'Specialized help for exchange matching and discrepancy analysis.',
+    icon: 'ArrowsRightLeftIcon',
+    suggestedQuestions: [
+      'How do I identify exchange discrepancies?',
+      'What are common exchange matching issues?',
+      'How do I analyze transaction patterns?',
+      'What tools help with exchange matching?'
+    ]
+  },
+  'crime-accident': {
+    title: 'Accident Investigation Assistant',
+    description: 'Expert guidance for accident investigations and analysis.',
+    icon: 'ExclamationTriangleIcon',
+    suggestedQuestions: [
+      'How do I investigate traffic accidents?',
+      'What evidence is needed for accident cases?',
+      'How do I analyze accident scenes?',
+      'What are common accident causes?'
+    ]
+  },
+  'crime-abuse': {
+    title: 'Abuse Investigation Assistant',
+    description: 'Specialized help for abuse investigations and victim support.',
+    icon: 'ShieldCheckIcon',
+    suggestedQuestions: [
+      'How do I handle abuse cases sensitively?',
+      'What evidence is needed for abuse investigations?',
+      'How do I support abuse victims?',
+      'What are the legal requirements for abuse cases?'
+    ]
+  },
+  'crime-chain-snatching': {
+    title: 'Chain Snatching Investigation Assistant',
+    description: 'Expert guidance for chain snatching and street crime investigations.',
+    icon: 'ExclamationCircleIcon',
+    suggestedQuestions: [
+      'What are common chain snatching patterns?',
+      'How do I prevent chain snatching incidents?',
+      'What evidence helps solve chain snatching cases?',
+      'How do I identify chain snatching suspects?'
+    ]
+  },
+  'crime-murder': {
+    title: 'Murder Investigation Assistant',
+    description: 'Specialized help for murder investigations and forensic analysis.',
+    icon: 'ExclamationTriangleIcon',
+    suggestedQuestions: [
+      'How do I secure a murder scene?',
+      'What forensic evidence is crucial?',
+      'How do I interview witnesses?',
+      'What are the steps in a murder investigation?'
+    ]
+  },
+  'murder-chief': {
+    title: 'Murder Chief Investigation Assistant',
+    description: 'Senior-level guidance for complex murder investigations.',
+    icon: 'ShieldCheckIcon',
+    suggestedQuestions: [
+      'How do I manage a murder investigation team?',
+      'What are the priorities in a murder case?',
+      'How do I coordinate with forensics?',
+      'What resources are needed for complex cases?'
+    ]
+  },
+  'murder-cop-2': {
+    title: 'Murder Detective Assistant',
+    description: 'Detective-level support for murder investigations.',
+    icon: 'MagnifyingGlassIcon',
+    suggestedQuestions: [
+      'How do I follow up on murder leads?',
+      'What interview techniques work best?',
+      'How do I analyze suspect behavior?',
+      'What documentation is required?'
+    ]
+  },
+  'murder-case-3': {
+    title: 'Murder Case Specialist Assistant',
+    description: 'Specialized support for specific murder case types.',
+    icon: 'DocumentTextIcon',
+    suggestedQuestions: [
+      'How do I handle cold cases?',
+      'What new techniques can solve old cases?',
+      'How do I re-examine evidence?',
+      'What technology helps with case analysis?'
+    ]
   }
 };
 

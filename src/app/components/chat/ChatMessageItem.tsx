@@ -15,9 +15,10 @@ import DownloadReportButton from './DownloadReportButton';
 
 interface ChatMessageItemProps {
   message: ChatMessage;
+  isTyping?: boolean;
 }
 
-const ChatMessageItem: React.FC<ChatMessageItemProps> = ({ message }) => {
+const ChatMessageItem: React.FC<ChatMessageItemProps> = ({ message, isTyping }) => {
   const isUser = message.sender === 'user';
 
   const formatTime = (timestamp: string) => {

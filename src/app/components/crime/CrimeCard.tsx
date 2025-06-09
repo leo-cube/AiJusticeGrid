@@ -74,7 +74,7 @@ const CrimeCard: React.FC<CrimeCardProps> = ({
           return false;
         });
 
-        setAssignedAgents(matchingAgents);
+        setAssignedAgents(matchingAgents as Agent[]);
       } catch (error) {
         console.error(`Failed to fetch assigned agents for ${type}:`, error);
         setAssignedAgents([]);

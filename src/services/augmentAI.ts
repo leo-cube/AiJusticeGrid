@@ -36,13 +36,13 @@ setInterval(() => {
 const getAgentAssignments = async (): Promise<Record<string, AgentType>> => {
   try {
     // Try to get from API first
-    const settings = await configService.getSettings();
+    const settings = await configService.getSettings() as any;
     return settings.agentAssignments;
   } catch (error) {
     console.error('Failed to get agent assignments:', error);
     // Fallback to default settings
     const defaultSettings = configService.getDefaultSettings();
-    return defaultSettings.agentAssignments;
+    return defaultSettings.agentAssignments as Record<string, AgentType>;
   }
 };
 
@@ -421,12 +421,20 @@ export const getSpecializedAgent = async (agentType: AgentType, caseId?: string)
   context: ChatContext;
 }> => {
   // Create a base context object for this case
-  const context: ChatContext = {
+  const context: any = {
     caseId: caseId || `Case-${Date.now()}`,
     agentType: agentType,
     caseTitle: `${agentType.charAt(0).toUpperCase() + agentType.slice(1)} Investigation`,
     caseStatus: 'open',
     casePriority: agentType === 'murder' ? 'high' : 'medium',
+    messages: [],
+    isTyping: false,
+    isChatOpen: false,
+    currentAgent: agentType,
+    sendMessage: async () => {},
+    clearMessages: () => {},
+    toggleChat: () => {},
+    setCurrentAgent: () => {},
   };
 
   // Add additional context for murder cases to support the Murder Agent backend
@@ -525,7 +533,7 @@ export const checkMurderAgentBackend = async (): Promise<boolean> => {
       const isAvailable = response.ok;
       console.log('Murder Agent backend available (direct):', isAvailable);
       return isAvailable;
-    } catch (fetchError) {
+    } catch (fetchError: any) {
       clearTimeout(timeoutId);
       if (fetchError.name === 'AbortError') {
         console.warn('Murder Agent backend check timed out');

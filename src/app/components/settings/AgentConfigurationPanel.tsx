@@ -82,7 +82,7 @@ const AgentConfigurationPanel: React.FC = () => {
 
         agents.forEach(agent => {
           // Use the default enabled status from defaultSettings, or false for new agents
-          defaultEnabled[agent.id] = defaultSettings.enabledAgents?.[agent.id] === true;
+          defaultEnabled[agent.id] = (defaultSettings.enabledAgents as any)?.[agent.id] === true;
         });
 
         setEnabledAgents(defaultEnabled);

@@ -155,6 +155,21 @@ export interface ChatContextType {
   evidence?: string;
   suspects?: string;
 
+  // Financial fraud specific fields
+  fraudType?: string;
+  fraudAmount?: string;
+  fraudDate?: string;
+  financialInstitution?: string;
+  transactionDetails?: string;
+  evidenceList?: string;
+  additionalNotes?: string;
+
+  // Theft specific fields
+  stolenItems?: string;
+  estimatedValue?: string;
+  theftMethod?: string;
+  suspectName?: string;
+
   // Interactive session fields
   sessionId?: string;
   isCollectingInfo?: boolean;
@@ -178,6 +193,52 @@ export interface ChatContext {
   toggleChat: () => void;
   setCurrentAgent: (agentType: AgentType, context?: ChatContextType) => void;
   resetSession?: () => void;
+
+  // Case information fields (for compatibility with API routes)
+  caseId?: string;
+  caseName?: string;
+  caseStatus?: string;
+  casePriority?: string;
+  assignedTo?: string;
+  assignedDate?: string;
+  location?: string;
+
+  // Crime specific fields
+  crimeDate?: string;
+  crimeTime?: string;
+  victimName?: string;
+  victimAge?: string;
+  victimGender?: string;
+  causeOfDeath?: string;
+  weaponUsed?: string;
+  crimeSceneDescription?: string;
+  witnesses?: string;
+  evidence?: string;
+  suspects?: string;
+
+  // Financial fraud fields
+  fraudType?: string;
+  fraudAmount?: string;
+  fraudDate?: string;
+  financialInstitution?: string;
+  transactionDetails?: string;
+  evidenceList?: string;
+  evidenceFound?: string;
+  additionalNotes?: string;
+
+  // Theft fields
+  stolenItems?: string;
+  estimatedValue?: string;
+  theftMethod?: string;
+  suspectName?: string;
+  crimeLocation?: string;
+  witnessStatements?: string;
+
+  // Case fields
+  caseTitle?: string;
+
+  // System fields
+  usingLiveBackend?: boolean;
 }
 
 // Settings type
@@ -221,4 +282,83 @@ export interface Settings {
     capabilities: string[];
   }[];
   agentAssignments: Record<string, string>;
+}
+
+// Evidence type
+export interface Evidence {
+  id: string;
+  type: 'document' | 'image' | 'video' | 'other';
+  title: string;
+  description: string;
+  fileUrl?: string;
+  dateAdded: string;
+  addedBy: string;
+}
+
+// Report types
+export interface Report {
+  id: string;
+  title: string;
+  type: string;
+  date: string;
+  author: string;
+  status: 'draft' | 'published';
+  description: string;
+}
+
+// API Report types
+export interface ApiReport {
+  id: string;
+  title: string;
+  caseId: string;
+  caseType: string;
+  generatedDate: string;
+  generatedBy: string;
+  status: 'pending' | 'completed' | 'error';
+  panels: DesignatedPanel[];
+}
+
+// Investigation Report types
+export interface InvestigationReport {
+  id: string;
+  title: string;
+  investigationId: string;
+  investigationType: string;
+  createdDate: string;
+  createdBy: string;
+  questions: InvestigationQuestion[];
+  analysis: string;
+  status: 'completed' | 'in-progress';
+}
+
+export interface InvestigationQuestion {
+  question: string;
+  answer: string;
+}
+
+// Saved PDF Report types for persistent storage
+export interface SavedPDFReport {
+  id: string;
+  title: string;
+  agentType: string;
+  caseId?: string;
+  filename: string;
+  createdDate: string;
+  conversationData: any; // Store the original conversation data for re-generation
+  fileSize?: number;
+  status: 'generated' | 'error';
+  description?: string;
+}
+
+// Designated Panel types
+export interface DesignatedPanel {
+  id: string;
+  title: string;
+  type: 'summary' | 'analysis' | 'evidence' | 'recommendations' | 'timeline' | 'custom';
+  content: string;
+  metadata?: {
+    [key: string]: any;
+  };
+  priority?: 'high' | 'medium' | 'low';
+  assignedTo?: string;
 }

@@ -57,7 +57,7 @@ export const agentService = {
         console.log(`agentService: Updating settings for agent ${agentId}`);
 
         // Get current enabled agents
-        const settings = await configService.getSettings();
+        const settings = await configService.getSettings() as any;
         const enabledAgents = settings.enabledAgents || {};
 
         // Update the specific agent's status
@@ -83,7 +83,7 @@ export const agentService = {
         console.log(`agentService: Falling back to settings update for agent ${agentId}`);
 
         // Get current enabled agents
-        const settings = await configService.getSettings();
+        const settings = await configService.getSettings() as any;
         const enabledAgents = settings.enabledAgents || {};
 
         // Update the specific agent's status
@@ -147,7 +147,7 @@ export const agentService = {
       // Try to get from settings
       try {
         console.log('agentService: Fetching agent status from settings');
-        const settings = await configService.getSettings();
+        const settings = await configService.getSettings() as any;
 
         if (settings.enabledAgents && typeof settings.enabledAgents === 'object') {
           console.log('agentService: Successfully fetched agent status from settings:', settings.enabledAgents);

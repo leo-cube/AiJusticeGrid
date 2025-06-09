@@ -36,7 +36,7 @@ export default function AugmentAIConfig() {
     if (!isMockApiEnabled && process.env.NODE_ENV === 'production') {
       // Use default settings
       const defaultSettings = configService.getDefaultSettings();
-      setAgents(defaultSettings.agentTypes);
+      setAgents(defaultSettings.agentTypes as Agent[]);
       setCrimeTypes(defaultSettings.crimeTypes);
 
       // Initialize all agents as disabled by default
@@ -86,7 +86,7 @@ export default function AugmentAIConfig() {
 
               // Validate agents data
               if (Array.isArray(agentsData) && agentsData.length > 0) {
-                agentsList = agentsData;
+                agentsList = agentsData as Agent[];
                 console.log('Successfully fetched agents from API');
               } else {
                 console.warn('API returned invalid agents data, using defaults');

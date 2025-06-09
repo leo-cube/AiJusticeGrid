@@ -61,44 +61,9 @@ export async function POST(request: NextRequest) {
       messageCount: pdfData.messages.length
     });
 
-    // Try to forward the request to the Python backend
-    const pythonBackendUrl = process.env.PYTHON_BACKEND_URL || 'https://aijusticegrid.onrender.com';
-
-    try {
-      console.log(`Attempting to generate PDF via backend: ${pythonBackendUrl}/api/generate-pdf`);
-
-      const response = await fetch(`${pythonBackendUrl}/api/generate-pdf`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(pdfData),
-        // Add timeout for production
-        signal: AbortSignal.timeout(30000) // 30 second timeout
-      });
-
-      if (!response.ok) {
-        console.error(`Backend PDF generation failed with status: ${response.status}`);
-        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-
-        // If backend fails, fall back to client-side PDF generation
-        console.log('Falling back to client-side PDF generation...');
-        return generateClientSidePDF(pdfData);
-      }
-
-      // Backend succeeded, return the PDF
-      const pdfBuffer = await response.arrayBuffer();
-      console.log('PDF generated successfully via backend');
-
-      return handleSuccessfulPDFGeneration(pdfBuffer, response, pdfData, body);
-
-    } catch (fetchError) {
-      console.error('Error connecting to backend for PDF generation:', fetchError);
-      console.log('Falling back to client-side PDF generation...');
-
-      // Fall back to client-side PDF generation
-      return generateClientSidePDF(pdfData);
-    }
+    // For now, always use client-side PDF generation to ensure reliability
+    console.log('Using client-side PDF generation for reliability...');
+    return generateClientSidePDF(pdfData);
 
   } catch (error) {
     console.error('Error generating PDF:', error);

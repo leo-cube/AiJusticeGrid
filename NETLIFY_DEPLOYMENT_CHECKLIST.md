@@ -43,6 +43,7 @@ NEXT_PUBLIC_NVIDIA_API_KEY=your-actual-nvidia-api-key
 NEXT_PUBLIC_MURDER_AGENT_API_URL=https://aijusticegrid.onrender.com/api/augment/murder
 NEXT_PUBLIC_THEFT_AGENT_API_URL=https://aijusticegrid.onrender.com/api/augment/theft
 NEXT_PUBLIC_FINANCIAL_FRAUD_AGENT_API_URL=https://aijusticegrid.onrender.com/api/augment/financial-fraud
+PYTHON_BACKEND_URL=https://aijusticegrid.onrender.com
 NODE_ENV=production
 ```
 

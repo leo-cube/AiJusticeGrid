@@ -61,69 +61,234 @@ export async function POST(request: NextRequest) {
       messageCount: pdfData.messages.length
     });
 
-    // Forward the enhanced request to the Python backend
-    const pythonBackendUrl = process.env.PYTHON_BACKEND_URL || 'http://localhost:5000';
-    const response = await fetch(`${pythonBackendUrl}/api/generate-pdf`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(pdfData),
-    });
+    // Try to forward the request to the Python backend
+    const pythonBackendUrl = process.env.PYTHON_BACKEND_URL || 'https://aijusticegrid.onrender.com';
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-      return NextResponse.json(
-        { error: errorData.error || 'Failed to generate PDF' },
-        { status: response.status }
-      );
-    }
-
-    // Get the PDF data as a buffer
-    const pdfBuffer = await response.arrayBuffer();
-
-    // Get the filename from the response headers or create a default one
-    const contentDisposition = response.headers.get('content-disposition');
-    let filename = 'incident_report.pdf';
-
-    if (contentDisposition) {
-      const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
-      if (filenameMatch) {
-        filename = filenameMatch[1];
-      }
-    }
-
-    // Save the report to persistent storage for future downloads
     try {
-      console.log('Attempting to save report to persistent storage...');
-      const saveReportResponse = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/saved-reports`, {
+      console.log(`Attempting to generate PDF via backend: ${pythonBackendUrl}/api/generate-pdf`);
+
+      const response = await fetch(`${pythonBackendUrl}/api/generate-pdf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          title: pdfData.title,
-          agentType: pdfData.agentType,
-          caseId: pdfData.data?.case_id || pdfData.data?.caseId,
-          conversationData: body, // Store original conversation data for re-generation
-          fileSize: pdfBuffer.byteLength,
-          description: `PDF report generated from ${pdfData.agentType} agent conversation`
-        }),
+        body: JSON.stringify(pdfData),
+        // Add timeout for production
+        signal: AbortSignal.timeout(30000) // 30 second timeout
       });
 
-      if (saveReportResponse.ok) {
-        const savedReport = await saveReportResponse.json();
-        console.log('Report saved successfully to persistent storage:', savedReport.id);
-      } else {
-        const errorText = await saveReportResponse.text();
-        console.warn('Failed to save report to persistent storage:', errorText);
+      if (!response.ok) {
+        console.error(`Backend PDF generation failed with status: ${response.status}`);
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+
+        // If backend fails, fall back to client-side PDF generation
+        console.log('Falling back to client-side PDF generation...');
+        return generateClientSidePDF(pdfData);
       }
-    } catch (saveError) {
-      console.error('Error saving report to persistent storage:', saveError);
-      // Continue with PDF generation even if saving fails
+
+      // Backend succeeded, return the PDF
+      const pdfBuffer = await response.arrayBuffer();
+      console.log('PDF generated successfully via backend');
+
+      return handleSuccessfulPDFGeneration(pdfBuffer, response, pdfData, body);
+
+    } catch (fetchError) {
+      console.error('Error connecting to backend for PDF generation:', fetchError);
+      console.log('Falling back to client-side PDF generation...');
+
+      // Fall back to client-side PDF generation
+      return generateClientSidePDF(pdfData);
     }
 
-    // Return the PDF as a download
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    return NextResponse.json(
+      { error: 'Failed to generate PDF' },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * Handle successful PDF generation from backend
+ */
+async function handleSuccessfulPDFGeneration(pdfBuffer: ArrayBuffer, response: Response, pdfData: any, originalBody: any) {
+  // Get the filename from the response headers or create a default one
+  const contentDisposition = response.headers.get('content-disposition');
+  let filename = 'incident_report.pdf';
+
+  if (contentDisposition) {
+    const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+    if (filenameMatch) {
+      filename = filenameMatch[1];
+    }
+  }
+
+  // Save the report to persistent storage for future downloads
+  try {
+    console.log('Attempting to save report to persistent storage...');
+    const saveReportResponse = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/saved-reports`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: pdfData.title,
+        agentType: pdfData.agentType,
+        caseId: pdfData.data?.case_id || pdfData.data?.caseId,
+        conversationData: originalBody, // Store original conversation data for re-generation
+        fileSize: pdfBuffer.byteLength,
+        description: `PDF report generated from ${pdfData.agentType} agent conversation`
+      }),
+    });
+
+    if (saveReportResponse.ok) {
+      const savedReport = await saveReportResponse.json();
+      console.log('Report saved successfully to persistent storage:', savedReport.id);
+    } else {
+      const errorText = await saveReportResponse.text();
+      console.warn('Failed to save report to persistent storage:', errorText);
+    }
+  } catch (saveError) {
+    console.error('Error saving report to persistent storage:', saveError);
+    // Continue with PDF generation even if saving fails
+  }
+
+  // Return the PDF as a download
+  return new NextResponse(pdfBuffer, {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="${filename}"`,
+      'Content-Length': pdfBuffer.byteLength.toString(),
+    },
+  });
+}
+
+/**
+ * Generate PDF client-side using jsPDF as fallback
+ */
+async function generateClientSidePDF(pdfData: any) {
+  try {
+    // Import jsPDF dynamically to avoid SSR issues
+    const { jsPDF } = await import('jspdf');
+
+    console.log('Generating PDF client-side with jsPDF...');
+
+    const doc = new jsPDF();
+    let yPos = 20;
+    const margin = 20;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const contentWidth = pageWidth - (margin * 2);
+
+    // Add title
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.text(pdfData.title || 'Investigation Report', pageWidth / 2, yPos, { align: 'center' });
+    yPos += 15;
+
+    // Add metadata
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Report Type: ${pdfData.analysisType || 'General'}`, margin, yPos);
+    yPos += 6;
+    doc.text(`Agent Type: ${pdfData.agentType || 'General'}`, margin, yPos);
+    yPos += 6;
+    doc.text(`Generated: ${new Date(pdfData.timestamp).toLocaleString()}`, margin, yPos);
+    yPos += 15;
+
+    // Add section divider
+    doc.setDrawColor(200, 200, 200);
+    doc.line(margin, yPos - 5, pageWidth - margin, yPos - 5);
+
+    // Add conversation data
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Investigation Data', margin, yPos);
+    yPos += 10;
+
+    // Add extracted data
+    if (pdfData.data && Object.keys(pdfData.data).length > 0) {
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+
+      for (const [key, value] of Object.entries(pdfData.data)) {
+        if (key === 'conversation_pairs' || key === 'total_messages' || !value) continue;
+
+        // Check if we need a new page
+        if (yPos > doc.internal.pageSize.getHeight() - 30) {
+          doc.addPage();
+          yPos = 20;
+        }
+
+        const fieldName = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        const fieldValue = String(value).substring(0, 200); // Limit length
+
+        doc.setFont('helvetica', 'bold');
+        doc.text(`${fieldName}:`, margin, yPos);
+        yPos += 6;
+
+        doc.setFont('helvetica', 'normal');
+        const lines = doc.splitTextToSize(fieldValue, contentWidth);
+        doc.text(lines, margin + 5, yPos);
+        yPos += (lines.length * 6) + 3;
+      }
+    }
+
+    // Add messages if available
+    if (pdfData.messages && pdfData.messages.length > 0) {
+      // Check if we need a new page
+      if (yPos > doc.internal.pageSize.getHeight() - 60) {
+        doc.addPage();
+        yPos = 20;
+      }
+
+      yPos += 10;
+      doc.setDrawColor(200, 200, 200);
+      doc.line(margin, yPos - 5, pageWidth - margin, yPos - 5);
+
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Conversation Log', margin, yPos);
+      yPos += 10;
+
+      doc.setFontSize(10);
+
+      // Add recent messages (limit to prevent huge PDFs)
+      const recentMessages = pdfData.messages.slice(-10);
+
+      for (const message of recentMessages) {
+        if (yPos > doc.internal.pageSize.getHeight() - 40) {
+          doc.addPage();
+          yPos = 20;
+        }
+
+        const sender = message.sender === 'user' ? 'Officer' : 'AI Agent';
+        const content = String(message.content).substring(0, 300);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text(`${sender}:`, margin, yPos);
+        yPos += 6;
+
+        doc.setFont('helvetica', 'normal');
+        const lines = doc.splitTextToSize(content, contentWidth);
+        doc.text(lines, margin + 5, yPos);
+        yPos += (lines.length * 5) + 8;
+      }
+    }
+
+    // Add footer
+    const footerText = `Investigation Report - Generated on ${new Date().toLocaleDateString()}`;
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text(footerText, pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
+
+    // Generate PDF buffer
+    const pdfBuffer = doc.output('arraybuffer');
+    const filename = `${pdfData.agentType || 'investigation'}_report_${Date.now()}.pdf`;
+
+    console.log('Client-side PDF generated successfully');
+
     return new NextResponse(pdfBuffer, {
       status: 200,
       headers: {
@@ -134,9 +299,9 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Error generating PDF:', error);
+    console.error('Error generating client-side PDF:', error);
     return NextResponse.json(
-      { error: 'Failed to generate PDF' },
+      { error: 'Failed to generate PDF using fallback method' },
       { status: 500 }
     );
   }

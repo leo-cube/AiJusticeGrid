@@ -78,14 +78,20 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
 
       console.log('Generating and saving PDF report...');
 
-      // Call the PDF generation API
+      // Call the PDF generation API with timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
+
       const response = await fetch('/api/generate-pdf', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(conversationData),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
@@ -139,13 +145,24 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
       // More detailed error handling
       let errorMessage = 'Unknown error occurred';
       if (error instanceof Error) {
-        errorMessage = error.message;
+        if (error.name === 'AbortError') {
+          errorMessage = 'PDF generation timed out. The server may be experiencing high load.';
+        } else {
+          errorMessage = error.message;
+        }
       } else if (typeof error === 'string') {
         errorMessage = error;
       }
 
-      // Show user-friendly error message
-      alert(`Failed to generate PDF report: ${errorMessage}\n\nPlease try again or contact support if the issue persists.`);
+      // Show user-friendly error message with troubleshooting tips
+      alert(
+        `Failed to generate PDF report: ${errorMessage}\n\n` +
+        'Troubleshooting tips:\n' +
+        '• Check your internet connection\n' +
+        '• Try again in a few moments\n' +
+        '• If the issue persists, contact support\n\n' +
+        'The system will attempt to use backup PDF generation methods automatically.'
+      );
     } finally {
       setIsGenerating(false);
     }

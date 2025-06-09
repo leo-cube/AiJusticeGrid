@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check-pdf": "node check-pdf-setup.js",
+    "prebuild": "npm run check-pdf"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

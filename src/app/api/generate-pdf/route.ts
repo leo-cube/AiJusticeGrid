@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { jsPDF } from 'jspdf';
 
 /**
  * POST handler for generating PDF reports from chat conversations
- * Supports dynamic data extraction and AI-powered analysis
+ * Supports dynamic data extraction and AI-powered analysis with fallback to client-side generation
  */
 export async function POST(request: NextRequest) {
   try {
@@ -61,37 +62,52 @@ export async function POST(request: NextRequest) {
       messageCount: pdfData.messages.length
     });
 
-    // Forward the enhanced request to the Python backend
-    const pythonBackendUrl = process.env.PYTHON_BACKEND_URL || 'http://localhost:5000';
-    const response = await fetch(`${pythonBackendUrl}/api/generate-pdf`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(pdfData),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-      return NextResponse.json(
-        { error: errorData.error || 'Failed to generate PDF' },
-        { status: response.status }
-      );
-    }
-
-    // Get the PDF data as a buffer
-    const pdfBuffer = await response.arrayBuffer();
-
-    // Get the filename from the response headers or create a default one
-    const contentDisposition = response.headers.get('content-disposition');
+    // Try to use Python backend first, fallback to client-side generation
+    const pythonBackendUrl = process.env.PYTHON_BACKEND_URL;
+    let pdfBuffer: ArrayBuffer;
     let filename = 'incident_report.pdf';
 
-    if (contentDisposition) {
-      const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
-      if (filenameMatch) {
-        filename = filenameMatch[1];
+    if (pythonBackendUrl) {
+      try {
+        console.log('Attempting to use Python backend for PDF generation:', pythonBackendUrl);
+
+        const response = await fetch(`${pythonBackendUrl}/api/generate-pdf`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(pdfData),
+          // Add timeout to prevent hanging
+          signal: AbortSignal.timeout(30000), // 30 second timeout
+        });
+
+        if (response.ok) {
+          console.log('Python backend PDF generation successful');
+          pdfBuffer = await response.arrayBuffer();
+
+          // Get the filename from the response headers
+          const contentDisposition = response.headers.get('content-disposition');
+          if (contentDisposition) {
+            const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+            if (filenameMatch) {
+              filename = filenameMatch[1];
+            }
+          }
+        } else {
+          throw new Error(`Python backend returned ${response.status}: ${response.statusText}`);
+        }
+      } catch (error) {
+        console.warn('Python backend PDF generation failed, falling back to client-side generation:', error);
+        pdfBuffer = await generateClientSidePDF(pdfData);
+        filename = `${pdfData.agentType}_report_${Date.now()}.pdf`;
       }
+    } else {
+      console.log('No Python backend URL configured, using client-side PDF generation');
+      pdfBuffer = await generateClientSidePDF(pdfData);
+      filename = `${pdfData.agentType}_report_${Date.now()}.pdf`;
     }
+
+
 
     // Save the report to persistent storage for future downloads
     try {
@@ -139,6 +155,160 @@ export async function POST(request: NextRequest) {
       { error: 'Failed to generate PDF' },
       { status: 500 }
     );
+  }
+}
+
+/**
+ * Generate PDF using client-side jsPDF as fallback
+ */
+async function generateClientSidePDF(pdfData: any): Promise<ArrayBuffer> {
+  const doc = new jsPDF();
+
+  // Set initial position
+  let yPos = 20;
+  const margin = 20;
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const contentWidth = pageWidth - (margin * 2);
+  const lineHeight = 6;
+
+  // Helper function to add new page if needed
+  const checkPageBreak = (requiredSpace: number = 20) => {
+    if (yPos + requiredSpace > doc.internal.pageSize.getHeight() - 20) {
+      doc.addPage();
+      yPos = 20;
+    }
+  };
+
+  // Helper function to clean text
+  const cleanText = (text: string): string => {
+    if (!text) return "";
+    return text
+      .replace(/[*_`#]/g, '') // Remove markdown formatting
+      .replace(/\n+/g, ' ') // Replace newlines with spaces
+      .replace(/\s+/g, ' ') // Normalize whitespace
+      .trim();
+  };
+
+  try {
+    // Add title
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    const title = pdfData.title || 'AI Investigation Report';
+    doc.text(title, pageWidth / 2, yPos, { align: 'center' });
+    yPos += 15;
+
+    // Add metadata
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Agent Type: ${pdfData.agentType || 'General'}`, margin, yPos);
+    yPos += lineHeight;
+    doc.text(`Analysis Type: ${pdfData.analysisType || 'General'}`, margin, yPos);
+    yPos += lineHeight;
+    doc.text(`Generated: ${new Date(pdfData.timestamp || Date.now()).toLocaleString()}`, margin, yPos);
+    yPos += lineHeight;
+
+    if (pdfData.userMetadata?.sessionId) {
+      doc.text(`Session ID: ${pdfData.userMetadata.sessionId}`, margin, yPos);
+      yPos += lineHeight;
+    }
+
+    yPos += 10;
+
+    // Add section divider
+    doc.setDrawColor(200, 200, 200);
+    doc.line(margin, yPos - 5, pageWidth - margin, yPos - 5);
+    yPos += 5;
+
+    // Add conversation messages
+    if (pdfData.messages && pdfData.messages.length > 0) {
+      checkPageBreak(30);
+
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Conversation Log', margin, yPos);
+      yPos += 15;
+
+      pdfData.messages.forEach((message: any, index: number) => {
+        checkPageBreak(25);
+
+        // Message header
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'bold');
+        const sender = message.sender === 'user' ? 'User' : 'AI Agent';
+        const timestamp = message.timestamp ? new Date(message.timestamp).toLocaleTimeString() : '';
+        doc.text(`${sender} ${timestamp}`, margin, yPos);
+        yPos += lineHeight + 2;
+
+        // Message content
+        doc.setFont('helvetica', 'normal');
+        const cleanContent = cleanText(message.content);
+        const contentLines = doc.splitTextToSize(cleanContent, contentWidth);
+
+        // Check if we need a new page for the content
+        checkPageBreak(contentLines.length * lineHeight + 10);
+
+        doc.text(contentLines, margin, yPos);
+        yPos += (contentLines.length * lineHeight) + 8;
+      });
+    }
+
+    // Add data section if available
+    if (pdfData.data && Object.keys(pdfData.data).length > 0) {
+      checkPageBreak(30);
+
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Case Data', margin, yPos);
+      yPos += 15;
+
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+
+      Object.entries(pdfData.data).forEach(([key, value]) => {
+        if (value && typeof value === 'string' && value.trim()) {
+          checkPageBreak(15);
+
+          const cleanKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+          const cleanValue = cleanText(value as string);
+
+          doc.setFont('helvetica', 'bold');
+          doc.text(`${cleanKey}:`, margin, yPos);
+          yPos += lineHeight;
+
+          doc.setFont('helvetica', 'normal');
+          const valueLines = doc.splitTextToSize(cleanValue, contentWidth - 10);
+          doc.text(valueLines, margin + 10, yPos);
+          yPos += (valueLines.length * lineHeight) + 5;
+        }
+      });
+    }
+
+    // Add footer
+    const totalPages = doc.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      const footerText = `AI Investigation Report - Page ${i} of ${totalPages} - Generated on ${new Date().toLocaleDateString()}`;
+      doc.text(footerText, pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
+    }
+
+    // Convert to ArrayBuffer
+    const pdfBlob = doc.output('arraybuffer');
+    return pdfBlob;
+
+  } catch (error) {
+    console.error('Error in client-side PDF generation:', error);
+
+    // Create a simple error PDF
+    const errorDoc = new jsPDF();
+    errorDoc.setFontSize(16);
+    errorDoc.text('PDF Generation Error', 20, 30);
+    errorDoc.setFontSize(12);
+    errorDoc.text('An error occurred while generating the PDF report.', 20, 50);
+    errorDoc.text('Please try again or contact support.', 20, 65);
+
+    return errorDoc.output('arraybuffer');
   }
 }
 

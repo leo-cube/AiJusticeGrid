@@ -46,6 +46,15 @@ NEXT_PUBLIC_FINANCIAL_FRAUD_AGENT_API_URL=https://aijusticegrid.onrender.com/api
 NODE_ENV=production
 ```
 
+**Optional Variables (for PDF generation):**
+```
+# Leave empty to use client-side PDF generation (recommended)
+PYTHON_BACKEND_URL=
+
+# Or set to your Python backend URL if you have one
+# PYTHON_BACKEND_URL=https://your-python-backend.onrender.com
+```
+
 **NextAuth Variables (update after deployment):**
 ```
 NEXTAUTH_URL=https://your-netlify-site-name.netlify.app
@@ -88,7 +97,13 @@ After deployment, test these features:
 - [ ] Test backend connectivity
 - [ ] Verify agent endpoints respond
 
-### 3. Authentication (if using NextAuth)
+### 3. PDF Generation (CRITICAL)
+- [ ] Visit: https://your-netlify-site.netlify.app/api/health
+- [ ] Try generating a PDF from a chat conversation
+- [ ] Verify PDF downloads successfully
+- [ ] Check browser console for PDF-related errors
+
+### 4. Authentication (if using NextAuth)
 - [ ] Login flow works
 - [ ] Session management works
 - [ ] Logout functionality

@@ -62,7 +62,14 @@ export async function POST(request: NextRequest) {
     });
 
     // Forward the enhanced request to the Python backend
-    const pythonBackendUrl = process.env.PYTHON_BACKEND_URL || 'http://localhost:5000';
+    const pythonBackendUrl = process.env.PYTHON_BACKEND_URL || 'https://aijusticegrid.onrender.com';
+
+    console.log('PDF Generation Debug Info:', {
+      pythonBackendUrl,
+      envVarSet: !!process.env.PYTHON_BACKEND_URL,
+      fullUrl: `${pythonBackendUrl}/api/generate-pdf`
+    });
+
     const response = await fetch(`${pythonBackendUrl}/api/generate-pdf`, {
       method: 'POST',
       headers: {
@@ -72,9 +79,25 @@ export async function POST(request: NextRequest) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+      console.error('Backend PDF generation failed:', {
+        status: response.status,
+        statusText: response.statusText,
+        url: `${pythonBackendUrl}/api/generate-pdf`
+      });
+
+      const errorData = await response.json().catch(() => ({
+        error: `Backend returned ${response.status}: ${response.statusText}`
+      }));
+
       return NextResponse.json(
-        { error: errorData.error || 'Failed to generate PDF' },
+        {
+          error: errorData.error || `Failed to generate PDF: HTTP ${response.status}`,
+          details: {
+            backendUrl: pythonBackendUrl,
+            status: response.status,
+            statusText: response.statusText
+          }
+        },
         { status: response.status }
       );
     }
@@ -135,8 +158,18 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Error generating PDF:', error);
+
+    // Provide more detailed error information
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+
     return NextResponse.json(
-      { error: 'Failed to generate PDF' },
+      {
+        error: `Failed to generate PDF report: ${errorMessage}`,
+        details: {
+          timestamp: new Date().toISOString(),
+          backendUrl: process.env.PYTHON_BACKEND_URL || 'https://aijusticegrid.onrender.com'
+        }
+      },
       { status: 500 }
     );
   }

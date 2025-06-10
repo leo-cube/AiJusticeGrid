@@ -2114,3 +2114,874 @@ Thank you. When did the crime occur? Please provide the date (YYYY-MM-DD, ...
 2025-06-08 21:21:33,853 - __main__ - INFO - Updated case 1749397893.849102 with AI analysis
 2025-06-08 21:21:33,853 - __main__ - INFO - Returning PDF file: Murder_Investigation_Report_20250608_212133.pdf
 2025-06-08 21:21:33,855 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 21:21:33] "POST /api/generate-pdf HTTP/1.1" 200 -
+2025-06-09 21:07:45,690 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-09 21:07:45,695 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-09 21:07:46,966 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-09 21:07:46,966 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-09 21:07:46,966 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-09 21:07:47,447 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-09 21:07:47,447 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-09 21:07:47,447 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-09 21:07:47,447 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-09 21:07:47,794 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-09 21:07:47,795 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-09 21:07:47,795 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-09 21:07:47,795 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-09 21:07:48,107 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-09 21:07:48,107 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-09 21:07:48,125 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-09 21:07:48,125 - __main__ - INFO - Murder storage available: True
+2025-06-09 21:07:48,125 - __main__ - INFO - ReportLab available: True
+2025-06-09 21:07:48,126 - __main__ - INFO - OpenAI available: True
+2025-06-09 21:07:48,126 - __main__ - INFO - Testing basic server functionality...
+2025-06-09 21:07:48,126 - __main__ - INFO - Server starting successfully...
+2025-06-09 21:07:48,180 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.12:5000
+2025-06-09 21:07:48,180 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-09 21:07:48,232 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-09 21:07:49,708 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-09 21:07:49,708 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-09 21:07:49,871 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-09 21:07:49,871 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-09 21:07:49,871 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-09 21:07:50,295 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-09 21:07:50,295 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-09 21:07:50,295 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-09 21:07:50,295 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-09 21:07:50,629 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-09 21:07:50,629 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-09 21:07:50,629 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-09 21:07:50,629 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-09 21:07:50,997 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-09 21:07:50,997 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-09 21:07:51,005 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-09 21:07:51,005 - __main__ - INFO - Murder storage available: True
+2025-06-09 21:07:51,005 - __main__ - INFO - ReportLab available: True
+2025-06-09 21:07:51,005 - __main__ - INFO - OpenAI available: True
+2025-06-09 21:07:51,005 - __main__ - INFO - Testing basic server functionality...
+2025-06-09 21:07:51,009 - __main__ - INFO - Server starting successfully...
+2025-06-09 21:07:51,012 - werkzeug - WARNING -  * Debugger is active!
+2025-06-09 21:07:51,020 - werkzeug - INFO -  * Debugger PIN: 126-515-612
+2025-06-09 21:10:50,029 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:10:50,029 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-06-09 21:10:50,029 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-06-09 21:10:50,031 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-06-09 21:10:50,033 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-06-09 21:10:50,034 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-06-09 21:10:50,036 - __main__ - INFO - Forcing creation of a new session
+2025-06-09 21:10:50,038 - __main__ - INFO - Created new conversation state with session ID: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:10:50,038 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-09T21:10:50.038144'}
+2025-06-09 21:10:50,038 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:10:50] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:10:53,075 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:10:53,075 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: 0987
+2025-06-09 21:10:53,075 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:10:53,075 - __main__ - INFO - Processing message: 0987 with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:10:53,075 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:10:53,075 - __main__ - INFO - Current step: greeting
+2025-06-09 21:10:53,075 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-09T21:10:50.038144'}
+2025-06-09 21:10:53,075 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step greeting: 0987
+2025-06-09 21:10:53,075 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-09T21:10:50.038144'}
+2025-06-09 21:10:53,075 - __main__ - INFO - Stored user input in field case_id: 0987
+2025-06-09 21:10:53,075 - __main__ - INFO - Advanced to next step: date_of_crime
+2025-06-09 21:10:53,081 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:10:53] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:11:07,501 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:11:07,501 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: 2022-03-16
+2025-06-09 21:11:07,501 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:07,501 - __main__ - INFO - Processing message: 2022-03-16 with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:11:07,501 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:07,501 - __main__ - INFO - Current step: date_of_crime
+2025-06-09 21:11:07,501 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': '0987'}, 'last_updated': '2025-06-09T21:10:53.081968'}
+2025-06-09 21:11:07,511 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step date_of_crime: 2022-03-16
+2025-06-09 21:11:07,511 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': '0987'}, 'last_updated': '2025-06-09T21:10:53.081968'}
+2025-06-09 21:11:07,516 - __main__ - INFO - Stored user input in field date_of_crime: 2022-03-16
+2025-06-09 21:11:07,518 - __main__ - INFO - Advanced to next step: time_of_crime
+2025-06-09 21:11:07,520 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:11:07] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:11:24,371 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:11:24,371 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: 11:30 am
+2025-06-09 21:11:24,371 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:24,371 - __main__ - INFO - Processing message: 11:30 am with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:11:24,381 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:24,381 - __main__ - INFO - Current step: time_of_crime
+2025-06-09 21:11:24,383 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16'}, 'last_updated': '2025-06-09T21:11:07.518254'}
+2025-06-09 21:11:24,384 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step time_of_crime: 11:30 am
+2025-06-09 21:11:24,384 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16'}, 'last_updated': '2025-06-09T21:11:07.518254'}
+2025-06-09 21:11:24,384 - __main__ - INFO - Stored user input in field time_of_crime: 11:30
+2025-06-09 21:11:24,387 - __main__ - INFO - Advanced to next step: location
+2025-06-09 21:11:24,387 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:11:24] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:11:33,001 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:11:33,001 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: paris
+2025-06-09 21:11:33,001 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:33,001 - __main__ - INFO - Processing message: paris with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:11:33,001 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:33,001 - __main__ - INFO - Current step: location
+2025-06-09 21:11:33,001 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30'}, 'last_updated': '2025-06-09T21:11:24.387898'}
+2025-06-09 21:11:33,001 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step location: paris
+2025-06-09 21:11:33,007 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30'}, 'last_updated': '2025-06-09T21:11:24.387898'}
+2025-06-09 21:11:33,007 - __main__ - INFO - Stored user input in field location: paris
+2025-06-09 21:11:33,007 - __main__ - INFO - Advanced to next step: victim_name
+2025-06-09 21:11:33,007 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:11:33] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:11:50,195 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:11:50,197 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: jaku
+2025-06-09 21:11:50,197 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:50,199 - __main__ - INFO - Processing message: jaku with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:11:50,201 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:50,202 - __main__ - INFO - Current step: victim_name
+2025-06-09 21:11:50,202 - __main__ - INFO - Current conversation state: {'current_step': 'victim_name', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris'}, 'last_updated': '2025-06-09T21:11:33.008000'}
+2025-06-09 21:11:50,202 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step victim_name: jaku
+2025-06-09 21:11:50,202 - __main__ - INFO - Current conversation state: {'current_step': 'victim_name', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris'}, 'last_updated': '2025-06-09T21:11:33.008000'}
+2025-06-09 21:11:50,202 - __main__ - INFO - Stored user input in field victim_name: jaku
+2025-06-09 21:11:50,207 - __main__ - INFO - Advanced to next step: victim_age
+2025-06-09 21:11:50,209 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:11:50] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:11:59,196 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:11:59,196 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: 45
+2025-06-09 21:11:59,202 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:59,202 - __main__ - INFO - Processing message: 45 with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:11:59,202 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:11:59,205 - __main__ - INFO - Current step: victim_age
+2025-06-09 21:11:59,205 - __main__ - INFO - Current conversation state: {'current_step': 'victim_age', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku'}, 'last_updated': '2025-06-09T21:11:50.207908'}
+2025-06-09 21:11:59,205 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step victim_age: 45
+2025-06-09 21:11:59,205 - __main__ - INFO - Current conversation state: {'current_step': 'victim_age', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku'}, 'last_updated': '2025-06-09T21:11:50.207908'}
+2025-06-09 21:11:59,205 - __main__ - INFO - Stored user input in field victim_age: 45
+2025-06-09 21:11:59,210 - __main__ - INFO - Advanced to next step: victim_gender
+2025-06-09 21:11:59,211 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:11:59] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:12:03,584 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:12:03,584 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: male
+2025-06-09 21:12:03,587 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:03,587 - __main__ - INFO - Processing message: male with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:12:03,587 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:03,587 - __main__ - INFO - Current step: victim_gender
+2025-06-09 21:12:03,587 - __main__ - INFO - Current conversation state: {'current_step': 'victim_gender', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45'}, 'last_updated': '2025-06-09T21:11:59.211313'}
+2025-06-09 21:12:03,587 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step victim_gender: male
+2025-06-09 21:12:03,587 - __main__ - INFO - Current conversation state: {'current_step': 'victim_gender', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45'}, 'last_updated': '2025-06-09T21:11:59.211313'}
+2025-06-09 21:12:03,587 - __main__ - INFO - Stored user input in field victim_gender: male
+2025-06-09 21:12:03,587 - __main__ - INFO - Advanced to next step: cause_of_death
+2025-06-09 21:12:03,587 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:12:03] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:12:16,667 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:12:16,670 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: bleed
+2025-06-09 21:12:16,670 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:16,670 - __main__ - INFO - Processing message: bleed with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:12:16,672 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:16,672 - __main__ - INFO - Current step: cause_of_death
+2025-06-09 21:12:16,672 - __main__ - INFO - Current conversation state: {'current_step': 'cause_of_death', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male'}, 'last_updated': '2025-06-09T21:12:03.587247'}
+2025-06-09 21:12:16,672 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step cause_of_death: bleed
+2025-06-09 21:12:16,672 - __main__ - INFO - Current conversation state: {'current_step': 'cause_of_death', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male'}, 'last_updated': '2025-06-09T21:12:03.587247'}
+2025-06-09 21:12:16,672 - __main__ - INFO - Stored user input in field cause_of_death: bleed
+2025-06-09 21:12:16,672 - __main__ - INFO - Advanced to next step: weapon_used
+2025-06-09 21:12:16,677 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:12:16] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:12:28,098 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:12:28,099 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: knife
+2025-06-09 21:12:28,099 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:28,099 - __main__ - INFO - Processing message: knife with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:12:28,099 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:28,099 - __main__ - INFO - Current step: weapon_used
+2025-06-09 21:12:28,099 - __main__ - INFO - Current conversation state: {'current_step': 'weapon_used', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed'}, 'last_updated': '2025-06-09T21:12:16.672586'}
+2025-06-09 21:12:28,099 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step weapon_used: knife
+2025-06-09 21:12:28,099 - __main__ - INFO - Current conversation state: {'current_step': 'weapon_used', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed'}, 'last_updated': '2025-06-09T21:12:16.672586'}
+2025-06-09 21:12:28,099 - __main__ - INFO - Stored user input in field weapon_used: knife
+2025-06-09 21:12:28,099 - __main__ - INFO - Advanced to next step: crime_scene_description
+2025-06-09 21:12:28,099 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:12:28] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:12:39,005 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:12:39,008 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: he was lying bleeding
+2025-06-09 21:12:39,008 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:39,008 - __main__ - INFO - Processing message: he was lying bleeding with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:12:39,011 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:39,011 - __main__ - INFO - Current step: crime_scene_description
+2025-06-09 21:12:39,011 - __main__ - INFO - Current conversation state: {'current_step': 'crime_scene_description', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife'}, 'last_updated': '2025-06-09T21:12:28.099453'}
+2025-06-09 21:12:39,011 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step crime_scene_description: he was lying bleeding
+2025-06-09 21:12:39,025 - __main__ - INFO - Current conversation state: {'current_step': 'crime_scene_description', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife'}, 'last_updated': '2025-06-09T21:12:28.099453'}
+2025-06-09 21:12:39,027 - __main__ - INFO - Stored user input in field crime_scene_description: he was lying bleeding
+2025-06-09 21:12:39,028 - __main__ - INFO - Advanced to next step: witnesses
+2025-06-09 21:12:39,037 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:12:39] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:12:43,668 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:12:43,680 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: no
+2025-06-09 21:12:43,680 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:43,680 - __main__ - INFO - Processing message: no with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:12:43,682 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:43,682 - __main__ - INFO - Current step: witnesses
+2025-06-09 21:12:43,682 - __main__ - INFO - Current conversation state: {'current_step': 'witnesses', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife', 'crime_scene_description': 'he was lying bleeding'}, 'last_updated': '2025-06-09T21:12:39.030786'}
+2025-06-09 21:12:43,682 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step witnesses: no
+2025-06-09 21:12:43,684 - __main__ - INFO - Current conversation state: {'current_step': 'witnesses', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife', 'crime_scene_description': 'he was lying bleeding'}, 'last_updated': '2025-06-09T21:12:39.030786'}
+2025-06-09 21:12:43,685 - __main__ - INFO - Stored user input in field witnesses: no
+2025-06-09 21:12:43,685 - __main__ - INFO - Advanced to next step: evidence_found
+2025-06-09 21:12:43,685 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:12:43] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:12:49,124 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:12:49,124 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: knife
+2025-06-09 21:12:49,124 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:49,124 - __main__ - INFO - Processing message: knife with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:12:49,124 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:49,124 - __main__ - INFO - Current step: evidence_found
+2025-06-09 21:12:49,124 - __main__ - INFO - Current conversation state: {'current_step': 'evidence_found', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife', 'crime_scene_description': 'he was lying bleeding', 'witnesses': 'no'}, 'last_updated': '2025-06-09T21:12:43.685406'}
+2025-06-09 21:12:49,124 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step evidence_found: knife
+2025-06-09 21:12:49,124 - __main__ - INFO - Current conversation state: {'current_step': 'evidence_found', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife', 'crime_scene_description': 'he was lying bleeding', 'witnesses': 'no'}, 'last_updated': '2025-06-09T21:12:43.685406'}
+2025-06-09 21:12:49,124 - __main__ - INFO - Stored user input in field evidence_found: knife
+2025-06-09 21:12:49,124 - __main__ - INFO - Advanced to next step: suspects
+2025-06-09 21:12:49,124 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:12:49] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:12:52,934 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:12:52,934 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: no
+2025-06-09 21:12:52,934 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:52,934 - __main__ - INFO - Processing message: no with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:12:52,934 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:52,934 - __main__ - INFO - Current step: suspects
+2025-06-09 21:12:52,934 - __main__ - INFO - Current conversation state: {'current_step': 'suspects', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife', 'crime_scene_description': 'he was lying bleeding', 'witnesses': 'no', 'evidence_found': 'knife'}, 'last_updated': '2025-06-09T21:12:49.124478'}
+2025-06-09 21:12:52,934 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step suspects: no
+2025-06-09 21:12:52,934 - __main__ - INFO - Current conversation state: {'current_step': 'suspects', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife', 'crime_scene_description': 'he was lying bleeding', 'witnesses': 'no', 'evidence_found': 'knife'}, 'last_updated': '2025-06-09T21:12:49.124478'}
+2025-06-09 21:12:52,934 - __main__ - INFO - Stored user input in field suspects: no
+2025-06-09 21:12:52,934 - __main__ - INFO - Advanced to next step: additional_notes
+2025-06-09 21:12:52,934 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:12:52] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:12:56,059 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 21:12:56,064 - __main__ - INFO - Received request with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846, user_input: no
+2025-06-09 21:12:56,064 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:56,064 - __main__ - INFO - Processing message: no with session_id: 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:12:56,064 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 21:12:56,067 - __main__ - INFO - Current step: additional_notes
+2025-06-09 21:12:56,068 - __main__ - INFO - Current conversation state: {'current_step': 'additional_notes', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife', 'crime_scene_description': 'he was lying bleeding', 'witnesses': 'no', 'evidence_found': 'knife', 'suspects': 'no'}, 'last_updated': '2025-06-09T21:12:52.934633'}
+2025-06-09 21:12:56,068 - __main__ - INFO - Processing user input for session 889b3e07-24d3-4e53-b336-8df9241bd846, step additional_notes: no
+2025-06-09 21:12:56,068 - __main__ - INFO - Current conversation state: {'current_step': 'additional_notes', 'collected_data': {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife', 'crime_scene_description': 'he was lying bleeding', 'witnesses': 'no', 'evidence_found': 'knife', 'suspects': 'no'}, 'last_updated': '2025-06-09T21:12:52.934633'}
+2025-06-09 21:12:56,071 - __main__ - INFO - Stored user input in field additional_notes: no
+2025-06-09 21:12:56,071 - __main__ - INFO - Advanced to next step: analysis
+2025-06-09 21:12:56,071 - __main__ - INFO - Performing analysis with collected data: {'case_id': '0987', 'date_of_crime': '2022-03-16', 'time_of_crime': '11:30', 'location': 'paris', 'victim_name': 'jaku', 'victim_age': '45', 'victim_gender': 'male', 'cause_of_death': 'bleed', 'weapon_used': 'knife', 'crime_scene_description': 'he was lying bleeding', 'witnesses': 'no', 'evidence_found': 'knife', 'suspects': 'no', 'additional_notes': 'no'}
+2025-06-09 21:12:56,071 - __main__ - INFO - Marked analysis as in progress for session 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:12:56,071 - __main__ - INFO - Analyzing case with Murder Agent
+2025-06-09 21:12:56,071 - __main__ - INFO - Calling NVIDIA API for murder analysis
+2025-06-09 21:13:21,686 - httpx - INFO - HTTP Request: POST https://integrate.api.nvidia.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-09 21:13:21,703 - __main__ - INFO - Case analysis completed (using Murder Agent)
+2025-06-09 21:13:21,703 - __main__ - INFO - Analysis completed for session 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:13:21,711 - __main__ - INFO - Stored analysis result in conversation state for session 889b3e07-24d3-4e53-b336-8df9241bd846
+2025-06-09 21:13:21,711 - __main__ - INFO - Storing Murder Agent investigation data for case 0987 (unified server)
+2025-06-09 21:13:21,723 - murder_data_storage - INFO - Data saved to murder_investigation.json
+2025-06-09 21:13:21,723 - murder_data_storage - INFO - Successfully stored investigation data for case 0987
+2025-06-09 21:13:21,723 - __main__ - INFO - Successfully stored investigation data for case 0987 (unified server)
+2025-06-09 21:13:21,723 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:13:21] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 21:13:30,159 - __main__ - INFO - Received request for enhanced PDF generation
+2025-06-09 21:13:30,159 - __main__ - INFO - Received PDF generation request with keys: ['title', 'analysisType', 'timestamp', 'data', 'messages', 'agentType', 'includeAIAnalysis', 'userMetadata']
+2025-06-09 21:13:30,166 - __main__ - INFO - Data structure: {
+  "title": "Murder Investigation Report",
+  "analysisType": "murder",
+  "timestamp": "2025-06-09T15:43:30.138Z",
+  "data": {
+    "case_id": "0987",
+    "crime_time": "11:30 am",
+    "victim_name": "jaku",
+    "victim_gender": "male",
+    "weapon_used": "knife",
+    "witnesses": "no",
+    "suspects": "no",
+    "conversation_pairs": [
+      {
+        "question": "Hello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+        "answer": "0987",
+        "timestamp": "2025-06-09T15:40:48.577Z"
+      },
+      {
+        "question": "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+        "answer": "11:30 am",
+        "timestamp": "2025-06-09T15:41:09.059Z"
+      },
+      {
+        "question": "What is the victim's name?",
+        "answer": "jaku",
+        "timestamp": "2025-06-09T15:41:34.547Z"
+      },
+      {
+        "question": "What is the victim's gender?",
+        "answer": "male",
+        "timestamp": "2025-06-09T15:42:00.751Z"
+      },
+      {
+        "question": "Was a weapon used? If so, what kind?",
+        "answer": "knife",
+        "timestamp": "2025-06-09T15:42:18.201Z"
+      },
+      {
+        "question": "Were there any witnesses? If so, please provide details.",
+        "answer": "no",
+        "timestamp": "2025-06-09T15:42:40.578Z"
+      },
+      {
+        "question": "Are there any suspects at this time?",
+        "answer": "no",
+        "timestamp": "2025-06-09T15:42:50.665Z"
+      }
+    ],
+    "total_messages": 36,
+    "user_messages": 14,
+    "assistant_messages": 22,
+    "conversation_start": "2025-06-09T15:40:48.577Z",
+    "conversation_end": "2025-06-09T15:43:23.261Z"
+  },
+  "messages": [
+    {
+      "sender": "assistant",
+      "content": "**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Murder Agent, an AI assistant spec...
+2025-06-09 21:13:30,168 - __main__ - INFO - Messages count: 36
+2025-06-09 21:13:30,169 - __main__ - INFO - Message 0: assistant - **[LIVE DATA ANALYSIS]**
+
+Hello, I'm the Murder Agent, an AI assistant specialized in homicide inves...
+2025-06-09 21:13:30,171 - __main__ - INFO - Message 1: user - 0987...
+2025-06-09 21:13:30,171 - __main__ - INFO - Message 2: assistant - **[LIVE DATA ANALYSIS]**
+
+Thank you. When did the crime occur? Please provide the date (YYYY-MM-DD, ...
+2025-06-09 21:13:30,173 - __main__ - INFO - Message 3: assistant - I'm the Police Investigation System Assistant. I can provide general information about investigation...
+2025-06-09 21:13:30,173 - __main__ - INFO - Message 4: user - 2022-03-16...
+2025-06-09 21:13:30,173 - __main__ - INFO - Case data keys: ['case_id', 'crime_time', 'victim_name', 'victim_gender', 'weapon_used', 'witnesses', 'suspects', 'conversation_pairs', 'total_messages', 'user_messages', 'assistant_messages', 'conversation_start', 'conversation_end']
+2025-06-09 21:13:30,175 - __main__ - INFO - Case data content: {
+  "case_id": "0987",
+  "crime_time": "11:30 am",
+  "victim_name": "jaku",
+  "victim_gender": "male",
+  "weapon_used": "knife",
+  "witnesses": "no",
+  "suspects": "no",
+  "conversation_pairs": [
+    {
+      "question": "Hello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+      "answer": "0987",
+      "timestamp": "202...
+2025-06-09 21:13:30,189 - __main__ - INFO - Using DynamicPDFGenerator
+2025-06-09 21:13:30,191 - __main__ - INFO - Flattened nested data structure. New keys: ['title', 'analysisType', 'timestamp', 'data', 'messages', 'agentType', 'includeAIAnalysis', 'userMetadata', 'case_id', 'crime_time', 'victim_name', 'victim_gender', 'weapon_used', 'witnesses', 'suspects', 'conversation_pairs', 'total_messages', 'user_messages', 'assistant_messages', 'conversation_start', 'conversation_end']
+2025-06-09 21:13:30,202 - murder_pdf_generator - INFO - Added murder field to PDF: Case ID: = 0987
+2025-06-09 21:13:30,203 - murder_pdf_generator - INFO - Added murder field to PDF: Time of Incident: = 11:30 am
+2025-06-09 21:13:30,204 - murder_pdf_generator - INFO - Added murder field to PDF: Victim Name: = jaku
+2025-06-09 21:13:30,206 - murder_pdf_generator - INFO - Added murder field to PDF: Victim Gender: = male
+2025-06-09 21:13:30,206 - murder_pdf_generator - INFO - Added murder field to PDF: Weapon Used: = knife
+2025-06-09 21:13:30,207 - murder_pdf_generator - INFO - Added murder field to PDF: Witnesses: = no
+2025-06-09 21:13:30,207 - murder_pdf_generator - INFO - Added murder field to PDF: Suspects: = no
+2025-06-09 21:13:30,207 - murder_pdf_generator - INFO - No existing analysis found, generating new analysis
+2025-06-09 21:13:52,129 - dynamic_pdf_generator - INFO - Calling NVIDIA API for analysis...
+2025-06-09 21:14:13,850 - murder_data_storage - WARNING - Case 1749483853.850611 not found for AI analysis update
+2025-06-09 21:14:13,850 - __main__ - INFO - Updated case 1749483853.850611 with AI analysis
+2025-06-09 21:14:13,856 - __main__ - INFO - Returning PDF file: Murder_Investigation_Report_20250609_211413.pdf
+2025-06-09 21:14:13,858 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 21:14:13] "POST /api/generate-pdf HTTP/1.1" 200 -
+2025-06-09 23:06:39,130 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-09 23:06:39,136 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-09 23:06:39,556 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-09 23:06:39,558 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-09 23:06:39,558 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-09 23:06:40,152 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-09 23:06:40,152 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-09 23:06:40,152 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-09 23:06:40,152 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-09 23:06:40,561 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-09 23:06:40,561 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-09 23:06:40,561 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-09 23:06:40,561 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-09 23:06:41,104 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-09 23:06:41,104 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-09 23:06:41,118 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-09 23:06:41,118 - __main__ - INFO - Murder storage available: True
+2025-06-09 23:06:41,118 - __main__ - INFO - ReportLab available: True
+2025-06-09 23:06:41,118 - __main__ - INFO - OpenAI available: True
+2025-06-09 23:06:41,118 - __main__ - INFO - Testing basic server functionality...
+2025-06-09 23:06:41,121 - __main__ - INFO - Server starting successfully...
+2025-06-09 23:06:41,163 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.12:5000
+2025-06-09 23:06:41,163 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-09 23:06:41,193 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-09 23:06:42,799 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-09 23:06:42,802 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-09 23:06:42,944 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-09 23:06:42,944 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-09 23:06:42,944 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-09 23:06:43,345 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-09 23:06:43,345 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-09 23:06:43,345 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-09 23:06:43,345 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-09 23:06:43,728 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-09 23:06:43,728 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-09 23:06:43,728 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-09 23:06:43,728 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-09 23:06:44,221 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-09 23:06:44,221 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-09 23:06:44,221 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-09 23:06:44,236 - __main__ - INFO - Murder storage available: True
+2025-06-09 23:06:44,236 - __main__ - INFO - ReportLab available: True
+2025-06-09 23:06:44,236 - __main__ - INFO - OpenAI available: True
+2025-06-09 23:06:44,236 - __main__ - INFO - Testing basic server functionality...
+2025-06-09 23:06:44,236 - __main__ - INFO - Server starting successfully...
+2025-06-09 23:06:44,244 - werkzeug - WARNING -  * Debugger is active!
+2025-06-09 23:06:44,252 - werkzeug - INFO -  * Debugger PIN: 126-515-612
+2025-06-09 23:08:16,299 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:16,301 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-06-09 23:08:16,301 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-06-09 23:08:16,304 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-06-09 23:08:16,304 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-06-09 23:08:16,304 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-06-09 23:08:16,304 - __main__ - INFO - Forcing creation of a new session
+2025-06-09 23:08:16,306 - __main__ - INFO - Created new conversation state with session ID: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:16,306 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-09T23:08:16.306720'}
+2025-06-09 23:08:16,308 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:16] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:08:24,163 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:24,163 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:08:24,163 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:24,163 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:24,163 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:24,163 - __main__ - INFO - Current step: greeting
+2025-06-09 23:08:24,167 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-09T23:08:16.306720'}
+2025-06-09 23:08:24,167 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step greeting: test
+2025-06-09 23:08:24,167 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-09T23:08:16.306720'}
+2025-06-09 23:08:24,169 - __main__ - INFO - Stored user input in field case_id: test
+2025-06-09 23:08:24,169 - __main__ - INFO - Advanced to next step: date_of_crime
+2025-06-09 23:08:24,171 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:24] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:08:31,865 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:31,865 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: 2000-11-23
+2025-06-09 23:08:31,865 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:31,865 - __main__ - INFO - Processing message: 2000-11-23 with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:31,865 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:31,865 - __main__ - INFO - Current step: date_of_crime
+2025-06-09 23:08:31,865 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': 'test'}, 'last_updated': '2025-06-09T23:08:24.169017'}
+2025-06-09 23:08:31,865 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step date_of_crime: 2000-11-23
+2025-06-09 23:08:31,865 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': 'test'}, 'last_updated': '2025-06-09T23:08:24.169017'}
+2025-06-09 23:08:31,865 - __main__ - INFO - Stored user input in field date_of_crime: 2000-11-23
+2025-06-09 23:08:31,865 - __main__ - INFO - Advanced to next step: time_of_crime
+2025-06-09 23:08:31,865 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:31] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:08:37,063 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:37,063 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: 12:10 am
+2025-06-09 23:08:37,063 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:37,063 - __main__ - INFO - Processing message: 12:10 am with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:37,063 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:37,063 - __main__ - INFO - Current step: time_of_crime
+2025-06-09 23:08:37,063 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23'}, 'last_updated': '2025-06-09T23:08:31.865724'}
+2025-06-09 23:08:37,063 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step time_of_crime: 12:10 am
+2025-06-09 23:08:37,063 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23'}, 'last_updated': '2025-06-09T23:08:31.865724'}
+2025-06-09 23:08:37,063 - __main__ - INFO - Stored user input in field time_of_crime: 00:10
+2025-06-09 23:08:37,063 - __main__ - INFO - Advanced to next step: location
+2025-06-09 23:08:37,073 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:37] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:08:41,380 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:41,380 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:08:41,380 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:41,380 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:41,380 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:41,380 - __main__ - INFO - Current step: location
+2025-06-09 23:08:41,389 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10'}, 'last_updated': '2025-06-09T23:08:37.063318'}
+2025-06-09 23:08:41,389 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step location: test
+2025-06-09 23:08:41,389 - __main__ - INFO - Current conversation state: {'current_step': 'location', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10'}, 'last_updated': '2025-06-09T23:08:37.063318'}
+2025-06-09 23:08:41,389 - __main__ - INFO - Stored user input in field location: test
+2025-06-09 23:08:41,389 - __main__ - INFO - Advanced to next step: victim_name
+2025-06-09 23:08:41,389 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:41] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:08:44,159 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:44,163 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:08:44,163 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:44,164 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:44,165 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:44,166 - __main__ - INFO - Current step: victim_name
+2025-06-09 23:08:44,166 - __main__ - INFO - Current conversation state: {'current_step': 'victim_name', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test'}, 'last_updated': '2025-06-09T23:08:41.389574'}
+2025-06-09 23:08:44,166 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step victim_name: test
+2025-06-09 23:08:44,166 - __main__ - INFO - Current conversation state: {'current_step': 'victim_name', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test'}, 'last_updated': '2025-06-09T23:08:41.389574'}
+2025-06-09 23:08:44,169 - __main__ - INFO - Stored user input in field victim_name: test
+2025-06-09 23:08:44,169 - __main__ - INFO - Advanced to next step: victim_age
+2025-06-09 23:08:44,172 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:44] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:08:49,474 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:49,476 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: 54
+2025-06-09 23:08:49,476 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:49,476 - __main__ - INFO - Processing message: 54 with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:49,479 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:49,480 - __main__ - INFO - Current step: victim_age
+2025-06-09 23:08:49,480 - __main__ - INFO - Current conversation state: {'current_step': 'victim_age', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test'}, 'last_updated': '2025-06-09T23:08:44.172205'}
+2025-06-09 23:08:49,480 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step victim_age: 54
+2025-06-09 23:08:49,480 - __main__ - INFO - Current conversation state: {'current_step': 'victim_age', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test'}, 'last_updated': '2025-06-09T23:08:44.172205'}
+2025-06-09 23:08:49,483 - __main__ - INFO - Stored user input in field victim_age: 54
+2025-06-09 23:08:49,483 - __main__ - INFO - Advanced to next step: victim_gender
+2025-06-09 23:08:49,488 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:49] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:08:52,075 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:52,075 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:08:52,079 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:52,080 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:52,080 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:52,080 - __main__ - INFO - Current step: victim_gender
+2025-06-09 23:08:52,082 - __main__ - INFO - Current conversation state: {'current_step': 'victim_gender', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54'}, 'last_updated': '2025-06-09T23:08:49.485947'}
+2025-06-09 23:08:52,082 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step victim_gender: test
+2025-06-09 23:08:52,082 - __main__ - INFO - Current conversation state: {'current_step': 'victim_gender', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54'}, 'last_updated': '2025-06-09T23:08:49.485947'}
+2025-06-09 23:08:52,084 - __main__ - INFO - Stored user input in field victim_gender: test
+2025-06-09 23:08:52,084 - __main__ - INFO - Advanced to next step: cause_of_death
+2025-06-09 23:08:52,086 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:52] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:08:54,221 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:54,221 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:08:54,221 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:54,223 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:54,223 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:54,223 - __main__ - INFO - Current step: cause_of_death
+2025-06-09 23:08:54,223 - __main__ - INFO - Current conversation state: {'current_step': 'cause_of_death', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test'}, 'last_updated': '2025-06-09T23:08:52.084427'}
+2025-06-09 23:08:54,225 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step cause_of_death: test
+2025-06-09 23:08:54,226 - __main__ - INFO - Current conversation state: {'current_step': 'cause_of_death', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test'}, 'last_updated': '2025-06-09T23:08:52.084427'}
+2025-06-09 23:08:54,226 - __main__ - INFO - Stored user input in field cause_of_death: test
+2025-06-09 23:08:54,230 - __main__ - INFO - Advanced to next step: weapon_used
+2025-06-09 23:08:54,233 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:54] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:08:58,154 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:08:58,154 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:08:58,154 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:58,154 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:08:58,154 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:08:58,154 - __main__ - INFO - Current step: weapon_used
+2025-06-09 23:08:58,158 - __main__ - INFO - Current conversation state: {'current_step': 'weapon_used', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test'}, 'last_updated': '2025-06-09T23:08:54.230463'}
+2025-06-09 23:08:58,158 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step weapon_used: test
+2025-06-09 23:08:58,158 - __main__ - INFO - Current conversation state: {'current_step': 'weapon_used', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test'}, 'last_updated': '2025-06-09T23:08:54.230463'}
+2025-06-09 23:08:58,158 - __main__ - INFO - Stored user input in field weapon_used: test
+2025-06-09 23:08:58,158 - __main__ - INFO - Advanced to next step: crime_scene_description
+2025-06-09 23:08:58,161 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:08:58] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:09:00,490 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:09:00,492 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:09:00,493 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:00,493 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:09:00,493 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:00,500 - __main__ - INFO - Current step: crime_scene_description
+2025-06-09 23:09:00,501 - __main__ - INFO - Current conversation state: {'current_step': 'crime_scene_description', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test'}, 'last_updated': '2025-06-09T23:08:58.158058'}
+2025-06-09 23:09:00,503 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step crime_scene_description: test
+2025-06-09 23:09:00,508 - __main__ - INFO - Current conversation state: {'current_step': 'crime_scene_description', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test'}, 'last_updated': '2025-06-09T23:08:58.158058'}
+2025-06-09 23:09:00,511 - __main__ - INFO - Stored user input in field crime_scene_description: test
+2025-06-09 23:09:00,514 - __main__ - INFO - Advanced to next step: witnesses
+2025-06-09 23:09:00,520 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:09:00] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:09:02,824 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:09:02,824 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:09:02,824 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:02,824 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:09:02,824 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:02,824 - __main__ - INFO - Current step: witnesses
+2025-06-09 23:09:02,824 - __main__ - INFO - Current conversation state: {'current_step': 'witnesses', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test', 'crime_scene_description': 'test'}, 'last_updated': '2025-06-09T23:09:00.518124'}
+2025-06-09 23:09:02,824 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step witnesses: test
+2025-06-09 23:09:02,824 - __main__ - INFO - Current conversation state: {'current_step': 'witnesses', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test', 'crime_scene_description': 'test'}, 'last_updated': '2025-06-09T23:09:00.518124'}
+2025-06-09 23:09:02,830 - __main__ - INFO - Stored user input in field witnesses: test
+2025-06-09 23:09:02,830 - __main__ - INFO - Advanced to next step: evidence_found
+2025-06-09 23:09:02,832 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:09:02] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:09:05,002 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:09:05,002 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:09:05,002 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:05,002 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:09:05,002 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:05,007 - __main__ - INFO - Current step: evidence_found
+2025-06-09 23:09:05,007 - __main__ - INFO - Current conversation state: {'current_step': 'evidence_found', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test', 'crime_scene_description': 'test', 'witnesses': 'test'}, 'last_updated': '2025-06-09T23:09:02.831881'}
+2025-06-09 23:09:05,007 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step evidence_found: test
+2025-06-09 23:09:05,007 - __main__ - INFO - Current conversation state: {'current_step': 'evidence_found', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test', 'crime_scene_description': 'test', 'witnesses': 'test'}, 'last_updated': '2025-06-09T23:09:02.831881'}
+2025-06-09 23:09:05,007 - __main__ - INFO - Stored user input in field evidence_found: test
+2025-06-09 23:09:05,007 - __main__ - INFO - Advanced to next step: suspects
+2025-06-09 23:09:05,007 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:09:05] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:09:07,289 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:09:07,289 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:09:07,289 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:07,289 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:09:07,289 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:07,289 - __main__ - INFO - Current step: suspects
+2025-06-09 23:09:07,296 - __main__ - INFO - Current conversation state: {'current_step': 'suspects', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test', 'crime_scene_description': 'test', 'witnesses': 'test', 'evidence_found': 'test'}, 'last_updated': '2025-06-09T23:09:05.007511'}
+2025-06-09 23:09:07,297 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step suspects: test
+2025-06-09 23:09:07,297 - __main__ - INFO - Current conversation state: {'current_step': 'suspects', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test', 'crime_scene_description': 'test', 'witnesses': 'test', 'evidence_found': 'test'}, 'last_updated': '2025-06-09T23:09:05.007511'}
+2025-06-09 23:09:07,297 - __main__ - INFO - Stored user input in field suspects: test
+2025-06-09 23:09:07,299 - __main__ - INFO - Advanced to next step: additional_notes
+2025-06-09 23:09:07,299 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:09:07] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-09 23:09:09,582 - __main__ - INFO - Received request for Murder Agent
+2025-06-09 23:09:09,582 - __main__ - INFO - Received request with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730, user_input: test
+2025-06-09 23:09:09,591 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:09,591 - __main__ - INFO - Processing message: test with session_id: 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:09:09,591 - __main__ - INFO - force_new_session: False, reset_conversation: False
+2025-06-09 23:09:09,593 - __main__ - INFO - Current step: additional_notes
+2025-06-09 23:09:09,593 - __main__ - INFO - Current conversation state: {'current_step': 'additional_notes', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test', 'crime_scene_description': 'test', 'witnesses': 'test', 'evidence_found': 'test', 'suspects': 'test'}, 'last_updated': '2025-06-09T23:09:07.299947'}
+2025-06-09 23:09:09,593 - __main__ - INFO - Processing user input for session 4e93fe00-a84d-4971-84d3-5a315d95a730, step additional_notes: test
+2025-06-09 23:09:09,595 - __main__ - INFO - Current conversation state: {'current_step': 'additional_notes', 'collected_data': {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test', 'crime_scene_description': 'test', 'witnesses': 'test', 'evidence_found': 'test', 'suspects': 'test'}, 'last_updated': '2025-06-09T23:09:07.299947'}
+2025-06-09 23:09:09,597 - __main__ - INFO - Stored user input in field additional_notes: test
+2025-06-09 23:09:09,600 - __main__ - INFO - Advanced to next step: analysis
+2025-06-09 23:09:09,602 - __main__ - INFO - Performing analysis with collected data: {'case_id': 'test', 'date_of_crime': '2000-11-23', 'time_of_crime': '00:10', 'location': 'test', 'victim_name': 'test', 'victim_age': '54', 'victim_gender': 'test', 'cause_of_death': 'test', 'weapon_used': 'test', 'crime_scene_description': 'test', 'witnesses': 'test', 'evidence_found': 'test', 'suspects': 'test', 'additional_notes': 'test'}
+2025-06-09 23:09:09,602 - __main__ - INFO - Marked analysis as in progress for session 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:09:09,602 - __main__ - INFO - Analyzing case with Murder Agent
+2025-06-09 23:09:09,604 - __main__ - INFO - Calling NVIDIA API for murder analysis
+2025-06-09 23:09:33,850 - httpx - INFO - HTTP Request: POST https://integrate.api.nvidia.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-09 23:09:33,873 - __main__ - INFO - Case analysis completed (using Murder Agent)
+2025-06-09 23:09:33,873 - __main__ - INFO - Analysis completed for session 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:09:33,873 - __main__ - INFO - Stored analysis result in conversation state for session 4e93fe00-a84d-4971-84d3-5a315d95a730
+2025-06-09 23:09:33,873 - __main__ - INFO - Storing Murder Agent investigation data for case test (unified server)
+2025-06-09 23:09:33,905 - murder_data_storage - INFO - Data saved to murder_investigation.json
+2025-06-09 23:09:33,905 - murder_data_storage - INFO - Successfully stored investigation data for case test
+2025-06-09 23:09:33,905 - __main__ - INFO - Successfully stored investigation data for case test (unified server)
+2025-06-09 23:09:33,905 - werkzeug - INFO - 127.0.0.1 - - [09/Jun/2025 23:09:33] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-10 21:35:57,927 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 21:35:57,937 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 21:35:58,993 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 21:35:58,993 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 21:35:58,993 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 21:35:59,502 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:35:59,502 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 21:35:59,502 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 21:35:59,502 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 21:35:59,910 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:35:59,910 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 21:35:59,910 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 21:35:59,910 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 21:36:00,382 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-10 21:36:00,382 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 21:36:00,382 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 21:36:00,382 - __main__ - INFO - Murder storage available: True
+2025-06-10 21:36:00,382 - __main__ - INFO - ReportLab available: True
+2025-06-10 21:36:00,382 - __main__ - INFO - OpenAI available: True
+2025-06-10 21:36:00,382 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 21:36:00,382 - __main__ - INFO - Server starting successfully...
+2025-06-10 21:36:00,443 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.11:5000
+2025-06-10 21:36:00,443 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 21:36:00,510 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-10 21:36:02,172 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 21:36:02,172 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 21:36:02,325 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 21:36:02,325 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 21:36:02,325 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 21:36:02,652 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:36:02,652 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 21:36:02,652 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 21:36:02,652 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 21:36:03,001 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:36:03,001 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 21:36:03,001 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 21:36:03,001 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 21:36:03,375 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-10 21:36:03,375 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 21:36:03,387 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 21:36:03,387 - __main__ - INFO - Murder storage available: True
+2025-06-10 21:36:03,387 - __main__ - INFO - ReportLab available: True
+2025-06-10 21:36:03,387 - __main__ - INFO - OpenAI available: True
+2025-06-10 21:36:03,387 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 21:36:03,387 - __main__ - INFO - Server starting successfully...
+2025-06-10 21:36:03,393 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 21:36:03,401 - werkzeug - INFO -  * Debugger PIN: 126-515-612
+2025-06-10 21:37:45,349 - __main__ - INFO - Received request for Murder Agent
+2025-06-10 21:37:45,352 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-06-10 21:37:45,352 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-06-10 21:37:45,352 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-06-10 21:37:45,352 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-06-10 21:37:45,352 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-06-10 21:37:45,357 - __main__ - INFO - Forcing creation of a new session
+2025-06-10 21:37:45,359 - __main__ - INFO - Created new conversation state with session ID: a6576a35-ec59-4ef8-985e-6ce3b330262e
+2025-06-10 21:37:45,361 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-10T21:37:45.359690'}
+2025-06-10 21:37:45,368 - werkzeug - INFO - 127.0.0.1 - - [10/Jun/2025 21:37:45] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-10 21:37:49,319 - __main__ - INFO - Received request for enhanced PDF generation
+2025-06-10 21:37:49,319 - __main__ - INFO - Received PDF generation request with keys: ['title', 'analysisType', 'timestamp', 'data', 'messages', 'agentType', 'includeAIAnalysis', 'userMetadata']
+2025-06-10 21:37:49,326 - __main__ - INFO - Data structure: {
+  "title": "Murder Investigation Report",
+  "analysisType": "murder",
+  "timestamp": "2025-06-10T16:07:49.299Z",
+  "data": {
+    "case_id": "0987",
+    "crime_time": "11:30 am",
+    "victim_name": "jaku",
+    "victim_gender": "male",
+    "weapon_used": "knife",
+    "witnesses": "no",
+    "suspects": "no",
+    "cause_of_death": "test",
+    "crime_scene_description": "test",
+    "evidence_found": "test",
+    "additional_notes": "test",
+    "conversation_pairs": [
+      {
+        "question": "Hello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+        "answer": "0987",
+        "timestamp": "2025-06-09T15:40:48.577Z"
+      },
+      {
+        "question": "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+        "answer": "11:30 am",
+        "timestamp": "2025-06-09T15:41:09.059Z"
+      },
+      {
+        "question": "What is the victim's name?",
+        "answer": "jaku",
+        "timestamp": "2025-06-09T15:41:34.547Z"
+      },
+      {
+        "question": "What is the victim's gender?",
+        "answer": "male",
+        "timestamp": "2025-06-09T15:42:00.751Z"
+      },
+      {
+        "question": "Was a weapon used? If so, what kind?",
+        "answer": "knife",
+        "timestamp": "2025-06-09T15:42:18.201Z"
+      },
+      {
+        "question": "Were there any witnesses? If so, please provide details.",
+        "answer": "no",
+        "timestamp": "2025-06-09T15:42:40.578Z"
+      },
+      {
+        "question": "Are there any suspects at this time?",
+        "answer": "no",
+        "timestamp": "2025-06-09T15:42:50.665Z"
+      },
+      {
+        "question": "Hello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basic...
+2025-06-10 21:37:49,329 - __main__ - INFO - Messages count: 74
+2025-06-10 21:37:49,329 - __main__ - INFO - Message 0: assistant - **[LIVE DATA ANALYSIS]**
+
+Hello, I'm the Murder Agent, an AI assistant specialized in homicide inves...
+2025-06-10 21:37:49,332 - __main__ - INFO - Message 1: user - 0987...
+2025-06-10 21:37:49,332 - __main__ - INFO - Message 2: assistant - **[LIVE DATA ANALYSIS]**
+
+Thank you. When did the crime occur? Please provide the date (YYYY-MM-DD, ...
+2025-06-10 21:37:49,334 - __main__ - INFO - Message 3: assistant - I'm the Police Investigation System Assistant. I can provide general information about investigation...
+2025-06-10 21:37:49,335 - __main__ - INFO - Message 4: user - 2022-03-16...
+2025-06-10 21:37:49,336 - __main__ - INFO - Case data keys: ['case_id', 'crime_time', 'victim_name', 'victim_gender', 'weapon_used', 'witnesses', 'suspects', 'cause_of_death', 'crime_scene_description', 'evidence_found', 'additional_notes', 'conversation_pairs', 'total_messages', 'user_messages', 'assistant_messages', 'conversation_start', 'conversation_end']
+2025-06-10 21:37:49,341 - __main__ - INFO - Case data content: {
+  "case_id": "0987",
+  "crime_time": "11:30 am",
+  "victim_name": "jaku",
+  "victim_gender": "male",
+  "weapon_used": "knife",
+  "witnesses": "no",
+  "suspects": "no",
+  "cause_of_death": "test",
+  "crime_scene_description": "test",
+  "evidence_found": "test",
+  "additional_notes": "test",
+  "conversation_pairs": [
+    {
+      "question": "Hello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information....
+2025-06-10 21:37:49,355 - __main__ - INFO - Using DynamicPDFGenerator
+2025-06-10 21:37:49,355 - __main__ - INFO - Flattened nested data structure. New keys: ['title', 'analysisType', 'timestamp', 'data', 'messages', 'agentType', 'includeAIAnalysis', 'userMetadata', 'case_id', 'crime_time', 'victim_name', 'victim_gender', 'weapon_used', 'witnesses', 'suspects', 'cause_of_death', 'crime_scene_description', 'evidence_found', 'additional_notes', 'conversation_pairs', 'total_messages', 'user_messages', 'assistant_messages', 'conversation_start', 'conversation_end']
+2025-06-10 21:37:49,366 - murder_pdf_generator - INFO - Added murder field to PDF: Case ID: = 0987
+2025-06-10 21:37:49,371 - murder_pdf_generator - INFO - Added murder field to PDF: Time of Incident: = 11:30 am
+2025-06-10 21:37:49,371 - murder_pdf_generator - INFO - Added murder field to PDF: Victim Name: = jaku
+2025-06-10 21:37:49,371 - murder_pdf_generator - INFO - Added murder field to PDF: Victim Gender: = male
+2025-06-10 21:37:49,373 - murder_pdf_generator - INFO - Added murder field to PDF: Cause of Death: = test
+2025-06-10 21:37:49,373 - murder_pdf_generator - INFO - Added murder field to PDF: Weapon Used: = knife
+2025-06-10 21:37:49,375 - murder_pdf_generator - INFO - Added murder field to PDF: Crime Scene: = test
+2025-06-10 21:37:49,375 - murder_pdf_generator - INFO - Added murder field to PDF: Witnesses: = no
+2025-06-10 21:37:49,377 - murder_pdf_generator - INFO - Added murder field to PDF: Evidence: = test
+2025-06-10 21:37:49,378 - murder_pdf_generator - INFO - Added murder field to PDF: Suspects: = no
+2025-06-10 21:37:49,378 - murder_pdf_generator - INFO - Added murder field to PDF: Additional Notes: = test
+2025-06-10 21:37:49,381 - murder_pdf_generator - INFO - No existing analysis found, generating new analysis
+2025-06-10 21:38:16,588 - dynamic_pdf_generator - INFO - Calling NVIDIA API for analysis...
+2025-06-10 21:38:38,610 - murder_data_storage - WARNING - Case 1749571718.608105 not found for AI analysis update
+2025-06-10 21:38:38,610 - __main__ - INFO - Updated case 1749571718.608105 with AI analysis
+2025-06-10 21:38:38,610 - __main__ - INFO - Returning PDF file: Murder_Investigation_Report_20250610_213838.pdf
+2025-06-10 21:38:38,610 - werkzeug - INFO - 127.0.0.1 - - [10/Jun/2025 21:38:38] "POST /api/generate-pdf HTTP/1.1" 200 -
+2025-06-10 21:49:46,378 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_pdf_generator.py', reloading
+2025-06-10 21:49:47,759 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-10 21:49:51,524 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 21:49:51,528 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 21:49:51,946 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 21:49:51,948 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 21:49:51,948 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 21:49:53,115 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:49:53,122 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 21:49:53,140 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 21:49:53,147 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 21:49:54,288 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:49:54,292 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 21:49:54,295 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 21:49:54,297 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 21:49:55,189 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-10 21:49:55,191 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 21:49:55,210 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 21:49:55,210 - __main__ - INFO - Murder storage available: True
+2025-06-10 21:49:55,210 - __main__ - INFO - ReportLab available: True
+2025-06-10 21:49:55,212 - __main__ - INFO - OpenAI available: True
+2025-06-10 21:49:55,212 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 21:49:55,212 - __main__ - INFO - Server starting successfully...
+2025-06-10 21:49:55,222 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 21:49:55,231 - werkzeug - INFO -  * Debugger PIN: 126-515-612
+2025-06-10 21:49:57,748 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\dynamic_pdf_generator.py', reloading
+2025-06-10 21:49:58,990 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-10 21:50:05,008 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 21:50:05,062 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 21:50:05,823 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 21:50:05,832 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 21:50:05,836 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 21:50:06,806 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:50:06,806 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 21:50:06,806 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 21:50:06,806 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 21:50:07,620 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:50:07,622 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 21:50:07,622 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 21:50:07,624 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 21:50:08,448 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-10 21:50:08,448 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 21:50:08,462 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 21:50:08,467 - __main__ - INFO - Murder storage available: True
+2025-06-10 21:50:08,467 - __main__ - INFO - ReportLab available: True
+2025-06-10 21:50:08,467 - __main__ - INFO - OpenAI available: True
+2025-06-10 21:50:08,467 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 21:50:08,469 - __main__ - INFO - Server starting successfully...
+2025-06-10 21:50:08,478 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 21:50:08,487 - werkzeug - INFO -  * Debugger PIN: 126-515-612
+2025-06-10 21:51:27,565 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\check_storage.py', reloading
+2025-06-10 21:51:27,654 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\dynamic_pdf_generator.py', reloading
+2025-06-10 21:51:27,654 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\dynamic_pdf_generator.py', reloading
+2025-06-10 21:51:27,656 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\dynamic_pdf_generator.py', reloading
+2025-06-10 21:51:28,315 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-10 21:51:31,640 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 21:51:31,643 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 21:51:31,986 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 21:51:31,986 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 21:51:31,986 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 21:51:32,725 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:51:32,725 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 21:51:32,725 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 21:51:32,725 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 21:51:33,460 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:51:33,460 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 21:51:33,460 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 21:51:33,460 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 21:51:34,361 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-10 21:51:34,361 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 21:51:34,378 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 21:51:34,380 - __main__ - INFO - Murder storage available: True
+2025-06-10 21:51:34,381 - __main__ - INFO - ReportLab available: True
+2025-06-10 21:51:34,381 - __main__ - INFO - OpenAI available: True
+2025-06-10 21:51:34,381 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 21:51:34,381 - __main__ - INFO - Server starting successfully...
+2025-06-10 21:51:34,394 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 21:51:34,405 - werkzeug - INFO -  * Debugger PIN: 126-515-612
+2025-06-10 21:51:51,424 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\dynamic_pdf_generator.py', reloading
+2025-06-10 21:51:51,427 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\dynamic_pdf_generator.py', reloading
+2025-06-10 21:51:51,810 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-10 21:51:54,282 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 21:51:54,282 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 21:51:54,517 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 21:51:54,517 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 21:51:54,517 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 21:51:54,950 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:51:54,950 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 21:51:54,950 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 21:51:54,950 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 21:51:55,317 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:51:55,317 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 21:51:55,317 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 21:51:55,317 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 21:51:55,796 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-10 21:51:55,796 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 21:51:55,799 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 21:51:55,799 - __main__ - INFO - Murder storage available: True
+2025-06-10 21:51:55,799 - __main__ - INFO - ReportLab available: True
+2025-06-10 21:51:55,799 - __main__ - INFO - OpenAI available: True
+2025-06-10 21:51:55,799 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 21:51:55,799 - __main__ - INFO - Server starting successfully...
+2025-06-10 21:51:55,815 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 21:51:55,824 - werkzeug - INFO -  * Debugger PIN: 126-515-612
+2025-06-10 21:53:23,787 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_production_pdf.py', reloading
+2025-06-10 21:53:23,791 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_production_pdf.py', reloading
+2025-06-10 21:53:24,836 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-10 21:53:27,603 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 21:53:27,603 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 21:53:27,827 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 21:53:27,827 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 21:53:27,827 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 21:53:28,527 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:53:28,527 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 21:53:28,527 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 21:53:28,527 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 21:53:29,208 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-10 21:53:29,208 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 21:53:29,208 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 21:53:29,210 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 21:53:29,879 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-10 21:53:29,879 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 21:53:29,900 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 21:53:29,900 - __main__ - INFO - Murder storage available: True
+2025-06-10 21:53:29,900 - __main__ - INFO - ReportLab available: True
+2025-06-10 21:53:29,900 - __main__ - INFO - OpenAI available: True
+2025-06-10 21:53:29,903 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 21:53:29,904 - __main__ - INFO - Server starting successfully...
+2025-06-10 21:53:29,912 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 21:53:29,920 - werkzeug - INFO -  * Debugger PIN: 126-515-612

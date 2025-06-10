@@ -82,11 +82,12 @@ class DynamicPDFGenerator:
                 "presence_penalty": 0
             }
 
+            # Increased timeout for production environment stability
             response = requests.post(
                 f"{self.base_url}/chat/completions",
                 headers=headers,
                 json=payload,
-                timeout=30
+                timeout=60
             )
 
             if response.status_code == 200:
@@ -96,6 +97,12 @@ class DynamicPDFGenerator:
                 logger.error(f"NVIDIA API error: {response.status_code} - {response.text}")
                 return f"Error generating AI analysis: {response.status_code}"
 
+        except requests.exceptions.Timeout:
+            logger.error("NVIDIA API request timed out")
+            return "Analysis generation timed out. The server may be experiencing high load. Please try again later."
+        except requests.exceptions.RequestException as e:
+            logger.error(f"NVIDIA API request error: {str(e)}")
+            return f"Error connecting to analysis service: {str(e)}"
         except Exception as e:
             logger.error(f"Error calling NVIDIA API: {str(e)}")
             return f"Error generating AI analysis: {str(e)}"

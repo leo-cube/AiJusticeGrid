@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Card';
 import Button from '@/app/components/ui/Button';
 import { defaultAgents } from '@/app/components/chat/AgentSelector';
-import { AgentType } from '@/app/types';
+import { AgentType, Agent } from '@/app/types';
 import agentToggleService from '@/services/agentToggleService';
 import defaultSettings from '@/config/defaultSettings.json';
 

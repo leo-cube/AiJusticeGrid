@@ -14,10 +14,11 @@ import welcomeScreenService, { WelcomeScreenContent } from '@/services/welcomeSc
 
 interface WelcomeScreenProps {
   agentType: AgentType;
-  onQuestionClick: (question: string) => void;
+  onQuestionClick?: (question: string) => void;
+  onSendMessage?: (content: string) => Promise<void>;
 }
 
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ agentType, onQuestionClick }) => {
+const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ agentType, onQuestionClick, onSendMessage }) => {
   const [content, setContent] = useState<WelcomeScreenContent | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -96,7 +97,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ agentType, onQuestionClic
           {content.suggestedQuestions.map((question, index) => (
             <button
               key={index}
-              onClick={() => onQuestionClick(question)}
+              onClick={() => onQuestionClick ? onQuestionClick(question) : onSendMessage?.(question)}
               className="block w-full rounded-md bg-gray-100 px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-200"
             >
               {question}

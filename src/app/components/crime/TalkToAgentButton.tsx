@@ -7,7 +7,7 @@ import Button from '@/app/components/ui/Button';
 import augmentAIService from '@/services/augmentAI';
 import agentService from '@/services/agentService';
 import configService from '@/services/configService';
-import { Agent } from '@/app/types';
+import { Agent, AgentType } from '@/app/types';
 
 interface TalkToAgentButtonProps {
   crimeType: string;
@@ -76,7 +76,7 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
           return false;
         });
 
-        setAssignedAgent(matchingAgent || null);
+        setAssignedAgent((matchingAgent as Agent) || null);
       } catch (error) {
         console.error(`Failed to fetch agent data for ${crimeType}:`, error);
         setAssignedAgent(null);
@@ -89,6 +89,8 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
   }, [crimeType]);
 
   const handleClick = async () => {
+    let specializedAgentTypeVar: AgentType = 'general';
+
     try {
       // Clear previous messages to start a fresh chat
       clearMessages();
@@ -103,7 +105,7 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
 
       // If we have an assigned agent, use it
       if (assignedAgent) {
-        const context = {
+        let context: any = {
           crimeType,
           caseId,
           caseTitle: caseTitle || `${crimeType} Investigation`,
@@ -234,21 +236,22 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
         }
 
         // Set the current agent in the chat context
-        setCurrentAgent(assignedAgent.id, context);
+        setCurrentAgent(assignedAgent.id as AgentType, context);
       } else {
         // Get the specialized agent
-        const { agentType: specializedAgentType, context } = await augmentAIService.getSpecializedAgent(crimeType, caseId);
+        const { agentType: specializedAgentType, context } = await augmentAIService.getSpecializedAgent(crimeType as AgentType, caseId);
+        let specializedAgentTypeVar = specializedAgentType;
 
         // Override context with provided props if available
-        if (caseTitle) context.caseTitle = caseTitle;
-        if (caseName) context.caseName = caseName;
-        if (caseStatus) context.caseStatus = caseStatus;
-        if (casePriority) context.casePriority = casePriority;
-        if (assignedTo) context.assignedTo = assignedTo;
-        if (assignedDate) context.assignedDate = assignedDate;
+        if (caseTitle) (context as any).caseTitle = caseTitle;
+        if (caseName) (context as any).caseName = caseName;
+        if (caseStatus) (context as any).caseStatus = caseStatus;
+        if (casePriority) (context as any).casePriority = casePriority;
+        if (assignedTo) (context as any).assignedTo = assignedTo;
+        if (assignedDate) (context as any).assignedDate = assignedDate;
 
         // Enable live data for all agents
-        context.usingLiveBackend = true;
+        (context as any).usingLiveBackend = true;
 
         // For Murder Agent, initialize a completely new session
         if (specializedAgentType === 'murder') {
@@ -256,7 +259,7 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
             console.log('Initializing new Murder Agent session');
 
             // Create a fresh context for the Murder Agent
-            context = {
+            (context as any) = {
               ...context,
               usingLiveBackend: true,
               isCollectingInfo: true,
@@ -283,7 +286,7 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
 
               if (data.sessionId) {
                 // Add session information to the context
-                context.sessionId = data.sessionId;
+                (context as any).sessionId = data.sessionId;
 
                 // Store the session ID in localStorage
                 try {
@@ -308,7 +311,7 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
             console.log('Initializing new Finance Agent session');
 
             // Create a fresh context for the Finance Agent
-            context = {
+            (context as any) = {
               ...context,
               usingLiveBackend: true,
               isCollectingInfo: true,
@@ -335,7 +338,7 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
 
               if (data.sessionId) {
                 // Add session information to the context
-                context.sessionId = data.sessionId;
+                (context as any).sessionId = data.sessionId;
 
                 // Store the session ID in localStorage
                 try {
@@ -355,11 +358,11 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
         }
 
         // Set the current agent in the chat context
-        setCurrentAgent(specializedAgentType, context);
+        setCurrentAgent(specializedAgentTypeVar, context);
       }
 
       // Redirect to the DegreeGuru chat interface with the appropriate agent
-      const agentType = assignedAgent ? assignedAgent.id : specializedAgentType;
+      const agentType = assignedAgent ? assignedAgent.id : specializedAgentTypeVar;
       router.push(`/degree-guru?agent=${agentType}`);
     } catch (error) {
       console.error('Error initializing agent chat:', error);

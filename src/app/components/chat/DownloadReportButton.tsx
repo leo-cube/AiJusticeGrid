@@ -135,7 +135,17 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
 
     } catch (error) {
       console.error('Error generating PDF:', error);
-      alert(`Failed to generate PDF report: ${error instanceof Error ? error.message : 'Unknown error'}`);
+
+      // More detailed error handling
+      let errorMessage = 'Unknown error occurred';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+
+      // Show user-friendly error message
+      alert(`Failed to generate PDF report: ${errorMessage}\n\nPlease try again or contact support if the issue persists.`);
     } finally {
       setIsGenerating(false);
     }

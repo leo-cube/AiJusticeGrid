@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Filter out userId and other unwanted metadata from extracted data
-    const filteredExtractedData = { ...extractedData };
+    const filteredExtractedData: any = { ...extractedData };
     delete filteredExtractedData.userId;
     delete filteredExtractedData.userid;
     delete filteredExtractedData.sessionId;

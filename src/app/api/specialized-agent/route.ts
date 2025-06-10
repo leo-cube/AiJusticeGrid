@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     }
     
     // Get the specialized agent for this crime type
-    const { agentType, context } = await getSpecializedAgent(crimeType, caseId || undefined);
+    const { agentType, context } = await getSpecializedAgent(crimeType as AgentType, caseId || undefined);
     
     return NextResponse.json({ agentType, context }, { status: 200 });
   } catch (error) {
@@ -44,12 +44,12 @@ export async function POST(request: Request) {
     
     // Get the specialized agent for this crime type
     const { agentType, context } = await getSpecializedAgent(
-      body.crimeType,
+      body.crimeType as AgentType,
       body.caseId || undefined
     );
-    
+
     // Override context with provided values if available
-    if (body.caseTitle) context.caseTitle = body.caseTitle;
+    if (body.caseTitle) (context as any).caseTitle = body.caseTitle;
     if (body.caseStatus) context.caseStatus = body.caseStatus;
     if (body.casePriority) context.casePriority = body.casePriority;
     if (body.assignedTo) context.assignedTo = body.assignedTo;

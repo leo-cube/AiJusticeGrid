@@ -9,7 +9,7 @@ const ENABLE_MOCK_API = process.env.NEXT_PUBLIC_ENABLE_MOCK_API === 'true';
 
 // API request options
 interface RequestOptions {
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   headers?: Record<string, string>;
   body?: any;
   timeout?: number;
@@ -62,7 +62,7 @@ export const fetchWithRetry = async (url: string, options: RequestOptions = {}) 
       }
 
       const fetchPromise = fetch(url, fetchOptions);
-      const response = await Promise.race([fetchPromise, timeoutPromise(timeout)]);
+      const response = await Promise.race([fetchPromise, timeoutPromise(timeout)]) as Response;
 
       if (!response.ok) {
         // For 404 errors on /api/augment/* endpoints, check if we're using the correct API base URL
@@ -126,6 +126,9 @@ export const apiService = {
   put: <T>(endpoint: string, data: any, options: Omit<RequestOptions, 'method'> = {}) =>
     fetchWithRetry(`${API_BASE_URL}${endpoint}`, { ...options, method: 'PUT', body: data }) as Promise<T>,
 
+  patch: <T>(endpoint: string, data: any, options: Omit<RequestOptions, 'method'> = {}) =>
+    fetchWithRetry(`${API_BASE_URL}${endpoint}`, { ...options, method: 'PATCH', body: data }) as Promise<T>,
+
   delete: <T>(endpoint: string, options: Omit<RequestOptions, 'method' | 'body'> = {}) =>
     fetchWithRetry(`${API_BASE_URL}${endpoint}`, { ...options, method: 'DELETE' }) as Promise<T>,
 };
@@ -143,7 +146,7 @@ export const mockApiService = {
 
     return import('@/mocks/api').then(module => {
       // First check if there's a handler for this endpoint
-      const mockHandler = module.mockHandlers[baseEndpoint]?.get;
+      const mockHandler = (module.mockHandlers as any)[baseEndpoint]?.get;
 
       if (mockHandler) {
         console.log(`Using mock handler for ${baseEndpoint}`);
@@ -152,7 +155,7 @@ export const mockApiService = {
       }
 
       // If no handler, try to get static mock data
-      const mockData = module.default[baseEndpoint] || module.default[endpoint];
+      const mockData = (module.default as any)[baseEndpoint] || (module.default as any)[endpoint];
 
       if (mockData) {
         console.log(`Using static mock data for ${endpoint}`);
@@ -171,7 +174,7 @@ export const mockApiService = {
 
     // Return mock response
     return import('@/mocks/api').then(module => {
-      const mockHandler = module.mockHandlers[endpoint]?.post;
+      const mockHandler = (module.mockHandlers as any)[endpoint]?.post;
       if (!mockHandler) {
         throw new ApiError(`No mock handler for POST ${endpoint}`, 404);
       }
@@ -185,9 +188,23 @@ export const mockApiService = {
 
     // Return mock response
     return import('@/mocks/api').then(module => {
-      const mockHandler = module.mockHandlers[endpoint]?.put;
+      const mockHandler = (module.mockHandlers as any)[endpoint]?.put;
       if (!mockHandler) {
         throw new ApiError(`No mock handler for PUT ${endpoint}`, 404);
+      }
+      return mockHandler(data, options.headers) as T;
+    });
+  },
+
+  patch: async <T>(endpoint: string, data: any, options: Omit<RequestOptions, 'method'> = {}) => {
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Return mock response
+    return import('@/mocks/api').then(module => {
+      const mockHandler = (module.mockHandlers as any)[endpoint]?.patch;
+      if (!mockHandler) {
+        throw new ApiError(`No mock handler for PATCH ${endpoint}`, 404);
       }
       return mockHandler(data, options.headers) as T;
     });
@@ -199,7 +216,7 @@ export const mockApiService = {
 
     // Return mock response
     return import('@/mocks/api').then(module => {
-      const mockHandler = module.mockHandlers[endpoint]?.delete;
+      const mockHandler = (module.mockHandlers as any)[endpoint]?.delete;
       if (!mockHandler) {
         throw new ApiError(`No mock handler for DELETE ${endpoint}`, 404);
       }

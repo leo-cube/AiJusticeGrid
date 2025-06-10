@@ -39,7 +39,7 @@ export async function GET() {
       return NextResponse.json({
         available: false,
         message: 'Error connecting to Murder Agent backend',
-        error: fetchError.message
+        error: fetchError instanceof Error ? fetchError.message : 'Unknown error'
       });
     }
   } catch (error) {
@@ -47,7 +47,7 @@ export async function GET() {
     return NextResponse.json({
       available: false,
       message: 'Error in Murder Agent backend check proxy',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

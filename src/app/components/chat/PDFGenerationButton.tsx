@@ -102,7 +102,19 @@ const PDFGenerationButton: React.FC<PDFGenerationButtonProps> = ({
 
     } catch (error) {
       console.error('Error generating PDF:', error);
-      setError(error instanceof Error ? error.message : 'Failed to generate PDF');
+
+      // More detailed error handling
+      let errorMessage = 'Failed to generate PDF';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+
+      setError(errorMessage);
+
+      // Also show an alert for immediate user feedback
+      alert(`PDF Generation Failed: ${errorMessage}\n\nPlease try again or contact support if the issue persists.`);
     } finally {
       setIsGenerating(false);
     }

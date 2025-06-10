@@ -62,7 +62,8 @@ export async function POST(request: NextRequest) {
     });
 
     // Forward the enhanced request to the Python backend
-    const pythonBackendUrl = process.env.PYTHON_BACKEND_URL || 'https://aijusticegrid.onrender.com';
+    // Force production URL for immediate fix
+    const pythonBackendUrl = 'https://aijusticegrid.onrender.com';
 
     console.log('PDF Generation Debug Info:', {
       pythonBackendUrl,

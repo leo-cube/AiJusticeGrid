@@ -183,12 +183,42 @@ Use the provided `frontend_pdf_example.html` file to test the integration:
 
 ## Troubleshooting
 
+### 502 Error Fix
+
+If you're getting a 502 error, follow these steps:
+
+1. **Check Render Deployment**:
+   - Go to your Render dashboard
+   - Check if your service is running (should show "Live")
+   - Look at the deployment logs for errors
+
+2. **Find Your Backend URL**:
+   - In Render dashboard, copy your service URL
+   - It should look like: `https://your-service-name.onrender.com`
+
+3. **Test Backend Connection**:
+   - Open the `test-backend-connection.html` file in a browser
+   - Enter your Render URL and test the connection
+   - This will verify your backend is working
+
+4. **Update Frontend**:
+   - Replace the backend URL in your frontend code
+   - Use the working URL from the connection test
+
 ### Common Issues
 
-1. **CORS Errors**: Ensure your frontend domain is in the CORS configuration
-2. **PDF Generation Fails**: Check NVIDIA_API_KEY is set correctly
-3. **File Download Issues**: Verify Content-Disposition headers are exposed
-4. **Size Limit Errors**: Adjust PDF_MAX_SIZE_MB if needed
+1. **502 Bad Gateway**: Backend service is not running or crashed
+   - Check Render logs for startup errors
+   - Verify environment variables are set
+   - Ensure gunicorn is starting properly
+
+2. **CORS Errors**: Frontend can't connect to backend
+   - Backend CORS is now set to allow all origins
+   - Should not be an issue anymore
+
+3. **PDF Generation Fails**: Check NVIDIA_API_KEY is set correctly
+4. **File Download Issues**: Verify Content-Disposition headers are exposed
+5. **Size Limit Errors**: Adjust PDF_MAX_SIZE_MB if needed
 
 ### Debug Endpoints
 

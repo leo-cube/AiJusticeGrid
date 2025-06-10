@@ -150,16 +150,10 @@ FRONTEND_DEV_URL = os.getenv('FRONTEND_DEV_URL', 'http://localhost:3000')
 PDF_DOWNLOAD_ENABLED = os.getenv('PDF_DOWNLOAD_ENABLED', 'true').lower() == 'true'
 PDF_MAX_SIZE_MB = int(os.getenv('PDF_MAX_SIZE_MB', '10'))
 
-# Configure CORS for production and development
+# Configure CORS for production and development - Allow all origins for now
 CORS(app,
      supports_credentials=True,
-     origins=[
-         FRONTEND_DEV_URL,  # Local development
-         "https://*.netlify.app",  # Netlify deployments
-         "https://*.vercel.app",   # Vercel deployments
-         FRONTEND_URL,  # Production frontend
-         "https://aijusticegrid.netlify.app",  # Explicit production frontend
-     ],
+     origins="*",  # Allow all origins for debugging
      methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
      allow_headers=["Content-Type", "Authorization", "X-Requested-With"]
 )
@@ -2676,19 +2670,32 @@ def download_report():
         logger.info(f"Generating PDF for agent type: {agent_type}, analysis type: {analysis_type}")
 
         # Generate PDF using the dynamic generator
+        pdf_buffer = None
         try:
             from dynamic_pdf_generator import DynamicPDFGenerator
+            logger.info("Attempting to use DynamicPDFGenerator")
             pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
             pdf_buffer = pdf_generator.generate_investigation_pdf(
                 data=case_data,
                 analysis_type=analysis_type
             )
+            logger.info("DynamicPDFGenerator succeeded")
         except ImportError as e:
             logger.warning(f"Dynamic PDF generator not available: {e}, using fallback")
-            pdf_buffer = generate_incident_pdf(case_data)
+            try:
+                pdf_buffer = generate_incident_pdf(case_data)
+                logger.info("Fallback PDF generation succeeded")
+            except Exception as fallback_error:
+                logger.error(f"Fallback PDF generation failed: {fallback_error}")
+                raise Exception(f"Both primary and fallback PDF generation failed: {str(e)}, {str(fallback_error)}")
         except Exception as e:
             logger.error(f"Error with DynamicPDFGenerator: {e}, using fallback")
-            pdf_buffer = generate_incident_pdf(case_data)
+            try:
+                pdf_buffer = generate_incident_pdf(case_data)
+                logger.info("Fallback PDF generation succeeded after primary failure")
+            except Exception as fallback_error:
+                logger.error(f"Fallback PDF generation failed: {fallback_error}")
+                raise Exception(f"Both primary and fallback PDF generation failed: {str(e)}, {str(fallback_error)}")
 
         if not pdf_buffer:
             raise Exception("Failed to generate PDF buffer")
@@ -2736,11 +2743,45 @@ def download_report():
             "error": f"Failed to generate PDF report: {str(e)}"
         }), 500
 
+# Frontend Configuration endpoint
+@app.route('/api/config', methods=['GET'])
+def get_config():
+    """Provide configuration information for the frontend."""
+    logger.info("Received request for frontend configuration")
+
+    # Get the current request URL to determine backend URL
+    backend_url = request.url_root.rstrip('/')
+
+    return jsonify({
+        "success": True,
+        "config": {
+            "backend_url": backend_url,
+            "pdf_download_enabled": PDF_DOWNLOAD_ENABLED,
+            "pdf_max_size_mb": PDF_MAX_SIZE_MB,
+            "endpoints": {
+                "download_report": f"{backend_url}/api/download-report",
+                "generate_pdf": f"{backend_url}/api/generate-pdf",
+                "health": f"{backend_url}/api/health"
+            },
+            "cors_enabled": True,
+            "version": "1.0"
+        }
+    })
+
 # Simple test endpoints
 @app.route('/')
 def home():
     logger.info("Received GET request for home endpoint")
-    return jsonify({"message": "Unified Agent Server is running"})
+    return jsonify({
+        "message": "Unified Agent Server is running",
+        "status": "healthy",
+        "pdf_enabled": PDF_DOWNLOAD_ENABLED,
+        "endpoints": {
+            "config": "/api/config",
+            "download_report": "/api/download-report",
+            "health": "/api/health"
+        }
+    })
 
 @app.route('/test')
 def test():

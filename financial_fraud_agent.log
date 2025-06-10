@@ -3160,3 +3160,169 @@ Thank you. When did the crime occur? Please provide the date (YYYY-MM-DD, ...
 2025-06-10 23:27:46,528 - werkzeug - INFO -  * Debugger PIN: 130-817-110
 2025-06-10 23:28:03,769 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\unified_server.py', reloading
 2025-06-10 23:28:03,962 - werkzeug - INFO -  * Restarting with stat
+2025-06-10 23:28:06,204 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 23:28:06,205 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 23:28:06,530 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 23:28:06,530 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 23:28:06,530 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 23:28:06,530 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:28:06,530 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:28:06,530 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:28:06,530 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:28:06,530 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:28:06,530 - __main__ - INFO - Fallback client initialization successful!
+2025-06-10 23:28:06,530 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 23:28:06,530 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 23:28:06,541 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 23:28:06,542 - financial_fraud_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:28:06,542 - financial_fraud_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:28:06,542 - financial_fraud_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:28:06,543 - financial_fraud_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:28:06,544 - financial_fraud_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:28:06,544 - financial_fraud_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:28:06,545 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 23:28:06,546 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 23:28:06,546 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 23:28:06,547 - theft_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:28:06,548 - theft_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:28:06,548 - theft_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:28:06,549 - theft_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:28:06,550 - theft_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:28:06,551 - theft_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:28:06,551 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 23:28:06,570 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 23:28:06,571 - __main__ - INFO - Murder storage available: True
+2025-06-10 23:28:06,571 - __main__ - INFO - ReportLab available: True
+2025-06-10 23:28:06,572 - __main__ - INFO - OpenAI available: True
+2025-06-10 23:28:06,572 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 23:28:06,573 - __main__ - INFO - Server starting successfully...
+2025-06-10 23:28:06,617 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 23:28:06,628 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-06-10 23:42:08,479 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-10 23:42:08,707 - werkzeug - INFO -  * Restarting with stat
+2025-06-10 23:42:11,435 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 23:42:11,435 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 23:42:11,812 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 23:42:11,813 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 23:42:11,814 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 23:42:11,815 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:11,815 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:11,816 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:11,816 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:11,816 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:11,818 - __main__ - INFO - Fallback client initialization successful!
+2025-06-10 23:42:11,818 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 23:42:11,818 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 23:42:11,820 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 23:42:11,820 - financial_fraud_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:11,821 - financial_fraud_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:11,821 - financial_fraud_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:11,821 - financial_fraud_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:11,821 - financial_fraud_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:11,821 - financial_fraud_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:42:11,821 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 23:42:11,821 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 23:42:11,821 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 23:42:11,826 - theft_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:11,826 - theft_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:11,827 - theft_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:11,827 - theft_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:11,827 - theft_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:11,827 - theft_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:42:11,827 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 23:42:11,850 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 23:42:11,851 - __main__ - INFO - Production mode: False
+2025-06-10 23:42:11,851 - __main__ - INFO - Murder storage available: True
+2025-06-10 23:42:11,851 - __main__ - INFO - ReportLab available: True
+2025-06-10 23:42:11,853 - __main__ - INFO - OpenAI available: True
+2025-06-10 23:42:11,853 - __main__ - INFO - PDF download enabled: True
+2025-06-10 23:42:11,854 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 23:42:11,854 - __main__ - INFO - Running in development mode...
+2025-06-10 23:42:11,922 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 23:42:11,937 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-06-10 23:42:25,548 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-10 23:42:25,756 - werkzeug - INFO -  * Restarting with stat
+2025-06-10 23:42:27,867 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 23:42:27,867 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 23:42:28,204 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 23:42:28,204 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 23:42:28,204 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 23:42:28,204 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:28,204 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:28,215 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:28,216 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:28,217 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:28,218 - __main__ - INFO - Fallback client initialization successful!
+2025-06-10 23:42:28,218 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 23:42:28,220 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 23:42:28,220 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 23:42:28,221 - financial_fraud_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:28,222 - financial_fraud_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:28,222 - financial_fraud_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:28,223 - financial_fraud_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:28,224 - financial_fraud_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:28,224 - financial_fraud_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:42:28,225 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 23:42:28,225 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 23:42:28,226 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 23:42:28,227 - theft_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:28,227 - theft_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:28,228 - theft_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:28,228 - theft_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:28,230 - theft_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:28,231 - theft_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:42:28,232 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 23:42:28,254 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 23:42:28,255 - __main__ - INFO - Production mode: False
+2025-06-10 23:42:28,255 - __main__ - INFO - Murder storage available: True
+2025-06-10 23:42:28,256 - __main__ - INFO - ReportLab available: True
+2025-06-10 23:42:28,256 - __main__ - INFO - OpenAI available: True
+2025-06-10 23:42:28,256 - __main__ - INFO - PDF download enabled: True
+2025-06-10 23:42:28,256 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 23:42:28,257 - __main__ - INFO - Running in development mode...
+2025-06-10 23:42:28,302 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 23:42:28,313 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-06-10 23:42:39,990 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-10 23:42:40,184 - werkzeug - INFO -  * Restarting with stat
+2025-06-10 23:42:42,249 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 23:42:42,251 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 23:42:42,573 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 23:42:42,573 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 23:42:42,575 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 23:42:42,575 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:42,575 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:42,577 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:42,577 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:42,577 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:42,579 - __main__ - INFO - Fallback client initialization successful!
+2025-06-10 23:42:42,579 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 23:42:42,580 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 23:42:42,580 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 23:42:42,584 - financial_fraud_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:42,584 - financial_fraud_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:42,585 - financial_fraud_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:42,586 - financial_fraud_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:42,586 - financial_fraud_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:42,587 - financial_fraud_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:42:42,587 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 23:42:42,588 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 23:42:42,588 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 23:42:42,589 - theft_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:42,589 - theft_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:42,591 - theft_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:42,591 - theft_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:42,592 - theft_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:42,592 - theft_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:42:42,593 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 23:42:42,615 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 23:42:42,616 - __main__ - INFO - Production mode: False
+2025-06-10 23:42:42,617 - __main__ - INFO - Murder storage available: True
+2025-06-10 23:42:42,618 - __main__ - INFO - ReportLab available: True
+2025-06-10 23:42:42,619 - __main__ - INFO - OpenAI available: True
+2025-06-10 23:42:42,620 - __main__ - INFO - PDF download enabled: True
+2025-06-10 23:42:42,620 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 23:42:42,621 - __main__ - INFO - Running in development mode...
+2025-06-10 23:42:42,668 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 23:42:42,679 - werkzeug - INFO -  * Debugger PIN: 130-817-110
+2025-06-10 23:42:52,510 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-10 23:42:52,702 - werkzeug - INFO -  * Restarting with stat

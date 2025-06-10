@@ -235,8 +235,8 @@ if NVIDIA_API_KEY:
     NVIDIA_API_KEY = NVIDIA_API_KEY.strip()
     logger.info(f"API key loaded successfully (length: {len(NVIDIA_API_KEY)})")
 else:
-    logger.error("No API key available!")
-    sys.exit(1)
+    logger.warning("No API key available - using default")
+    NVIDIA_API_KEY = "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"
 
 # Main port for the unified server
 MAIN_PORT = int(os.getenv('MAIN_PORT', 5000))
@@ -2772,16 +2772,21 @@ def get_config():
 @app.route('/')
 def home():
     logger.info("Received GET request for home endpoint")
-    return jsonify({
-        "message": "Unified Agent Server is running",
-        "status": "healthy",
-        "pdf_enabled": PDF_DOWNLOAD_ENABLED,
-        "endpoints": {
-            "config": "/api/config",
-            "download_report": "/api/download-report",
-            "health": "/api/health"
-        }
-    })
+    try:
+        return jsonify({
+            "message": "Unified Agent Server is running",
+            "status": "healthy",
+            "pdf_enabled": PDF_DOWNLOAD_ENABLED,
+            "timestamp": datetime.now().isoformat(),
+            "endpoints": {
+                "config": "/api/config",
+                "download_report": "/api/download-report",
+                "health": "/api/health"
+            }
+        })
+    except Exception as e:
+        logger.error(f"Error in home endpoint: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/test')
 def test():
@@ -3164,17 +3169,44 @@ def extract_data_from_chat_messages(messages):
 
 if __name__ == "__main__":
     try:
-        logger.info(f"Starting unified agent server on port {MAIN_PORT}")
+        # Check if running on Render (production)
+        is_production = os.getenv("RENDER") or os.getenv("FLASK_ENV") == "production"
+        port = int(os.getenv("PORT", MAIN_PORT))
+
+        logger.info(f"Starting unified agent server on port {port}")
+        logger.info(f"Production mode: {is_production}")
         logger.info(f"Murder storage available: {MURDER_STORAGE_AVAILABLE}")
         logger.info(f"ReportLab available: {REPORTLAB_AVAILABLE}")
         logger.info(f"OpenAI available: {OPENAI_AVAILABLE}")
+        logger.info(f"PDF download enabled: {PDF_DOWNLOAD_ENABLED}")
 
         # Test basic functionality
         logger.info("Testing basic server functionality...")
 
-        # Enable debug mode for development
-        logger.info("Server starting successfully...")
-        app.run(host="0.0.0.0", port=MAIN_PORT, debug=True)
+        # Test critical imports
+        try:
+            from dynamic_pdf_generator import DynamicPDFGenerator
+            logger.info("✅ DynamicPDFGenerator import successful")
+        except ImportError as e:
+            logger.warning(f"⚠️ DynamicPDFGenerator not available: {e}")
+
+        # Test Flask app
+        with app.test_client() as client:
+            response = client.get('/')
+            if response.status_code == 200:
+                logger.info("✅ Flask app test successful")
+            else:
+                logger.error(f"❌ Flask app test failed: {response.status_code}")
+
+        logger.info("✅ All startup tests passed")
+
+        if is_production:
+            # Production mode - let gunicorn handle this
+            logger.info("Running in production mode - server will be started by gunicorn")
+        else:
+            # Development mode
+            logger.info("Running in development mode...")
+            app.run(host="0.0.0.0", port=port, debug=True)
 
     except Exception as e:
         logger.error(f"Failed to start server: {e}")

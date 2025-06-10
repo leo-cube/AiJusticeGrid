@@ -3326,3 +3326,44 @@ Thank you. When did the crime occur? Please provide the date (YYYY-MM-DD, ...
 2025-06-10 23:42:42,679 - werkzeug - INFO -  * Debugger PIN: 130-817-110
 2025-06-10 23:42:52,510 - werkzeug - INFO -  * Detected change in 'C:\\Users\\Admin\\Documents\\GitHub\\AiJusticeGrid\\unified_server.py', reloading
 2025-06-10 23:42:52,702 - werkzeug - INFO -  * Restarting with stat
+2025-06-10 23:42:54,827 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-10 23:42:54,831 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-10 23:42:55,136 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-10 23:42:55,136 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-10 23:42:55,136 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-10 23:42:55,136 - __main__ - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:55,136 - __main__ - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:55,136 - __main__ - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:55,136 - __main__ - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:55,149 - __main__ - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:55,149 - __main__ - INFO - Fallback client initialization successful!
+2025-06-10 23:42:55,152 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-10 23:42:55,152 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-10 23:42:55,152 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-10 23:42:55,154 - financial_fraud_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:55,154 - financial_fraud_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:55,154 - financial_fraud_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:55,154 - financial_fraud_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:55,154 - financial_fraud_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:55,154 - financial_fraud_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:42:55,154 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-10 23:42:55,154 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-10 23:42:55,154 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-10 23:42:55,154 - theft_agent_main - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:55,154 - theft_agent_main - ERROR - API key being used: nvapi-lJ8Gpn1mB...
+2025-06-10 23:42:55,160 - theft_agent_main - INFO - Attempting alternative OpenAI client initialization...
+2025-06-10 23:42:55,160 - theft_agent_main - INFO - OpenAI library version: 1.3.0
+2025-06-10 23:42:55,160 - theft_agent_main - INFO - http_client=None failed: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-06-10 23:42:55,162 - theft_agent_main - INFO - Fallback client initialization successful!
+2025-06-10 23:42:55,162 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-10 23:42:55,183 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-10 23:42:55,185 - __main__ - INFO - Production mode: False
+2025-06-10 23:42:55,185 - __main__ - INFO - Murder storage available: True
+2025-06-10 23:42:55,185 - __main__ - INFO - ReportLab available: True
+2025-06-10 23:42:55,186 - __main__ - INFO - OpenAI available: True
+2025-06-10 23:42:55,186 - __main__ - INFO - PDF download enabled: True
+2025-06-10 23:42:55,187 - __main__ - INFO - Testing basic server functionality...
+2025-06-10 23:42:55,281 - __main__ - INFO - Received GET request for home endpoint
+2025-06-10 23:42:55,294 - __main__ - INFO - Running in development mode...
+2025-06-10 23:42:55,352 - werkzeug - WARNING -  * Debugger is active!
+2025-06-10 23:42:55,354 - werkzeug - INFO -  * Debugger PIN: 130-817-110

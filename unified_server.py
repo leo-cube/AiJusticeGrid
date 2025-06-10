@@ -144,7 +144,18 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'murder-agent-secret-key')
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
-CORS(app, supports_credentials=True)  # Enable CORS for all routes with credentials support
+# Configure CORS for production and development
+CORS(app,
+     supports_credentials=True,
+     origins=[
+         "http://localhost:3000",  # Local development
+         "https://*.netlify.app",  # Netlify deployments
+         "https://*.vercel.app",   # Vercel deployments
+         "https://aijusticegrid.netlify.app",  # Production frontend
+     ],
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+     allow_headers=["Content-Type", "Authorization"]
+)
 
 # Dictionary to store conversation states
 # Format: {session_id: {current_step: step_name, collected_data: {field: value}}}

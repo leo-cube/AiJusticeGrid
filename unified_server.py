@@ -144,17 +144,24 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'murder-agent-secret-key')
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
+# Get frontend URLs from environment
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://aijusticegrid.netlify.app')
+FRONTEND_DEV_URL = os.getenv('FRONTEND_DEV_URL', 'http://localhost:3000')
+PDF_DOWNLOAD_ENABLED = os.getenv('PDF_DOWNLOAD_ENABLED', 'true').lower() == 'true'
+PDF_MAX_SIZE_MB = int(os.getenv('PDF_MAX_SIZE_MB', '10'))
+
 # Configure CORS for production and development
 CORS(app,
      supports_credentials=True,
      origins=[
-         "http://localhost:3000",  # Local development
+         FRONTEND_DEV_URL,  # Local development
          "https://*.netlify.app",  # Netlify deployments
          "https://*.vercel.app",   # Vercel deployments
-         "https://aijusticegrid.netlify.app",  # Production frontend
+         FRONTEND_URL,  # Production frontend
+         "https://aijusticegrid.netlify.app",  # Explicit production frontend
      ],
      methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-     allow_headers=["Content-Type", "Authorization"]
+     allow_headers=["Content-Type", "Authorization", "X-Requested-With"]
 )
 
 # Dictionary to store conversation states
@@ -2452,10 +2459,27 @@ def murder_agent_sample():
         }), 500
 
 # Enhanced PDF Generation endpoint with AI analysis
-@app.route('/api/generate-pdf', methods=['POST'])
+@app.route('/api/generate-pdf', methods=['POST', 'OPTIONS'])
 def generate_pdf():
     """Generate a PDF report from user data with AI analysis."""
+
+    # Handle preflight OPTIONS request
+    if request.method == 'OPTIONS':
+        response = jsonify({'status': 'ok'})
+        response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+        response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        return response
+
     logger.info("Received request for enhanced PDF generation")
+
+    # Check if PDF download is enabled
+    if not PDF_DOWNLOAD_ENABLED:
+        logger.warning("PDF download is disabled in production")
+        return jsonify({
+            "success": False,
+            "error": "PDF download is currently disabled"
+        }), 503
     
     try:
         # Get data from request
@@ -2540,21 +2564,39 @@ def generate_pdf():
 
         if not pdf_buffer:
             raise Exception("Failed to generate PDF buffer")
-            
+
+        # Check PDF size limit
+        pdf_size = len(pdf_buffer.getvalue())
+        max_size_bytes = PDF_MAX_SIZE_MB * 1024 * 1024
+
+        if pdf_size > max_size_bytes:
+            logger.warning(f"PDF size ({pdf_size} bytes) exceeds limit ({max_size_bytes} bytes)")
+            return jsonify({
+                "success": False,
+                "error": f"PDF size ({pdf_size // 1024} KB) exceeds maximum allowed size ({PDF_MAX_SIZE_MB} MB)"
+            }), 413
+
         # Create a unique filename that doesn't reference local paths
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         safe_title = title.replace(' ', '_').replace('/', '_')[:50]
         filename = f"{safe_title}_{timestamp}.pdf"
 
-        logger.info(f"Returning PDF file: {filename}")
+        logger.info(f"Returning PDF file: {filename} (Size: {pdf_size} bytes)")
 
-        # Return the PDF as a file download
-        return send_file(
+        # Create response with proper headers for production
+        response = send_file(
             pdf_buffer,
             as_attachment=True,
             download_name=filename,
             mimetype='application/pdf'
         )
+
+        # Add CORS headers for production
+        response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
+        response.headers.add('Access-Control-Expose-Headers', 'Content-Disposition')
+        response.headers.add('Content-Length', str(pdf_size))
+
+        return response
     except Exception as e:
         logger.error(f"Error generating PDF: {str(e)}")
         import traceback
@@ -2562,6 +2604,136 @@ def generate_pdf():
         return jsonify({
             "success": False,
             "error": f"Failed to generate PDF: {str(e)}"
+        }), 500
+
+# Frontend-specific PDF Download endpoint
+@app.route('/api/download-report', methods=['POST', 'OPTIONS'])
+def download_report():
+    """
+    Frontend-specific endpoint for downloading PDF reports.
+    Designed to work with the 'Download & Save Report' button.
+    """
+
+    # Handle preflight OPTIONS request
+    if request.method == 'OPTIONS':
+        response = jsonify({'status': 'ok'})
+        response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+        response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        return response
+
+    logger.info("Received request for frontend PDF download")
+
+    # Check if PDF download is enabled
+    if not PDF_DOWNLOAD_ENABLED:
+        logger.warning("PDF download is disabled in production")
+        return jsonify({
+            "success": False,
+            "error": "PDF download is currently disabled"
+        }), 503
+
+    try:
+        # Get the request data
+        data = request.get_json()
+        if not data:
+            return jsonify({
+                "success": False,
+                "error": "No data provided for PDF generation"
+            }), 400
+
+        logger.info(f"Processing PDF download request with data keys: {list(data.keys())}")
+
+        # Extract messages for PDF generation
+        messages = data.get('messages', [])
+        if not messages:
+            return jsonify({
+                "success": False,
+                "error": "No conversation messages provided"
+            }), 400
+
+        # Extract case data from messages
+        case_data = extract_data_from_chat_messages(messages)
+
+        # Add metadata
+        case_data.update({
+            'report_type': data.get('reportType', 'Investigation Report'),
+            'agent_type': data.get('agentType', 'general'),
+            'session_id': data.get('sessionId'),
+            'generated_at': datetime.now().isoformat(),
+            'frontend_version': data.get('version', 'unknown')
+        })
+
+        # Determine analysis type
+        agent_type = data.get('agentType', 'general').lower()
+        analysis_type_mapping = {
+            'murder': 'murder',
+            'financial': 'financial',
+            'theft': 'theft',
+            'finance': 'financial'
+        }
+        analysis_type = analysis_type_mapping.get(agent_type, 'general')
+
+        logger.info(f"Generating PDF for agent type: {agent_type}, analysis type: {analysis_type}")
+
+        # Generate PDF using the dynamic generator
+        try:
+            from dynamic_pdf_generator import DynamicPDFGenerator
+            pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
+            pdf_buffer = pdf_generator.generate_investigation_pdf(
+                data=case_data,
+                analysis_type=analysis_type
+            )
+        except ImportError as e:
+            logger.warning(f"Dynamic PDF generator not available: {e}, using fallback")
+            pdf_buffer = generate_incident_pdf(case_data)
+        except Exception as e:
+            logger.error(f"Error with DynamicPDFGenerator: {e}, using fallback")
+            pdf_buffer = generate_incident_pdf(case_data)
+
+        if not pdf_buffer:
+            raise Exception("Failed to generate PDF buffer")
+
+        # Check PDF size
+        pdf_size = len(pdf_buffer.getvalue())
+        max_size_bytes = PDF_MAX_SIZE_MB * 1024 * 1024
+
+        if pdf_size > max_size_bytes:
+            logger.warning(f"PDF size ({pdf_size} bytes) exceeds limit ({max_size_bytes} bytes)")
+            return jsonify({
+                "success": False,
+                "error": f"PDF size ({pdf_size // 1024} KB) exceeds maximum allowed size ({PDF_MAX_SIZE_MB} MB)"
+            }), 413
+
+        # Create filename
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        report_type = case_data.get('report_type', 'Investigation_Report')
+        safe_title = report_type.replace(' ', '_').replace('/', '_')[:30]
+        filename = f"{safe_title}_{timestamp}.pdf"
+
+        logger.info(f"Sending PDF download: {filename} (Size: {pdf_size} bytes)")
+
+        # Create response with proper headers
+        response = send_file(
+            pdf_buffer,
+            as_attachment=True,
+            download_name=filename,
+            mimetype='application/pdf'
+        )
+
+        # Add CORS headers for production
+        response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
+        response.headers.add('Access-Control-Expose-Headers', 'Content-Disposition')
+        response.headers.add('Content-Length', str(pdf_size))
+
+        return response
+
+    except Exception as e:
+        logger.error(f"Error in frontend PDF download: {str(e)}")
+        import traceback
+        logger.error(f"Full traceback: {traceback.format_exc()}")
+        return jsonify({
+            "success": False,
+            "error": f"Failed to generate PDF report: {str(e)}"
         }), 500
 
 # Simple test endpoints

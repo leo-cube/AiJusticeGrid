@@ -9,3 +9,9 @@ services:
         sync: false
       - key: PYTHONUNBUFFERED
         value: true
+      - key: FRONTEND_URL
+        value: https://aijusticegrid.netlify.app
+      - key: PDF_DOWNLOAD_ENABLED
+        value: true
+      - key: PDF_MAX_SIZE_MB
+        value: 10

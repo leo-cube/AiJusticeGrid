@@ -131,14 +131,29 @@ except ImportError:
 # Load environment variables
 load_dotenv()
 
-# Configure logging with absolute path
+# Configure logging with absolute path and UTF-8 encoding
+
+# Create file handler with UTF-8 encoding
+file_handler = logging.FileHandler(PATHS['log_file'], encoding='utf-8')
+file_handler.setLevel(logging.INFO)
+
+# Create console handler with UTF-8 encoding and error handling
+console_handler = logging.StreamHandler(sys.stdout)
+console_handler.setLevel(logging.INFO)
+
+# Set encoding for console handler if possible (Windows compatibility)
+try:
+    if hasattr(console_handler.stream, 'reconfigure'):
+        console_handler.stream.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    # Fallback for older Python versions or systems that don't support reconfigure
+    pass
+
+# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler(PATHS['log_file']),
-        logging.StreamHandler()
-    ]
+    handlers=[file_handler, console_handler]
 )
 logger = logging.getLogger(__name__)
 
@@ -3596,19 +3611,19 @@ if __name__ == "__main__":
         # Test critical imports
         try:
             from dynamic_pdf_generator import DynamicPDFGenerator
-            logger.info("✅ DynamicPDFGenerator import successful")
+            logger.info("[SUCCESS] DynamicPDFGenerator import successful")
         except ImportError as e:
-            logger.warning(f"⚠️ DynamicPDFGenerator not available: {e}")
+            logger.warning(f"[WARNING] DynamicPDFGenerator not available: {e}")
 
         # Test Flask app
         with app.test_client() as client:
             response = client.get('/')
             if response.status_code == 200:
-                logger.info("✅ Flask app test successful")
+                logger.info("[SUCCESS] Flask app test successful")
             else:
-                logger.error(f"❌ Flask app test failed: {response.status_code}")
+                logger.error(f"[ERROR] Flask app test failed: {response.status_code}")
 
-        logger.info("✅ All startup tests passed")
+        logger.info("[SUCCESS] All startup tests passed")
 
         if is_production:
             # Production mode - let gunicorn handle this

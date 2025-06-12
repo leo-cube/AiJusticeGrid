@@ -28,11 +28,13 @@ PATHS = {
     'murder_storage': PROJECT_ROOT / 'murder_investigation.json',
     'finance_storage': PROJECT_ROOT / 'finance_investigation.json',
     'saved_reports': PROJECT_ROOT / 'data' / 'saved-reports.json',
-    'agent_settings': PROJECT_ROOT / 'data' / 'agent-settings.json'
+    'agent_settings': PROJECT_ROOT / 'data' / 'agent-settings.json',
+    'pdf_storage': PROJECT_ROOT / 'generated_pdfs'  # New PDF storage directory
 }
 
-# Ensure data directory exists
+# Ensure data and PDF storage directories exist
 PATHS['data_dir'].mkdir(exist_ok=True)
+PATHS['pdf_storage'].mkdir(exist_ok=True)
 
 # Import OpenAI with fallback
 try:
@@ -149,6 +151,116 @@ FRONTEND_URL = os.getenv('FRONTEND_URL', 'https://aijusticegrid.netlify.app')
 FRONTEND_DEV_URL = os.getenv('FRONTEND_DEV_URL', 'http://localhost:3000')
 PDF_DOWNLOAD_ENABLED = os.getenv('PDF_DOWNLOAD_ENABLED', 'true').lower() == 'true'
 PDF_MAX_SIZE_MB = int(os.getenv('PDF_MAX_SIZE_MB', '10'))
+
+def save_pdf_to_disk(pdf_buffer, report_data):
+    """
+    Save PDF buffer to disk and update saved reports registry.
+
+    Args:
+        pdf_buffer: BytesIO object containing PDF data
+        report_data: Dictionary containing report metadata
+
+    Returns:
+        dict: Updated report data with file path information
+    """
+    try:
+        # Generate unique filename
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        report_id = report_data.get('id', f'RPT-{int(datetime.now().timestamp() * 1000)}')
+        agent_type = report_data.get('agentType', 'general')
+        safe_title = report_data.get('title', 'Investigation_Report').replace(' ', '_').replace('/', '_')[:30]
+
+        filename = f"{agent_type}_{safe_title}_{timestamp}.pdf"
+        file_path = PATHS['pdf_storage'] / filename
+
+        # Save PDF to disk
+        with open(file_path, 'wb') as f:
+            pdf_buffer.seek(0)
+            f.write(pdf_buffer.read())
+
+        # Update report data with file information
+        report_data.update({
+            'filename': filename,
+            'filePath': str(file_path),
+            'fileSize': file_path.stat().st_size,
+            'status': 'saved',
+            'savedDate': datetime.now().isoformat()
+        })
+
+        # Update saved reports registry
+        update_saved_reports_registry(report_data)
+
+        logger.info(f"PDF saved successfully: {filename} ({report_data['fileSize']} bytes)")
+        return report_data
+
+    except Exception as e:
+        logger.error(f"Error saving PDF to disk: {e}")
+        report_data.update({
+            'status': 'error',
+            'error': str(e)
+        })
+        return report_data
+
+def update_saved_reports_registry(report_data):
+    """
+    Update the saved reports JSON file with new report data.
+
+    Args:
+        report_data: Dictionary containing report metadata
+    """
+    try:
+        # Load existing reports
+        saved_reports = []
+        if PATHS['saved_reports'].exists():
+            with open(PATHS['saved_reports'], 'r', encoding='utf-8') as f:
+                saved_reports = json.load(f)
+
+        # Check if report already exists (update) or add new
+        report_id = report_data.get('id')
+        existing_index = None
+        for i, existing_report in enumerate(saved_reports):
+            if existing_report.get('id') == report_id:
+                existing_index = i
+                break
+
+        if existing_index is not None:
+            # Update existing report
+            saved_reports[existing_index] = report_data
+            logger.info(f"Updated existing report: {report_id}")
+        else:
+            # Add new report
+            saved_reports.append(report_data)
+            logger.info(f"Added new report: {report_id}")
+
+        # Save updated reports
+        with open(PATHS['saved_reports'], 'w', encoding='utf-8') as f:
+            json.dump(saved_reports, f, indent=2, ensure_ascii=False)
+
+    except Exception as e:
+        logger.error(f"Error updating saved reports registry: {e}")
+
+def cleanup_old_pdfs(days_old=7):
+    """
+    Clean up PDF files older than specified days.
+
+    Args:
+        days_old: Number of days after which to delete PDFs
+    """
+    try:
+        cutoff_time = datetime.now() - timedelta(days=days_old)
+        deleted_count = 0
+
+        for pdf_file in PATHS['pdf_storage'].glob('*.pdf'):
+            if pdf_file.stat().st_mtime < cutoff_time.timestamp():
+                pdf_file.unlink()
+                deleted_count += 1
+                logger.info(f"Deleted old PDF: {pdf_file.name}")
+
+        if deleted_count > 0:
+            logger.info(f"Cleaned up {deleted_count} old PDF files")
+
+    except Exception as e:
+        logger.error(f"Error during PDF cleanup: {e}")
 
 # Configure CORS for production and development - Allow all origins for now
 CORS(app,
@@ -1862,6 +1974,80 @@ def murder_agent_endpoint():
 
                 logger.info(f"Successfully stored investigation data for case {case_id} (unified server)")
 
+                # Generate and save PDF after successful analysis completion
+                try:
+                    logger.info(f"Generating PDF for completed murder analysis - Case {case_id}")
+
+                    # Prepare data for PDF generation
+                    pdf_data = {
+                        'title': 'Murder Investigation Report',
+                        'analysisType': 'murder',
+                        'agentType': 'murder',
+                        'messages': [],  # Will be populated from conversation
+                        'includeAIAnalysis': True,
+                        'userMetadata': user_metadata,
+                        'timestamp': datetime.now().isoformat()
+                    }
+
+                    # Add conversation messages for PDF
+                    if session_id in conversation_states:
+                        conv_state = conversation_states[session_id]
+                        # Create messages from collected data and analysis
+                        for field, value in collected_data.items():
+                            if field != 'case_id' and value:
+                                for step in CASE_INFO_STEPS:
+                                    if step.get('field') == field:
+                                        pdf_data['messages'].extend([
+                                            {
+                                                'sender': 'assistant',
+                                                'content': step['message'],
+                                                'timestamp': datetime.now().isoformat(),
+                                                'agentType': 'murder'
+                                            },
+                                            {
+                                                'sender': 'user',
+                                                'content': str(value),
+                                                'timestamp': datetime.now().isoformat(),
+                                                'agentType': 'murder'
+                                            }
+                                        ])
+                                        break
+
+                        # Add the AI analysis as the final message
+                        pdf_data['messages'].append({
+                            'sender': 'assistant',
+                            'content': response,
+                            'timestamp': datetime.now().isoformat(),
+                            'agentType': 'murder'
+                        })
+
+                    # Generate PDF
+                    from dynamic_pdf_generator import DynamicPDFGenerator
+                    pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
+                    pdf_buffer = pdf_generator.generate_investigation_pdf(
+                        data=pdf_data,
+                        analysis_type='murder'
+                    )
+
+                    # Prepare report metadata
+                    report_data = {
+                        'id': f'RPT-{int(datetime.now().timestamp() * 1000)}',
+                        'title': 'Murder Investigation Report',
+                        'agentType': 'murder',
+                        'caseId': case_id,
+                        'createdDate': datetime.now().isoformat(),
+                        'conversationData': pdf_data,
+                        'description': 'PDF report generated from murder agent conversation'
+                    }
+
+                    # Save PDF to disk
+                    saved_report = save_pdf_to_disk(pdf_buffer, report_data)
+                    logger.info(f"PDF saved for murder case {case_id}: {saved_report.get('filename')}")
+
+                except Exception as pdf_error:
+                    logger.error(f"Error generating PDF for murder case {case_id}: {pdf_error}")
+                    # Continue with response even if PDF generation fails
+
         except Exception as e:
             logger.error(f"Error storing Murder Agent data in unified server: {e}")
             # Continue with response even if storage fails
@@ -2005,6 +2191,79 @@ def finance_agent_endpoint():
                 )
 
                 logger.info(f"Successfully stored investigation data for case {case_id} (unified server)")
+
+                # Generate and save PDF after successful analysis completion
+                try:
+                    logger.info(f"Generating PDF for completed financial analysis - Case {case_id}")
+
+                    # Prepare data for PDF generation
+                    pdf_data = {
+                        'title': 'Finance Investigation Report',
+                        'analysisType': 'finance',
+                        'agentType': 'finance',
+                        'messages': [],  # Will be populated from conversation
+                        'includeAIAnalysis': True,
+                        'userMetadata': user_metadata,
+                        'timestamp': datetime.now().isoformat()
+                    }
+
+                    # Add conversation messages for PDF
+                    if session_id in financial_agent.conversation_states:
+                        # Create messages from collected data and analysis
+                        for field, value in collected_data.items():
+                            if field != 'case_id' and value:
+                                for step in financial_agent.CASE_INFO_STEPS:
+                                    if step.get('field') == field:
+                                        pdf_data['messages'].extend([
+                                            {
+                                                'sender': 'assistant',
+                                                'content': step['message'],
+                                                'timestamp': datetime.now().isoformat(),
+                                                'agentType': 'finance'
+                                            },
+                                            {
+                                                'sender': 'user',
+                                                'content': str(value),
+                                                'timestamp': datetime.now().isoformat(),
+                                                'agentType': 'finance'
+                                            }
+                                        ])
+                                        break
+
+                        # Add the AI analysis as the final message
+                        pdf_data['messages'].append({
+                            'sender': 'assistant',
+                            'content': response,
+                            'timestamp': datetime.now().isoformat(),
+                            'agentType': 'finance'
+                        })
+
+                    # Generate PDF
+                    from dynamic_pdf_generator import DynamicPDFGenerator
+                    pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
+                    pdf_buffer = pdf_generator.generate_investigation_pdf(
+                        data=pdf_data,
+                        analysis_type='finance'
+                    )
+
+                    # Prepare report metadata
+                    report_data = {
+                        'id': f'RPT-{int(datetime.now().timestamp() * 1000)}',
+                        'title': 'Finance Investigation Report',
+                        'agentType': 'finance',
+                        'caseId': case_id,
+                        'createdDate': datetime.now().isoformat(),
+                        'conversationData': pdf_data,
+                        'description': 'PDF report generated from finance agent conversation'
+                    }
+
+                    # Save PDF to disk
+                    saved_report = save_pdf_to_disk(pdf_buffer, report_data)
+                    logger.info(f"PDF saved for finance case {case_id}: {saved_report.get('filename')}")
+
+                except Exception as pdf_error:
+                    logger.error(f"Error generating PDF for finance case {case_id}: {pdf_error}")
+                    # Continue with response even if PDF generation fails
 
         except Exception as storage_error:
             logger.error(f"Error storing Financial Agent data in unified server: {storage_error}")
@@ -2761,10 +3020,17 @@ def get_config():
             "endpoints": {
                 "download_report": f"{backend_url}/api/download-report",
                 "generate_pdf": f"{backend_url}/api/generate-pdf",
+                "download_stored_pdf": f"{backend_url}/api/download-stored-pdf",
+                "list_saved_reports": f"{backend_url}/api/list-saved-reports",
                 "health": f"{backend_url}/api/health"
             },
             "cors_enabled": True,
-            "version": "1.0"
+            "version": "1.1",
+            "features": {
+                "auto_pdf_generation": True,
+                "pdf_storage": True,
+                "stored_pdf_download": True
+            }
         }
     })
 
@@ -2781,7 +3047,14 @@ def home():
             "endpoints": {
                 "config": "/api/config",
                 "download_report": "/api/download-report",
+                "download_stored_pdf": "/api/download-stored-pdf/<report_id>",
+                "list_saved_reports": "/api/list-saved-reports",
                 "health": "/api/health"
+            },
+            "features": {
+                "auto_pdf_generation": True,
+                "pdf_storage": True,
+                "stored_pdf_download": True
             }
         })
     except Exception as e:
@@ -2792,6 +3065,138 @@ def home():
 def test():
     logger.info("Received GET request for test endpoint")
     return jsonify({"message": "Test endpoint is working"})
+
+@app.route('/api/download-stored-pdf/<report_id>', methods=['GET'])
+def download_stored_pdf(report_id):
+    """
+    Download a previously generated and stored PDF by report ID.
+    """
+    logger.info(f"Received request to download stored PDF: {report_id}")
+
+    try:
+        # Load saved reports registry
+        if not PATHS['saved_reports'].exists():
+            return jsonify({
+                "success": False,
+                "error": "No saved reports found"
+            }), 404
+
+        with open(PATHS['saved_reports'], 'r', encoding='utf-8') as f:
+            saved_reports = json.load(f)
+
+        # Find the requested report
+        target_report = None
+        for report in saved_reports:
+            if report.get('id') == report_id:
+                target_report = report
+                break
+
+        if not target_report:
+            return jsonify({
+                "success": False,
+                "error": f"Report with ID {report_id} not found"
+            }), 404
+
+        # Check if file exists on disk
+        filename = target_report.get('filename')
+        if not filename:
+            return jsonify({
+                "success": False,
+                "error": "No filename found for this report"
+            }), 404
+
+        file_path = PATHS['pdf_storage'] / filename
+        if not file_path.exists():
+            return jsonify({
+                "success": False,
+                "error": f"PDF file not found on disk: {filename}"
+            }), 404
+
+        # Check file size
+        file_size = file_path.stat().st_size
+        max_size_bytes = PDF_MAX_SIZE_MB * 1024 * 1024
+
+        if file_size > max_size_bytes:
+            logger.warning(f"PDF size ({file_size} bytes) exceeds limit ({max_size_bytes} bytes)")
+            return jsonify({
+                "success": False,
+                "error": f"PDF size ({file_size // 1024} KB) exceeds maximum allowed size ({PDF_MAX_SIZE_MB} MB)"
+            }), 413
+
+        logger.info(f"Serving stored PDF: {filename} (Size: {file_size} bytes)")
+
+        # Create response with proper headers
+        response = send_file(
+            file_path,
+            as_attachment=True,
+            download_name=filename,
+            mimetype='application/pdf'
+        )
+
+        # Add CORS headers for production
+        response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
+        response.headers.add('Access-Control-Expose-Headers', 'Content-Disposition')
+        response.headers.add('Content-Length', str(file_size))
+
+        return response
+
+    except Exception as e:
+        logger.error(f"Error downloading stored PDF: {str(e)}")
+        import traceback
+        logger.error(f"Full traceback: {traceback.format_exc()}")
+        return jsonify({
+            "success": False,
+            "error": f"Failed to download PDF: {str(e)}"
+        }), 500
+
+@app.route('/api/list-saved-reports', methods=['GET'])
+def list_saved_reports():
+    """
+    List all saved PDF reports with their metadata.
+    """
+    logger.info("Received request to list saved reports")
+
+    try:
+        # Load saved reports registry
+        if not PATHS['saved_reports'].exists():
+            return jsonify({
+                "success": True,
+                "reports": []
+            })
+
+        with open(PATHS['saved_reports'], 'r', encoding='utf-8') as f:
+            saved_reports = json.load(f)
+
+        # Filter out sensitive data and add download URLs
+        filtered_reports = []
+        for report in saved_reports:
+            filtered_report = {
+                'id': report.get('id'),
+                'title': report.get('title'),
+                'agentType': report.get('agentType'),
+                'caseId': report.get('caseId'),
+                'filename': report.get('filename'),
+                'createdDate': report.get('createdDate'),
+                'savedDate': report.get('savedDate'),
+                'fileSize': report.get('fileSize'),
+                'status': report.get('status'),
+                'description': report.get('description'),
+                'downloadUrl': f"/api/download-stored-pdf/{report.get('id')}"
+            }
+            filtered_reports.append(filtered_report)
+
+        return jsonify({
+            "success": True,
+            "reports": filtered_reports,
+            "count": len(filtered_reports)
+        })
+
+    except Exception as e:
+        logger.error(f"Error listing saved reports: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": f"Failed to list reports: {str(e)}"
+        }), 500
 
 @app.route('/agents')
 def list_agents():
@@ -3179,6 +3584,11 @@ if __name__ == "__main__":
         logger.info(f"ReportLab available: {REPORTLAB_AVAILABLE}")
         logger.info(f"OpenAI available: {OPENAI_AVAILABLE}")
         logger.info(f"PDF download enabled: {PDF_DOWNLOAD_ENABLED}")
+        logger.info(f"PDF storage directory: {PATHS['pdf_storage']}")
+
+        # Run initial PDF cleanup
+        logger.info("Running initial PDF cleanup...")
+        cleanup_old_pdfs(days_old=7)
 
         # Test basic functionality
         logger.info("Testing basic server functionality...")

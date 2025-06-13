@@ -3,7 +3,7 @@ services:
     name: ai-investigation-backend
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn unified_server:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1 --log-level info
+    startCommand: gunicorn unified_server:app --bind 0.0.0.0:$8000 --timeout 120 --workers 1 --log-level info
     envVars:
       - key: NVIDIA_API_KEY
         sync: false

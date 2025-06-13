@@ -3631,7 +3631,7 @@ if __name__ == "__main__":
         else:
             # Development mode
             logger.info("Running in development mode...")
-            app.run(host="0.0.0.0", port=port, debug=True)
+            app.run(host="0.0.0.0", port=5000, debug=True)
 
     except Exception as e:
         logger.error(f"Failed to start server: {e}")

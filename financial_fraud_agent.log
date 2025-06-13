@@ -505,3 +505,39 @@
 2025-06-13 10:51:50,234 - __main__ - INFO - Running in development mode...
 2025-06-13 10:51:50,280 - werkzeug - WARNING -  * Debugger is active!
 2025-06-13 10:51:50,281 - werkzeug - INFO -  * Debugger PIN: 297-817-563
+2025-06-13 11:00:37,560 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2025 11:00:37] "[31m[1mGET /api/augment/murder HTTP/1.1[0m" 405 -
+2025-06-13 11:00:37,599 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2025 11:00:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-13 11:00:40,196 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2025 11:00:40] "[31m[1mGET /api/augment/murder HTTP/1.1[0m" 405 -
+2025-06-13 11:01:46,868 - werkzeug - INFO -  * Detected change in '/home/leojamescharles/Desktop/aijusticegrid/jun13/AiJusticeGrid/unified_server.py', reloading
+2025-06-13 11:01:47,067 - werkzeug - INFO -  * Restarting with stat
+2025-06-13 11:01:48,081 - __main__ - INFO - Financial Fraud Agent module loaded successfully
+2025-06-13 11:01:48,081 - __main__ - INFO - Theft Agent module loaded successfully
+2025-06-13 11:01:48,196 - __main__ - INFO - API key loaded successfully (length: 70)
+2025-06-13 11:01:48,196 - __main__ - INFO - Attempting to initialize Murder Agent with API key length: 70
+2025-06-13 11:01:48,196 - __main__ - INFO - Initializing Murder Agent with API key length: 70
+2025-06-13 11:01:48,367 - __main__ - INFO - Murder Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-13 11:01:48,367 - __main__ - INFO - Murder Agent initialized successfully in unified server
+2025-06-13 11:01:48,367 - __main__ - INFO - Attempting to initialize Financial Agent with API key length: 70
+2025-06-13 11:01:48,368 - financial_fraud_agent_main - INFO - Initializing Financial Fraud Agent with API key length: 70
+2025-06-13 11:01:48,429 - financial_fraud_agent_main - INFO - Financial Fraud Agent initialized successfully with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-13 11:01:48,429 - __main__ - INFO - Financial Agent initialized successfully in unified server
+2025-06-13 11:01:48,429 - __main__ - INFO - Attempting to initialize Theft Agent with API key length: 70
+2025-06-13 11:01:48,430 - theft_agent_main - INFO - Initializing Theft Agent with API key length: 70
+2025-06-13 11:01:48,490 - theft_agent_main - INFO - Theft Agent initialized successfully with model: nvidia/llama-3.3-nemotron-super-49b-v1
+2025-06-13 11:01:48,490 - __main__ - INFO - Theft Agent initialized successfully in unified server
+2025-06-13 11:01:48,501 - __main__ - INFO - Starting unified agent server on port 5000
+2025-06-13 11:01:48,501 - __main__ - INFO - Production mode: False
+2025-06-13 11:01:48,501 - __main__ - INFO - Murder storage available: True
+2025-06-13 11:01:48,501 - __main__ - INFO - ReportLab available: True
+2025-06-13 11:01:48,501 - __main__ - INFO - OpenAI available: True
+2025-06-13 11:01:48,501 - __main__ - INFO - PDF download enabled: True
+2025-06-13 11:01:48,501 - __main__ - INFO - PDF storage directory: /home/leojamescharles/Desktop/aijusticegrid/jun13/AiJusticeGrid/generated_pdfs
+2025-06-13 11:01:48,501 - __main__ - INFO - Running initial PDF cleanup...
+2025-06-13 11:01:48,502 - __main__ - INFO - Testing basic server functionality...
+2025-06-13 11:01:48,502 - __main__ - INFO - [SUCCESS] DynamicPDFGenerator import successful
+2025-06-13 11:01:48,507 - __main__ - INFO - Received GET request for home endpoint
+2025-06-13 11:01:48,508 - __main__ - INFO - [SUCCESS] Flask app test successful
+2025-06-13 11:01:48,509 - __main__ - INFO - [SUCCESS] All startup tests passed
+2025-06-13 11:01:48,509 - __main__ - INFO - Running in development mode...
+2025-06-13 11:01:48,553 - werkzeug - WARNING -  * Debugger is active!
+2025-06-13 11:01:48,553 - werkzeug - INFO -  * Debugger PIN: 297-817-563

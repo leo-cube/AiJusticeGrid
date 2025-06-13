@@ -541,3 +541,13 @@
 2025-06-13 11:01:48,509 - __main__ - INFO - Running in development mode...
 2025-06-13 11:01:48,553 - werkzeug - WARNING -  * Debugger is active!
 2025-06-13 11:01:48,553 - werkzeug - INFO -  * Debugger PIN: 297-817-563
+2025-06-13 11:03:02,311 - __main__ - INFO - Received request for Murder Agent
+2025-06-13 11:03:02,312 - __main__ - INFO - Received request with session_id: None, user_input: initialize
+2025-06-13 11:03:02,313 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-06-13 11:03:02,316 - __main__ - INFO - Processing message: initialize with session_id: None
+2025-06-13 11:03:02,316 - __main__ - INFO - force_new_session: True, reset_conversation: True
+2025-06-13 11:03:02,316 - __main__ - INFO - Reset command detected or force_new_session is True
+2025-06-13 11:03:02,316 - __main__ - INFO - Forcing creation of a new session
+2025-06-13 11:03:02,317 - __main__ - INFO - Created new conversation state with session ID: 64e20663-cbb5-4064-8206-465f42ac2ee8
+2025-06-13 11:03:02,317 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-13T11:03:02.317409'}
+2025-06-13 11:03:02,318 - werkzeug - INFO - 127.0.0.1 - - [13/Jun/2025 11:03:02] "POST /api/augment/murder HTTP/1.1" 200 -

@@ -144,7 +144,13 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'murder-agent-secret-key')
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
-CORS(app, supports_credentials=True)  # Enable CORS for all routes with credentials support
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+        "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"]
+    }
+})  # Enable CORS for all routes with credentials support
 
 # Dictionary to store conversation states
 # Format: {session_id: {current_step: step_name, collected_data: {field: value}}}

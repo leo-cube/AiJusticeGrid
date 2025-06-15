@@ -3,7 +3,7 @@ export type AgentType =
   // Main agent types
   'general' | 'crime' | 'financial-fraud' | 'exchange-matching' | 'degree-guru' |
   // Specialized crime agents
-  'murder' | 'theft' | 'smuggle' | 'crime-accident' | 'crime-abuse' | 'crime-chain-snatching' |
+  'murder' | 'theft' | 'smuggle' | 'crime-accident' | 'crime-abuse' | 'crime-chain-snatching' | 'crime-theft' |
   // Specialized murder agents
   'crime-murder' | 'murder-chief' | 'murder-cop-2' | 'murder-case-3' |
   // Specialized finance agents
@@ -155,11 +155,33 @@ export interface ChatContextType {
   evidence?: string;
   suspects?: string;
 
+  // Financial fraud specific fields
+  suspectName?: string;
+  fraudType?: string;
+  fraudAmount?: string;
+  fraudDate?: string;
+  financialInstitution?: string;
+  transactionDetails?: string;
+  evidenceList?: string;
+
+  // Theft specific fields
+  crimeLocation?: string;
+  stolenItems?: string;
+  estimatedValue?: string;
+  theftMethod?: string;
+  witnessStatements?: string;
+
+  // Case management fields (removed duplicates)
+
   // Interactive session fields
   sessionId?: string;
   isCollectingInfo?: boolean;
   currentStep?: string;
   collectedData?: Record<string, string>;
+
+  // Additional fields
+  additionalNotes?: string;
+  timestamp?: string;
 }
 
 // Chat context provider type
@@ -221,4 +243,60 @@ export interface Settings {
     capabilities: string[];
   }[];
   agentAssignments: Record<string, string>;
+}
+
+// API Report types
+export interface DesignatedPanel {
+  id: string;
+  title: string;
+  type: 'summary' | 'evidence' | 'recommendations' | 'analysis' | 'timeline' | 'custom';
+  content: string;
+  priority?: 'low' | 'medium' | 'high';
+  assignedTo?: string;
+  metadata?: {
+    [key: string]: any;
+  };
+}
+
+export interface ApiReport {
+  id: string;
+  title: string;
+  caseId: string;
+  caseType: string;
+  generatedDate: string;
+  generatedBy: string;
+  status: 'pending' | 'completed' | 'in-progress' | 'error';
+  panels: DesignatedPanel[];
+}
+
+// Investigation Report types
+export interface InvestigationQuestion {
+  question: string;
+  answer: string;
+}
+
+export interface InvestigationReport {
+  id: string;
+  title: string;
+  investigationId: string;
+  investigationType: string;
+  createdDate: string;
+  createdBy: string;
+  questions: InvestigationQuestion[];
+  analysis: string;
+  status: 'pending' | 'completed' | 'in-progress';
+}
+
+// Saved PDF Report types
+export interface SavedPDFReport {
+  id: string;
+  title: string;
+  agentType: string;
+  caseId?: string;
+  filename: string;
+  createdDate: string;
+  conversationData: any;
+  fileSize?: number;
+  status: 'generated' | 'pending' | 'error';
+  description?: string;
 }

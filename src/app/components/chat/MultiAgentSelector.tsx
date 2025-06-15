@@ -13,7 +13,7 @@ interface MultiAgentSelectorProps {
 }
 
 // Default agents from configuration
-export const defaultAgents: Agent[] = defaultSettings.agentTypes;
+export const defaultAgents: Agent[] = defaultSettings.agentTypes as Agent[];
 
 const MultiAgentSelector: React.FC<MultiAgentSelectorProps> = ({ 
   selectedAgents, 

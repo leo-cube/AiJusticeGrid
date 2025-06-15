@@ -31,23 +31,23 @@ export async function GET() {
         available: isAvailable,
         message: isAvailable ? 'Murder Agent backend is available' : 'Murder Agent backend is not available'
       });
-    } catch (fetchError) {
+    } catch (fetchError: any) {
       console.error('Error fetching Murder Agent backend via proxy:', fetchError);
-      
+
       // If we get a fetch error, it might be due to network issues
       // Let's check if we can see the server in the logs
       return NextResponse.json({
         available: false,
         message: 'Error connecting to Murder Agent backend',
-        error: fetchError.message
+        error: fetchError?.message || 'Unknown error'
       });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in Murder Agent backend check proxy:', error);
     return NextResponse.json({
       available: false,
       message: 'Error in Murder Agent backend check proxy',
-      error: error.message
+      error: error?.message || 'Unknown error'
     }, { status: 500 });
   }
 }

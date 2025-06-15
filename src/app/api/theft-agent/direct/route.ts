@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ChatContext } from '@/app/types';
+import { ChatContextType } from '@/app/types';
 
 // Theft Agent API URL
 const THEFT_AGENT_API_URL = process.env.NEXT_PUBLIC_THEFT_AGENT_API_URL || 'http://localhost:5001/api/augment/theft';
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     }
 
     const question = body.question;
-    const context = body.context as ChatContext;
+    const context = body.context as ChatContextType;
 
     // Prepare case details for the Theft Agent
     const caseDetails: Record<string, any> = {
@@ -104,7 +104,7 @@ export async function POST(request: Request) {
  * Generate a mock response for the Theft Agent
  * This is used when the actual backend is not available
  */
-function getMockTheftResponse(question: string, context?: ChatContext): string {
+function getMockTheftResponse(question: string, context?: ChatContextType): string {
   const caseId = context?.caseId || 'unknown case';
   const stolenItems = context?.stolenItems || 'the stolen items';
 

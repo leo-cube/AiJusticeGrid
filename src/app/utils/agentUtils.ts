@@ -1,5 +1,5 @@
 // Agent utility functions for specialized responses
-import { AgentType, ChatContext } from '@/app/types';
+import { AgentType, ChatContextType } from '@/app/types';
 import defaultSettings from '@/config/defaultSettings.json';
 
 // Crime Agent responses
@@ -126,7 +126,7 @@ export const generateGeneralAgentResponse = (question: string): string => {
 // Specialized Crime Agent responses
 
 // Theft Agent responses
-export const generateTheftAgentResponse = (question: string, context?: ChatContext): string => {
+export const generateTheftAgentResponse = (question: string, context?: ChatContextType): string => {
   // Convert question to lowercase for easier matching
   const lowerQuestion = question.toLowerCase();
 
@@ -159,7 +159,7 @@ export const generateTheftAgentResponse = (question: string, context?: ChatConte
 };
 
 // Chain Snatching Agent responses
-export const generateChainSnatchingAgentResponse = (question: string, context?: ChatContext): string => {
+export const generateChainSnatchingAgentResponse = (question: string, context?: ChatContextType): string => {
   // Convert question to lowercase for easier matching
   const lowerQuestion = question.toLowerCase();
 
@@ -192,7 +192,7 @@ export const generateChainSnatchingAgentResponse = (question: string, context?: 
 };
 
 // Murder Agent responses
-export const generateMurderAgentResponse = (question: string, context?: ChatContext): string => {
+export const generateMurderAgentResponse = (question: string, context?: ChatContextType): string => {
   // Convert question to lowercase for easier matching
   const lowerQuestion = question.toLowerCase();
 
@@ -225,7 +225,7 @@ export const generateMurderAgentResponse = (question: string, context?: ChatCont
 };
 
 // Accident Agent responses
-export const generateAccidentAgentResponse = (question: string, context?: ChatContext): string => {
+export const generateAccidentAgentResponse = (question: string, context?: ChatContextType): string => {
   // Convert question to lowercase for easier matching
   const lowerQuestion = question.toLowerCase();
 
@@ -258,7 +258,7 @@ export const generateAccidentAgentResponse = (question: string, context?: ChatCo
 };
 
 // Abuse Agent responses
-export const generateAbuseAgentResponse = (question: string, context?: ChatContext): string => {
+export const generateAbuseAgentResponse = (question: string, context?: ChatContextType): string => {
   // Convert question to lowercase for easier matching
   const lowerQuestion = question.toLowerCase();
 
@@ -291,7 +291,7 @@ export const generateAbuseAgentResponse = (question: string, context?: ChatConte
 };
 
 // Main function to generate responses based on agent type
-export const generateAgentResponse = (question: string, agentType: AgentType, context?: ChatContext): string => {
+export const generateAgentResponse = (question: string, agentType: AgentType, context?: ChatContextType): string => {
   // Get specialized agent prompt if available
   const specializedPrompt = defaultSettings.specializedAgentPrompts[agentType as keyof typeof defaultSettings.specializedAgentPrompts];
 

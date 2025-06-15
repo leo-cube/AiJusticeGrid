@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ChatContext } from '@/app/types';
+import { ChatContextType } from '@/app/types';
 
 // Financial Fraud Agent API URL
 const FINANCIAL_FRAUD_AGENT_API_URL = process.env.NEXT_PUBLIC_FINANCIAL_FRAUD_AGENT_API_URL || 'http://localhost:5002/api/augment/financial-fraud';
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     }
 
     const question = body.question;
-    const context = body.context as ChatContext;
+    const context = body.context as ChatContextType;
 
     // Prepare case details for the Financial Fraud Agent
     const caseDetails: Record<string, any> = {
@@ -103,7 +103,7 @@ export async function POST(request: Request) {
  * Generate a mock response for the Financial Fraud Agent
  * This is used when the actual backend is not available
  */
-function getMockFinancialFraudResponse(question: string, context?: ChatContext): string {
+function getMockFinancialFraudResponse(question: string, context?: ChatContextType): string {
   const caseId = context?.caseId || 'unknown case';
   const fraudType = context?.fraudType || 'financial fraud';
   const fraudAmount = context?.fraudAmount || 'undetermined amount';

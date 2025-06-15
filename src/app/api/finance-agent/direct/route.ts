@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ChatContext } from '@/app/types';
+import { ChatContextType } from '@/app/types';
 
 // Finance Agent API URL
 const FINANCE_AGENT_API_URL = process.env.NEXT_PUBLIC_FINANCE_AGENT_API_URL || 'http://localhost:5000/api/augment/finance';
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     }
 
     const question = body.question;
-    const context = body.context as ChatContext;
+    const context = body.context as ChatContextType;
 
     // Get the session ID if available
     let sessionId = body.sessionId;
@@ -61,9 +61,9 @@ export async function POST(request: Request) {
         amount_involved: context.weaponUsed || "Unknown",
         method_used: context.crimeSceneDescription || "Unknown",
         suspicious_activity: context.suspects || "Unknown",
-        evidence_collected: context.evidenceFound || "Unknown",
+        evidence_collected: context.evidence || "Unknown",
         suspects: context.witnesses || "Unknown",
-        additional_notes: context.additionalNotes || question
+        additional_notes: question
       };
     }
 

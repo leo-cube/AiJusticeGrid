@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Card';
 import Button from '@/app/components/ui/Button';
 import { DocumentTextIcon, ChartBarIcon, ArrowDownTrayIcon, TrashIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
-import { SavedPDFReport } from '@/app/types';
+import type { SavedPDFReport } from '@/app/types/index';
 
 export default function ReportsPage() {
   const searchParams = useSearchParams();

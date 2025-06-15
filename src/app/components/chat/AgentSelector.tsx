@@ -12,7 +12,7 @@ interface AgentSelectorProps {
 }
 
 // Default agents from configuration
-export const defaultAgents: Agent[] = defaultSettings.agentTypes;
+export const defaultAgents: Agent[] = defaultSettings.agentTypes as Agent[];
 
 const AgentSelector: React.FC<AgentSelectorProps> = ({ selectedAgent, onSelectAgent }) => {
   const [agents, setAgents] = useState<Agent[]>(defaultAgents);

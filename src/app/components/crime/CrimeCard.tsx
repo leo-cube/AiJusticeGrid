@@ -74,7 +74,7 @@ const CrimeCard: React.FC<CrimeCardProps> = ({
           return false;
         });
 
-        setAssignedAgents(matchingAgents);
+        setAssignedAgents(matchingAgents as Agent[]);
       } catch (error) {
         console.error(`Failed to fetch assigned agents for ${type}:`, error);
         setAssignedAgents([]);
@@ -109,12 +109,13 @@ const CrimeCard: React.FC<CrimeCardProps> = ({
   };
 
   return (
-    <Card
+    <div
       className={`cursor-pointer transition-all hover:shadow-md ${
         selected ? 'ring-2 ring-blue-500' : ''
       }`}
       onClick={onClick}
     >
+      <Card>
       <CardContent className="p-4">
         <div className="flex items-start justify-between">
           <div>
@@ -164,6 +165,7 @@ const CrimeCard: React.FC<CrimeCardProps> = ({
         )}
       </CardContent>
     </Card>
+    </div>
   );
 };
 

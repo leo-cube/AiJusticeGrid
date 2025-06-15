@@ -7,7 +7,7 @@ import Button from '@/app/components/ui/Button';
 import augmentAIService from '@/services/augmentAI';
 import agentService from '@/services/agentService';
 import configService from '@/services/configService';
-import { Agent } from '@/app/types';
+import { Agent, AgentType } from '@/app/types';
 
 interface TalkToAgentButtonProps {
   crimeType: string;
@@ -19,7 +19,7 @@ interface TalkToAgentButtonProps {
   assignedTo?: string;
   assignedDate?: string;
   buttonText?: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
@@ -76,7 +76,7 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
           return false;
         });
 
-        setAssignedAgent(matchingAgent || null);
+        setAssignedAgent((matchingAgent as Agent) || null);
       } catch (error) {
         console.error(`Failed to fetch agent data for ${crimeType}:`, error);
         setAssignedAgent(null);
@@ -89,6 +89,8 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
   }, [crimeType]);
 
   const handleClick = async () => {
+    let specializedAgentType: AgentType = 'general';
+
     try {
       // Clear previous messages to start a fresh chat
       clearMessages();
@@ -103,7 +105,7 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
 
       // If we have an assigned agent, use it
       if (assignedAgent) {
-        const context = {
+        let context: any = {
           crimeType,
           caseId,
           caseTitle: caseTitle || `${crimeType} Investigation`,
@@ -234,10 +236,12 @@ const TalkToAgentButton: React.FC<TalkToAgentButtonProps> = ({
         }
 
         // Set the current agent in the chat context
-        setCurrentAgent(assignedAgent.id, context);
+        setCurrentAgent(assignedAgent.id as AgentType, context);
       } else {
         // Get the specialized agent
-        const { agentType: specializedAgentType, context } = await augmentAIService.getSpecializedAgent(crimeType, caseId);
+        const { agentType, context: initialContext } = await augmentAIService.getSpecializedAgent(crimeType, caseId);
+        specializedAgentType = agentType;
+        let context = initialContext;
 
         // Override context with provided props if available
         if (caseTitle) context.caseTitle = caseTitle;

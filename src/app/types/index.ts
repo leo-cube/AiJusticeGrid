@@ -96,6 +96,7 @@ export interface ExchangeMatch {
 // Agent types
 export type AgentType =
   | 'general'
+  | 'crime'
   | 'murder'
   | 'finance'
   | 'theft'
@@ -184,7 +185,7 @@ export interface ApiReport {
   caseType: string;
   generatedDate: string;
   generatedBy: string;
-  status: 'pending' | 'completed' | 'error';
+  status: 'pending' | 'completed' | 'in-progress' | 'error';
   panels: DesignatedPanel[];
 }
 

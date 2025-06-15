@@ -37,12 +37,17 @@ const nextConfig = {
     ];
   },
   async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: process.env.BACKEND_URL + '/api/:path*',
-      },
-    ];
+    // Only add rewrites if BACKEND_URL is defined
+    const backendUrl = process.env.BACKEND_URL;
+    if (backendUrl) {
+      return [
+        {
+          source: '/api/:path*',
+          destination: backendUrl + '/api/:path*',
+        },
+      ];
+    }
+    return [];
   },
 };
 

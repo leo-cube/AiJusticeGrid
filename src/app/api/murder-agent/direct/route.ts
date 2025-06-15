@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ChatContext } from '@/app/types';
+import { ChatContextType } from '@/app/types';
 
 // Murder Agent API URL
 const MURDER_AGENT_API_URL = process.env.NEXT_PUBLIC_MURDER_AGENT_API_URL || 'http://localhost:5000/api/augment/murder';
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     }
 
     const question = body.question;
-    const context = body.context as ChatContext;
+    const context = body.context as ChatContextType;
 
     // Get the session ID if available
     let sessionId = body.sessionId;

@@ -26,14 +26,14 @@ export async function POST(request: NextRequest) {
     });
 
     // Extract data from chat messages first
-    let extractedData = {};
+    let extractedData: Record<string, any> = {};
     if (body.messages && body.messages.length > 0) {
       extractedData = extractDataFromMessages(body.messages);
       console.log('Extracted data from messages:', Object.keys(extractedData));
     }
 
     // Filter out userId and other unwanted metadata from extracted data
-    const filteredExtractedData = { ...extractedData };
+    const filteredExtractedData: Record<string, any> = { ...extractedData };
     delete filteredExtractedData.userId;
     delete filteredExtractedData.userid;
     delete filteredExtractedData.sessionId;

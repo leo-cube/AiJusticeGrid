@@ -158,14 +158,13 @@ const UnifiedAgentChat: React.FC<UnifiedAgentChatProps> = ({
       {/* Chat content */}
       <div className="flex-1 overflow-y-auto p-4">
         {filteredMessages.length === 0 && currentAgent !== 'murder' && currentAgent !== 'finance' ? (
-          <WelcomeScreen agentType={currentAgent} onSendMessage={handleSendMessage} />
+          <WelcomeScreen agentType={currentAgent} onQuestionClick={handleSendMessage} />
         ) : (
           <div className="space-y-4">
             {filteredMessages.map((message) => (
               <ChatMessageItem
                 key={message.id}
                 message={message}
-                isTyping={isTyping && message.id === filteredMessages[filteredMessages.length - 1]?.id}
               />
             ))}
             {isTyping && filteredMessages.length === 0 && (

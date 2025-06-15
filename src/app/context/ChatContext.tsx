@@ -33,7 +33,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [currentAgent, setCurrentAgent] = useState<AgentType>('general');
   const [selectedAgents, setSelectedAgents] = useState<AgentType[]>(['general']);
-  const [agentContexts, setAgentContexts] = useState<Record<AgentType, ChatContextType>>({
+  const [agentContexts, setAgentContexts] = useState<Partial<Record<AgentType, ChatContextType>>>({
     'general': { agentType: 'general', agentName: 'General Assistant' }
   });
   const [currentContext, setCurrentContext] = useState<ChatContextType | undefined>();
@@ -347,7 +347,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       setRespondedAgents(prev => new Set([...prev, currentAgent]));
 
       // Check if this is a murder or finance agent that should use the backend
-      let response;
+      let response: string | undefined;
       let usingBackend = false;
       let updatedContext = { ...currentContext };
 
@@ -402,7 +402,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                 usingBackend = true;
 
                 // Add a marker to the response to indicate it's from the live backend (only if not already present)
-                if (!response.includes('[LIVE DATA ANALYSIS]')) {
+                if (response && !response.includes('[LIVE DATA ANALYSIS]')) {
                   response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
                 }
 
@@ -461,7 +461,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                 console.log('Successfully used Murder Agent backend');
 
                 // Add a marker to the response to indicate it's from the live backend (only if not already present)
-                if (!response.includes('[LIVE DATA ANALYSIS]')) {
+                if (response && !response.includes('[LIVE DATA ANALYSIS]')) {
                   response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
                 }
 
@@ -575,7 +575,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                 usingBackend = true;
 
                 // Add a marker to the response to indicate it's from the live backend (only if not already present)
-                if (!response.includes('[LIVE DATA ANALYSIS]')) {
+                if (response && !response.includes('[LIVE DATA ANALYSIS]')) {
                   response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
                 }
 
@@ -634,7 +634,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                 console.log('Successfully used Finance Agent backend');
 
                 // Add a marker to the response to indicate it's from the live backend (only if not already present)
-                if (!response.includes('[LIVE DATA ANALYSIS]')) {
+                if (response && !response.includes('[LIVE DATA ANALYSIS]')) {
                   response = `**[LIVE DATA ANALYSIS]**\n\n${response}`;
                 }
 
@@ -712,7 +712,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         const assistantMessage: ChatMessage = {
           id: (Date.now() + 1).toString(),
           sender: 'assistant',
-          content: response,
+          content: response || 'I apologize, but I encountered an error processing your request.',
           timestamp: new Date().toISOString(),
           status: 'delivered',
           agentType: currentAgent,
@@ -841,9 +841,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     }));
 
     // Add the initial greeting message
-    const greetingMessage = {
+    const greetingMessage: ChatMessage = {
       id: Date.now().toString(),
-      sender: 'assistant',
+      sender: 'assistant' as const,
       content: `**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?`,
       timestamp: new Date().toISOString(),
       status: 'delivered',
@@ -951,9 +951,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     }));
 
     // Add the initial greeting message
-    const greetingMessage = {
+    const greetingMessage: ChatMessage = {
       id: Date.now().toString(),
-      sender: 'assistant',
+      sender: 'assistant' as const,
       content: `**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Financial Fraud Agent, an AI assistant specialized in financial fraud investigations. I'll help you analyze a financial fraud case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?`,
       timestamp: new Date().toISOString(),
       status: 'delivered',
@@ -1210,9 +1210,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         if (currentContext) {
           try {
             // Compare only the essential properties to avoid unnecessary updates
-            const essentialProps = ['usingLiveBackend', 'caseId', 'caseName', 'sessionId'];
+            const essentialProps = ['usingLiveBackend', 'caseId', 'caseName', 'sessionId'] as const;
             needsUpdate = essentialProps.some(prop =>
-              context[prop] !== currentContext[prop]
+              (context as any)[prop] !== (currentContext as any)?.[prop]
             );
           } catch (e) {
             // If comparison fails, update to be safe
@@ -1233,7 +1233,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             // Create a greeting message
             const greetingMessage: ChatMessage = {
               id: Date.now().toString(),
-              sender: 'assistant',
+              sender: 'assistant' as const,
               content: `**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?`,
               timestamp: new Date().toISOString(),
               status: 'delivered',
@@ -1297,7 +1297,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             // Create a greeting message
             const greetingMessage: ChatMessage = {
               id: Date.now().toString(),
-              sender: 'assistant',
+              sender: 'assistant' as const,
               content: `**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Financial Fraud Agent, an AI assistant specialized in financial fraud investigations. I'll help you analyze a financial fraud case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?`,
               timestamp: new Date().toISOString(),
               status: 'delivered',
@@ -1383,7 +1383,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             // Compare only the essential properties
             const essentialProps = ['usingLiveBackend', 'caseId', 'caseName'];
             needsUpdate = essentialProps.some(prop =>
-              context[prop] !== currentAgentContext[prop]
+              (context as any)[prop] !== (currentAgentContext as any)[prop]
             );
           } catch (e) {
             console.error('Error comparing agent contexts:', e);
@@ -1426,7 +1426,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         isChatOpen,
         currentAgent,
         selectedAgents,
-        agentContexts,
+        agentContexts: agentContexts as Record<AgentType, ChatContextType>,
         currentContext,
         sendMessage,
         clearMessages,

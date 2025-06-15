@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
-import { ChatContext } from '@/app/types';
+import { ChatContextType } from '@/app/types';
 
 // Finance Agent API URL
 const FINANCE_AGENT_API_URL = process.env.NEXT_PUBLIC_FINANCE_AGENT_API_URL || 'http://localhost:5000/api/augment/finance';
@@ -14,7 +14,7 @@ const FINANCE_AGENT_API_URL = process.env.NEXT_PUBLIC_FINANCE_AGENT_API_URL || '
  * @param context The chat context containing case details
  * @returns Analysis from the Finance Agent
  */
-async function getFinanceAgentResponse(question: string, context?: ChatContext): Promise<string> {
+async function getFinanceAgentResponse(question: string, context?: ChatContextType): Promise<string> {
   try {
     // Create a case details object from the context
     const caseDetails = {
@@ -29,7 +29,7 @@ async function getFinanceAgentResponse(question: string, context?: ChatContext):
       amount_involved: context?.weaponUsed || "Unknown",
       method_used: context?.crimeSceneDescription || "Unknown",
       suspicious_activity: context?.suspects || "Unknown",
-      evidence_collected: context?.evidenceFound || "Unknown",
+      evidence_collected: context?.evidence || "Unknown",
       suspects: context?.witnesses || "Unknown",
       additional_notes: context?.additionalNotes || question
     };
@@ -138,7 +138,7 @@ async function getFinanceAgentResponse(question: string, context?: ChatContext):
 /**
  * Generate a mock response for development/fallback purposes
  */
-function getMockResponse(question: string, context?: ChatContext): string {
+function getMockResponse(question: string, context?: ChatContextType): string {
   const caseId = context?.caseId || 'FRAUD-001';
   const fraudType = context?.causeOfDeath || 'Credit Card Fraud';
   const amount = context?.weaponUsed || '$5,000';
@@ -195,7 +195,7 @@ export async function POST(request: Request) {
     // Get response from Finance Agent
     const response = await getFinanceAgentResponse(
       body.question,
-      body.context as ChatContext
+      body.context as ChatContextType
     );
 
     return NextResponse.json({ response }, { status: 200 });

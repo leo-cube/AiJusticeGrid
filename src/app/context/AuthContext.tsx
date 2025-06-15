@@ -103,16 +103,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         });
 
         // If login succeeds, set user as authenticated
-        if (response && response.user && response.token) {
+        if (response && (response as any).user && (response as any).token) {
           setState({
-            user: response.user,
+            user: (response as any).user,
             isAuthenticated: true,
             isLoading: false,
           });
 
           // Store user and token in localStorage
-          localStorage.setItem('user', JSON.stringify(response.user));
-          localStorage.setItem('token', response.token);
+          localStorage.setItem('user', JSON.stringify((response as any).user));
+          localStorage.setItem('token', (response as any).token);
 
           return true;
         }

@@ -21,27 +21,27 @@ export const agentService = {
   getAgentByType: (type: string) => api.get<Agent>(`${AGENTS_ENDPOINT}?type=${type}`),
 
   // Get agent assignments
-  getAgentAssignments: () => api.get(`${ASSIGNMENTS_ENDPOINT}`),
+  getAgentAssignments: () => api.get<any>(`${ASSIGNMENTS_ENDPOINT}`),
 
   // Get agent assignments by crime type
   getAgentAssignmentsByCrimeType: (crimeType: string) =>
-    api.get(`${ASSIGNMENTS_ENDPOINT}?crimeType=${crimeType}`),
+    api.get<any>(`${ASSIGNMENTS_ENDPOINT}?crimeType=${crimeType}`),
 
   // Get agent assignments by agent type
   getAgentAssignmentsByAgentType: (agentType: string) =>
-    api.get(`${ASSIGNMENTS_ENDPOINT}?agentType=${agentType}`),
+    api.get<any>(`${ASSIGNMENTS_ENDPOINT}?agentType=${agentType}`),
 
   // Create agent assignment
   createAgentAssignment: (assignment: any) =>
-    api.post(ASSIGNMENTS_ENDPOINT, assignment),
+    api.post<any>(ASSIGNMENTS_ENDPOINT, assignment),
 
   // Update agent assignment
   updateAgentAssignment: (id: string, assignment: any) =>
-    api.put(`${ASSIGNMENTS_ENDPOINT}/${id}`, assignment),
+    api.put<any>(`${ASSIGNMENTS_ENDPOINT}/${id}`, assignment),
 
   // Delete agent assignment
   deleteAgentAssignment: (id: string) =>
-    api.delete(`${ASSIGNMENTS_ENDPOINT}/${id}`),
+    api.delete<any>(`${ASSIGNMENTS_ENDPOINT}/${id}`),
 
   // Toggle agent status (enable/disable)
   toggleAgentStatus: async (agentId: string, enabled: boolean) => {
@@ -49,7 +49,7 @@ export const agentService = {
       console.log(`agentService: Toggling agent ${agentId} to ${enabled} via API`);
 
       // Make API call to update agent status
-      const response = await api.put(AGENT_STATUS_ENDPOINT, { agentId, enabled });
+      const response = await api.put<any>(AGENT_STATUS_ENDPOINT, { agentId, enabled });
       console.log(`agentService: Successfully toggled agent ${agentId} via API`);
 
       // Also update the settings for persistence
@@ -58,7 +58,7 @@ export const agentService = {
 
         // Get current enabled agents
         const settings = await configService.getSettings();
-        const enabledAgents = settings.enabledAgents || {};
+        const enabledAgents = (settings as any)?.enabledAgents || {};
 
         // Update the specific agent's status
         const updatedEnabledAgents = {
@@ -84,7 +84,7 @@ export const agentService = {
 
         // Get current enabled agents
         const settings = await configService.getSettings();
-        const enabledAgents = settings.enabledAgents || {};
+        const enabledAgents = (settings as any)?.enabledAgents || {};
 
         // Update the specific agent's status
         const updatedEnabledAgents = {
@@ -131,7 +131,7 @@ export const agentService = {
       // Try to get from API first
       try {
         console.log(`agentService: Fetching agent status from API: ${AGENT_STATUS_ENDPOINT}`);
-        const response = await api.get(AGENT_STATUS_ENDPOINT);
+        const response = await api.get<Record<string, boolean>>(AGENT_STATUS_ENDPOINT);
 
         if (response && typeof response === 'object') {
           console.log('agentService: Successfully fetched agent status from API:', response);
@@ -149,11 +149,11 @@ export const agentService = {
         console.log('agentService: Fetching agent status from settings');
         const settings = await configService.getSettings();
 
-        if (settings.enabledAgents && typeof settings.enabledAgents === 'object') {
-          console.log('agentService: Successfully fetched agent status from settings:', settings.enabledAgents);
-          return settings.enabledAgents;
+        if ((settings as any)?.enabledAgents && typeof (settings as any).enabledAgents === 'object') {
+          console.log('agentService: Successfully fetched agent status from settings:', (settings as any).enabledAgents);
+          return (settings as any).enabledAgents;
         } else {
-          console.warn('agentService: Settings returned invalid enabledAgents format:', settings.enabledAgents);
+          console.warn('agentService: Settings returned invalid enabledAgents format:', (settings as any)?.enabledAgents);
         }
       } catch (settingsError) {
         console.error('agentService: Failed to get agent status from settings:', settingsError);
@@ -178,7 +178,7 @@ export const agentService = {
       console.log('agentService: Updating all agent statuses:', enabledAgents);
 
       // Make API call to update all agent statuses
-      const response = await api.patch(AGENT_STATUS_ENDPOINT, { agents: enabledAgents });
+      const response = await api.patch<any>(AGENT_STATUS_ENDPOINT, { agents: enabledAgents });
       console.log('agentService: Successfully updated all agent statuses via API');
 
       // Also update the settings for persistence

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ChatContext } from '@/app/types';
+import { ChatContextType } from '@/app/types';
 import { spawn } from 'child_process';
 import path from 'path';
 import fs from 'fs';
@@ -14,7 +14,7 @@ const AUGMENT_AI_API_KEY = process.env.NEXT_PUBLIC_AUGMENT_AI_API_KEY || 'nvapi-
  * @param context The chat context containing case details
  * @returns Analysis from the Murder Agent
  */
-async function getMurderAgentResponse(question: string, context?: ChatContext): Promise<string> {
+async function getMurderAgentResponse(question: string, context?: ChatContextType): Promise<string> {
   try {
     // Create a case details object from the context
     const caseDetails = {
@@ -154,7 +154,7 @@ async function getMurderAgentResponse(question: string, context?: ChatContext): 
 /**
  * Mock response for faster development
  */
-function getMockResponse(question: string, context?: ChatContext): string {
+function getMockResponse(question: string, context?: ChatContextType): string {
   // Create a detailed mock response based on the question and context
   const caseId = context?.caseId || 'unknown case';
   const victimName = context?.victimName || 'the victim';
@@ -206,7 +206,7 @@ function getMockResponse(question: string, context?: ChatContext): string {
 /**
  * Fallback response when the Murder Agent backend is unavailable
  */
-function getFallbackResponse(question: string, context?: ChatContext): string {
+function getFallbackResponse(question: string, context?: ChatContextType): string {
   // Create a basic response based on the question and context
   let response = "I'm unable to connect to the Murder Agent backend at the moment. ";
 
@@ -249,7 +249,7 @@ export async function POST(request: Request) {
     // Get response from Murder Agent
     const response = await getMurderAgentResponse(
       body.question,
-      body.context as ChatContext
+      body.context as ChatContextType
     );
 
     return NextResponse.json({ response }, { status: 200 });

@@ -2450,6 +2450,7 @@ def murder_agent_sample():
 @app.route('/api/generate-pdf', methods=['POST'])
 def generate_pdf():
     """Generate a PDF report from user data with AI analysis."""
+    start_time = time.time()
     logger.info("Received request for enhanced PDF generation")
     
     try:
@@ -2494,7 +2495,6 @@ def generate_pdf():
             pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
 
             # Ensure the data structure is correct for the PDF generator
-            # The PDF generator expects the case data to be at the top level
             pdf_data = data.copy()
 
             # If case data is nested under 'data' key, flatten it
@@ -2502,58 +2502,51 @@ def generate_pdf():
                 pdf_data.update(data['data'])
                 logger.info(f"Flattened nested data structure. New keys: {list(pdf_data.keys())}")
 
-            # Generate the PDF
+            # Generate the PDF with timeout
+            generation_start = time.time()
             pdf_buffer = pdf_generator.generate_investigation_pdf(
                 data=pdf_data,
                 analysis_type=mapped_analysis_type
             )
+            generation_time = time.time() - generation_start
+            logger.info(f"PDF generation completed in {generation_time:.2f} seconds")
 
-            # If this is a murder case, capture the AI analysis
-            if agent_type == 'murder' and MURDER_STORAGE_AVAILABLE:
-                try:
-                    ai_analysis_content = pdf_generator.generate_ai_analysis(
-                        data,
-                        mapped_analysis_type
-                    )
+            if not pdf_buffer:
+                raise Exception("PDF buffer is empty")
 
-                    # Update the stored case with the AI analysis
-                    case_id = data.get('case_id') or data.get('requestId', str(datetime.now().timestamp()))
-                    murder_storage.update_ai_analysis(case_id, ai_analysis_content)
-                    logger.info(f"Updated case {case_id} with AI analysis")
+            # Create a unique filename
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            safe_title = title.replace(' ', '_').replace('/', '_')[:50]
+            filename = f"{safe_title}_{timestamp}.pdf"
 
-                except Exception as e:
-                    logger.error(f"Error capturing AI analysis for storage: {e}")
+            logger.info(f"Returning PDF file: {filename} (size: {len(pdf_buffer)} bytes)")
+
+            # Return the PDF as a file download
+            response = send_file(
+                pdf_buffer,
+                as_attachment=True,
+                download_name=filename,
+                mimetype='application/pdf'
+            )
+            
+            # Add performance headers
+            total_time = time.time() - start_time
+            response.headers['X-Generation-Time'] = f"{generation_time:.2f}"
+            response.headers['X-Total-Time'] = f"{total_time:.2f}"
+            
+            return response
 
         except ImportError as e:
-            logger.warning(f"Dynamic PDF generator not available: {e}, using fallback")
-            # Fallback to existing PDF generation
-            pdf_buffer = generate_incident_pdf(data)
+            logger.error(f"Dynamic PDF generator not available: {e}")
+            raise Exception("PDF generation service unavailable")
         except Exception as e:
-            logger.error(f"Error with DynamicPDFGenerator: {e}, using fallback")
-            # Fallback to existing PDF generation
-            pdf_buffer = generate_incident_pdf(data)
+            logger.error(f"Error generating PDF: {str(e)}")
+            import traceback
+            logger.error(f"Full traceback: {traceback.format_exc()}")
+            raise Exception(f"Failed to generate PDF: {str(e)}")
 
-        if not pdf_buffer:
-            raise Exception("Failed to generate PDF buffer")
-            
-        # Create a unique filename that doesn't reference local paths
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        safe_title = title.replace(' ', '_').replace('/', '_')[:50]
-        filename = f"{safe_title}_{timestamp}.pdf"
-
-        logger.info(f"Returning PDF file: {filename}")
-
-        # Return the PDF as a file download
-        return send_file(
-            pdf_buffer,
-            as_attachment=True,
-            download_name=filename,
-            mimetype='application/pdf'
-        )
     except Exception as e:
-        logger.error(f"Error generating PDF: {str(e)}")
-        import traceback
-        logger.error(f"Full traceback: {traceback.format_exc()}")
+        logger.error(f"Error in PDF generation endpoint: {str(e)}")
         return jsonify({
             "success": False,
             "error": f"Failed to generate PDF: {str(e)}"

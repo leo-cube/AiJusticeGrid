@@ -2514,12 +2514,22 @@ def generate_pdf():
             if not pdf_buffer:
                 raise Exception("PDF buffer is empty")
 
+            # Get the size of the PDF buffer
+            try:
+                pdf_size = pdf_buffer.getbuffer().nbytes
+            except AttributeError:
+                try:
+                    pdf_size = len(pdf_buffer.getvalue())
+                except (AttributeError, TypeError):
+                    pdf_size = 0
+                    logger.warning("Could not determine PDF size")
+
             # Create a unique filename
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             safe_title = title.replace(' ', '_').replace('/', '_')[:50]
             filename = f"{safe_title}_{timestamp}.pdf"
 
-            logger.info(f"Returning PDF file: {filename} (size: {len(pdf_buffer)} bytes)")
+            logger.info(f"Returning PDF file: {filename} (size: {pdf_size} bytes)")
 
             # Return the PDF as a file download
             response = send_file(
@@ -2533,6 +2543,7 @@ def generate_pdf():
             total_time = time.time() - start_time
             response.headers['X-Generation-Time'] = f"{generation_time:.2f}"
             response.headers['X-Total-Time'] = f"{total_time:.2f}"
+            response.headers['X-PDF-Size'] = str(pdf_size)
             
             return response
 

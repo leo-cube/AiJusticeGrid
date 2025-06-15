@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Card';
-import Button from '@/app/components/ui/Button';
+import Card, { CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
+import Button from '../../components/ui/Button';
 import { UserGroupIcon, ClockIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
 interface Assignment {

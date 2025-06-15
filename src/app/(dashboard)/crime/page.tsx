@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Card, { CardHeader, CardTitle, CardContent } from '@/app/components/ui/Card';
-import Button from '@/app/components/ui/Button';
-import { defaultAgents } from '@/app/components/chat/AgentSelector';
-import { Agent } from '@/app/types';
-import agentToggleService from '@/services/agentToggleService';
-import defaultSettings from '@/config/defaultSettings.json';
+import Card, { CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
+import Button from '../../components/ui/Button';
+import { defaultAgents } from '../../components/chat/AgentSelector';
+import { Agent } from '../../types';
+import agentToggleService from '../../../services/agentToggleService';
+import defaultSettings from '../../../config/defaultSettings.json';
 
 export default function CrimePage() {
   const router = useRouter();

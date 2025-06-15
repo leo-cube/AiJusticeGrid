@@ -79,7 +79,7 @@ const DownloadReportButton: React.FC<DownloadReportButtonProps> = ({ message }) 
       console.log('Generating and saving PDF report...');
 
       // Call the PDF generation API
-      const response = await fetch('/api/generate-pdf', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://aijusticegrid.onrender.com'}/api/generate-pdf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

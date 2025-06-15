@@ -28,96 +28,111 @@ const PDFGenerationButton: React.FC<PDFGenerationButtonProps> = ({
     setIsGenerating(true);
     setError(null);
 
-    try {
-      // Prepare data for PDF generation
-      const pdfData = {
-        title: `${currentAgent.charAt(0).toUpperCase() + currentAgent.slice(1)} Investigation Report`,
-        analysisType: currentAgent,
-        agentType: currentAgent,
-        messages: messages.map(msg => ({
-          sender: msg.sender,
-          content: msg.content,
-          timestamp: msg.timestamp,
-          agentType: msg.agentType
-        })),
-        includeAIAnalysis: true,
-        userMetadata: {
-          sessionId: sessionId || 'unknown',
-          userId: 'user',
-          requestId: Date.now().toString()
+    const maxRetries = 3;
+    let retryCount = 0;
+
+    const attemptPDFGeneration = async () => {
+      try {
+        // Prepare data for PDF generation
+        const pdfData = {
+          title: `${currentAgent.charAt(0).toUpperCase() + currentAgent.slice(1)} Investigation Report`,
+          analysisType: currentAgent,
+          agentType: currentAgent,
+          messages: messages.map(msg => ({
+            sender: msg.sender,
+            content: msg.content,
+            timestamp: msg.timestamp,
+            agentType: msg.agentType
+          })),
+          includeAIAnalysis: true,
+          userMetadata: {
+            sessionId: sessionId || 'unknown',
+            userId: 'user',
+            requestId: Date.now().toString()
+          }
+        };
+
+        console.log('Generating PDF with data:', {
+          title: pdfData.title,
+          messageCount: pdfData.messages.length,
+          agentType: pdfData.agentType,
+          attempt: retryCount + 1
+        });
+
+        // Call the PDF generation API with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://aijusticegrid.onrender.com'}/api/generate-pdf`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(pdfData),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+          throw new Error(errorData.error || `HTTP ${response.status}`);
         }
-      };
 
-      console.log('Generating PDF with data:', {
-        title: pdfData.title,
-        messageCount: pdfData.messages.length,
-        agentType: pdfData.agentType
-      });
+        // Get the PDF blob
+        const blob = await response.blob();
 
-      // Call the PDF generation API
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://aijusticegrid.onrender.com'}/api/generate-pdf`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(pdfData),
-      });
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-        throw new Error(errorData.error || `HTTP ${response.status}`);
-      }
+        // Get filename from response headers or create default
+        const contentDisposition = response.headers.get('content-disposition');
+        let filename = 'investigation_report.pdf';
 
-      // Get the PDF blob
-      const blob = await response.blob();
-
-      // Create download link
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-
-      // Get filename from response headers or create default
-      const contentDisposition = response.headers.get('content-disposition');
-      let filename = 'investigation_report.pdf';
-
-      if (contentDisposition) {
-        const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
-        if (filenameMatch) {
-          filename = filenameMatch[1];
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+          if (filenameMatch) {
+            filename = filenameMatch[1];
+          }
         }
+
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+
+        // Cleanup
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+
+        console.log('PDF generated and downloaded successfully');
+        alert('PDF report generated and downloaded successfully!');
+
+      } catch (error) {
+        console.error(`Error generating PDF (attempt ${retryCount + 1}):`, error);
+        
+        if (retryCount < maxRetries - 1) {
+          retryCount++;
+          console.log(`Retrying PDF generation (attempt ${retryCount + 1}/${maxRetries})...`);
+          await new Promise(resolve => setTimeout(resolve, 2000 * retryCount)); // Exponential backoff
+          return attemptPDFGeneration();
+        }
+
+        let errorMessage = 'Failed to generate PDF';
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        } else if (typeof error === 'string') {
+          errorMessage = error;
+        }
+
+        setError(errorMessage);
+        alert(`PDF Generation Failed: ${errorMessage}\n\nPlease try again or contact support if the issue persists.`);
       }
+    };
 
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-
-      // Cleanup
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-
-      console.log('PDF generated and downloaded successfully');
-
-      // Show success message to user
-      alert('PDF report generated and downloaded successfully!\n\nThe report has been saved and is available in the Reports page for future downloads.');
-
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-
-      // More detailed error handling
-      let errorMessage = 'Failed to generate PDF';
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      } else if (typeof error === 'string') {
-        errorMessage = error;
-      }
-
-      setError(errorMessage);
-
-      // Also show an alert for immediate user feedback
-      alert(`PDF Generation Failed: ${errorMessage}\n\nPlease try again or contact support if the issue persists.`);
-    } finally {
-      setIsGenerating(false);
-    }
+    await attemptPDFGeneration();
+    setIsGenerating(false);
   };
 
   return (

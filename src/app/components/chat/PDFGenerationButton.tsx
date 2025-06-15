@@ -55,7 +55,7 @@ const PDFGenerationButton: React.FC<PDFGenerationButtonProps> = ({
       });
 
       // Call the PDF generation API
-      const response = await fetch('/api/generate-pdf', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://aijusticegrid.onrender.com'}/api/generate-pdf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

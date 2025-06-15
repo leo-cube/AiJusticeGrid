@@ -57,7 +57,7 @@ export default function ReportsPage() {
       console.log('Re-generating PDF for saved report:', report.id);
 
       // Call the PDF generation API with the stored conversation data
-      const response = await fetch('/api/generate-pdf', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://aijusticegrid.onrender.com'}/api/generate-pdf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

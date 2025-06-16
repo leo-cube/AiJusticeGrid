@@ -715,92 +715,16 @@ class MurderAgent:
         # Ensure all required fields are present
         required_fields = [
             "case_id", "date_of_crime", "time_of_crime", "location",
-            "victim_name", "victim_age", "victim_gender", "cause_of_death"
+            "victim_name", "victim_age", "victim_gender", "cause_of_death",
+            "weapon_used", "crime_scene_description", "witnesses",
+            "evidence_found", "suspects", "additional_notes"
         ]
 
         for field in required_fields:
             if field not in standardized:
-                standardized[field] = "Unknown"
-
-        # Format specific fields
-
-        # Date: Ensure it's in YYYY-MM-DD format
-        if "date_of_crime" in standardized and standardized["date_of_crime"] != "Unknown":
-            date_value = standardized["date_of_crime"]
-            is_valid, formatted_date = validate_input(date_value, "date")
-            if is_valid and formatted_date:
-                standardized["date_of_crime"] = formatted_date
-
-        # Time: Ensure it's in HH:MM format
-        if "time_of_crime" in standardized and standardized["time_of_crime"] != "Unknown":
-            time_value = standardized["time_of_crime"]
-            is_valid, formatted_time = validate_input(time_value, "time")
-            if is_valid and formatted_time:
-                standardized["time_of_crime"] = formatted_time
-
-        # Age: Ensure it's a number
-        if "victim_age" in standardized and standardized["victim_age"] != "Unknown":
-            age_value = standardized["victim_age"]
-            is_valid, formatted_age = validate_input(age_value, "age")
-            if is_valid and formatted_age:
-                standardized["victim_age"] = formatted_age
+                standardized[field] = "N/A"  # Or an appropriate default
 
         return standardized
-
-def call_nvidia_api(prompt, system_prompt):
-    """Call the NVIDIA API with the given prompt and system prompt."""
-    try:
-        logger.info(f"Calling NVIDIA API with prompt: {prompt[:50]}...")
-
-        headers = {
-            "Authorization": f"Bearer {NVIDIA_API_KEY}",
-            "Content-Type": "application/json"
-        }
-
-        payload = {
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": prompt}
-            ],
-            "temperature": 0.7,
-            "top_p": 0.95,
-            "max_tokens": 1024
-        }
-
-        response = requests.post(
-            "https://api.nvidia.com/v1/chat/completions",
-            headers=headers,
-            json=payload
-        )
-
-        if response.status_code != 200:
-            logger.error(f"NVIDIA API error: {response.status_code} - {response.text}")
-            return f"Error calling NVIDIA API: {response.status_code}"
-
-        result = response.json()
-        return result["choices"][0]["message"]["content"]
-
-    except Exception as e:
-        logger.error(f"Error calling NVIDIA API: {str(e)}")
-        return f"Error: {str(e)}"
-
-def format_case_details(case_details):
-    """Format case details into a structured prompt for the AI."""
-    prompt = "# Case Details\n\n"
-
-    # Add all case details to the prompt
-    for key, value in case_details.items():
-        if key != "question" and value and value != "Unknown":
-            # Convert snake_case to Title Case for readability
-            formatted_key = key.replace('_', ' ').title()
-            prompt += f"- {formatted_key}: {value}\n"
-
-    # Add the question at the end
-    if "question" in case_details:
-        prompt += f"\n# Question\n\n{case_details['question']}\n\n"
-        prompt += "Please provide a detailed analysis of this case based on the information provided."
-
-    return prompt
 
 # Define the case information collection steps
 CASE_INFO_STEPS = [
@@ -958,33 +882,38 @@ def get_next_step(current_step_id):
 
 # Helper function to create a new conversation state
 def create_new_conversation_state():
-    """Create a new conversation state with a unique session ID."""
-    # Generate a new session ID
-    session_id = str(uuid.uuid4())
+    """
+    Create a new conversation state with a unique session ID.
 
-    # Create a new conversation state
+    Returns:
+        str: The newly generated session ID.
+    """
+    session_id = str(uuid.uuid4())
     conversation_states[session_id] = {
         "current_step": "greeting",
         "collected_data": {},
         "last_updated": datetime.now().isoformat()
     }
-
-    # Log the creation
     logger.info(f"Created new conversation state with session ID: {session_id}")
     logger.info(f"New conversation state: {conversation_states[session_id]}")
-
     return session_id
 
 # Helper function to get or create a conversation state
-def get_or_create_conversation_state(session_id=None):
-    """Get an existing conversation state or create a new one."""
+def get_or_create_conversation_state(session_id: Optional[str] = None) -> Tuple[str, Dict[str, Any]]:
+    """
+    Get an existing conversation state or create a new one.
+
+    Args:
+        session_id (Optional[str]): The session ID to retrieve. If None, a new session is created.
+
+    Returns:
+        Tuple[str, Dict[str, Any]]: The session ID and the corresponding conversation state.
+    """
     if session_id and session_id in conversation_states:
-        # Update the last updated timestamp
         conversation_states[session_id]["last_updated"] = datetime.now().isoformat()
         logger.info(f"Using existing conversation state with session ID: {session_id}")
         return session_id, conversation_states[session_id]
 
-    # Create a new conversation state
     new_session_id = create_new_conversation_state()
     return new_session_id, conversation_states[new_session_id]
 
@@ -1007,10 +936,7 @@ def validate_input(input_value: str, validation_type: Optional[str]) -> Tuple[bo
         return True, None
 
     if validation_type == "date":
-        # Trim any extra whitespace
         input_value = input_value.strip()
-
-        # Handle text date formats like "January 15, 2023" or "15 Jan 2023"
         month_names = {
             "january": "01", "jan": "01",
             "february": "02", "feb": "02",
@@ -1026,7 +952,6 @@ def validate_input(input_value: str, validation_type: Optional[str]) -> Tuple[bo
             "december": "12", "dec": "12"
         }
 
-        # Try to extract date from text format
         text_date_pattern = r'(\d{1,2})(?:st|nd|rd|th)?\s+(?:of\s+)?([a-zA-Z]+)(?:,?\s+)(\d{4})'
         text_date_match = re.search(text_date_pattern, input_value)
         if text_date_match:
@@ -1036,7 +961,6 @@ def validate_input(input_value: str, validation_type: Optional[str]) -> Tuple[bo
                 month = month_names[month_text]
                 return True, f"{year}-{month}-{day.zfill(2)}"
 
-        # Also try "Month day, year" format
         alt_text_pattern = r'([a-zA-Z]+)(?:\s+)(\d{1,2})(?:st|nd|rd|th)?(?:,?\s+)(\d{4})'
         alt_text_match = re.search(alt_text_pattern, input_value)
         if alt_text_match:
@@ -1046,23 +970,18 @@ def validate_input(input_value: str, validation_type: Optional[str]) -> Tuple[bo
                 month = month_names[month_text]
                 return True, f"{year}-{month}-{day.zfill(2)}"
 
-        # Check if the input is a valid date in YYYY-MM-DD format
         date_pattern = r'^\d{4}-\d{1,2}-\d{1,2}$'
         if re.match(date_pattern, input_value):
-            # Already in the correct format, just validate and standardize
             try:
                 year, month, day = input_value.split('-')
-                # Ensure month and day are valid
                 month_int = int(month)
                 day_int = int(day)
                 if not (1 <= month_int <= 12 and 1 <= day_int <= 31):
                     return False, "Please provide a valid date with month between 1-12 and day between 1-31."
-                # Return standardized format with leading zeros
                 return True, f"{year}-{month.zfill(2)}-{day.zfill(2)}"
             except ValueError:
                 return False, "Please provide a valid date in YYYY-MM-DD format."
 
-        # Handle other common date formats
         alt_patterns = [
             (r'^\d{1,2}/\d{1,2}/\d{4}$', '/', False),  # MM/DD/YYYY
             (r'^\d{1,2}-\d{1,2}-\d{4}$', '-', False),  # MM-DD-YYYY
@@ -1081,38 +1000,29 @@ def validate_input(input_value: str, validation_type: Optional[str]) -> Tuple[bo
                             year, month, day = parts
                         else:
                             month, day, year = parts
-                            # Handle 2-digit years
                             if len(year) == 2:
                                 current_year = datetime.now().year
                                 century = current_year // 100
                                 year_int = int(year)
-                                # If the 2-digit year is greater than current year's last 2 digits,
-                                # assume it's from the previous century
                                 if year_int > current_year % 100:
                                     year = f"{century-1}{year}"
                                 else:
                                     year = f"{century}{year}"
 
-                        # Validate month and day
                         month_int = int(month)
                         day_int = int(day)
                         if not (1 <= month_int <= 12 and 1 <= day_int <= 31):
                             return False, "Please provide a valid date with month between 1-12 and day between 1-31."
 
-                        # Return standardized format
                         return True, f"{year}-{month.zfill(2)}-{day.zfill(2)}"
                 except Exception as e:
                     logger.error(f"Error converting date format: {str(e)}")
                     continue
 
-        # If we've reached here, no valid format was found
         return False, "Please provide a valid date in YYYY-MM-DD format. Examples: 2023-05-15, 05/15/2023, May 15, 2023."
 
     elif validation_type == "time":
-        # Trim any extra whitespace
         input_value = input_value.strip().lower()
-
-        # Handle standard time formats (HH:MM)
         time_pattern = r'^(\d{1,2}):(\d{2})(?:\s*(am|pm))?$'
         time_match = re.match(time_pattern, input_value)
 
@@ -1120,24 +1030,20 @@ def validate_input(input_value: str, validation_type: Optional[str]) -> Tuple[bo
             hour, minute, ampm = time_match.groups()
             hour_int = int(hour)
 
-            # Convert to 24-hour format if AM/PM is specified
             if ampm:
                 if ampm.lower() == 'pm' and hour_int < 12:
                     hour_int += 12
                 elif ampm.lower() == 'am' and hour_int == 12:
                     hour_int = 0
 
-            # Validate hour and minute
             if not (0 <= hour_int <= 23):
                 return False, "Please provide a valid hour between 0-23 (or 1-12 with AM/PM)."
 
             if not (0 <= int(minute) <= 59):
                 return False, "Please provide a valid minute between 0-59."
 
-            # Return standardized format
             return True, f"{hour_int:02d}:{minute}"
 
-        # Handle hour only with AM/PM
         hour_pattern = r'^(\d{1,2})\s*(am|pm)$'
         hour_match = re.match(hour_pattern, input_value)
 
@@ -1145,20 +1051,16 @@ def validate_input(input_value: str, validation_type: Optional[str]) -> Tuple[bo
             hour, ampm = hour_match.groups()
             hour_int = int(hour)
 
-            # Convert to 24-hour format
             if ampm.lower() == 'pm' and hour_int < 12:
                 hour_int += 12
             elif ampm.lower() == 'am' and hour_int == 12:
                 hour_int = 0
 
-            # Validate hour
             if not (0 <= hour_int <= 23):
                 return False, "Please provide a valid hour between 0-23 (or 1-12 with AM/PM)."
 
-            # Return standardized format with 00 minutes
             return True, f"{hour_int:02d}:00"
 
-        # Handle descriptive time formats
         descriptive_times = {
             "midnight": "00:00",
             "noon": "12:00",
@@ -1172,14 +1074,10 @@ def validate_input(input_value: str, validation_type: Optional[str]) -> Tuple[bo
             if desc in input_value:
                 return True, time_value
 
-        # If we've reached here, no valid format was found
         return False, "Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon."
 
     elif validation_type == "age":
-        # Trim any extra whitespace
         input_value = input_value.strip()
-
-        # Extract numeric age from text
         age_pattern = r'(\d+)'
         age_match = re.search(age_pattern, input_value)
 
@@ -1187,1785 +1085,271 @@ def validate_input(input_value: str, validation_type: Optional[str]) -> Tuple[bo
             age = age_match.group(1)
             age_int = int(age)
 
-            # Validate age is reasonable
             if not (0 <= age_int <= 120):
                 return False, "Please provide a valid age between 0-120 years."
 
-            # Return standardized format
             return True, str(age_int)
 
-        # If we've reached here, no valid format was found
         return False, "Please provide a valid numeric age. Example: 35."
-
-    # Add more validation types as needed
 
     return True, None
 
-# Helper function to store user input in the conversation state
-def store_user_input(session_id: str, step_id: str, user_input: str) -> Tuple[bool, Optional[str], Optional[str]]:
-    """
-    Store user input in the conversation state.
-
-    Args:
-        session_id: The session ID
-        step_id: The current step ID
-        user_input: The user input to store
-
-    Returns:
-        Tuple of (success, error_message, formatted_input)
-    """
-    if session_id not in conversation_states:
-        logger.error(f"Session ID {session_id} not found in conversation states")
-        return False, "Session not found", None
-
-    # Get the current step
-    current_step = get_step_by_id(step_id)
-    if not current_step:
-        logger.error(f"Step ID {step_id} not found in CASE_INFO_STEPS")
-        return False, "Invalid step", None
-
-    # Validate the input if this step has validation
-    formatted_input = user_input
-    if current_step["validation"]:
-        is_valid, validation_result = validate_input(user_input, current_step["validation"])
-        if not is_valid:
-            logger.info(f"Validation failed for input: {user_input} with validation type: {current_step['validation']}")
-            return False, validation_result, None
-
-        # If validation returned a formatted value, use it
-        if validation_result:
-            formatted_input = validation_result
-
-    # Store the user input if this step has a field
-    if current_step["field"]:
-        # Get the correct field name for storing the data
-        field_name = FIELD_NAMES.get(current_step["field"], current_step["field"])
-
-        # Store the user input in the correct field
-        conversation_states[session_id]["collected_data"][field_name] = formatted_input
-        logger.info(f"Stored user input in field {field_name}: {formatted_input}")
-
-    return True, None, formatted_input
-
-# Helper function to advance to the next step
-def advance_to_next_step(session_id, current_step_id):
-    """Advance to the next step in the conversation."""
-    if session_id not in conversation_states:
-        logger.error(f"Session ID {session_id} not found in conversation states")
-        return False
-
-    # Get the current step
-    current_step = get_step_by_id(current_step_id)
-    if not current_step:
-        logger.error(f"Step ID {current_step_id} not found in CASE_INFO_STEPS")
-        return False
-
-    # Move to the next step if there is one
-    if current_step["next_step"]:
-        next_step_id = current_step["next_step"]
-        conversation_states[session_id]["current_step"] = next_step_id
-        logger.info(f"Advanced to next step: {next_step_id}")
-
-        # Update the last updated timestamp
-        conversation_states[session_id]["last_updated"] = datetime.now().isoformat()
-
-        return True
-
-    return False
-
-# Helper function to handle user input and update conversation state
 def process_user_input(session_id: str, user_input: str) -> Tuple[str, Dict[str, Any], Optional[str]]:
     """
-    Process user input and update the conversation state.
+    Process user input for the current step of the conversation.
 
     Args:
-        session_id: The session ID
-        user_input: The user input to process
+        session_id: The current session ID.
+        user_input: The input provided by the user.
 
     Returns:
-        Tuple of (session_id, updated_state, error_message)
+        Tuple of (session_id, updated_conversation_state, error_message)
     """
-    if session_id not in conversation_states:
-        logger.error(f"Session ID {session_id} not found in conversation states")
-        # Create a new session if the session ID doesn't exist
-        new_session_id, conv_state = get_or_create_conversation_state(None)
-        logger.info(f"Created new session {new_session_id} for non-existent session {session_id}")
-        return new_session_id, conv_state, None
+    conv_state = conversation_states.get(session_id)
+    if not conv_state:
+        return session_id, {}, "Invalid session ID."
 
-    # Get the current conversation state
-    conv_state = conversation_states[session_id]
     current_step_id = conv_state["current_step"]
+    current_step = get_step_by_id(current_step_id)
 
-    # Log the current state and user input
-    logger.info(f"Processing user input for session {session_id}, step {current_step_id}: {user_input}")
-    logger.info(f"Current conversation state: {conv_state}")
+    if not current_step:
+        return session_id, conv_state, "Invalid current step in conversation state."
 
-    # Store the user input
-    success, error_message, formatted_input = store_user_input(session_id, current_step_id, user_input)
+    field_to_fill = current_step.get("field")
+    validation_type = current_step.get("validation")
 
-    if not success:
-        logger.error(f"Failed to store user input: {user_input}, error: {error_message}")
-        return session_id, conv_state, error_message  # Return the current state and error message
+    if validation_type:
+        is_valid, formatted_value_or_error = validate_input(user_input, validation_type)
+        if not is_valid:
+            return session_id, conv_state, formatted_value_or_error
+        else:
+            user_input = formatted_value_or_error if formatted_value_or_error is not None else user_input
 
-    # Advance to the next step if storage was successful
-    advance_result = advance_to_next_step(session_id, current_step_id)
-    if not advance_result:
-        logger.error(f"Failed to advance to next step from {current_step_id}")
-        # This is not a fatal error, so we continue
+    if field_to_fill:
+        conv_state["collected_data"][field_to_fill] = user_input
+        logger.info(f"Collected data for {field_to_fill}: {user_input}")
 
-    # Return the updated conversation state
-    return session_id, conversation_states[session_id], None
+    next_step = get_next_step(current_step_id)
 
-def generate_incident_pdf(incident_data):
+    if next_step:
+        conv_state["current_step"] = next_step["id"]
+        logger.info(f"Moving to next step: {next_step['id']}")
+    else:
+        conv_state["current_step"] = "analysis"
+        logger.info("All data collected, moving to analysis step.")
+
+    conv_state["last_updated"] = datetime.now().isoformat()
+    return session_id, conv_state, None
+
+
+# PDF Generation Functions
+
+def create_murder_report_pdf(case_data: Dict[str, Any], analysis_result: str) -> BytesIO:
     """
-    Generate a PDF report for an incident using ReportLab.
+    Generates a PDF report for a murder investigation case.
 
     Args:
-        incident_data: Dictionary containing incident information
+        case_data: Dictionary containing the collected case details.
+        analysis_result: The analysis provided by the Murder Agent.
 
     Returns:
-        BytesIO object containing the PDF data
+        A BytesIO object containing the PDF data.
     """
-    # Log the incoming data for debugging
-    logger.info(f"Fallback PDF generator received data with keys: {list(incident_data.keys())}")
-    logger.info(f"Incident data preview: {str(incident_data)[:500]}...")
     if not REPORTLAB_AVAILABLE:
-        # Return a simple text-based response when ReportLab is not available
-        buffer = BytesIO()
-        error_message = "PDF generation is not available. ReportLab library is not installed.\n"
-        error_message += "Please install ReportLab with: pip install reportlab\n\n"
-        error_message += "Case Data:\n"
-        for key, value in incident_data.items():
-            error_message += f"{key}: {value}\n"
-        buffer.write(error_message.encode('utf-8'))
-        buffer.seek(0)
-        return buffer
+        logger.error("ReportLab is not available. Cannot generate PDF.")
+        raise RuntimeError("PDF generation library (ReportLab) not found.")
 
     buffer = BytesIO()
-
-    # Create the PDF document
-    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
-                           topMargin=72, bottomMargin=18)
-
-    # Get styles
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
     styles = getSampleStyleSheet()
-
-    # Create custom styles
-    title_style = ParagraphStyle(
-        'CustomTitle',
-        parent=styles['Heading1'],
-        fontSize=18,
-        spaceAfter=30,
-        alignment=TA_CENTER,
-        textColor=colors.HexColor('#003366')
-    )
-
-    heading_style = ParagraphStyle(
-        'CustomHeading',
-        parent=styles['Heading2'],
-        fontSize=14,
-        spaceAfter=12,
-        spaceBefore=20,
-        textColor=colors.HexColor('#003366')
-    )
-
-    normal_style = ParagraphStyle(
-        'CustomNormal',
-        parent=styles['Normal'],
-        fontSize=11,
-        spaceAfter=6,
-        alignment=TA_JUSTIFY
-    )
-
-    # Build the story (content)
     story = []
 
-    # Title
-    story.append(Paragraph("INCIDENT INVESTIGATION REPORT", title_style))
-    story.append(Spacer(1, 20))
+    h1_style = styles['h1']
+    h2_style = styles['h2']
+    h3_style = styles['h3']
+    normal_style = styles['Normal']
+    normal_style.alignment = TA_JUSTIFY
 
-    # Header information
-    header_data = [
-        ['Report ID:', incident_data.get('id', 'Unknown')],
-        ['Date Generated:', datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
-        ['Status:', incident_data.get('status', 'Unknown')],
-        ['Report Type:', 'AI Generated Investigation Report']
-    ]
+    story.append(Paragraph("Murder Investigation Report", h1_style))
+    story.append(Spacer(1, 0.2 * inch))
 
-    header_table = Table(header_data, colWidths=[2*inch, 4*inch])
-    header_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f2f2f2')),
-        ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-        ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-    ]))
+    case_id = case_data.get('case_id', 'N/A')
+    story.append(Paragraph(f"Case ID: <b>{case_id}</b>", normal_style))
+    story.append(Spacer(1, 0.1 * inch))
 
-    story.append(header_table)
-    story.append(Spacer(1, 20))
+    story.append(Paragraph(f"Date of Report: <b>{datetime.now().strftime('%Y-%m-%d %H:%M')}</b>", normal_style))
+    story.append(Spacer(1, 0.3 * inch))
 
-    # Incident Details Section
-    story.append(Paragraph("INCIDENT DETAILS", heading_style))
+    story.append(Paragraph("Case Details", h2_style))
+    story.append(Spacer(1, 0.1 * inch))
 
-    # Create incident details table with dynamic data - handle murder case fields
-    incident_details = []
+    table_data = []
+    for key, value in case_data.items():
+        if key != 'case_id':
+            formatted_key = key.replace('_', ' ').title()
+            table_data.append([f"<b>{formatted_key}:</b>", str(value)])
 
-    # Add case ID if available
-    if incident_data.get('case_id'):
-        incident_details.append(['Case ID:', incident_data.get('case_id')])
+    if table_data:
+        table_style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#D3D3D3')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#F0F0F0')),
+            ('GRID', (0, 0), (-1, -1), 1, colors.grey),
+            ('BOX', (0, 0), (-1, -1), 1, colors.black),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ('LEFTPADDING', (0, 0), (-1, -1), 6),
+            ('RIGHTPADDING', (0, 0), (-1, -1), 6),
+            ('TOPPADDING', (0, 0), (-1, -1), 6),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+        ])
+        table_data.insert(0, [Paragraph("<b>Field</b>", normal_style), Paragraph("<b>Detail</b>", normal_style)])
+        table = Table(table_data, colWidths=[2 * inch, 5 * inch])
+        table.setStyle(table_style)
+        story.append(table)
+        story.append(Spacer(1, 0.3 * inch))
 
-    # Handle date fields (multiple possible keys)
-    date_value = (incident_data.get('crime_date') or
-                  incident_data.get('date') or
-                  incident_data.get('date_of_incident', 'Unknown'))
-    incident_details.append(['Date of Incident:', date_value])
+    story.append(Paragraph("Agent Analysis", h2_style))
+    story.append(Spacer(1, 0.1 * inch))
 
-    # Handle time fields
-    time_value = (incident_data.get('crime_time') or
-                  incident_data.get('time') or
-                  incident_data.get('time_of_incident', 'Unknown'))
-    incident_details.append(['Time of Incident:', time_value])
+    analysis_paragraphs = analysis_result.split('\n\n')
+    for para_text in analysis_paragraphs:
+        if para_text.strip():
+            story.append(Paragraph(para_text.strip(), normal_style))
+            story.append(Spacer(1, 0.1 * inch))
 
-    # Location
-    incident_details.append(['Location:', incident_data.get('location', 'Unknown')])
-
-    # Victim information
-    if incident_data.get('victim_name') or incident_data.get('name'):
-        victim_name = incident_data.get('victim_name') or incident_data.get('name')
-        incident_details.append(['Victim Name:', victim_name])
-
-    if incident_data.get('victim_age') or incident_data.get('age'):
-        victim_age = incident_data.get('victim_age') or incident_data.get('age')
-        incident_details.append(['Victim Age:', victim_age])
-
-    if incident_data.get('victim_gender') or incident_data.get('gender'):
-        victim_gender = incident_data.get('victim_gender') or incident_data.get('gender')
-        incident_details.append(['Victim Gender:', victim_gender])
-
-    # Murder-specific fields
-    if incident_data.get('cause_of_death'):
-        incident_details.append(['Cause of Death:', incident_data.get('cause_of_death')])
-
-    if incident_data.get('weapon_used') or incident_data.get('weapon'):
-        weapon = incident_data.get('weapon_used') or incident_data.get('weapon')
-        incident_details.append(['Weapon Used:', weapon])
-
-    if incident_data.get('crime_scene_description') or incident_data.get('crime_scene'):
-        crime_scene = incident_data.get('crime_scene_description') or incident_data.get('crime_scene')
-        incident_details.append(['Crime Scene:', crime_scene])
-
-    if incident_data.get('witnesses'):
-        incident_details.append(['Witnesses:', incident_data.get('witnesses')])
-
-    if incident_data.get('evidence_found') or incident_data.get('evidence'):
-        evidence = incident_data.get('evidence_found') or incident_data.get('evidence')
-        incident_details.append(['Evidence:', evidence])
-
-    if incident_data.get('suspects'):
-        incident_details.append(['Suspects:', incident_data.get('suspects')])
-
-    if incident_data.get('additional_notes') or incident_data.get('notes'):
-        notes = incident_data.get('additional_notes') or incident_data.get('notes')
-        incident_details.append(['Additional Notes:', notes])
-
-    # Fallback for generic fields
-    if not incident_details:
-        incident_details = [
-            ['Incident Type:', incident_data.get('incident_type', 'Investigation')],
-            ['Status:', incident_data.get('status', 'Under Investigation')]
-        ]
-
-    details_table = Table(incident_details, colWidths=[2*inch, 4*inch])
-    details_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
-        ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-        ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-    ]))
-
-    story.append(details_table)
-    story.append(Spacer(1, 20))
-
-    # Conversation Section (if available)
-    if 'conversation_pairs' in incident_data and incident_data['conversation_pairs']:
-        story.append(Paragraph("INVESTIGATION CONVERSATION", heading_style))
-
-        for i, pair in enumerate(incident_data['conversation_pairs'], 1):
-            # Question
-            question_text = pair.get('question', f'Question {i}')
-            # Clean agent names from questions
-            question_text = question_text.replace('Murder Agent', '').strip()
-            question_text = question_text.replace('**[LIVE DATA ANALYSIS]**', '').strip()
-            if question_text.startswith('Live Data'):
-                question_text = question_text.replace('Live Data', '').strip()
-
-            story.append(Paragraph(f"Q{i}: {question_text}", normal_style))
-            story.append(Spacer(1, 3))
-
-            # Answer
-            answer_text = pair.get('answer', 'No answer provided')
-            story.append(Paragraph(f"A{i}: {answer_text}", normal_style))
-            story.append(Spacer(1, 8))
-
-        story.append(Spacer(1, 20))
-
-    # Victims Section
-    if 'victims' in incident_data and incident_data['victims']:
-        story.append(Paragraph("VICTIMS", heading_style))
-
-        for i, victim in enumerate(incident_data['victims']):
-            victim_data = [
-                [f'Victim {i+1} Name:', victim.get('name', 'Unknown')],
-                ['Age:', str(victim.get('age', 'Unknown'))],
-                ['Gender:', victim.get('gender', 'Unknown')],
-                ['Injuries:', victim.get('injuries', 'Unknown')]
-            ]
-
-            victim_table = Table(victim_data, colWidths=[2*inch, 4*inch])
-            victim_table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#fff3cd')),
-                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-                ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-                ('FONTSIZE', (0, 0), (-1, -1), 10),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ]))
-
-            story.append(victim_table)
-            story.append(Spacer(1, 10))
-
-    # Suspects Section
-    if 'suspects' in incident_data and incident_data['suspects']:
-        story.append(Paragraph("SUSPECTS", heading_style))
-
-        for i, suspect in enumerate(incident_data['suspects']):
-            suspect_data = [
-                [f'Suspect {i+1} Name:', suspect.get('name', 'Unknown')],
-                ['Age:', str(suspect.get('age', 'Unknown'))],
-                ['Gender:', suspect.get('gender', 'Unknown')],
-                ['Description:', suspect.get('description', 'Unknown')]
-            ]
-
-            suspect_table = Table(suspect_data, colWidths=[2*inch, 4*inch])
-            suspect_table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8d7da')),
-                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
-                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
-                ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
-                ('FONTSIZE', (0, 0), (-1, -1), 10),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-            ]))
-
-            story.append(suspect_table)
-            story.append(Spacer(1, 10))
-
-    # Description Section
-    if 'description' in incident_data and incident_data['description']:
-        story.append(Paragraph("INCIDENT DESCRIPTION", heading_style))
-        story.append(Paragraph(incident_data['description'], normal_style))
-        story.append(Spacer(1, 15))
-
-    # AI Analysis Section (if available)
-    if 'ai_analysis' in incident_data and incident_data['ai_analysis']:
-        story.append(Paragraph("AI ANALYSIS", heading_style))
-        story.append(Paragraph(incident_data['ai_analysis'], normal_style))
-        story.append(Spacer(1, 15))
-
-    # Footer
-    story.append(Spacer(1, 30))
-    footer_style = ParagraphStyle(
-        'Footer',
-        parent=styles['Normal'],
-        fontSize=8,
-        alignment=TA_CENTER,
-        textColor=colors.grey
-    )
-    story.append(Paragraph(f"Generated by AI Justice Grid Investigation System - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", footer_style))
-
-    # Build the PDF
     doc.build(story)
-
-    # Get the value of the BytesIO buffer and return it
     buffer.seek(0)
     return buffer
 
-# Initialize the Murder Agent
-try:
-    logger.info(f"Attempting to initialize Murder Agent with API key length: {len(NVIDIA_API_KEY) if NVIDIA_API_KEY else 0}")
-    murder_agent = MurderAgent(NVIDIA_API_KEY)
-    logger.info("Murder Agent initialized successfully in unified server")
-except Exception as e:
-    logger.error(f"Failed to initialize Murder Agent: {str(e)}")
-    logger.error(f"API key details - Length: {len(NVIDIA_API_KEY) if NVIDIA_API_KEY else 0}, Type: {type(NVIDIA_API_KEY)}")
-    if NVIDIA_API_KEY:
-        logger.error(f"API key starts with: {NVIDIA_API_KEY[:10]}...")
-    raise
 
-# Initialize the Financial Agent
-financial_agent = None
-if FINANCIAL_AGENT_AVAILABLE:
-    try:
-        logger.info(f"Attempting to initialize Financial Agent with API key length: {len(NVIDIA_API_KEY) if NVIDIA_API_KEY else 0}")
-        financial_agent = FinancialFraudAgent(NVIDIA_API_KEY)
-        logger.info("Financial Agent initialized successfully in unified server")
-    except Exception as e:
-        logger.error(f"Failed to initialize Financial Agent: {str(e)}")
-        logger.warning("Financial Agent will not be available")
-        AGENTS["finance"]["enabled"] = False
-else:
-    logger.warning("Financial Agent module not available, agent will be disabled")
-    AGENTS["finance"]["enabled"] = False
+# Flask Routes
 
-# Initialize the Theft Agent
-theft_agent = None
-if THEFT_AGENT_AVAILABLE:
-    try:
-        logger.info(f"Attempting to initialize Theft Agent with API key length: {len(NVIDIA_API_KEY) if NVIDIA_API_KEY else 0}")
-        theft_agent = TheftAgent(NVIDIA_API_KEY)
-        logger.info("Theft Agent initialized successfully in unified server")
-    except Exception as e:
-        logger.error(f"Failed to initialize Theft Agent: {str(e)}")
-        logger.warning("Theft Agent will not be available")
-        AGENTS["theft"]["enabled"] = False
-else:
-    logger.warning("Theft Agent module not available, agent will be disabled")
-    AGENTS["theft"]["enabled"] = False
-
-# Create a specialized endpoint for the Murder Agent
-@app.route('/api/augment/murder', methods=['POST'])
-def murder_agent_endpoint():
-    """Murder Agent API endpoint."""
-    logger.info("Received request for Murder Agent")
-
-    # Check if the agent is enabled
-    if not AGENTS["murder"]["enabled"]:
-        return jsonify({
-            "success": False,
-            "error": "Murder Agent is not enabled",
-            "data": {
-                "analysis": "Murder Agent is not enabled. Please enable it in the settings."
-            }
-        }), 403
-
-    # Get case details from request
-    case_details = request.json
-    if not case_details:
-        return jsonify({
-            "success": False,
-            "error": "No case details provided",
-            "data": {
-                "analysis": "No case details provided. Please provide case details."
-            }
-        }), 400
-
-    # Check if this is just a ping/health check
-    if case_details.get("question") == "ping":
-        return jsonify({
-            "success": True,
-            "data": {
-                "analysis": "Murder Agent is running"
-            },
-            "status": "healthy"
-        }), 200
-
-    # Get the session ID, user input, and special flags from the request
-    session_id = case_details.get("session_id")
-    user_input = case_details.get("question", "")
-    force_new_session = case_details.get("force_new_session", False)
-    reset_conversation = case_details.get("reset_conversation", False)
-    force_reset = case_details.get("forceReset", False)  # For compatibility with frontend
-
-    # If force_reset is True, set both flags
-    if force_reset:
-        force_new_session = True
-        reset_conversation = True
-
-    # Special handling for FORCE_NEW_SESSION command
-    if user_input == "FORCE_NEW_SESSION":
-        logger.info("FORCE_NEW_SESSION command detected")
-        force_new_session = True
-        reset_conversation = True
-        user_input = ""  # Clear the input to get the greeting
-
-    logger.info(f"Received request with session_id: {session_id}, user_input: {user_input}")
-    logger.info(f"force_new_session: {force_new_session}, reset_conversation: {reset_conversation}")
-
-    # Periodically clean up old analysis tracking entries
-    cleanup_old_analysis_tracking()
-
-    # Check if analysis is in progress for this session
-    if session_id and session_id in analysis_in_progress:
-        analysis_info = analysis_in_progress[session_id]
-        if analysis_info["status"] == "in_progress":
-            logger.info(f"Analysis in progress for session {session_id}, returning status message")
-            return jsonify({
-                "success": True,
-                "data": {
-                    "analysis": "Analysis is currently in progress. Please wait for the results...",
-                    "is_collecting_info": False,
-                    "current_step": "analysis",
-                    "collected_data": conversation_states[session_id]["collected_data"] if session_id in conversation_states else {},
-                    "error": None
-                },
-                "session_id": session_id,
-                "message": "Analysis in progress"
-            })
-        elif analysis_info["status"] == "completed" and "analysis_result" in analysis_info:
-            logger.info(f"Analysis completed for session {session_id}, returning result")
-            analysis_result = analysis_info["analysis_result"]
-            # Clean up the analysis tracking
-            del analysis_in_progress[session_id]
-
-            return jsonify({
-                "success": True,
-                "data": {
-                    "analysis": analysis_result,
-                    "is_collecting_info": False,
-                    "current_step": "analysis",
-                    "collected_data": conversation_states[session_id]["collected_data"] if session_id in conversation_states else {},
-                    "error": None
-                },
-                "session_id": session_id,
-                "message": "Analysis completed successfully"
-            })
-
-    # Check if we need to find an active analysis session when session_id is None
-    if not session_id and analysis_in_progress:
-        # Find the most recent analysis session
-        latest_session = None
-        latest_time = None
-        for analysis_session_id, analysis_info in analysis_in_progress.items():
-            if analysis_info["status"] == "in_progress":
-                started_at = datetime.fromisoformat(analysis_info["started_at"])
-                if latest_time is None or started_at > latest_time:
-                    latest_time = started_at
-                    latest_session = analysis_session_id
-
-        if latest_session and latest_session in conversation_states:
-            logger.info(f"Found active analysis session {latest_session}, using it instead of creating new session")
-            session_id = latest_session
-
-            # Check if analysis is complete
-            if "analysis_result" in analysis_in_progress[session_id]:
-                logger.info(f"Analysis completed for session {session_id}, returning result")
-                analysis_result = analysis_in_progress[session_id]["analysis_result"]
-                # Clean up the analysis tracking
-                del analysis_in_progress[session_id]
-
-                # Return the analysis result
-                return jsonify({
-                    "success": True,
-                    "data": {
-                        "analysis": analysis_result,
-                        "is_collecting_info": False,
-                        "current_step": "analysis",
-                        "collected_data": conversation_states[session_id]["collected_data"],
-                        "error": None
-                    },
-                    "session_id": session_id,
-                    "message": "Analysis completed successfully"
-                })
-
-    # Check if analysis is already completed and stored in conversation state
-    if session_id and session_id in conversation_states:
-        conv_state = conversation_states[session_id]
-        if conv_state.get("analysis_completed") and "analysis_result" in conv_state:
-            logger.info(f"Analysis already completed for session {session_id}, returning stored result")
-            analysis_result = conv_state["analysis_result"]
-
-            # Clean up analysis tracking if it still exists
-            if session_id in analysis_in_progress:
-                del analysis_in_progress[session_id]
-                logger.info(f"Cleaned up analysis tracking for completed session {session_id}")
-
-            return jsonify({
-                "success": True,
-                "data": {
-                    "analysis": analysis_result,
-                    "is_collecting_info": False,
-                    "current_step": "completed",
-                    "collected_data": conv_state["collected_data"],
-                    "error": None
-                },
-                "session_id": session_id,
-                "message": "Analysis completed successfully"
-            })
-
-    # Process the message using the new process_message method with the special flags
-    session_id, response, is_collecting_info, current_step, error_message = murder_agent.process_message(
-        user_input,
-        session_id,
-        force_new_session=force_new_session,
-        reset_conversation=reset_conversation
-    )
-
-    # Check if analysis is completed and store the investigation data
-    if (current_step == "completed" or current_step == "analysis") and not is_collecting_info and MURDER_STORAGE_AVAILABLE:
-        try:
-            # Get the collected data from the conversation state
-            collected_data = conversation_states[session_id]["collected_data"] if session_id in conversation_states else {}
-
-            if collected_data:
-                case_id = collected_data.get('case_id', str(datetime.now().timestamp()))
-
-                # Create conversation pairs from collected data
-                conversation_pairs = []
-                for field, value in collected_data.items():
-                    if field != 'case_id' and value:
-                        # Find the corresponding step to get the question
-                        for step in CASE_INFO_STEPS:
-                            if step.get('field') == field:
-                                conversation_pairs.append({
-                                    'question': step['message'],
-                                    'answer': str(value),
-                                    'timestamp': datetime.now().isoformat()
-                                })
-                                break
-
-                # Prepare user metadata
-                user_metadata = {
-                    'session_id': session_id,
-                    'timestamp': datetime.now().isoformat(),
-                    'analysis_completed': True,
-                    'backend_source': 'unified_server',
-                    'endpoint': '/api/augment/murder'
-                }
-
-                logger.info(f"Storing Murder Agent investigation data for case {case_id} (unified server)")
-
-                # Store the investigation data with AI analysis
-                murder_storage.store_investigation_data(
-                    case_id=case_id,
-                    session_id=session_id,
-                    extracted_data=collected_data,
-                    conversation_pairs=conversation_pairs,
-                    ai_analysis=response,  # The response contains the AI analysis
-                    user_metadata=user_metadata
-                )
-
-                logger.info(f"Successfully stored investigation data for case {case_id} (unified server)")
-
-        except Exception as e:
-            logger.error(f"Error storing Murder Agent data in unified server: {e}")
-            # Continue with response even if storage fails
-
-    # Return the response with the session ID and conversation state
-    return jsonify({
-        "success": True,
-        "data": {
-            "analysis": response,
-            "is_collecting_info": is_collecting_info,
-            "current_step": current_step,
-            "collected_data": conversation_states[session_id]["collected_data"] if session_id in conversation_states else {},
-            "error": error_message
-        },
-        "session_id": session_id,
-        "message": "Message processed successfully"
-    })
-
-# Create a specialized endpoint for the Financial Agent
-@app.route('/api/augment/finance', methods=['POST'])
-def finance_agent_endpoint():
-    """Financial Agent API endpoint."""
-    logger.info("Received request for Financial Agent")
-
-    # Check if the agent is enabled
-    if not AGENTS["finance"]["enabled"]:
-        return jsonify({
-            "success": False,
-            "error": "Financial Agent is not enabled",
-            "data": {
-                "analysis": "Financial Agent is not enabled. Please enable it in the settings."
-            }
-        }), 403
-
-    # Check if the financial agent is available
-    if not financial_agent:
-        return jsonify({
-            "success": False,
-            "error": "Financial Agent is not available",
-            "data": {
-                "analysis": "Financial Agent is not available. Please check the server configuration."
-            }
-        }), 503
-
-    # Get case details from request
-    case_details = request.json
-    if not case_details:
-        return jsonify({
-            "success": False,
-            "error": "No case details provided",
-            "data": {
-                "analysis": "No case details provided. Please provide case details."
-            }
-        }), 400
-
-    # Check if this is just a ping/health check
-    if case_details.get("question") == "ping":
-        return jsonify({
-            "success": True,
-            "data": {
-                "analysis": "Financial Agent is running"
-            },
-            "status": "healthy"
-        }), 200
-
-    # Get the session ID, user input, and special flags from the request
-    session_id = case_details.get("session_id")
-    user_input = case_details.get("question", "")
-    force_new_session = case_details.get("force_new_session", False)
-    reset_conversation = case_details.get("reset_conversation", False)
-    force_reset = case_details.get("forceReset", False)  # For compatibility with frontend
-
-    # If force_reset is True, set both flags
-    if force_reset:
-        force_new_session = True
-        reset_conversation = True
-
-    # Special handling for FORCE_NEW_SESSION command
-    if user_input == "FORCE_NEW_SESSION":
-        logger.info("FORCE_NEW_SESSION command detected")
-        force_new_session = True
-        reset_conversation = True
-        user_input = ""  # Clear the input to get the greeting
-
-    logger.info(f"Received request with session_id: {session_id}, user_input: {user_input}")
-    logger.info(f"force_new_session: {force_new_session}, reset_conversation: {reset_conversation}")
-
-    # Process the message using the Financial Agent's process_message method with the special flags
-    session_id, response, is_collecting_info, current_step, error_message = financial_agent.process_message(
-        user_input,
-        session_id,
-        force_new_session=force_new_session,
-        reset_conversation=reset_conversation
-    )
-
-    # Check if analysis is completed and store the investigation data
-    if current_step == "analysis" and not is_collecting_info:
-        try:
-            # Import the finance storage module
-            from FinancialAgent.finance_data_storage import finance_storage
-
-            # Get the collected data from the conversation state
-            collected_data = financial_agent.conversation_states[session_id]["collected_data"] if session_id in financial_agent.conversation_states else {}
-
-            if collected_data:
-                case_id = collected_data.get('case_id', str(datetime.now().timestamp()))
-
-                # Create conversation pairs from collected data
-                conversation_pairs = []
-                for field, value in collected_data.items():
-                    if field != 'case_id' and value:
-                        # Find the corresponding step to get the question
-                        for step in financial_agent.CASE_INFO_STEPS:
-                            if step.get('field') == field:
-                                conversation_pairs.append({
-                                    'question': step['message'],
-                                    'answer': str(value),
-                                    'timestamp': datetime.now().isoformat()
-                                })
-                                break
-
-                # Prepare user metadata
-                user_metadata = {
-                    'session_id': session_id,
-                    'timestamp': datetime.now().isoformat(),
-                    'analysis_completed': True,
-                    'backend_source': 'unified_server',
-                    'endpoint': '/api/augment/finance'
-                }
-
-                logger.info(f"Storing Financial Agent investigation data for case {case_id} (unified server)")
-
-                # Store the investigation data with AI analysis
-                finance_storage.store_investigation_data(
-                    case_id=case_id,
-                    session_id=session_id,
-                    extracted_data=collected_data,
-                    conversation_pairs=conversation_pairs,
-                    ai_analysis=response,  # The response contains the AI analysis
-                    user_metadata=user_metadata
-                )
-
-                logger.info(f"Successfully stored investigation data for case {case_id} (unified server)")
-
-        except Exception as storage_error:
-            logger.error(f"Error storing Financial Agent data in unified server: {storage_error}")
-            # Continue with response even if storage fails
-
-    # Return the response with the session ID and conversation state
-    return jsonify({
-        "success": True,
-        "data": {
-            "analysis": response,
-            "is_collecting_info": is_collecting_info,
-            "current_step": current_step,
-            "collected_data": financial_agent.conversation_states[session_id]["collected_data"] if session_id in financial_agent.conversation_states else {},
-            "error": error_message
-        },
-        "session_id": session_id,
-        "message": "Message processed successfully"
-    })
-
-# Create a specialized endpoint for the Theft Agent
-@app.route('/api/augment/theft', methods=['POST'])
-def theft_agent_endpoint():
-    """Theft Agent API endpoint."""
-    logger.info("Received request for Theft Agent")
-
-    # Check if the agent is enabled
-    if not AGENTS["theft"]["enabled"]:
-        return jsonify({
-            "success": False,
-            "error": "Theft Agent is not enabled",
-            "data": {
-                "analysis": "Theft Agent is not enabled. Please enable it in the settings."
-            }
-        }), 403
-
-    # Check if the theft agent is available
-    if not theft_agent:
-        return jsonify({
-            "success": False,
-            "error": "Theft Agent is not available",
-            "data": {
-                "analysis": "Theft Agent is not available. Please check the server configuration."
-            }
-        }), 503
-
-    # Get case details from request
-    case_details = request.json
-    if not case_details:
-        return jsonify({
-            "success": False,
-            "error": "No case details provided",
-            "data": {
-                "analysis": "No case details provided. Please provide case details."
-            }
-        }), 400
-
-    # Check if this is just a ping/health check
-    if case_details.get("question") == "ping":
-        return jsonify({
-            "success": True,
-            "data": {
-                "analysis": "Theft Agent is running"
-            },
-            "status": "healthy"
-        }), 200
-
-    try:
-        # Analyze the case using the Theft Agent
-        logger.info("Calling Theft Agent for analysis")
-        analysis = theft_agent.analyze_case(case_details)
-
-        # Return the response
-        return jsonify({
-            "success": True,
-            "data": {
-                "analysis": analysis
-            },
-            "message": "Theft investigation analysis completed successfully"
-        })
-
-    except Exception as e:
-        logger.error(f"Error analyzing case with Theft Agent: {str(e)}")
-        return jsonify({
-            "success": False,
-            "error": f"Error analyzing case: {str(e)}",
-            "data": {
-                "analysis": f"Error analyzing case: {str(e)}"
-            }
-        }), 500
-
-# Create endpoints for other agents
-for agent_name, agent_config in AGENTS.items():
-    # Skip the murder, finance, and theft agents as we've created specialized endpoints for them
-    if agent_name in ["murder", "finance", "theft"]:
-        continue
-
-    # Create a closure to capture the agent_name variable
-    def create_endpoint(agent):
-        def endpoint_func():
-            logger.info(f"Received request for {agent} agent")
-
-            # Check if the agent is enabled
-            if not AGENTS[agent]["enabled"]:
-                return jsonify({"error": f"Agent {agent} is not enabled"}), 403
-
-            # Get case details from request
-            case_details = request.json
-            if not case_details:
-                return jsonify({"error": "No case details provided"}), 400
-
-            # Format the case details into a prompt
-            prompt = format_case_details(case_details)
-
-            # Get the system prompt for this agent
-            system_prompt = AGENTS[agent]["system_prompt"]
-
-            # Call the NVIDIA API
-            response = call_nvidia_api(prompt, system_prompt)
-
-            # Return the response
-            return jsonify({"response": response})
-
-        # Set the function name
-        endpoint_func.__name__ = f"{agent}_endpoint"
-        return endpoint_func
-
-    # Register the route with a unique function for each agent
-    app.add_url_rule(
-        f"/api/augment/{agent_name}",
-        endpoint=f"{agent_name}_endpoint",
-        view_func=create_endpoint(agent_name),
-        methods=["POST"]
-    )
-
-# Health check endpoint
-@app.route('/health')
-def health_check():
-    """Health check endpoint."""
-    logger.info("Received GET request for health endpoint")
-    return jsonify({
-        "status": "healthy",
-        "agents": list(AGENTS.keys()),
-        "enabled_agents": {name: config["enabled"] for name, config in AGENTS.items()},
-        "murder_agent": {
-            "status": "integrated",
-            "model": MURDER_MODEL_NAME
-        },
-        "financial_agent": {
-            "status": "integrated" if financial_agent else "not_available",
-            "available": FINANCIAL_AGENT_AVAILABLE,
-            "enabled": AGENTS["finance"]["enabled"]
-        },
-        "theft_agent": {
-            "status": "integrated" if theft_agent else "not_available",
-            "available": THEFT_AGENT_AVAILABLE,
-            "enabled": AGENTS["theft"]["enabled"]
-        }
-    })
-
-# Get the full health status including enabled agents
-@app.route("/api/health/full", methods=["GET"])
-@app.route("/health/full", methods=["GET"])  # Alternative route without /api prefix
-def full_health_check():
-    """Full health check endpoint with detailed information."""
-    logger.info("Received GET request for full health endpoint")
-    return jsonify({
-        "status": "healthy",
-        "agents": list(AGENTS.keys()),
-        "enabled_agents": {name: config["enabled"] for name, config in AGENTS.items()},
-        "murder_agent": {
-            "status": "integrated",
-            "model": MURDER_MODEL_NAME,
-            "api_key_source": "env" if os.getenv('NVIDIA_API_KEY') else (".env file" if retrieve_api_key() else "default")
-        },
-        "financial_agent": {
-            "status": "integrated" if financial_agent else "not_available",
-            "available": FINANCIAL_AGENT_AVAILABLE,
-            "enabled": AGENTS["finance"]["enabled"],
-            "api_key_source": "env" if os.getenv('NVIDIA_API_KEY') else (".env file" if retrieve_api_key() else "default")
-        },
-        "theft_agent": {
-            "status": "integrated" if theft_agent else "not_available",
-            "available": THEFT_AGENT_AVAILABLE,
-            "enabled": AGENTS["theft"]["enabled"],
-            "api_key_source": "env" if os.getenv('NVIDIA_API_KEY') else (".env file" if retrieve_api_key() else "default")
-        },
-        "system_info": {
-            "python_version": platform.python_version(),
-            "platform": platform.platform(),
-            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
-        }
-    })
-
-# Agent toggle endpoint
-@app.route('/toggle-agent', methods=['GET', 'POST'])
-def toggle_agent():
-    """Toggle agent enabled status."""
-    logger.info(f"Received {request.method} request for toggle-agent endpoint")
-    if request.method == "GET":
-        # Return the current enabled status of all agents
-        enabled_agents = {name: config["enabled"] for name, config in AGENTS.items()}
-        return jsonify({
-            "success": True,
-            "data": enabled_agents,
-            "message": "Successfully retrieved enabled agents"
-        })
-
-    elif request.method == "POST":
-        try:
-            # Get the agent ID and enabled status from the request
-            data = request.json
-
-            # Validate required fields
-            if not data or "agentId" not in data or "enabled" not in data:
-                return jsonify({
-                    "success": False,
-                    "error": "Missing required fields: agentId and enabled"
-                }), 400
-
-            agent_id = data["agentId"]
-            enabled = data["enabled"]
-
-            # Validate agent ID
-            if agent_id not in AGENTS:
-                return jsonify({
-                    "success": False,
-                    "error": f"Invalid agent ID: {agent_id}"
-                }), 400
-
-            # Update the agent's enabled status
-            AGENTS[agent_id]["enabled"] = enabled
-
-            logger.info(f"Agent {agent_id} {'enabled' if enabled else 'disabled'}")
-
-            return jsonify({
-                "success": True,
-                "data": {
-                    "agentId": agent_id,
-                    "enabled": enabled
-                },
-                "message": f"Agent {agent_id} has been {'enabled' if enabled else 'disabled'}"
-            })
-
-        except Exception as e:
-            logger.error(f"Error toggling agent: {str(e)}")
-            return jsonify({
-                "success": False,
-                "error": f"Failed to toggle agent: {str(e)}"
-            }), 500
-
-# Bulk update agent statuses
-@app.route('/update-agents', methods=['POST'])
-def update_agents():
-    """Update multiple agent statuses at once."""
-    logger.info(f"Received POST request for update-agents endpoint")
-    try:
-        data = request.json
-
-        # Validate required fields
-        if not data or "agents" not in data:
-            return jsonify({
-                "success": False,
-                "error": "Missing required field: agents"
-            }), 400
-
-        agents_data = data["agents"]
-
-        # Update each agent's enabled status
-        for agent_id, enabled in agents_data.items():
-            if agent_id in AGENTS:
-                AGENTS[agent_id]["enabled"] = enabled
-                logger.info(f"Agent {agent_id} {'enabled' if enabled else 'disabled'}")
-
-        return jsonify({
-            "success": True,
-            "data": {
-                "agents": {name: config["enabled"] for name, config in AGENTS.items()}
-            },
-            "message": "Agent statuses updated successfully"
-        })
-
-    except Exception as e:
-        logger.error(f"Error updating agents: {str(e)}")
-        return jsonify({
-            "success": False,
-            "error": f"Failed to update agents: {str(e)}"
-        }), 500
-
-# Endpoint to get the current conversation state
-@app.route('/api/augment/murder/state', methods=['GET'])
-def murder_agent_state():
-    """Get the current conversation state for a session."""
-    session_id = request.args.get('session_id')
-
-    if not session_id or session_id not in conversation_states:
-        return jsonify({
-            "success": False,
-            "error": "Invalid or missing session ID",
-            "data": {
-                "analysis": "No active conversation found. Please start a new conversation."
-            }
-        }), 400
-
-    # Get the conversation state
-    conv_state = conversation_states[session_id]
-    current_step_id = conv_state["current_step"]
-    current_step = get_step_by_id(current_step_id)
-
-    return jsonify({
-        "success": True,
-        "data": {
-            "current_step": current_step_id,
-            "current_step_message": current_step["message"] if current_step else None,
-            "collected_data": conv_state["collected_data"],
-            "last_updated": conv_state["last_updated"]
-        },
-        "session_id": session_id,
-        "message": "Conversation state retrieved successfully"
-    })
-
-# Endpoint to reset a conversation
-@app.route('/api/augment/murder/reset', methods=['POST'])
-def murder_agent_reset():
-    """Reset a conversation."""
-    session_id = request.json.get('session_id')
-
-    if not session_id or session_id not in conversation_states:
-        return jsonify({
-            "success": False,
-            "error": "Invalid or missing session ID",
-            "data": {
-                "analysis": "No active conversation found. Please start a new conversation."
-            }
-        }), 400
-
-    logger.info(f"Resetting conversation for session {session_id}")
-
-    # Delete the conversation state
-    del conversation_states[session_id]
-
-    # Create a new conversation state
-    new_session_id = create_new_conversation_state()
-    new_conv_state = conversation_states[new_session_id]
-    current_step = get_step_by_id(new_conv_state["current_step"])
-
-    logger.info(f"Created new conversation with session ID: {new_session_id}")
-
-    return jsonify({
-        "success": True,
-        "data": {
-            "analysis": current_step["message"],
-            "is_collecting_info": True,
-            "current_step": new_conv_state["current_step"]
-        },
-        "session_id": new_session_id,
-        "message": "Conversation reset successfully"
-    })
-
-# Endpoint to reset a Finance Agent conversation
-@app.route('/api/augment/finance/reset', methods=['POST'])
-def finance_agent_reset():
-    """Reset a Finance Agent conversation."""
-    session_id = request.json.get('session_id')
-
-    logger.info(f"Resetting Finance Agent conversation for session: {session_id}")
-
-    # For Finance Agent, we'll just return a success response since it doesn't use the same
-    # conversation state management as the Murder Agent
-    return jsonify({
-        "success": True,
-        "data": {
-            "analysis": "Hello, I'm the Financial Fraud Agent, an AI assistant specialized in financial fraud investigations. I'll help you analyze a financial fraud case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
-            "is_collecting_info": True,
-            "current_step": "greeting"
-        },
-        "session_id": session_id or "new_session",
-        "message": "Finance Agent conversation reset successfully"
-    })
-
-# Endpoint to reset a Theft Agent conversation
-@app.route('/api/augment/theft/reset', methods=['POST'])
-def theft_agent_reset():
-    """Reset a Theft Agent conversation."""
-    session_id = request.json.get('session_id')
-
-    logger.info(f"Resetting Theft Agent conversation for session: {session_id}")
-
-    # For Theft Agent, we'll just return a success response since it doesn't use the same
-    # conversation state management as the Murder Agent
-    return jsonify({
-        "success": True,
-        "data": {
-            "analysis": "Hello, I'm the Theft Agent, an AI assistant specialized in theft investigations. I'll help you analyze a theft case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
-            "is_collecting_info": True,
-            "current_step": "greeting"
-        },
-        "session_id": session_id or "new_session",
-        "message": "Theft Agent conversation reset successfully"
-    })
-
-# Sample case endpoint for Murder Agent
-@app.route('/api/augment/murder/sample', methods=['GET'])
-def murder_agent_sample():
-    """Sample case endpoint for Murder Agent."""
-    logger.info("Received request for Murder Agent sample case")
-
-    # Sample case details
-    sample_case = {
-        "case_id": "SAMPLE-001",
-        "date_of_crime": "2023-10-15",
-        "time_of_crime": "23:30",
-        "location": "789 Elm Street, Apartment 3C",
-        "victim_name": "Robert Johnson",
-        "victim_age": "42",
-        "victim_gender": "Male",
-        "cause_of_death": "Multiple stab wounds to the chest",
-        "weapon_used": "Kitchen knife",
-        "crime_scene_description": "Victim found in living room. Signs of struggle. Furniture overturned. No signs of forced entry.",
-        "witnesses": "Neighbor heard argument around 23:00",
-        "evidence_found": "Bloody knife, fingerprints on door handle, victim's phone with text messages",
-        "suspects": "Ex-wife with history of threats, business partner with financial dispute",
-        "additional_notes": "Victim recently changed his will, removing ex-wife as beneficiary"
-    }
-
-    # Analyze the sample case
-    try:
-        analysis = murder_agent.analyze_case(sample_case)
-
-        # Return the response in the format expected by the frontend
-        return jsonify({
-            "success": True,
-            "data": {
-                "analysis": analysis,
-                "case_details": sample_case
-            },
-            "message": "Sample case analysis completed successfully"
-        })
-    except Exception as e:
-        logger.error(f"Error analyzing sample case with Murder Agent: {str(e)}")
-        return jsonify({
-            "success": False,
-            "error": f"Error analyzing sample case: {str(e)}",
-            "data": {
-                "analysis": f"Error analyzing sample case: {str(e)}"
-            }
-        }), 500
-
-# Enhanced PDF Generation endpoint with AI analysis
-@app.route('/api/generate-pdf', methods=['POST'])
-def generate_pdf():
-    """Generate a PDF report from user data with AI analysis."""
-    start_time = time.time()
-    logger.info("Received request for enhanced PDF generation")
-    
-    try:
-        # Get data from request
-        data = request.json
-        if not data:
-            return jsonify({"success": False, "error": "No data provided"}), 400
-            
-        # Log the full incoming data for debugging
-        logger.info(f"Received PDF generation request with keys: {list(data.keys())}")
-        logger.info(f"Data structure: {json.dumps(data, indent=2, default=str)[:2000]}...")
-
-        # Log messages if they exist
-        if 'messages' in data:
-            logger.info(f"Messages count: {len(data['messages'])}")
-            for i, msg in enumerate(data['messages'][:5]):  # Log first 5 messages
-                logger.info(f"Message {i}: {msg.get('sender')} - {msg.get('content', '')[:100]}...")
-
-        # Extract title and agent type
-        title = data.get('title', 'Investigation Report')
-        agent_type = data.get('agentType', data.get('agent_type', 'murder')).lower()
-
-        # Map analysis type
-        mapped_analysis_type = {
-            'murder': 'murder',
-            'homicide': 'murder',
-            'financial': 'financial',
-            'fraud': 'fraud',
-            'theft': 'theft'
-        }.get(agent_type, 'general')
-
-        # Extract the actual case data
-        case_data = data.get('data', {})
-        logger.info(f"Case data keys: {list(case_data.keys())}")
-        logger.info(f"Case data content: {json.dumps(case_data, indent=2, default=str)[:500]}...")
-        
-        # Initialize PDF generator with proper error handling
-        pdf_buffer = None
-        try:
-            from dynamic_pdf_generator import DynamicPDFGenerator
-            logger.info("Using DynamicPDFGenerator")
-            pdf_generator = DynamicPDFGenerator(NVIDIA_API_KEY)
-
-            # Ensure the data structure is correct for the PDF generator
-            pdf_data = data.copy()
-
-            # If case data is nested under 'data' key, flatten it
-            if 'data' in data and isinstance(data['data'], dict):
-                pdf_data.update(data['data'])
-                logger.info(f"Flattened nested data structure. New keys: {list(pdf_data.keys())}")
-
-            # Generate the PDF with timeout
-            generation_start = time.time()
-            pdf_buffer = pdf_generator.generate_investigation_pdf(
-                data=pdf_data,
-                analysis_type=mapped_analysis_type
-            )
-            generation_time = time.time() - generation_start
-            logger.info(f"PDF generation completed in {generation_time:.2f} seconds")
-
-            if not pdf_buffer:
-                raise Exception("PDF buffer is empty")
-
-            # Get the size of the PDF buffer
-            try:
-                pdf_size = pdf_buffer.getbuffer().nbytes
-            except AttributeError:
-                try:
-                    pdf_size = len(pdf_buffer.getvalue())
-                except (AttributeError, TypeError):
-                    pdf_size = 0
-                    logger.warning("Could not determine PDF size")
-
-            # Create a unique filename
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            safe_title = title.replace(' ', '_').replace('/', '_')[:50]
-            filename = f"{safe_title}_{timestamp}.pdf"
-
-            logger.info(f"Returning PDF file: {filename} (size: {pdf_size} bytes)")
-
-            # Return the PDF as a file download
-            response = send_file(
-                pdf_buffer,
-                as_attachment=True,
-                download_name=filename,
-                mimetype='application/pdf'
-            )
-            
-            # Add performance headers
-            total_time = time.time() - start_time
-            response.headers['X-Generation-Time'] = f"{generation_time:.2f}"
-            response.headers['X-Total-Time'] = f"{total_time:.2f}"
-            response.headers['X-PDF-Size'] = str(pdf_size)
-            
-            return response
-
-        except ImportError as e:
-            logger.error(f"Dynamic PDF generator not available: {e}")
-            raise Exception("PDF generation service unavailable")
-        except Exception as e:
-            logger.error(f"Error generating PDF: {str(e)}")
-            import traceback
-            logger.error(f"Full traceback: {traceback.format_exc()}")
-            raise Exception(f"Failed to generate PDF: {str(e)}")
-
-    except Exception as e:
-        logger.error(f"Error in PDF generation endpoint: {str(e)}")
-        return jsonify({
-            "success": False,
-            "error": f"Failed to generate PDF: {str(e)}"
-        }), 500
-
-# Simple test endpoints
 @app.route('/')
-def home():
-    logger.info("Received GET request for home endpoint")
-    return jsonify({"message": "Unified Agent Server is running"})
+def index():
+    return "Unified Agent Server is running!"
 
-@app.route('/test')
-def test():
-    logger.info("Received GET request for test endpoint")
-    return jsonify({"message": "Test endpoint is working"})
-
-@app.route('/agents')
-def list_agents():
-    logger.info("Received GET request for agents endpoint")
+@app.route('/start_conversation', methods=['POST'])
+def start_conversation():
+    logger.info("Received request to start a new conversation.")
+    session_id = create_new_conversation_state()
+    current_step = get_step_by_id("greeting")
     return jsonify({
-        "agents": list(AGENTS.keys()),
-        "enabled_agents": {name: config["enabled"] for name, config in AGENTS.items()}
+        "session_id": session_id,
+        "response": current_step["message"],
+        "is_collecting_info": True,
+        "current_step": "greeting",
+        "error": None
     })
 
-# Murder Investigation Data API Endpoints
-@app.route('/api/murder-investigations', methods=['GET'])
-def get_murder_investigations():
-    """Get all stored murder investigation cases."""
-    if not MURDER_STORAGE_AVAILABLE:
-        return jsonify({
-            "success": False,
-            "error": "Murder investigation storage not available"
-        }), 503
+@app.route('/process_message', methods=['POST'])
+def process_message_route():
+    data = request.get_json()
+    user_message = data.get('message')
+    session_id = data.get('session_id')
+    force_new_session = data.get('force_new_session', False)
+    reset_conversation = data.get('reset_conversation', False)
+    agent_type = data.get('agent_type', 'murder') # Default to murder agent
 
-    try:
-        cases = murder_storage.get_all_cases()
-        metadata = murder_storage.get_storage_metadata()
+    logger.info(f"[/process_message] Received message: {user_message}, session_id: {session_id}, agent_type: {agent_type}")
 
-        return jsonify({
-            "success": True,
-            "data": {
-                "cases": cases,
-                "metadata": metadata
-            }
-        })
-    except Exception as e:
-        logger.error(f"Error retrieving murder investigations: {e}")
-        return jsonify({
-            "success": False,
-            "error": f"Failed to retrieve investigations: {str(e)}"
-        }), 500
+    if not user_message and not session_id:
+        return jsonify({"error": "Message or session_id is required"}), 400
 
-@app.route('/api/murder-investigations/<case_id>', methods=['GET'])
-def get_murder_investigation(case_id):
-    """Get a specific murder investigation case by ID."""
-    if not MURDER_STORAGE_AVAILABLE:
-        return jsonify({
-            "success": False,
-            "error": "Murder investigation storage not available"
-        }), 503
+    current_agent = None
+    if agent_type == 'murder':
+        if not MURDER_STORAGE_AVAILABLE:
+            return jsonify({"error": "Murder Agent module not available."}), 500
+        current_agent = MurderAgent(NVIDIA_API_KEY)
+    elif agent_type == 'finance':
+        if not FINANCIAL_AGENT_AVAILABLE:
+            return jsonify({"error": "Financial Agent module not available."}), 500
+        current_agent = FinancialFraudAgent(NVIDIA_API_KEY)
+    elif agent_type == 'theft':
+        if not THEFT_AGENT_AVAILABLE:
+            return jsonify({"error": "Theft Agent module not available."}), 500
+        current_agent = TheftAgent(NVIDIA_API_KEY)
+    else:
+        return jsonify({"error": f"Agent type '{agent_type}' not supported."}), 400
 
-    try:
-        case_data = murder_storage.get_case_data(case_id)
+    session_id, response_message, is_collecting_info, current_step_id, error_message = \
+        current_agent.process_message(user_message, session_id, force_new_session, reset_conversation)
 
-        if case_data:
+    if current_step_id == "completed" and session_id in conversation_states and conversation_states[session_id].get("analysis_completed"):
+        logger.info(f"Analysis completed for session {session_id}. Preparing PDF.")
+        collected_data = conversation_states[session_id]["collected_data"]
+        analysis_result = conversation_states[session_id]["analysis_result"]
+
+        try:
+            pdf_buffer = create_murder_report_pdf(collected_data, analysis_result)
+            pdf_filename = f"murder_report_{collected_data.get('case_id', 'unknown')}.pdf"
+            pdf_path = PATHS['data_dir'] / pdf_filename
+
+            with open(pdf_path, 'wb') as f:
+                f.write(pdf_buffer.getvalue())
+
+            logger.info(f"PDF generated and saved to {pdf_path}")
+
+            if session_id in conversation_states:
+                del conversation_states[session_id]
+                logger.info(f"Cleaned up conversation state for session {session_id} after PDF generation.")
+
             return jsonify({
-                "success": True,
-                "data": case_data
+                "session_id": session_id,
+                "response": response_message,
+                "is_collecting_info": is_collecting_info,
+                "current_step": current_step_id,
+                "error": error_message,
+                "pdf_report_path": str(pdf_path)  # Return the path to the generated PDF
             })
-        else:
-            return jsonify({
-                "success": False,
-                "error": f"Case {case_id} not found"
-            }), 404
 
-    except Exception as e:
-        logger.error(f"Error retrieving case {case_id}: {e}")
-        return jsonify({
-            "success": False,
-            "error": f"Failed to retrieve case: {str(e)}"
-        }), 500
+        except Exception as e:
+            logger.error(f"Error generating PDF report: {str(e)}")
+            return jsonify({"error": f"Error generating PDF report: {str(e)}"}), 500
 
-def extract_structured_investigation_data(messages):
-    """
-    Extract structured investigation data from Murder Agent's Q&A conversation.
-    This function specifically handles the Murder Agent's structured questioning format.
-    Ensures 100% dynamic data extraction with no hardcoded content.
+    return jsonify({
+        "session_id": session_id,
+        "response": response_message,
+        "is_collecting_info": is_collecting_info,
+        "current_step": current_step_id,
+        "error": error_message
+    })
 
-    Args:
-        messages: List of chat messages from Murder Agent conversation
+@app.route('/download_report/<filename>', methods=['GET'])
+def download_report(filename):
+    report_path = PATHS['data_dir'] / filename
+    if report_path.exists():
+        return send_file(report_path, as_attachment=True)
+    else:
+        return jsonify({"error": "Report not found"}), 404
 
-    Returns:
-        Dictionary containing structured investigation data
-    """
-    extracted_data = {}
-    conversation_pairs = []
+@app.route('/get_analysis_status/<session_id>', methods=['GET'])
+def get_analysis_status(session_id):
+    status_info = analysis_in_progress.get(session_id)
+    if status_info:
+        return jsonify(status_info)
+    else:
+        return jsonify({"status": "not_found", "message": "No analysis in progress for this session."})
 
-    logger.info(f"Extracting data from {len(messages)} messages")
+@app.route('/get_analysis_result/<session_id>', methods=['GET'])
+def get_analysis_result(session_id):
+    analysis_info = analysis_in_progress.get(session_id)
+    if analysis_info and analysis_info.get("status") == "completed":
+        return jsonify({"status": "completed", "result": analysis_info["analysis_result"]})
+    elif analysis_info and analysis_info.get("status") == "in_progress":
+        return jsonify({"status": "in_progress", "message": "Analysis is still in progress."})
+    else:
+        return jsonify({"status": "not_found", "message": "No completed analysis found for this session."})
 
-    # Parse the conversation into question-answer pairs
-    for i in range(len(messages)):
-        message = messages[i]
 
-        # Check for Murder Agent questions (assistant messages)
-        if (message.get('sender') == 'assistant' and
-            (message.get('agentType') == 'murder' or 'Murder Agent' in message.get('content', ''))):
+if __name__ == '__main__':
+    # Run cleanup of old analysis tracking periodically (e.g., every hour)
+    # This is a simple in-memory cleanup. For production, consider a more robust solution.
+    # For now, we'll just log a message.
+    logger.info("Starting unified agent server.")
+    # In a real-world scenario, you'd use a scheduler like APScheduler or Celery for cleanup.
+    # For this example, we'll just run Flask.
+    app.run(debug=True, host='0.0.0.0', port=MAIN_PORT)
 
-            # Clean up the question by removing formatting markers
-            question = message.get('content', '').strip()
-            question = question.replace('**[LIVE DATA ANALYSIS]**', '').strip()
-            question = question.replace('Murder Agent Live Data Live Data Analysis', '').strip()
-            question = question.replace('Please answer the question to continue the investigation.', '').strip()
-
-            # Look for the user's response in the next message
-            if i + 1 < len(messages) and messages[i + 1].get('sender') == 'user':
-                answer = messages[i + 1].get('content', '').strip()
-
-                if answer:  # Only store non-empty answers
-                    conversation_pairs.append({
-                        'question': question,
-                        'answer': answer,
-                        'timestamp': message.get('timestamp')
-                    })
-                    logger.info(f"Found Q&A pair: {question[:50]}... -> {answer}")
-
-    # Enhanced question mappings to handle all Murder Agent question variations
-    question_mappings = {
-        # Case ID variations
-        'case id': 'case_id',
-        'what is the case id': 'case_id',
-        'case number': 'case_id',
-
-        # Date and time variations
-        'when did the crime occur': 'crime_date',
-        'date of the crime': 'crime_date',
-        'when did this happen': 'crime_date',
-        'date of incident': 'crime_date',
-
-        'what time did the crime occur': 'crime_time',
-        'time of the crime': 'crime_time',
-        'what time': 'crime_time',
-        'time of incident': 'crime_time',
-
-        # Location variations
-        'where did the crime take place': 'location',
-        'location of the crime': 'location',
-        'where did this happen': 'location',
-        'crime location': 'location',
-
-        # Victim information variations
-        'victim\'s name': 'victim_name',
-        'name of the victim': 'victim_name',
-        'who is the victim': 'victim_name',
-        'victim name': 'victim_name',
-
-        'victim\'s age': 'victim_age',
-        'age of the victim': 'victim_age',
-        'how old was the victim': 'victim_age',
-        'victim age': 'victim_age',
-
-        'victim\'s gender': 'victim_gender',
-        'gender of the victim': 'victim_gender',
-        'victim gender': 'victim_gender',
-
-        # Crime details variations
-        'cause of death': 'cause_of_death',
-        'how did the victim die': 'cause_of_death',
-        'what was the cause of death': 'cause_of_death',
-
-        'weapon used': 'weapon_used',
-        'what weapon was used': 'weapon_used',
-        'murder weapon': 'weapon_used',
-
-        # Crime scene variations
-        'describe the crime scene': 'crime_scene_description',
-        'crime scene description': 'crime_scene_description',
-        'what did the crime scene look like': 'crime_scene_description',
-        'crime scene': 'crime_scene_description',
-
-        # Evidence and witnesses
-        'witnesses': 'witnesses',
-        'were there any witnesses': 'witnesses',
-        'any witnesses': 'witnesses',
-
-        'evidence': 'evidence_found',
-        'what evidence was found': 'evidence_found',
-        'evidence found': 'evidence_found',
-        'any evidence': 'evidence_found',
-
-        # Suspects
-        'suspects': 'suspects',
-        'any suspects': 'suspects',
-        'who are the suspects': 'suspects',
-        'potential suspects': 'suspects',
-
-        # Additional information
-        'additional notes': 'additional_notes',
-        'anything else': 'additional_notes',
-        'other information': 'additional_notes',
-        'notes': 'additional_notes'
-    }
-
-    # Map answers to structured fields with improved matching
-    for pair in conversation_pairs:
-        question_lower = pair['question'].lower()
-        answer = pair['answer'].strip()
-
-        # Skip empty answers
-        if not answer:
-            continue
-
-        matched = False
-        for key_phrase, field_name in question_mappings.items():
-            if key_phrase in question_lower:
-                # Only store if we don't already have this field or if this is a better match
-                if field_name not in extracted_data:
-                    extracted_data[field_name] = answer
-                    logger.info(f"Mapped '{key_phrase}' -> {field_name}: {answer}")
-                    matched = True
-                    break
-
-        # If no specific mapping found, try to infer from question content
-        if not matched:
-            logger.warning(f"No mapping found for question: {question_lower[:100]}")
-
-    # Store the full conversation for reference
-    extracted_data['conversation_pairs'] = conversation_pairs
-    extracted_data['total_messages'] = len(messages)
-    extracted_data['user_messages'] = len([m for m in messages if m.get('sender') == 'user'])
-    extracted_data['assistant_messages'] = len([m for m in messages if m.get('sender') == 'assistant'])
-
-    if messages:
-        extracted_data['conversation_start'] = messages[0].get('timestamp')
-        extracted_data['conversation_end'] = messages[-1].get('timestamp')
-
-    logger.info(f"Extracted {len(extracted_data)} fields from conversation")
-    return extracted_data
-
-def extract_data_from_chat_messages(messages):
-    """
-    Enhanced extraction of structured data from chat messages for PDF generation.
-    Handles both structured Murder Agent conversations and general chat patterns.
-
-    Args:
-        messages: List of chat messages
-
-    Returns:
-        Dictionary containing extracted data
-    """
-    # Check if this is a Murder Agent conversation
-    is_murder_agent = any(
-        'Murder Agent' in message.get('content', '')
-        for message in messages
-        if message.get('sender') == 'assistant'
-    )
-
-    if is_murder_agent:
-        # Use structured extraction for Murder Agent conversations
-        return extract_structured_investigation_data(messages)
-
-    # Fall back to pattern-based extraction for other conversations
-    extracted_data = {}
-
-    # Combine all user messages for comprehensive analysis
-    all_user_content = ""
-    for message in messages:
-        if message.get('sender') == 'user':
-            all_user_content += " " + message.get('content', '')
-
-    content_lower = all_user_content.lower()
-
-    # Enhanced extraction patterns
-    extraction_patterns = {
-        # Basic case information
-        'case_id': [
-            r'case\s*(?:id|number)[:\s]*([^\s,\n.]+)',
-            r'case[:\s]*([A-Z0-9-]+)',
-            r'id[:\s]*([A-Z0-9-]+)'
-        ],
-        'crime_date': [
-            r'date\s*(?:of\s*crime|of\s*incident)?[:\s]*(\d{4}-\d{2}-\d{2})',
-            r'date[:\s]*(\d{1,2}\/\d{1,2}\/\d{4})',
-            r'(\d{4}-\d{2}-\d{2})',
-            r'(\d{1,2}\/\d{1,2}\/\d{4})',
-            r'(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},?\s+\d{4}'
-        ],
-        'crime_time': [
-            r'time\s*(?:of\s*crime|of\s*incident)?[:\s]*(\d{1,2}:\d{2})',
-            r'at\s*(\d{1,2}:\d{2})',
-            r'(\d{1,2}:\d{2})',
-            r'(noon|midnight|morning|evening|afternoon)'
-        ],
-        'location': [
-            r'location[:\s]*([^.\n]+?)(?:\.|$)',
-            r'address[:\s]*([^.\n]+?)(?:\.|$)',
-            r'(?:at|in)\s*([^.\n]+?)(?:\.|$)',
-            r'street[:\s]*([^.\n]+?)(?:\.|$)'
-        ],
-
-        # Victim information
-        'victim_name': [
-            r'victim\s*name[:\s]*([^,\n.]+)',
-            r'victim[:\s]*([^,\n.]+)',
-            r'name[:\s]*([^,\n.]+)'
-        ],
-        'victim_age': [
-            r'victim\s*age[:\s]*(\d{1,3})',
-            r'age[:\s]*(\d{1,3})',
-            r'(\d{1,3})\s*years?\s*old'
-        ],
-        'victim_gender': [
-            r'victim\s*gender[:\s]*(male|female|non-binary)',
-            r'gender[:\s]*(male|female|non-binary)',
-            r'\b(male|female)\b'
-        ],
-
-        # Crime details
-        'cause_of_death': [
-            r'cause\s*of\s*death[:\s]*([^.\n]+?)(?:\.|$)',
-            r'died\s*(?:from|of)[:\s]*([^.\n]+?)(?:\.|$)',
-            r'killed\s*(?:by|with)[:\s]*([^.\n]+?)(?:\.|$)',
-            r'(shot|stabbed|strangled|poisoned|beaten)'
-        ],
-        'weapon_used': [
-            r'weapon\s*used[:\s]*([^.\n]+?)(?:\.|$)',
-            r'weapon[:\s]*([^.\n]+?)(?:\.|$)',
-            r'killed\s*with\s*(?:a\s*)?([^.\n]+?)(?:\.|$)',
-            r'(gun|knife|pistol|rifle|sword|bat)'
-        ],
-        'crime_scene_description': [
-            r'crime\s*scene[:\s]*([^.\n]+?)(?:\.|$)',
-            r'scene\s*description[:\s]*([^.\n]+?)(?:\.|$)',
-            r'found\s*(?:in|at)[:\s]*([^.\n]+?)(?:\.|$)'
-        ],
-
-        # Evidence and witnesses
-        'witnesses': [
-            r'witness(?:es)?[:\s]*([^.\n]+?)(?:\.|$)',
-            r'saw[:\s]*([^.\n]+?)(?:\.|$)',
-            r'heard[:\s]*([^.\n]+?)(?:\.|$)',
-            r'(\d+)\s*people'
-        ],
-        'evidence_found': [
-            r'evidence[:\s]*([^.\n]+?)(?:\.|$)',
-            r'found[:\s]*([^.\n]+?)(?:\.|$)',
-            r'fingerprints[:\s]*([^.\n]+?)(?:\.|$)'
-        ],
-        'suspects': [
-            r'suspect(?:s)?[:\s]*([^.\n]+?)(?:\.|$)',
-            r'perpetrator[:\s]*([^.\n]+?)(?:\.|$)',
-            r'accused[:\s]*([^.\n]+?)(?:\.|$)'
-        ],
-
-        # Additional information
-        'additional_notes': [
-            r'notes?[:\s]*([^.\n]+?)(?:\.|$)',
-            r'additional[:\s]*([^.\n]+?)(?:\.|$)',
-            r'also[:\s]*([^.\n]+?)(?:\.|$)'
-        ]
-    }
-
-    # Extract data using patterns
-    for field, patterns in extraction_patterns.items():
-        for pattern in patterns:
-            match = re.search(pattern, all_user_content, re.IGNORECASE | re.DOTALL)
-            if match and field not in extracted_data:
-                value = match.group(1).strip()
-                # Clean up the extracted value
-                value = re.sub(r'\s+', ' ', value)  # Normalize whitespace
-                value = value.strip('.,;')  # Remove trailing punctuation
-                if value and len(value) > 2:  # Only store meaningful values
-                    extracted_data[field] = value
-                break
-
-    # Store individual messages for reference
-    for index, message in enumerate(messages):
-        if message.get('sender') == 'user':
-            extracted_data[f'message_{index + 1}'] = message.get('content', '')
-
-    # Add conversation metadata
-    extracted_data['total_messages'] = len(messages)
-    extracted_data['user_messages'] = len([m for m in messages if m.get('sender') == 'user'])
-    extracted_data['assistant_messages'] = len([m for m in messages if m.get('sender') == 'assistant'])
-
-    if messages:
-        extracted_data['conversation_start'] = messages[0].get('timestamp')
-        extracted_data['conversation_end'] = messages[-1].get('timestamp')
-
-    return extracted_data
-
-if __name__ == "__main__":
-    try:
-        logger.info(f"Starting unified agent server on port {MAIN_PORT}")
-        logger.info(f"Murder storage available: {MURDER_STORAGE_AVAILABLE}")
-        logger.info(f"ReportLab available: {REPORTLAB_AVAILABLE}")
-        logger.info(f"OpenAI available: {OPENAI_AVAILABLE}")
-
-        # Test basic functionality
-        logger.info("Testing basic server functionality...")
-
-        # Enable debug mode for development
-        logger.info("Server starting successfully...")
-        app.run(host="0.0.0.0", port=MAIN_PORT, debug=True)
-
-    except Exception as e:
-        logger.error(f"Failed to start server: {e}")
-        import traceback
-        logger.error(f"Traceback: {traceback.format_exc()}")
-        print(f"ERROR: Failed to start server: {e}")
-        print("Please check the logs for more details.")
-        sys.exit(1)

@@ -3212,11 +3212,21 @@ def extract_data_from_chat_messages(messages):
             r'(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},?\s+\d{4}'
         ],
         'crime_time': [
-            r'time\s*(?:of\s*crime|of\s*incident)?[:\s]*(\d{1,2}:\d{2})',
-            r'at\s*(\d{1,2}:\d{2})',
-            r'(\d{1,2}:\d{2})',
-            r'(noon|midnight|morning|evening|afternoon)'
-        ],
+            # Range: between X and Y
+            r'between\s+(\d{1,2}:\d{2}\s*(?:am|pm|AM|PM)?)\s+(?:and|-|–)\s+(\d{1,2}:\d{2}\s*(?:am|pm|AM|PM)?)',
+
+            # Range: from X to Y
+            r'from\s+(\d{1,2}:\d{2}\s*(?:am|pm|AM|PM)?)\s+(?:to|-|–)\s+(\d{1,2}:\d{2}\s*(?:am|pm|AM|PM)?)',
+
+            # Single time: with AM/PM
+            r'\b(?:at|around|approximately)?\s*(\d{1,2}:\d{2}\s*(?:am|pm|AM|PM))\b',
+
+            # Single time: no AM/PM
+            r'\b(?:at|around|approximately)?\s*(\d{1,2}:\d{2})\b',
+
+            # Time of day
+            r'\b(noon|midnight|morning|evening|afternoon|night)\b'
+],
         'location': [
             r'location[:\s]*([^.\n]+?)(?:\.|$)',
             r'address[:\s]*([^.\n]+?)(?:\.|$)',

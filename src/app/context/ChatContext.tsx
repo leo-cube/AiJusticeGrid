@@ -303,7 +303,17 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     }
   }, [currentAgent, messages]);
 
-  const sendMessage = async (content: string) => {
+  
+const isFinalUserMessage = (agentType: AgentType, context?: ChatContextType) => {
+  return (
+    agentType === 'murder' &&
+    context?.isCollectingInfo === false &&
+    context?.currentStep === 'analysis_pending'
+  );
+};
+
+
+const sendMessage = async (content: string) => {
     if (!content.trim()) return;
 
     // Reset the responded agents set for this new user message
@@ -341,6 +351,20 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
     setMessages((prev) => [...prev, userMessage]);
     setIsTyping(true);
+    // If it's the final message before analysis, insert loader message
+    if (isFinalUserMessage(currentAgent, currentContext)) {
+      const loadingMessage: ChatMessage = {
+        id: (Date.now() + 0.5).toString(),
+        sender: 'assistant',
+        content: '__loading__',
+        timestamp: new Date().toISOString(),
+        status: 'delivered',
+        agentType: currentAgent,
+        context: currentContext,
+      };
+      setMessages((prev) => [...prev, loadingMessage]);
+    }
+
 
     try {
       // Mark the current agent as about to respond to prevent duplicates
@@ -719,7 +743,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
           context: updatedContext,
         };
 
-        setMessages((prev) => [...prev, assistantMessage]);
+        setMessages((prev) => [...prev.filter(msg => msg.content !== '__loading__'), assistantMessage]);
         setIsTyping(false);
       }, typingDelay);
 

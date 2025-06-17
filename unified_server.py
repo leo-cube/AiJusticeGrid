@@ -1,8 +1,9 @@
 import logging
 import uuid
 from datetime import datetime
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from typing import Dict, Any, Tuple, Optional
+import io
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -108,6 +109,13 @@ CASE_INFO_STEPS = [
         "id": "additional_notes",
         "message": "Do you have any additional notes or information about the case?",
         "field": "additional_notes",
+        "next_step": "working_message",
+        "validation": None
+    },
+    {
+        "id": "working_message",
+        "message": "AiJusticeGrid is working to provide you a solution for this case.",
+        "field": None,
         "next_step": "analysis",
         "validation": None
     },
@@ -283,8 +291,23 @@ class MurderAgent:
         return session_id, current_step["message"] if current_step else "What would you like to know?", True, current_step_id, None
 
     def analyze_case(self, case_details):
-        # Implement case analysis logic
-        return "Analysis result"
+        # Simulate sending data to NVIDIA model and generating a report
+        report = self.generate_report(case_details)
+        return report
+
+    def generate_report(self, case_details):
+        # Generate a comprehensive solution report
+        report = "Comprehensive Solution Report\n\n"
+        report += "Case Details:\n"
+        for key, value in case_details.items():
+            report += f"{key.replace('_', ' ').title()}: {value}\n"
+
+        # Add some simulated analysis
+        report += "\nAnalysis:\n"
+        report += "Based on the provided details, the case appears to involve a single victim with multiple suspects. "
+        report += "Further investigation is recommended to gather more evidence and interview witnesses.\n"
+
+        return report
 
 # Initialize the Murder Agent
 murder_agent = MurderAgent()
@@ -312,6 +335,20 @@ def murder_agent_endpoint():
         force_new_session=force_new_session,
         reset_conversation=reset_conversation
     )
+
+    if current_step == "completed":
+        # Provide an option to download the generated report
+        report = conversation_states[session_id]["analysis_result"]
+        buffer = io.BytesIO()
+        buffer.write(report.encode('utf-8'))
+        buffer.seek(0)
+
+        return send_file(
+            buffer,
+            as_attachment=True,
+            download_name="comprehensive_solution_report.txt",
+            mimetype='text/plain'
+        )
 
     return jsonify({
         "success": True,

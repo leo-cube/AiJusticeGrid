@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Agent Avatar Colors - Ensure these are always available */
+.agent-murder {
+  background-color: #b91c1c !important; /* red-700 */
+}
+
+.agent-general {
+  background-color: #1d4ed8 !important; /* blue-700 */
+}
+
+.agent-finance {
+  background-color: #15803d !important; /* green-700 */
+}
+
+.agent-theft {
+  background-color: #1d4ed8 !important; /* blue-700 */
+}
+
+.agent-smuggle {
+  background-color: #7c3aed !important; /* purple-700 */
+}
+
+.agent-crime-accident {
+  background-color: #a16207 !important; /* yellow-700 */
+}
+
+.agent-crime-abuse {
+  background-color: #c2410c !important; /* orange-700 */
+}
+
+/* Ensure Tailwind red classes are available */
+.bg-red-700 {
+  background-color: #b91c1c !important;
+}
+
+.bg-blue-700 {
+  background-color: #1d4ed8 !important;
+}
+
+.bg-green-700 {
+  background-color: #15803d !important;
+}
+
+.bg-purple-700 {
+  background-color: #7c3aed !important;
+}
+
+.bg-yellow-700 {
+  background-color: #a16207 !important;
+}
+
+.bg-orange-700 {
+  background-color: #c2410c !important;
+}

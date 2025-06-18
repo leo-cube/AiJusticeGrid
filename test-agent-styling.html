@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Styling Test</title>
+    <style>
+        /* Agent Avatar Colors - Test styling */
+        .agent-murder {
+            background-color: #b91c1c !important; /* red-700 */
+            color: white !important;
+        }
+
+        .agent-general {
+            background-color: #1d4ed8 !important; /* blue-700 */
+            color: white !important;
+        }
+
+        .agent-finance {
+            background-color: #15803d !important; /* green-700 */
+            color: white !important;
+        }
+
+        .agent-theft {
+            background-color: #1d4ed8 !important; /* blue-700 */
+            color: white !important;
+        }
+
+        .agent-smuggle {
+            background-color: #7c3aed !important; /* purple-700 */
+            color: white !important;
+        }
+
+        .agent-crime-accident {
+            background-color: #a16207 !important; /* yellow-700 */
+            color: white !important;
+        }
+
+        .agent-crime-abuse {
+            background-color: #c2410c !important; /* orange-700 */
+            color: white !important;
+        }
+
+        /* Base button styling */
+        .agent-button {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            margin: 0.25rem;
+        }
+
+        .agent-button:not(.selected) {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+
+        .agent-button:not(.selected):hover {
+            background-color: #e5e7eb;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background-color: #f9fafb;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .test-section {
+            margin-bottom: 2rem;
+        }
+
+        .test-section h2 {
+            color: #374151;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agent Styling Test</h1>
+        
+        <div class="test-section">
+            <h2>Agent Buttons (Selected State)</h2>
+            <button class="agent-button agent-murder selected">🔍 Murder Agent</button>
+            <button class="agent-button agent-general selected">💼 General Assistant</button>
+            <button class="agent-button agent-finance selected">💰 Finance Agent</button>
+            <button class="agent-button agent-theft selected">🔒 Theft Agent</button>
+            <button class="agent-button agent-smuggle selected">📦 Smuggle Agent</button>
+            <button class="agent-button agent-crime-accident selected">🚗 Agent Accident</button>
+            <button class="agent-button agent-crime-abuse selected">⚠️ Agent Abuse</button>
+        </div>
+
+        <div class="test-section">
+            <h2>Agent Buttons (Unselected State)</h2>
+            <button class="agent-button">🔍 Murder Agent</button>
+            <button class="agent-button">💼 General Assistant</button>
+            <button class="agent-button">💰 Finance Agent</button>
+            <button class="agent-button">🔒 Theft Agent</button>
+            <button class="agent-button">📦 Smuggle Agent</button>
+            <button class="agent-button">🚗 Agent Accident</button>
+            <button class="agent-button">⚠️ Agent Abuse</button>
+        </div>
+
+        <div class="test-section">
+            <h2>Interactive Test</h2>
+            <p>Click the buttons below to test the styling:</p>
+            <div id="interactive-buttons"></div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive test
+        const agents = [
+            { id: 'murder', name: 'Murder Agent', icon: '🔍' },
+            { id: 'general', name: 'General Assistant', icon: '💼' },
+            { id: 'finance', name: 'Finance Agent', icon: '💰' },
+            { id: 'theft', name: 'Theft Agent', icon: '🔒' },
+            { id: 'smuggle', name: 'Smuggle Agent', icon: '📦' },
+            { id: 'crime-accident', name: 'Agent Accident', icon: '🚗' },
+            { id: 'crime-abuse', name: 'Agent Abuse', icon: '⚠️' }
+        ];
+
+        let selectedAgent = 'murder';
+
+        function renderInteractiveButtons() {
+            const container = document.getElementById('interactive-buttons');
+            container.innerHTML = '';
+
+            agents.forEach(agent => {
+                const button = document.createElement('button');
+                button.className = `agent-button agent-${agent.id} ${selectedAgent === agent.id ? 'selected' : ''}`;
+                button.innerHTML = `${agent.icon} ${agent.name}`;
+                button.onclick = () => {
+                    selectedAgent = agent.id;
+                    renderInteractiveButtons();
+                };
+                container.appendChild(button);
+            });
+        }
+
+        renderInteractiveButtons();
+    </script>
+</body>
+</html>

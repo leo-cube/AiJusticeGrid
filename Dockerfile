@@ -1,36 +1,50 @@
-# AI Justice Grid Backend - Production Dockerfile
-FROM python:3.10-slim
+# AI Justice Grid Frontend - Production Dockerfile
+FROM node:18-alpine AS base
 
-# Set working directory
+# Install dependencies only when needed
+FROM base AS deps
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+# Copy package files
+COPY package.json package-lock.json* ./
 
-# Copy requirements first for better caching
-COPY requirements.txt .
+# Install dependencies
+RUN npm ci --only=production
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
 
-# Copy application code
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Create data directory with proper permissions
-RUN mkdir -p data && chmod 755 data
+# Build the application
+RUN npm run build
 
-# Create non-root user for security
-RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
-USER appuser
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
 
-# Expose port
-EXPOSE 5000
+ENV NODE_ENV production
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Copy built application
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:5000/health || exit 1
+    CMD curl -f http://localhost:3000/api/health || exit 1
 
-# Start the application
-CMD ["python", "unified_server.py"]
+CMD ["node", "server.js"]

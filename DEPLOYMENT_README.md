@@ -1,267 +1,213 @@
-# 🔧 AI Justice Grid Backend - Production Deployment
+# 🚀 AI Justice Grid - Production Deployment
 
 ## Overview
-This is the production-ready backend server for the AI Justice Grid system. It provides a unified API for all agents and services.
+This is the production-ready AI Justice Grid system with frontend and backend separated for independent deployment.
 
-## 🚀 Quick Start
+## 📦 Package Contents
 
-### 1. Install Dependencies
+### Frontend Package (`investigation-main/`)
+- **Next.js Application** - Complete frontend application
+- **Production Optimized** - Standalone build configuration
+- **Environment Ready** - Configurable for any backend URL
+- **Clean Codebase** - All test files and mocks removed
+
+### Backend Package (`backend/`)
+- **Unified Server** - Single Python server handling all agents
+- **Agent APIs** - Murder, Theft, Financial Fraud agents
+- **PDF Generation** - Complete report generation system
+- **Data Storage** - Case management and persistence
+
+---
+
+## 🔧 Quick Deployment Guide
+
+### 1. Backend Deployment
+
 ```bash
+# Navigate to backend directory
+cd backend
+
+# Install dependencies
 pip install -r requirements.txt
-```
 
-### 2. Configure Environment
-```bash
-# Create .env file
+# Set environment variables
 echo "NVIDIA_API_KEY=your-nvidia-api-key" > .env
-```
 
-### 3. Start Server
-```bash
+# Start the server
 python unified_server.py
 ```
 
-**Server runs on**: `http://localhost:5000`
+**Backend will run on**: `http://localhost:5000`
 
----
+### 2. Frontend Deployment
 
-## 📋 Features
-
-### ✅ Agent APIs
-- **Murder Agent** - `/api/augment/murder`
-- **Theft Agent** - `/api/augment/theft`
-- **Financial Fraud Agent** - `/api/augment/financial-fraud`
-
-### ✅ Core Services
-- **Health Check** - `/health`
-- **PDF Generation** - `/api/generate-pdf`
-- **Data Storage** - Case management and persistence
-- **Agent Management** - Enable/disable agents
-
-### ✅ Production Ready
-- **CORS Enabled** - Cross-origin requests supported
-- **Error Handling** - Comprehensive error management
-- **Logging** - Detailed logging to `unified_agent_server.log`
-- **File Storage** - Automatic data directory creation
-
----
-
-## 🌐 API Endpoints
-
-### Health & Status
-```
-GET  /health              - Basic health check
-GET  /api/health/full     - Detailed system status
-GET  /agents              - List all agents
-```
-
-### Agent APIs
-```
-POST /api/augment/murder           - Murder investigation analysis
-POST /api/augment/theft            - Theft investigation analysis
-POST /api/augment/financial-fraud  - Financial fraud analysis
-GET  /api/augment/toggle-agent     - Get agent status
-POST /api/augment/toggle-agent     - Toggle agent enable/disable
-```
-
-### Data & Reports
-```
-GET  /api/murder-investigations     - Get all murder cases
-GET  /api/murder-investigations/:id - Get specific case
-POST /api/generate-pdf              - Generate PDF reports
-```
-
----
-
-## 🔧 Configuration
-
-### Environment Variables
 ```bash
-# Required
+# Navigate to frontend directory
+cd investigation-main
+
+# Install dependencies
+npm install
+
+# Configure environment variables
+cat > .env << EOF
+NEXT_PUBLIC_API_BASE_URL=https://your-backend-server.com/api
+NEXT_PUBLIC_UNIFIED_AGENT_SERVER_URL=https://your-backend-server.com
+NEXT_PUBLIC_MURDER_AGENT_API_URL=https://your-backend-server.com/api/augment/murder
+NEXT_PUBLIC_THEFT_AGENT_API_URL=https://your-backend-server.com/api/augment/theft
+NEXT_PUBLIC_FINANCIAL_FRAUD_AGENT_API_URL=https://your-backend-server.com/api/augment/financial-fraud
+NEXT_PUBLIC_NVIDIA_API_KEY=your-nvidia-api-key
+NEXT_PUBLIC_ENABLE_AUGMENT_AI=true
+EOF
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+**Frontend will run on**: `http://localhost:3000`
+
+---
+
+## 🌐 Environment Configuration
+
+### Required Environment Variables
+
+#### Frontend (`.env`)
+```bash
+# Backend API URLs
+NEXT_PUBLIC_API_BASE_URL=https://your-backend-server.com/api
+NEXT_PUBLIC_UNIFIED_AGENT_SERVER_URL=https://your-backend-server.com
+
+# Agent URLs
+NEXT_PUBLIC_MURDER_AGENT_API_URL=https://your-backend-server.com/api/augment/murder
+NEXT_PUBLIC_THEFT_AGENT_API_URL=https://your-backend-server.com/api/augment/theft
+NEXT_PUBLIC_FINANCIAL_FRAUD_AGENT_API_URL=https://your-backend-server.com/api/augment/financial-fraud
+
+# API Keys
+NEXT_PUBLIC_NVIDIA_API_KEY=your-nvidia-api-key
+NEXT_PUBLIC_ENABLE_AUGMENT_AI=true
+```
+
+#### Backend (`.env`)
+```bash
+# API Key
 NVIDIA_API_KEY=your-nvidia-api-key
-
-# Optional
-FLASK_SECRET_KEY=your-secret-key
-```
-
-### File Structure
-```
-backend/
-├── unified_server.py           # Main server file
-├── requirements.txt            # Python dependencies
-├── .env                       # Environment variables
-├── data/                      # Data storage directory
-├── FinancialAgent/           # Financial agent modules
-├── TheftAgent/               # Theft agent modules
-├── murder_*.py               # Murder agent modules
-└── *.json                    # Data files
 ```
 
 ---
 
 ## 🐳 Docker Deployment
 
-### Dockerfile
+### Backend Dockerfile
 ```dockerfile
 FROM python:3.10-slim
 
 WORKDIR /app
-
-# Install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
-# Copy application
 COPY . .
-
-# Create data directory
-RUN mkdir -p data
-
-# Expose port
 EXPOSE 5000
 
-# Start server
 CMD ["python", "unified_server.py"]
 ```
 
-### Build and Run
-```bash
-# Build image
-docker build -t ai-justice-backend .
+### Frontend Dockerfile
+```dockerfile
+FROM node:18-alpine
 
-# Run container
-docker run -d \
-  -p 5000:5000 \
-  -e NVIDIA_API_KEY=your-nvidia-api-key \
-  -v $(pwd)/data:/app/data \
-  ai-justice-backend
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+RUN npm run build
+
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+### Docker Compose
+```yaml
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NVIDIA_API_KEY=your-nvidia-api-key
+    volumes:
+      - ./backend/data:/app/data
+
+  frontend:
+    build: ./investigation-main
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://backend:5000/api
+      - NEXT_PUBLIC_UNIFIED_AGENT_SERVER_URL=http://backend:5000
+      - NEXT_PUBLIC_NVIDIA_API_KEY=your-nvidia-api-key
+    depends_on:
+      - backend
 ```
 
 ---
 
-## 🔍 Testing
+## 🔍 Verification
 
-### Health Check
+### Test Backend
 ```bash
-curl http://localhost:5000/health
+curl http://your-backend-server:5000/health
 ```
 
-### Agent Test
-```bash
-curl -X POST http://localhost:5000/api/augment/murder \
-  -H "Content-Type: application/json" \
-  -d '{"question": "Test case", "additional_notes": "Testing"}'
-```
+### Test Frontend
+Open browser: `http://your-frontend-server:3000`
 
-### PDF Generation Test
-```bash
-curl -X POST http://localhost:5000/api/generate-pdf \
-  -H "Content-Type: application/json" \
-  -d '{"title": "Test Report", "data": {"test": "data"}}'
-```
+### Test Agent Communication
+1. Navigate to agent chat interface
+2. Send a test message
+3. Verify response from backend
+
+### Test PDF Generation
+1. Complete an agent conversation
+2. Click "Generate Report"
+3. Verify PDF downloads correctly
 
 ---
 
-## 📊 Monitoring
+## 📋 Production Checklist
 
-### Logs
-- **File**: `unified_agent_server.log`
-- **Level**: INFO, WARNING, ERROR
-- **Rotation**: Manual (implement logrotate if needed)
-
-### Health Monitoring
-```bash
-# Basic health
-curl http://localhost:5000/health
-
-# Detailed status
-curl http://localhost:5000/api/health/full
-```
+- [ ] Backend server running and accessible
+- [ ] Frontend environment variables configured
+- [ ] CORS allows frontend domain
+- [ ] NVIDIA API key is valid
+- [ ] All agents respond to test queries
+- [ ] PDF generation works
+- [ ] Data persistence functions
+- [ ] HTTPS enabled (recommended)
 
 ---
 
-## 🚨 Production Considerations
+## 🚨 Security Notes
 
-### Security
-1. **API Keys**: Store securely, use environment variables
-2. **CORS**: Update to allow only your frontend domain
-3. **HTTPS**: Use reverse proxy (nginx) for HTTPS termination
-4. **Firewall**: Restrict access to necessary ports only
-
-### Performance
-1. **Scaling**: Use multiple instances behind load balancer
-2. **Database**: Consider moving from JSON files to proper database
-3. **Caching**: Implement Redis for session/response caching
-4. **Monitoring**: Add application performance monitoring
-
-### Reliability
-1. **Process Manager**: Use systemd, supervisor, or PM2
-2. **Auto-restart**: Configure automatic restart on failure
-3. **Backup**: Regular backup of data directory
-4. **Updates**: Plan for zero-downtime deployments
-
----
-
-## 🔧 Troubleshooting
-
-### Common Issues
-
-#### "NVIDIA API Key not found"
-```bash
-# Check environment variable
-echo $NVIDIA_API_KEY
-
-# Verify .env file
-cat .env
-```
-
-#### "Port already in use"
-```bash
-# Find process using port 5000
-lsof -i :5000
-
-# Kill process
-kill -9 <PID>
-```
-
-#### "Permission denied on data directory"
-```bash
-# Fix permissions
-chmod 755 data/
-chown -R $USER:$USER data/
-```
-
-### Debug Mode
-```bash
-# Run with debug logging
-FLASK_DEBUG=1 python unified_server.py
-```
+1. **API Keys**: Store securely, never commit to version control
+2. **CORS**: Update backend to allow only your frontend domain
+3. **HTTPS**: Use HTTPS in production
+4. **Firewall**: Configure appropriate network security
 
 ---
 
 ## 📞 Support
 
-### Logs Location
-- `unified_agent_server.log` - Main application logs
-- Console output - Real-time debugging
-
-### Key Files
-- `unified_server.py` - Main server application
-- `requirements.txt` - Python dependencies
-- `.env` - Environment configuration
-- `data/` - Persistent data storage
+- **Health Check**: `GET /health`
+- **Agent Status**: `GET /api/health/full`
+- **Logs**: Check `unified_agent_server.log` in backend directory
 
 ---
 
-## ✅ Deployment Checklist
+## 🎉 Success!
 
-- [ ] Python 3.10+ installed
-- [ ] Dependencies installed (`pip install -r requirements.txt`)
-- [ ] Environment variables configured
-- [ ] NVIDIA API key valid
-- [ ] Port 5000 available
-- [ ] Data directory writable
-- [ ] Health endpoint responding
-- [ ] All agents responding to test queries
-
-Your AI Justice Grid backend is ready for production! 🎉
+Your AI Justice Grid is now ready for production deployment with complete separation between frontend and backend services!

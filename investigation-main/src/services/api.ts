@@ -5,7 +5,7 @@ import defaultSettings from '@/config/defaultSettings.json';
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || defaultSettings.api.baseUrl;
 const API_TIMEOUT = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || defaultSettings.api.timeout;
 const API_RETRY_ATTEMPTS = Number(process.env.NEXT_PUBLIC_API_RETRY_ATTEMPTS) || defaultSettings.api.retryAttempts;
-const ENABLE_MOCK_API = process.env.NEXT_PUBLIC_ENABLE_MOCK_API === 'true';
+
 
 // API request options
 interface RequestOptions {
@@ -62,7 +62,12 @@ export const fetchWithRetry = async (url: string, options: RequestOptions = {}) 
       }
 
       const fetchPromise = fetch(url, fetchOptions);
-      const response = await Promise.race([fetchPromise, timeoutPromise(timeout)]);
+      const response = await Promise.race([
+        fetchPromise,
+        timeoutPromise(timeout).then(() => {
+          throw new Error(`Request timed out after ${timeout}ms`);
+        })
+      ]) as Response;
 
       if (!response.ok) {
         // For 404 errors on /api/augment/* endpoints, check if we're using the correct API base URL
@@ -130,84 +135,5 @@ export const apiService = {
     fetchWithRetry(`${API_BASE_URL}${endpoint}`, { ...options, method: 'DELETE' }) as Promise<T>,
 };
 
-// Mock API implementation for development
-export const mockApiService = {
-  get: async <T>(endpoint: string, options: Omit<RequestOptions, 'method' | 'body'> = {}) => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    console.log(`Mock API GET request: ${endpoint}`);
-
-    // Extract the base endpoint without query parameters
-    const [baseEndpoint, queryString] = endpoint.split('?');
-
-    return import('@/mocks/api').then(module => {
-      // First check if there's a handler for this endpoint
-      const mockHandler = module.mockHandlers[baseEndpoint]?.get;
-
-      if (mockHandler) {
-        console.log(`Using mock handler for ${baseEndpoint}`);
-        // Pass the full endpoint including query string to the handler
-        return mockHandler(options.headers, endpoint) as T;
-      }
-
-      // If no handler, try to get static mock data
-      const mockData = module.default[baseEndpoint] || module.default[endpoint];
-
-      if (mockData) {
-        console.log(`Using static mock data for ${endpoint}`);
-        return mockData as T;
-      }
-
-      // No mock data found
-      console.error(`No mock data for endpoint: ${endpoint}`);
-      throw new ApiError(`No mock data for endpoint: ${endpoint}`, 404);
-    });
-  },
-
-  post: async <T>(endpoint: string, data: any, options: Omit<RequestOptions, 'method'> = {}) => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    // Return mock response
-    return import('@/mocks/api').then(module => {
-      const mockHandler = module.mockHandlers[endpoint]?.post;
-      if (!mockHandler) {
-        throw new ApiError(`No mock handler for POST ${endpoint}`, 404);
-      }
-      return mockHandler(data, options.headers) as T;
-    });
-  },
-
-  put: async <T>(endpoint: string, data: any, options: Omit<RequestOptions, 'method'> = {}) => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    // Return mock response
-    return import('@/mocks/api').then(module => {
-      const mockHandler = module.mockHandlers[endpoint]?.put;
-      if (!mockHandler) {
-        throw new ApiError(`No mock handler for PUT ${endpoint}`, 404);
-      }
-      return mockHandler(data, options.headers) as T;
-    });
-  },
-
-  delete: async <T>(endpoint: string, options: Omit<RequestOptions, 'method' | 'body'> = {}) => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    // Return mock response
-    return import('@/mocks/api').then(module => {
-      const mockHandler = module.mockHandlers[endpoint]?.delete;
-      if (!mockHandler) {
-        throw new ApiError(`No mock handler for DELETE ${endpoint}`, 404);
-      }
-      return mockHandler(options.headers) as T;
-    });
-  },
-};
-
-// Export the appropriate API service based on configuration
-const selectedApiService = ENABLE_MOCK_API ? mockApiService : apiService;
-export default selectedApiService;
+// Export the API service for production use
+export default apiService;

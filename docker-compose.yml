@@ -1,0 +1,85 @@
+# AI Justice Grid - Production Docker Compose
+version: '3.8'
+
+services:
+  # Backend Service
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ai-justice-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY}
+      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY:-ai-justice-secret-key}
+    volumes:
+      - backend_data:/app/data
+      - backend_logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - ai-justice-network
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./investigation-main
+      dockerfile: Dockerfile
+    container_name: ai-justice-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://backend:5000/api
+      - NEXT_PUBLIC_UNIFIED_AGENT_SERVER_URL=http://backend:5000
+      - NEXT_PUBLIC_MURDER_AGENT_API_URL=http://backend:5000/api/augment/murder
+      - NEXT_PUBLIC_THEFT_AGENT_API_URL=http://backend:5000/api/augment/theft
+      - NEXT_PUBLIC_FINANCIAL_FRAUD_AGENT_API_URL=http://backend:5000/api/augment/financial-fraud
+      - NEXT_PUBLIC_NVIDIA_API_KEY=${NVIDIA_API_KEY}
+      - NEXT_PUBLIC_ENABLE_AUGMENT_AI=true
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - ai-justice-network
+
+  # Nginx Reverse Proxy (Optional)
+  nginx:
+    image: nginx:alpine
+    container_name: ai-justice-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+    networks:
+      - ai-justice-network
+    profiles:
+      - with-nginx
+
+volumes:
+  backend_data:
+    driver: local
+  backend_logs:
+    driver: local
+
+networks:
+  ai-justice-network:
+    driver: bridge

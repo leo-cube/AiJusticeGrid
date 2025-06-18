@@ -1450,5 +1450,294 @@
     "fileSize": 6642,
     "status": "generated",
     "description": "PDF report generated from finance agent conversation"
+  },
+  {
+    "id": "RPT-1750230110290",
+    "title": "Murder Investigation Report",
+    "agentType": "murder",
+    "caseId": "kd",
+    "filename": "murder_report_RPT-1750230110290.pdf",
+    "createdDate": "2025-06-18T07:01:50.290Z",
+    "conversationData": {
+      "title": "Murder Investigation Report",
+      "analysisType": "murder",
+      "agentType": "murder",
+      "messages": [
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nHello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?",
+          "timestamp": "2025-06-18T05:18:44.806Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "kd",
+          "timestamp": "2025-06-18T05:18:47.112Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nThank you. When did the crime occur? Please provide the date (YYYY-MM-DD, MM/DD/YYYY, or text format like 'January 15, 2023').",
+          "timestamp": "2025-06-18T05:18:48.710Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-18T05:18:50.103Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "January 15, 2023",
+          "timestamp": "2025-06-18T05:18:55.225Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+          "timestamp": "2025-06-18T05:18:56.773Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:18:59.774Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nI couldn't process your input: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.\n\nPlease try again. What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')",
+          "timestamp": "2025-06-18T05:19:01.323Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-18T05:19:02.352Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "user",
+          "content": "noon",
+          "timestamp": "2025-06-18T05:19:04.473Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhere did the crime take place? Please provide the location.",
+          "timestamp": "2025-06-18T05:19:06.026Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:09.591Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat is the victim's name?",
+          "timestamp": "2025-06-18T05:19:11.204Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:12.013Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-18T05:19:12.205Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat is the victim's age?",
+          "timestamp": "2025-06-18T05:19:13.574Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:14.073Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nI couldn't process your input: Please provide a valid numeric age. Example: 35.\n\nPlease try again. What is the victim's age?",
+          "timestamp": "2025-06-18T05:19:15.631Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:16.122Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-18T05:19:16.632Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nI couldn't process your input: Please provide a valid numeric age. Example: 35.\n\nPlease try again. What is the victim's age?",
+          "timestamp": "2025-06-18T05:19:17.678Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "25",
+          "timestamp": "2025-06-18T05:19:19.294Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat is the victim's gender?",
+          "timestamp": "2025-06-18T05:19:20.842Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:21.435Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-18T05:19:21.889Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat was the cause of death?",
+          "timestamp": "2025-06-18T05:19:23.061Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:23.942Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWas a weapon used? If so, what kind?",
+          "timestamp": "2025-06-18T05:19:25.510Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:26.042Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-18T05:19:26.510Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nPlease describe the crime scene.",
+          "timestamp": "2025-06-18T05:19:27.602Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:28.110Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWere there any witnesses? If so, please provide details.",
+          "timestamp": "2025-06-18T05:19:29.687Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:30.175Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-18T05:19:30.688Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nWhat evidence was found at the scene?",
+          "timestamp": "2025-06-18T05:19:31.744Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:32.323Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nAre there any suspects at this time?",
+          "timestamp": "2025-06-18T05:19:33.880Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:34.594Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-18T05:19:34.882Z",
+          "agentType": "general"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\nDo you have any additional notes or information about the case?",
+          "timestamp": "2025-06-18T05:19:36.145Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "user",
+          "content": "test",
+          "timestamp": "2025-06-18T05:19:36.731Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "**[LIVE DATA ANALYSIS]**\n\n**Case Analysis for Case ID: kd**\n\n**1. Comprehensive Analysis of the Case:**\n\nThe provided case details are entirely placeholder information, lacking specific, actionable data. All fields (e.g., Location, Victim Name, Cause of Death, etc.) are uniformly listed as \"test\". This absence of concrete information renders a substantive analysis impossible. No inferences can be drawn regarding the circumstances of the crime, the victim's background, potential motives, or the methodology of the perpetrator.\n\n**Key Observations:**\n\n- **Data Insufficiency:** The case file is devoid of meaningful details, precluding the identification of patterns, connections, or anomalies.\n- **Lack of Context:** Without specific information about the crime scene, victimology, or evidence, establishing a baseline for investigation is unfeasible.\n\n**2. Potential Motives and Suspects to Consider:**\n\n**Motives:**\n- **Undeterminable:** Given the absence of victim-specific information (e.g., age, gender, background) and case details (e.g., cause of death, crime scene description), motives cannot be hypothesized.\n\n**Suspects:**\n- **None Identifiable:** The \"Suspects\" field is listed as \"test\", and without additional context (e.g., relationships to the victim, potential conflicts), no individuals can be flagged for investigation.\n\n**3. Recommended Investigative Approaches:**\n\n- **Data Collection Overhaul:** Immediate priority should be to gather and update the case file with accurate, detailed information regarding the victim, crime scene, evidence, and witnesses.\n- **Re-interview Witnesses and Re-examine Evidence:** Assuming \"test\" entries are placeholders for actual witnesses and evidence, these should be re-evaluated to extract actionable intelligence.\n- **Victimology Study:** Once accurate victim details are available, conduct a thorough victimology analysis to identify potential motives or suspects.\n\n**4. Key Evidence to Focus On and How to Analyze It:**\n\n- **Currently:** No evidence can be prioritized or analyzed due to the lack of specific information.\n- **Future Direction:** Upon receipt of detailed evidence (e.g., forensic findings, witness statements), focus on:\n  - **Forensic Analysis:** For physical evidence, emphasizing DNA, fingerprints, or digital footprints.\n  - **Witness Statement Corroboration:** For testimonial evidence, seeking consistency and potential biases.\n\n**5. Possible Solutions or Conclusions:**\n\n- **Immediate Conclusion:** The case, as presented, is unsolvable due to critical information gaps.\n- **Future Solution Pathway:** With comprehensive and accurate case details, the investigation can proceed with:\n  - **Hypothesis Generation:** Based on victimology, crime scene analysis, and evidence.\n  - **Suspect Identification and Interview:** Derived from updated suspect lists and witness testimonies.\n  - **Evidence-Driven Prosecution:** Focused on linking suspects to the crime through forensic and testimonial evidence.\n\n**Recommendation for Case Progression:**\nThis case requires an immediate update with factual, detailed information to facilitate a meaningful investigation. All placeholder \"test\" entries must be replaced with specific, case-relevant data to enable the application of forensic science, criminological analysis, and investigative techniques.",
+          "timestamp": "2025-06-18T05:19:50.499Z",
+          "agentType": "murder"
+        },
+        {
+          "sender": "assistant",
+          "content": "I'm the Police Investigation System Assistant. I can provide general information about investigations, or you can switch to a specialized agent for Crime, Financial Fraud, or Exchange Matching. How can I assist you today?",
+          "timestamp": "2025-06-18T05:19:51.499Z",
+          "agentType": "general"
+        }
+      ],
+      "includeAIAnalysis": true,
+      "userMetadata": {
+        "sessionId": "session_1750230079514",
+        "userId": "user",
+        "requestId": "1750230079514"
+      },
+      "timestamp": "2025-06-18T07:01:19.514Z"
+    },
+    "fileSize": 7957,
+    "status": "generated",
+    "description": "PDF report generated from murder agent conversation"
   }
 ]

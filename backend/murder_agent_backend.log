@@ -1,0 +1,505 @@
+2025-06-06 20:00:35,066 - __main__ - INFO - Using API key from C:\python_programs\newbackend\AiJusticeGrid\.env file
+2025-06-06 20:00:36,816 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:00:36,816 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:00:36,831 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:00:37,117 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.12:5001
+2025-06-06 20:00:37,117 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-06 20:00:37,372 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:00:43,082 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:00:43,082 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:00:43,105 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:00:43,169 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:00:43,184 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:00:58,830 - murder_agent_backend - INFO - Using API key from C:\python_programs\newbackend\AiJusticeGrid\.env file
+2025-06-06 20:01:00,447 - murder_agent_backend - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:01:00,457 - murder_agent_backend - INFO - Murder Agent initialized
+2025-06-06 20:01:39,101 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
+2025-06-06 20:01:39,103 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
+2025-06-06 20:01:39,985 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:01:44,154 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:01:44,154 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:01:44,164 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:01:44,199 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:01:44,217 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:07:55,595 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:07:55,597 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:07:56,357 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:07:59,817 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:07:59,822 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:07:59,825 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:07:59,847 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:07:59,856 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:08:08,028 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:08,030 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:09,348 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:08:12,671 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:08:12,671 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:08:12,677 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:08:12,692 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:08:12,702 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:08:27,097 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:27,097 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:28,088 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:08:31,739 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:08:31,739 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:08:31,739 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:08:31,767 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:08:31,775 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:08:46,665 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:46,666 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:46,668 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:08:47,248 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:08:50,909 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:08:50,909 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:08:50,922 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:08:50,939 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:08:50,947 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:09:07,422 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:07,425 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:08,390 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:09:11,920 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:09:11,920 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:09:11,920 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:09:11,947 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:09:11,955 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:09:28,105 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:28,106 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:28,108 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:29,342 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:09:32,441 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:09:32,441 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:09:32,448 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:09:32,462 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:09:32,474 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:09:54,366 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:54,368 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:54,368 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:09:54,969 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:09:58,077 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:09:58,077 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:09:58,084 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:09:58,106 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:09:58,114 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 20:10:04,757 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 20:10:05,433 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 20:10:08,903 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 20:10:08,903 - __main__ - INFO - Murder Agent initialized
+2025-06-06 20:10:08,909 - __main__ - INFO - Running locally on port 5001
+2025-06-06 20:10:08,932 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 20:10:08,941 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:11:55,465 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:11:56,912 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:12:03,594 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:12:03,595 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:12:03,602 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:12:03,642 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:12:03,656 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:13:50,818 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:13:51,679 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:13:55,044 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:13:55,044 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:13:55,056 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:13:55,078 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:13:55,087 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:14:09,463 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:14:09,466 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:14:11,107 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:14:15,261 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:14:15,261 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:14:15,261 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:14:15,329 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:14:15,343 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:14:25,301 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:14:25,308 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:14:25,701 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:14:30,232 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:14:30,232 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:14:30,242 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:14:30,258 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:14:30,266 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:14:40,644 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:14:40,646 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:14:41,714 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:14:45,622 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:14:45,623 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:14:45,626 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:14:45,649 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:14:45,658 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:15:02,179 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:15:02,182 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:15:03,297 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:15:06,845 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:15:06,845 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:15:06,849 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:15:06,864 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:15:06,876 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:15:15,522 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:15:15,527 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\murder_agent_backend.py', reloading
+2025-06-06 22:15:16,399 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:15:20,275 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:15:20,275 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:15:20,275 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:15:20,291 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:15:20,302 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:15:33,563 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:15:33,565 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:15:33,567 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:15:34,899 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:15:38,098 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:15:38,098 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:15:38,098 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:15:38,114 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:15:38,125 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:15:56,178 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:15:56,180 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:15:56,182 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:15:56,542 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:16:00,124 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:16:00,124 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:16:00,132 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:16:00,151 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:16:00,157 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:16:11,025 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:16:11,025 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:16:11,569 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:16:14,908 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:16:14,908 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:16:14,920 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:16:14,924 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:16:14,935 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:16:33,984 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
+2025-06-06 22:16:34,404 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:16:37,612 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:16:37,612 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:16:37,625 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:16:37,643 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:16:37,649 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:16:49,098 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:16:49,098 - __main__ - INFO - Received request with session_id: None, user_input: 
+2025-06-06 22:16:49,107 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:49,108 - __main__ - INFO - Full case details: {'question': '', 'force_new_session': True}
+2025-06-06 22:16:49,111 - __main__ - INFO - Created new conversation state with session ID: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:16:49,114 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-06T22:16:49.111366'}
+2025-06-06 22:16:49,115 - __main__ - INFO - Created new session: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:16:49,116 - __main__ - INFO - Processing message:  with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:16:49,118 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:49,118 - __main__ - INFO - Current step: greeting
+2025-06-06 22:16:49,118 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-06T22:16:49.111366'}
+2025-06-06 22:16:49,121 - __main__ - INFO - No message provided for greeting, returning greeting message
+2025-06-06 22:16:49,123 - __main__ - INFO - Collected data from conversation state: {}
+2025-06-06 22:16:49,124 - __main__ - INFO - Current step: greeting
+2025-06-06 22:16:49,125 - __main__ - INFO - Final collected data in response: {}
+2025-06-06 22:16:49,125 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "Hello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?", 'is_collecting_info': True, 'current_step': 'greeting', 'collected_data': {}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:16:49,131 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:16:49] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:16:51,197 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:16:51,197 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: John Doe
+2025-06-06 22:16:51,197 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:51,197 - __main__ - INFO - Full case details: {'question': 'John Doe', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:16:51,197 - __main__ - INFO - Processing message: John Doe with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:16:51,197 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:51,197 - __main__ - INFO - Current step: greeting
+2025-06-06 22:16:51,197 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-06T22:16:49.111366'}
+2025-06-06 22:16:51,208 - __main__ - INFO - Processing user input for session ed7f5945-23fd-4b7c-a672-b3e533e284dd, step greeting: John Doe
+2025-06-06 22:16:51,211 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-06T22:16:49.111366'}
+2025-06-06 22:16:51,213 - __main__ - INFO - Stored user input in field case_id: John Doe
+2025-06-06 22:16:51,215 - __main__ - INFO - Advanced to next step: date_of_crime
+2025-06-06 22:16:51,217 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe'}
+2025-06-06 22:16:51,217 - __main__ - INFO - Current step: date_of_crime
+2025-06-06 22:16:51,219 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe'}
+2025-06-06 22:16:51,219 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "Thank you. When did the crime occur? Please provide the date (YYYY-MM-DD, MM/DD/YYYY, or text format like 'January 15, 2023').", 'is_collecting_info': True, 'current_step': 'date_of_crime', 'collected_data': {'case_id': 'John Doe'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:16:51,227 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:16:51] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:16:53,308 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:16:53,310 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 2024-01-15
+2025-06-06 22:16:53,312 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:53,312 - __main__ - INFO - Full case details: {'question': '2024-01-15', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:16:53,312 - __main__ - INFO - Processing message: 2024-01-15 with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:16:53,312 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:53,317 - __main__ - INFO - Current step: date_of_crime
+2025-06-06 22:16:53,317 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': 'John Doe'}, 'last_updated': '2025-06-06T22:16:51.215783'}
+2025-06-06 22:16:53,319 - __main__ - INFO - Processing user input for session ed7f5945-23fd-4b7c-a672-b3e533e284dd, step date_of_crime: 2024-01-15
+2025-06-06 22:16:53,320 - __main__ - INFO - Current conversation state: {'current_step': 'date_of_crime', 'collected_data': {'case_id': 'John Doe'}, 'last_updated': '2025-06-06T22:16:51.215783'}
+2025-06-06 22:16:53,324 - __main__ - INFO - Stored user input in field date_of_crime: 2024-01-15
+2025-06-06 22:16:53,324 - __main__ - INFO - Advanced to next step: time_of_crime
+2025-06-06 22:16:53,324 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:16:53,327 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:16:53,329 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:16:53,329 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:16:53,334 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:16:53] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:16:55,361 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:16:55,361 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 123 Main St
+2025-06-06 22:16:55,367 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:55,367 - __main__ - INFO - Full case details: {'question': '123 Main St', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:16:55,367 - __main__ - INFO - Processing message: 123 Main St with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:16:55,367 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:55,367 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:16:55,367 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:16:55,374 - __main__ - INFO - Processing user input for session ed7f5945-23fd-4b7c-a672-b3e533e284dd, step time_of_crime: 123 Main St
+2025-06-06 22:16:55,376 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:16:55,379 - __main__ - INFO - Validation failed for input: 123 Main St with validation type: time
+2025-06-06 22:16:55,381 - __main__ - ERROR - Failed to store user input: 123 Main St, error: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.
+2025-06-06 22:16:55,382 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:16:55,383 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:16:55,383 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:16:55,385 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "I couldn't process your input: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.\n\nPlease try again. What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': 'Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.'}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:16:55,385 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:16:55] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:16:57,428 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:16:57,428 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: Gunshot wound
+2025-06-06 22:16:57,428 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:57,428 - __main__ - INFO - Full case details: {'question': 'Gunshot wound', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:16:57,428 - __main__ - INFO - Processing message: Gunshot wound with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:16:57,428 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:57,438 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:16:57,438 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:16:57,441 - __main__ - INFO - Processing user input for session ed7f5945-23fd-4b7c-a672-b3e533e284dd, step time_of_crime: Gunshot wound
+2025-06-06 22:16:57,441 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:16:57,444 - __main__ - INFO - Validation failed for input: Gunshot wound with validation type: time
+2025-06-06 22:16:57,445 - __main__ - ERROR - Failed to store user input: Gunshot wound, error: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.
+2025-06-06 22:16:57,448 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:16:57,448 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:16:57,450 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:16:57,452 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "I couldn't process your input: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.\n\nPlease try again. What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': 'Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.'}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:16:57,455 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:16:57] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:16:59,510 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:16:59,512 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: Jane Smith
+2025-06-06 22:16:59,512 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:59,512 - __main__ - INFO - Full case details: {'question': 'Jane Smith', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:16:59,512 - __main__ - INFO - Processing message: Jane Smith with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:16:59,516 - __main__ - INFO - force_new_session: False
+2025-06-06 22:16:59,516 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:16:59,518 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:16:59,520 - __main__ - INFO - Processing user input for session ed7f5945-23fd-4b7c-a672-b3e533e284dd, step time_of_crime: Jane Smith
+2025-06-06 22:16:59,521 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:16:59,521 - __main__ - INFO - Validation failed for input: Jane Smith with validation type: time
+2025-06-06 22:16:59,524 - __main__ - ERROR - Failed to store user input: Jane Smith, error: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.
+2025-06-06 22:16:59,526 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:16:59,528 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:16:59,528 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:16:59,530 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "I couldn't process your input: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.\n\nPlease try again. What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': 'Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.'}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:16:59,534 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:16:59] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:01,577 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:01,577 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: Ex-wife
+2025-06-06 22:17:01,583 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:01,583 - __main__ - INFO - Full case details: {'question': 'Ex-wife', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:01,583 - __main__ - INFO - Processing message: Ex-wife with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:01,583 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:01,586 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:01,586 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:01,586 - __main__ - INFO - Processing user input for session ed7f5945-23fd-4b7c-a672-b3e533e284dd, step time_of_crime: Ex-wife
+2025-06-06 22:17:01,589 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:01,591 - __main__ - INFO - Validation failed for input: Ex-wife with validation type: time
+2025-06-06 22:17:01,592 - __main__ - ERROR - Failed to store user input: Ex-wife, error: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.
+2025-06-06 22:17:01,592 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:01,592 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:01,592 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:01,597 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "I couldn't process your input: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.\n\nPlease try again. What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': 'Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.'}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:01,599 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:01] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:03,650 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:03,650 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: Financial dispute
+2025-06-06 22:17:03,659 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:03,661 - __main__ - INFO - Full case details: {'question': 'Financial dispute', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:03,661 - __main__ - INFO - Processing message: Financial dispute with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:03,663 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:03,663 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:03,665 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:03,665 - __main__ - INFO - Processing user input for session ed7f5945-23fd-4b7c-a672-b3e533e284dd, step time_of_crime: Financial dispute
+2025-06-06 22:17:03,667 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:03,667 - __main__ - INFO - Validation failed for input: Financial dispute with validation type: time
+2025-06-06 22:17:03,670 - __main__ - ERROR - Failed to store user input: Financial dispute, error: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.
+2025-06-06 22:17:03,671 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:03,673 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:03,673 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:03,675 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "I couldn't process your input: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.\n\nPlease try again. What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': 'Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.'}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:03,679 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:03] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:05,724 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:05,726 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: Gun found at scene
+2025-06-06 22:17:05,726 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:05,727 - __main__ - INFO - Full case details: {'question': 'Gun found at scene', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:05,727 - __main__ - INFO - Processing message: Gun found at scene with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:05,727 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:05,727 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:05,732 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:05,733 - __main__ - INFO - Processing user input for session ed7f5945-23fd-4b7c-a672-b3e533e284dd, step time_of_crime: Gun found at scene
+2025-06-06 22:17:05,733 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:05,736 - __main__ - INFO - Validation failed for input: Gun found at scene with validation type: time
+2025-06-06 22:17:05,736 - __main__ - ERROR - Failed to store user input: Gun found at scene, error: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.
+2025-06-06 22:17:05,738 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:05,739 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:05,739 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:05,741 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "I couldn't process your input: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.\n\nPlease try again. What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': 'Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.'}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:05,744 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:05] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:07,799 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:07,800 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: No additional notes
+2025-06-06 22:17:07,803 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:07,803 - __main__ - INFO - Full case details: {'question': 'No additional notes', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:07,805 - __main__ - INFO - Processing message: No additional notes with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:07,805 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:07,807 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:07,810 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:07,810 - __main__ - INFO - Processing user input for session ed7f5945-23fd-4b7c-a672-b3e533e284dd, step time_of_crime: No additional notes
+2025-06-06 22:17:07,810 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:07,810 - __main__ - INFO - Validation failed for input: No additional notes with validation type: time
+2025-06-06 22:17:07,816 - __main__ - ERROR - Failed to store user input: No additional notes, error: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.
+2025-06-06 22:17:07,817 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:07,817 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:07,819 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:07,819 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "I couldn't process your input: Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.\n\nPlease try again. What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': 'Please provide a valid time in HH:MM format, or with AM/PM. Examples: 14:30, 2:30 PM, noon.'}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:07,820 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:07] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:09,860 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:09,860 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 
+2025-06-06 22:17:09,860 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:09,860 - __main__ - INFO - Full case details: {'question': '', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:09,862 - __main__ - INFO - Processing message:  with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:09,862 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:09,862 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:09,862 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:09,862 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:09,862 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:09,865 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:09,865 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:09,865 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:09] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:11,911 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:11] "[33mGET /api/augment/murder/analysis-status?session_id=ed7f5945-23fd-4b7c-a672-b3e533e284dd HTTP/1.1[0m" 404 -
+2025-06-06 22:17:16,961 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:16,961 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 
+2025-06-06 22:17:16,961 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:16,961 - __main__ - INFO - Full case details: {'question': '', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:16,961 - __main__ - INFO - Processing message:  with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:16,961 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:16,961 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:16,961 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:16,972 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:16,973 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:16,975 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:16,977 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:16,981 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:16] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:19,042 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:19] "[33mGET /api/augment/murder/analysis-status?session_id=ed7f5945-23fd-4b7c-a672-b3e533e284dd HTTP/1.1[0m" 404 -
+2025-06-06 22:17:24,094 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:24,094 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 
+2025-06-06 22:17:24,094 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:24,094 - __main__ - INFO - Full case details: {'question': '', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:24,100 - __main__ - INFO - Processing message:  with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:24,101 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:24,101 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:24,103 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:24,105 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:24,106 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:24,106 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:24,106 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:24,106 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:24] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:26,143 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:26] "[33mGET /api/augment/murder/analysis-status?session_id=ed7f5945-23fd-4b7c-a672-b3e533e284dd HTTP/1.1[0m" 404 -
+2025-06-06 22:17:31,194 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:31,194 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 
+2025-06-06 22:17:31,199 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:31,200 - __main__ - INFO - Full case details: {'question': '', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:31,200 - __main__ - INFO - Processing message:  with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:31,202 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:31,202 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:31,208 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:31,211 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:31,213 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:31,215 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:31,218 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:31,221 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:31] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:33,278 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:33] "[33mGET /api/augment/murder/analysis-status?session_id=ed7f5945-23fd-4b7c-a672-b3e533e284dd HTTP/1.1[0m" 404 -
+2025-06-06 22:17:38,322 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:38,322 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 
+2025-06-06 22:17:38,322 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:38,322 - __main__ - INFO - Full case details: {'question': '', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:38,325 - __main__ - INFO - Processing message:  with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:38,325 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:38,326 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:38,326 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:38,326 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:38,326 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:38,326 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:38,329 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:38,330 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:38] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:40,369 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:40] "[33mGET /api/augment/murder/analysis-status?session_id=ed7f5945-23fd-4b7c-a672-b3e533e284dd HTTP/1.1[0m" 404 -
+2025-06-06 22:17:45,415 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:45,415 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 
+2025-06-06 22:17:45,415 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:45,420 - __main__ - INFO - Full case details: {'question': '', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:45,420 - __main__ - INFO - Processing message:  with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:45,420 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:45,420 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:45,420 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:45,426 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:45,426 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:45,428 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:45,428 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:45,431 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:45] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:47,475 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:47] "[33mGET /api/augment/murder/analysis-status?session_id=ed7f5945-23fd-4b7c-a672-b3e533e284dd HTTP/1.1[0m" 404 -
+2025-06-06 22:17:52,522 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:52,522 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 
+2025-06-06 22:17:52,522 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:52,522 - __main__ - INFO - Full case details: {'question': '', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:52,522 - __main__ - INFO - Processing message:  with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:52,526 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:52,526 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:52,526 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:52,526 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:52,526 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:52,529 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:52,529 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:52,531 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:52] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:17:54,579 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:54] "[33mGET /api/augment/murder/analysis-status?session_id=ed7f5945-23fd-4b7c-a672-b3e533e284dd HTTP/1.1[0m" 404 -
+2025-06-06 22:17:59,643 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:17:59,643 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 
+2025-06-06 22:17:59,647 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:59,647 - __main__ - INFO - Full case details: {'question': '', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:17:59,648 - __main__ - INFO - Processing message:  with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd
+2025-06-06 22:17:59,650 - __main__ - INFO - force_new_session: False
+2025-06-06 22:17:59,652 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:59,655 - __main__ - INFO - Current conversation state: {'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'last_updated': '2025-06-06T22:16:53.324992'}
+2025-06-06 22:17:59,655 - __main__ - INFO - Collected data from conversation state: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:59,657 - __main__ - INFO - Current step: time_of_crime
+2025-06-06 22:17:59,657 - __main__ - INFO - Final collected data in response: {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}
+2025-06-06 22:17:59,659 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "What time did the crime occur? (HH:MM format, or approximate time like '2:30 PM', 'noon', or 'evening')", 'is_collecting_info': True, 'current_step': 'time_of_crime', 'collected_data': {'case_id': 'John Doe', 'date_of_crime': '2024-01-15'}, 'error': None}, 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd', 'message': 'Message processed successfully'}
+2025-06-06 22:17:59,662 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:17:59] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:18:01,709 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:18:01] "[33mGET /api/augment/murder/analysis-status?session_id=ed7f5945-23fd-4b7c-a672-b3e533e284dd HTTP/1.1[0m" 404 -
+2025-06-06 22:18:02,230 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
+2025-06-06 22:18:02,230 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
+2025-06-06 22:18:02,234 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
+2025-06-06 22:18:03,493 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:18:06,613 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:18:06,613 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:18:06,613 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:18:06,632 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:18:06,643 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:18:06,746 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:18:06,746 - __main__ - INFO - Received request with session_id: ed7f5945-23fd-4b7c-a672-b3e533e284dd, user_input: 
+2025-06-06 22:18:06,746 - __main__ - INFO - force_new_session: False
+2025-06-06 22:18:06,746 - __main__ - INFO - Full case details: {'question': '', 'session_id': 'ed7f5945-23fd-4b7c-a672-b3e533e284dd'}
+2025-06-06 22:18:06,746 - __main__ - INFO - Created new conversation state with session ID: b430da41-9ef2-4fd6-aaca-2d62397bc0fa
+2025-06-06 22:18:06,749 - __main__ - INFO - New conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-06T22:18:06.746778'}
+2025-06-06 22:18:06,749 - __main__ - INFO - Created new session: b430da41-9ef2-4fd6-aaca-2d62397bc0fa
+2025-06-06 22:18:06,749 - __main__ - INFO - Processing message:  with session_id: b430da41-9ef2-4fd6-aaca-2d62397bc0fa
+2025-06-06 22:18:06,749 - __main__ - INFO - force_new_session: False
+2025-06-06 22:18:06,749 - __main__ - INFO - Current step: greeting
+2025-06-06 22:18:06,752 - __main__ - INFO - Current conversation state: {'current_step': 'greeting', 'collected_data': {}, 'last_updated': '2025-06-06T22:18:06.746778'}
+2025-06-06 22:18:06,752 - __main__ - INFO - No message provided for greeting, returning greeting message
+2025-06-06 22:18:06,752 - __main__ - INFO - Collected data from conversation state: {}
+2025-06-06 22:18:06,752 - __main__ - INFO - Current step: greeting
+2025-06-06 22:18:06,754 - __main__ - INFO - Final collected data in response: {}
+2025-06-06 22:18:06,754 - __main__ - INFO - Sending response: {'success': True, 'data': {'analysis': "Hello, I'm the Murder Agent, an AI assistant specialized in homicide investigations. I'll help you analyze a murder case by collecting relevant information. Let's start with the basics. What is the Case ID for this investigation?", 'is_collecting_info': True, 'current_step': 'greeting', 'collected_data': {}, 'error': None}, 'session_id': 'b430da41-9ef2-4fd6-aaca-2d62397bc0fa', 'message': 'Message processed successfully'}
+2025-06-06 22:18:06,756 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:18:06] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:18:08,791 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:18:08] "[33mGET /api/augment/murder/analysis-status?session_id=ed7f5945-23fd-4b7c-a672-b3e533e284dd HTTP/1.1[0m" 404 -
+2025-06-06 22:18:25,729 - __main__ - INFO - Received request for Murder Agent
+2025-06-06 22:18:25,731 - werkzeug - INFO - 127.0.0.1 - - [06/Jun/2025 22:18:25] "POST /api/augment/murder HTTP/1.1" 200 -
+2025-06-06 22:18:51,179 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:18:52,157 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:18:55,678 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:18:55,678 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:18:55,694 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:18:55,713 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:18:55,722 - werkzeug - INFO -  * Debugger PIN: 108-009-930
+2025-06-06 22:33:58,249 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\test_fixes.py', reloading
+2025-06-06 22:33:58,492 - werkzeug - INFO -  * Detected change in 'C:\\python_programs\\newbackend\\AiJusticeGrid\\unified_server.py', reloading
+2025-06-06 22:33:59,158 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-06-06 22:34:04,064 - __main__ - INFO - Murder Agent initialized with model: nvidia/llama-3.1-nemotron-ultra-253b-v1
+2025-06-06 22:34:04,064 - __main__ - INFO - Murder Agent initialized
+2025-06-06 22:34:04,068 - __main__ - INFO - Running locally on port 5001
+2025-06-06 22:34:04,082 - werkzeug - WARNING -  * Debugger is active!
+2025-06-06 22:34:04,099 - werkzeug - INFO -  * Debugger PIN: 108-009-930
